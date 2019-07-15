@@ -7,16 +7,22 @@ import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
 import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
+import com.teamacronymcoders.eposmajorum.api.sounds.SoundEvents;
 import com.teamacronymcoders.eposmajorum.characterstats.CharacterStats;
 import com.teamacronymcoders.eposmajorum.json.JsonLoader;
+import com.teamacronymcoders.eposmajorum.utils.FileUtil;
+import com.teamacronymcoders.eposmajorum.utils.configs.EMSoundConfigs;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -36,6 +42,8 @@ public class EposMajorum {
     public EposMajorum() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSound);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMSoundConfigs.spec);
     }
 
     @SuppressWarnings("unused")
@@ -58,8 +66,14 @@ public class EposMajorum {
             MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
     }
+    
+    private void registerSound(net.minecraftforge.event.RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
+        eventRegistryEvent.getRegistry().registerAll(
+                SoundEvents.levelUp
+        );
+    }
 
     private void serverStart(FMLServerAboutToStartEvent event) {
-        event.getServer().getResourceManager().func_219534_a(pathLoader);
+        event.getServer().getResourceManager().addReloadListener(pathLoader);
     }
 }
