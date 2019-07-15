@@ -1,0 +1,7 @@
+{
+  "level-up": {
+    "category": "player",
+    "subtitle": "eposmajorum.subtitle.levelUp",
+    "sounds": [ "eposmajorum:level-up" ]
+  }
+}

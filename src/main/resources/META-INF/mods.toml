@@ -6,7 +6,10 @@ issueTrackerURL="https://github.com/The-Acronym-Coders/Epos-Majorum/issues"
     modId="com.teamacronymcoders.eposmajorum"
     version="${file.jarVersion}"
     displayName="Epos Majorum"
-    authors="SkySom"
+    authors="SkySom, Lanse505, pupnewfster"
     description='''
-        Adds Classes, Skills, and Leveling to Minecraft
+        Adds Classes, Skills, and Leveling to Minecraft.
+
+        Credits to:
+            - rhodesmas for the Level-Up sound!
     '''
