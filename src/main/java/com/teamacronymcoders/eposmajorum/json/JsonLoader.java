@@ -3,7 +3,6 @@ package com.teamacronymcoders.eposmajorum.json;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializer;
 import com.teamacronymcoders.eposmajorum.EposMajorum;
 import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
 import com.teamacronymcoders.eposmajorum.api.registry.Registry;

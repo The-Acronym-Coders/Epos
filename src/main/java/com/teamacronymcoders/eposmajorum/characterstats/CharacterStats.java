@@ -5,7 +5,6 @@ import com.teamacronymcoders.eposmajorum.api.feat.Feats;
 import com.teamacronymcoders.eposmajorum.api.path.PathLevels;
 import com.teamacronymcoders.eposmajorum.api.skill.Skills;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompoundNBT;
 
 public class CharacterStats implements ICharacterStats {
     private final PathLevels pathLevels;
