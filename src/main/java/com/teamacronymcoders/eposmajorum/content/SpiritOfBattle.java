@@ -2,7 +2,6 @@ package com.teamacronymcoders.eposmajorum.content;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;

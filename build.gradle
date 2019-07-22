@@ -46,6 +46,14 @@ sourceSets {
     }
 }
 
+configurations {
+    apiCompile.extendsFrom(compile)
+}
+
+test {
+    useJUnitPlatform()
+}
+
 minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
 
@@ -65,6 +73,9 @@ minecraft {
 }
 
 dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
+
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 }
 
