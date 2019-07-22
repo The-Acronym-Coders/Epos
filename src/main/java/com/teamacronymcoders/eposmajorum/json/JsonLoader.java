@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.teamacronymcoders.eposmajorum.EposMajorum;
 import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
 import com.teamacronymcoders.eposmajorum.api.registry.Registry;
-import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
+import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -46,7 +46,7 @@ public class JsonLoader<T extends IRegistryEntry> implements ISelectiveResourceR
         if (resourcePredicate.test(this.getResourceType())) {
             registry.clear();
 
-            RegistryEvent<T> registryEvent = new RegistryEvent<>(tClass, registry);
+            RegistrationEvent<T> registryEvent = new RegistrationEvent<>(tClass, registry);
 
             registryEvent.register(loadValues(resourceManager));
 
