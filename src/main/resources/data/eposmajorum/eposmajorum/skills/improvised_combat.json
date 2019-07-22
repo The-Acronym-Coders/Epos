@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.eposmajorum.improvised_combat.name"
+  },
+  "description": {
+    "translate": "skill.eposmajorum.improvised_combat.desc"
+  },
+  "maxLevel": 50,
+  "hidden": true
+}

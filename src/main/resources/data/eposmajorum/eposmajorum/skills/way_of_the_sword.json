@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.eposmajorum.way_of_the_sword.name"
+  },
+  "description": {
+    "translate": "skill.eposmajorum.way_of_the_sword.desc"
+  },
+  "maxLevel": 50,
+  "hidden": true
+}
