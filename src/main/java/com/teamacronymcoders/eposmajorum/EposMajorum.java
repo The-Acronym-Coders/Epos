@@ -5,7 +5,7 @@ import com.teamacronymcoders.eposmajorum.api.EposResourceType;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.path.IPath;
-import com.teamacronymcoders.eposmajorum.api.registry.RegistryEvent;
+import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
 import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
 import com.teamacronymcoders.eposmajorum.api.sounds.SoundEvents;
 import com.teamacronymcoders.eposmajorum.characterstats.CharacterStats;
@@ -18,6 +18,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -66,13 +68,13 @@ public class EposMajorum {
         }, CharacterStats::new);
 
         DeferredWorkQueue.runLater(() -> {
-            MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
-            MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
     }
 
     @SubscribeEvent
-    public void registerSound(net.minecraftforge.event.RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
+    public void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
         eventRegistryEvent.getRegistry().registerAll(
                 SoundEvents.levelUp
         );
