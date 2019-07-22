@@ -1,16 +1,29 @@
 {
   "feat.eposmajorum.unarmed_strike.name": "Unarmed Strike",
-  "feat.eposmajorum.unarmed_strike.description": "Unlocks Unarmed Strike Skill, allowing increased damage from attacks when not wielding items",
+  "feat.eposmajorum.unarmed_strike.description": "Unlocks 'Unarmed Strike' Skill, allowing increased damage from attacks when not wielding items",
+  "feat.eposmajorum.way_of_the_blade.name": "Way of the Blade",
+  "feat.eposmajorum.way_of_the_blade.desc": "Unlocks 'Way of the Blade' Skill, allowing for increased damge while wielding a sword",
+  "feat.eposmajorum.improvised_combat.name": "Improvised Combat",
+  "feat.eposmajorum.improvised_combat.desc": "Unlocks the 'Improvised Combat' Skill, allowing for increased damage while wielding a Axe, Pickaxe or Shovel",
+
+  "feat.eposmajorum.gluttonous_hunger.name": "Gluttonous Hunger",
+  "feat.eposmajorum.gluttonous_hunger.desc": "Unlocks the 'Gluttonous Hunger' Feat, allowing for the automatic consumption on food when hungry!",
+  "feat.eposmajorum.spirit_of_battle.name": "Spirit of Battle",
+  "feat.eposmajorum.spirit_of_battle.desc": "Unlocks the 'Spirit of Battle' Feat, allowing for the absorbtion of your opponents essence, growing your strength in combat!",
+  "feat.eposmajorum.ender_resistance.name": "Ender Resistance",
+  "feat.eposmajorum.ender_resistance.desc": "Unlocks the 'Ender Resistance' Feat, allowing for reduced damage taken when traversing the eldritch worlds using 'Ender Pearls'",
+  "feat.eposmajorum.lucky_lure.name": "Lucky Lure",
+  "feat.eposmajorum.lucky_lure.desc": "Unlocks the 'Lucky Lure' Feat, granting the user an increased amount of 'Luck' while fishing!",
+  "feat.eposmajorum.obsidian_smasher.name": "Obsidian Smasher",
+  "feat.eposmajorum.obsidian_smasher.desc": "Unlocks the 'Obsidian Smasher' Feat, granting the user a 10 times increased speed while mining obsidian!",
+
 
   "feat.eposmajorum.missing.name": "Missing Feat",
   "feat.eposmajorum.missing.description": "The Feat for registry name %s is missing",
-
   "path.eposmajorum.missing.name": "Missing Path",
   "path.eposmajorum.missing.description": "The Path for registry name %s is missing",
-
   "skill.eposmajorum.missing.name": "Missing Skill",
   "skill.eposmajorum.missing.description": "The Skill for registry name %s is missing",
-
   "pathfeature.eposmajorum.missing.name": "Missing Path Provider",
   "pathfeature.eposmajorum.missing.description": "The Path Provider for registry name %s is missing",
 
@@ -19,10 +32,15 @@
 
   "path.eposmajorum.monk.name": "Monk",
   "path.eposmajorum.monk.desc": "A wandering monk, traveling the path of the profound!",
-
   "path.eposmajorum.warrior.name": "Warrior",
   "path.eposmajorum.warrior.desc": "A great Warrior, protecting those he loves!",
-
   "path.eposmajorum.worker.name": "Worker",
-  "path.eposmajorum.worker.desc": "A hard worker, never stepping down from a challenge!"
+  "path.eposmajorum.worker.desc": "A hard worker, never stepping down from a challenge!",
+
+  "skill.eposmajorum.unarmed_strike.name": "Unarmed Strike",
+  "skill.eposmajorum.unarmed_strike.desc": "Rewards Skill Experience to 'Unarmed Strike'",
+  "skill.eposmajorum.way_of_the_sword.name": "Way of The Sword",
+  "skill.eposmajorum.way_of_the_sword.desc": "Rewards Skill Experience to 'Way of the Sword'",
+  "skill.eposmajorum.improvised_combat.name": "Improvised Combat",
+  "skill.eposmajorum.improvised_combat.desc": "Rewards Skill Experience to 'Improvised Combat'"
 }
