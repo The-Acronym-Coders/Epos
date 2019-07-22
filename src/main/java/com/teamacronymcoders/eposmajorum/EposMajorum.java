@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 import static com.teamacronymcoders.eposmajorum.api.EposAPI.ID;
 import static com.teamacronymcoders.eposmajorum.api.EposAPI.PATH_REGISTRY;
 
-@Mod(value = ID)
+@Mod(ID)
 public class EposMajorum {
     private static final String config = "eposmajorum.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
@@ -43,12 +43,11 @@ public class EposMajorum {
     public EposMajorum() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSound);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMSoundConfigs.spec, FileHelper.getOrGenFile(config).getAbsolutePath());
     }
 
     @SuppressWarnings("unused")
-    private void setup(FMLCommonSetupEvent event) {
+    private void setup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(ICharacterStats.class, new Capability.IStorage<ICharacterStats>() {
             @Nullable
             @Override
