@@ -3,7 +3,11 @@
     "translate": "path.epos.monk.name"
   },
   "description": {
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/resources/data/epos/epos/paths/monk.json
     "translate": "path.epos.monk.description"
+=======
+    "translate": "path.eposmajorum.monk.desc"
+>>>>>>> Started tinkering with more content:src/main/resources/data/eposmajorum/eposmajorum/paths/monk.json
   },
   "maxLevel": 20,
   "features": {
@@ -11,6 +15,12 @@
       {
         "type": "epos:feat",
         "feat": "epos:unarmed_strike"
+      }
+    ],
+    "3": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:spirit_of_battle"
       }
     ],
     "5": [
@@ -24,6 +34,13 @@
       {
         "type": "epos:skill_xp",
         "skill": "epos:unarmed_strike",
+        "amount": "1000"
+      }
+    ],
+    "15": [
+      {
+        "type": "eposmajorum:skill_xp",
+        "skill": "eposmajorum:unarmed_strike",
         "amount": "1000"
       }
     ]
