@@ -4,10 +4,10 @@ import net.minecraftforge.eventbus.api.GenericEvent;
 
 import java.util.List;
 
-public class RegistryEvent<T extends IRegistryEntry> extends GenericEvent<T> {
+public class RegistrationEvent<T extends IRegistryEntry> extends GenericEvent<T> {
     private final Registry<T> registry;
 
-    public RegistryEvent(Class<T> type, Registry<T> registry) {
+    public RegistrationEvent(Class<T> type, Registry<T> registry) {
         super(type);
         this.registry = registry;
     }
