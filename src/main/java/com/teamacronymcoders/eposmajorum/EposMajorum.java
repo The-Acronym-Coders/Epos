@@ -10,7 +10,7 @@ import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
 import com.teamacronymcoders.eposmajorum.api.sounds.SoundEvents;
 import com.teamacronymcoders.eposmajorum.characterstats.CharacterStats;
 import com.teamacronymcoders.eposmajorum.json.JsonLoader;
-import com.teamacronymcoders.eposmajorum.utils.FileUtil;
+import com.teamacronymcoders.eposmajorum.utils.FileHelper;
 import com.teamacronymcoders.eposmajorum.utils.configs.EMSoundConfigs;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -36,6 +36,7 @@ import static com.teamacronymcoders.eposmajorum.api.EposAPI.PATH_REGISTRY;
 
 @Mod(value = ID)
 public class EposMajorum {
+    private static final String config = "eposmajorum.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
@@ -43,7 +44,7 @@ public class EposMajorum {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerSound);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMSoundConfigs.spec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMSoundConfigs.spec, FileHelper.getOrGenFile(config).getAbsolutePath());
     }
 
     @SuppressWarnings("unused")
