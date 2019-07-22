@@ -1,9 +1,9 @@
 modLoader="javafml"
-loaderVersion="[26,)"
+loaderVersion="[28,)"
 issueTrackerURL="https://github.com/The-Acronym-Coders/Epos-Majorum/issues"
 
 [[mods]]
-    modId="com.teamacronymcoders.eposmajorum"
+    modId="eposmajorum"
     version="${file.jarVersion}"
     displayName="Epos Majorum"
     authors="SkySom, Lanse505, pupnewfster"
@@ -12,4 +12,5 @@ issueTrackerURL="https://github.com/The-Acronym-Coders/Epos-Majorum/issues"
 
         Credits to:
             - rhodesmas for the Level-Up sound!
+                - https://freesound.org/people/rhodesmas/sounds/320655/
     '''
