@@ -13,6 +13,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileHelper {
+    public static File root = new File(FMLPaths.CONFIGDIR.get().toFile(), EposAPI.ID);
+
     public static File getOrGenFile(String file) {
         return createFile(new File(file));
     }
@@ -33,5 +35,12 @@ public class FileHelper {
         }
 
         return file;
+    }
+
+    public static File getConfigFile(String config) {
+        if (!root.exists()) {
+            root.mkdir();
+        }
+        return new File(root,config + ".toml");
     }
 }

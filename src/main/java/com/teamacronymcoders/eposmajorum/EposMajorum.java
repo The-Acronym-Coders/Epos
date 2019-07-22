@@ -10,8 +10,7 @@ import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
 import com.teamacronymcoders.eposmajorum.api.sounds.SoundEvents;
 import com.teamacronymcoders.eposmajorum.characterstats.CharacterStats;
 import com.teamacronymcoders.eposmajorum.json.JsonLoader;
-import com.teamacronymcoders.eposmajorum.utils.FileHelper;
-import com.teamacronymcoders.eposmajorum.utils.configs.EMSoundConfigs;
+import com.teamacronymcoders.eposmajorum.utils.configs.EMConfigs;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -19,6 +18,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -26,15 +26,19 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
+import java.io.File;
+
 import static com.teamacronymcoders.eposmajorum.api.EposAPI.ID;
 import static com.teamacronymcoders.eposmajorum.api.EposAPI.PATH_REGISTRY;
 
 @Mod(ID)
+@Mod.EventBusSubscriber
 public class EposMajorum {
     private static final String config = "eposmajorum.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
@@ -43,7 +47,7 @@ public class EposMajorum {
     public EposMajorum() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMSoundConfigs.spec, FileHelper.getOrGenFile(config).getAbsolutePath());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), "eposmajorum.toml").getAbsolutePath());
     }
 
     @SuppressWarnings("unused")
@@ -66,8 +70,9 @@ public class EposMajorum {
             MinecraftForge.EVENT_BUS.post(new RegistryEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
     }
-    
-    private void registerSound(net.minecraftforge.event.RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
+
+    @SubscribeEvent
+    public void registerSound(net.minecraftforge.event.RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
         eventRegistryEvent.getRegistry().registerAll(
                 SoundEvents.levelUp
         );
