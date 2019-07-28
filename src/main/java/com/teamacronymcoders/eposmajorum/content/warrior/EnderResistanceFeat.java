@@ -6,7 +6,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
-public class EnderResistance {
+public class EnderResistanceFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "ender_resistance");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

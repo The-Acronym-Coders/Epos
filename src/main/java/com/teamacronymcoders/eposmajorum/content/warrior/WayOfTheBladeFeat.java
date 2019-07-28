@@ -8,7 +8,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 
-public class WayOfTheBlade {
+public class WayOfTheBladeFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "way_of_the_blade");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

@@ -1,9 +1,9 @@
 {
   "name": {
-    "translate": "path.eposmajorum.worker.name"
+    "translate": "path.eposmajorum.villager.name"
   },
   "description": {
-    "translate": "path.eposmajorum.worker.desc"
+    "translate": "path.eposmajorum.villager.desc"
   },
   "maxLevel": 20,
   "features": {

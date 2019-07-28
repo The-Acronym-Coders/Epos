@@ -34,8 +34,8 @@
   "path.eposmajorum.monk.desc": "A wandering monk, traveling the path of the profound!",
   "path.eposmajorum.warrior.name": "Warrior",
   "path.eposmajorum.warrior.desc": "A great Warrior, protecting those he loves!",
-  "path.eposmajorum.worker.name": "Worker",
-  "path.eposmajorum.worker.desc": "A hard worker, never stepping down from a challenge!",
+  "path.eposmajorum.villager.name": "Worker",
+  "path.eposmajorum.villager.desc": "A hard worker, never stepping down from a challenge!",
 
   "skill.eposmajorum.unarmed_strike.name": "Unarmed Strike",
   "skill.eposmajorum.unarmed_strike.desc": "Rewards Skill Experience to 'Unarmed Strike'",

@@ -14,15 +14,16 @@ import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
-import com.teamacronymcoders.eposmajorum.content.monk.UnarmedStrike;
-import com.teamacronymcoders.eposmajorum.content.shared.GluttonousHunger;
-import com.teamacronymcoders.eposmajorum.content.shared.SpiritOfBattle;
-import com.teamacronymcoders.eposmajorum.content.warrior.EnderResistance;
-import com.teamacronymcoders.eposmajorum.content.warrior.WayOfTheBlade;
-import com.teamacronymcoders.eposmajorum.content.worker.ImprovisedCombat;
-import com.teamacronymcoders.eposmajorum.content.worker.LuckyLure;
-import com.teamacronymcoders.eposmajorum.content.worker.ObsidianSmasher;
+import com.teamacronymcoders.eposmajorum.content.monk.UnarmedStrikeSkill;
+import com.teamacronymcoders.eposmajorum.content.shared.GluttonousHungerFeat;
+import com.teamacronymcoders.eposmajorum.content.shared.SpiritOfBattleFeat;
+import com.teamacronymcoders.eposmajorum.content.warrior.EnderResistanceFeat;
+import com.teamacronymcoders.eposmajorum.content.warrior.WayOfTheBladeFeat;
+import com.teamacronymcoders.eposmajorum.content.shared.ImprovisedCombatFeat;
+import com.teamacronymcoders.eposmajorum.content.fisherman.LuckyLureFeat;
+import com.teamacronymcoders.eposmajorum.content.miner.ObsidianSmasherFeat;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
+import com.teamacronymcoders.eposmajorum.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
 >>>>>>> Started tinkering with more content:src/main/java/com/teamacronymcoders/eposmajorum/eventhandler/RegistrationEventHandler.java
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,14 +34,14 @@ public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
         featRegistryEvent.register(Lists.newArrayList(
-                UnarmedStrike.FEAT,
-                SpiritOfBattle.FEAT,
-                LuckyLure.FEAT,
-                EnderResistance.FEAT,
-                ObsidianSmasher.FEAT,
-                GluttonousHunger.FEAT,
-                WayOfTheBlade.FEAT,
-                ImprovisedCombat.FEAT
+                UnarmedStrikeSkill.FEAT,
+                SpiritOfBattleFeat.FEAT,
+                LuckyLureFeat.FEAT,
+                EnderResistanceFeat.FEAT,
+                ObsidianSmasherFeat.FEAT,
+                GluttonousHungerFeat.FEAT,
+                WayOfTheBladeFeat.FEAT,
+                ImprovisedCombatFeat.FEAT
         ));
     }
 
@@ -49,7 +50,8 @@ public class RegistrationEventHandler {
             RegistrationEvent<IPathFeatureProvider> pathFeatureProviderRegistryEvent) {
         pathFeatureProviderRegistryEvent.register(Lists.newArrayList(
                 new FeatFeatureProvider(),
-                new SkillXPFeatureProvider()
+                new SkillXPFeatureProvider(),
+                new LevelUpSkillFeatureProvider()
         ));
     }
 }

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.worker;
+package com.teamacronymcoders.eposmajorum.content.miner;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public class ObsidianSmasher {
+public class ObsidianSmasherFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

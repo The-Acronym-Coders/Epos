@@ -10,7 +10,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
-public class SpiritOfBattle {
+public class SpiritOfBattleFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "spirit_of_battle");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

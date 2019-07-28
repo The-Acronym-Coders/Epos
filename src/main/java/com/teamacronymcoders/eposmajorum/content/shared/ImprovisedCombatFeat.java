@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.worker;
+package com.teamacronymcoders.eposmajorum.content.shared;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;
@@ -6,15 +6,15 @@ import com.teamacronymcoders.eposmajorum.api.feat.Feat;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.item.Item;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
-public class ImprovisedCombat {
+public class ImprovisedCombatFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");
+    public static final ArrayList<Item> VALID_ITEMS = new ArrayList<>();
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(AltLivingDamageEvent.class,
