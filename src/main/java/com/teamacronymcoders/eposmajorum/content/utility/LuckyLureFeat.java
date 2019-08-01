@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.fisherman;
+package com.teamacronymcoders.eposmajorum.content.utility;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;

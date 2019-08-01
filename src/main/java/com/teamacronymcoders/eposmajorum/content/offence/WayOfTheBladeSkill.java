@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.warrior;
+package com.teamacronymcoders.eposmajorum.content.offence;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;
@@ -8,7 +8,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 
-public class WayOfTheBladeFeat {
+public class WayOfTheBladeSkill {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "way_of_the_blade");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

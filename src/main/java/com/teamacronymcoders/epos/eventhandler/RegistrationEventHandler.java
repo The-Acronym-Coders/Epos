@@ -14,14 +14,16 @@ import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
-import com.teamacronymcoders.eposmajorum.content.monk.UnarmedStrikeSkill;
-import com.teamacronymcoders.eposmajorum.content.shared.GluttonousHungerFeat;
-import com.teamacronymcoders.eposmajorum.content.shared.SpiritOfBattleFeat;
-import com.teamacronymcoders.eposmajorum.content.warrior.EnderResistanceFeat;
-import com.teamacronymcoders.eposmajorum.content.warrior.WayOfTheBladeFeat;
-import com.teamacronymcoders.eposmajorum.content.shared.ImprovisedCombatFeat;
-import com.teamacronymcoders.eposmajorum.content.fisherman.LuckyLureFeat;
-import com.teamacronymcoders.eposmajorum.content.miner.ObsidianSmasherFeat;
+import com.teamacronymcoders.eposmajorum.content.offence.UnarmedStrikeSkill;
+import com.teamacronymcoders.eposmajorum.content.utility.TimberFeat;
+import com.teamacronymcoders.eposmajorum.content.utility.mining.*;
+import com.teamacronymcoders.eposmajorum.content.utility.misc.GluttonousHungerFeat;
+import com.teamacronymcoders.eposmajorum.content.utility.SpiritOfBattleFeat;
+import com.teamacronymcoders.eposmajorum.content.defence.EnderResistanceFeat;
+import com.teamacronymcoders.eposmajorum.content.offence.WayOfTheBladeSkill;
+import com.teamacronymcoders.eposmajorum.content.offence.ImprovisedCombatSkill;
+import com.teamacronymcoders.eposmajorum.content.utility.LuckyLureFeat;
+import com.teamacronymcoders.eposmajorum.content.utility.misc.PurityFeats;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
@@ -34,14 +36,23 @@ public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
         featRegistryEvent.register(Lists.newArrayList(
-                UnarmedStrikeSkill.FEAT,
-                SpiritOfBattleFeat.FEAT,
-                LuckyLureFeat.FEAT,
                 EnderResistanceFeat.FEAT,
-                ObsidianSmasherFeat.FEAT,
+                ImprovisedCombatSkill.FEAT,
+                UnarmedStrikeSkill.FEAT,
+                WayOfTheBladeSkill.FEAT,
+                GravelExcavatorFeat.FEAT,
+                HarvestAreaSkill.FEAT,
+                MinersEfficiencySkill.FEAT,
+                ObsidianSmasherFeat.TOOL_FEAT,
+                ObsidianSmasherFeat.NO_TOOL_FEAT,
+                OreExtractionFeat.FEAT,
+                PalmOfExcavationSkill.FEAT,
                 GluttonousHungerFeat.FEAT,
-                WayOfTheBladeFeat.FEAT,
-                ImprovisedCombatFeat.FEAT
+                PurityFeats.PURITY,
+                PurityFeats.DIAMOND,
+                LuckyLureFeat.FEAT,
+                SpiritOfBattleFeat.FEAT,
+                TimberFeat.FEAT
         ));
     }
 

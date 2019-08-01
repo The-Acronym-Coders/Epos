@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.monk;
+package com.teamacronymcoders.eposmajorum.content.offence;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;

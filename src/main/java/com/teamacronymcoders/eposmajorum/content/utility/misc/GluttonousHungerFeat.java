@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.shared;
+package com.teamacronymcoders.eposmajorum.content.utility.misc;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -28,7 +28,8 @@ public class GluttonousHungerFeat {
                             for (ItemStack stack : inventoryList) {
                                 if (!stack.isEmpty() && stack.getItem().isFood()) {
                                     int hungerPoints = stack.getItem().getFood().getHealing();
-                                    if (currentStack.isEmpty() || hungerPoints < bestHungerPoints && hungerPoints >= hungerNeeded ||
+                                    if (currentStack.isEmpty() ||
+                                            hungerPoints < bestHungerPoints && hungerPoints >= hungerNeeded ||
                                             hungerPoints > bestHungerPoints && bestHungerPoints < hungerNeeded) {
                                         //No food item yet OR
                                         //The food is less filling but will still make you full OR

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.shared;
+package com.teamacronymcoders.eposmajorum.content.offence;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;
@@ -12,7 +12,7 @@ import net.minecraftforge.common.ToolType;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class ImprovisedCombatFeat {
+public class ImprovisedCombatSkill {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");
     public static final ArrayList<Item> VALID_ITEMS = new ArrayList<>();
     public static final Feat FEAT =

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.miner;
+package com.teamacronymcoders.eposmajorum.content.utility.mining;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -17,7 +17,7 @@ import java.util.Deque;
 
 public class GravelExcavatorFeat {
     private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "gravel_excavator");
-    private static final Feat FEAT = FeatBuilder.start(RL)
+    public static final Feat FEAT = FeatBuilder.start(RL)
             .withEventHandler(BlockEvent.BreakEvent.class,
                     (breakEvent, entity, iCharacterStats) -> {
                         if (entity.getActiveItemStack().getToolTypes().contains(ToolType.SHOVEL) && breakEvent.getState().getBlock() instanceof GravelBlock) {

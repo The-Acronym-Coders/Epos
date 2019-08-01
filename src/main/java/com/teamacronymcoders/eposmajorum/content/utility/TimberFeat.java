@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.miner;
+package com.teamacronymcoders.eposmajorum.content.utility;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -11,13 +11,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
-public class OreExtractionFeat {
-    private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "ore_extraction");
-    private static final Feat FEAT = FeatBuilder.start(RL)
+public class TimberFeat {
+    private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "timber");
+    public static final Feat FEAT = FeatBuilder.start(RL)
             .withEventHandler(BlockEvent.BreakEvent.class,
                     (breakEvent, entity, iCharacterStats) -> {
-                        if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
-                            ResourceLocation tag = new ResourceLocation("forge", "ores");
+                        if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {
+                            ResourceLocation tag = new ResourceLocation("minecraft", "logs");
                             if (breakEvent.getState().getBlock().getTags().contains(tag)) {
                                 BlockPos pos = breakEvent.getPos();
                                 World world = breakEvent.getWorld().getWorld();

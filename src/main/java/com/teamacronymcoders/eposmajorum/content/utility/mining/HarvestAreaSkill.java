@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.miner;
+package com.teamacronymcoders.eposmajorum.content.utility.mining;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -14,7 +14,7 @@ import net.minecraftforge.event.world.BlockEvent;
 
 public class HarvestAreaSkill {
     private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "area_expansion");
-    private static final Feat FEAT = FeatBuilder.start(RL)
+    public static final Feat FEAT = FeatBuilder.start(RL)
             .withEventHandler(BlockEvent.BreakEvent.class,
                     (breakEvent, entity, iCharacterStats) -> {
                         if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {

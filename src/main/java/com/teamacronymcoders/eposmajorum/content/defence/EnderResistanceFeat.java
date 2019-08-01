@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.warrior;
+package com.teamacronymcoders.eposmajorum.content.defence;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
