@@ -11,8 +11,8 @@ public class LevelUpSkillFeature extends PathFeature {
     private final int levels;
 
     public LevelUpSkillFeature(ISkill skill, int levels) {
-        super(new TranslationTextComponent("pathfeature.eposmajorum.levelup.name", skill.getName()),
-              new TranslationTextComponent("pathfeature.eposmajorum.levelup.description", skill.getName()));
+        super(new TranslationTextComponent("pathfeature.eposmajorum.levelup.name", levels, skill.getName()),
+              new TranslationTextComponent("pathfeature.eposmajorum.levelup.description", levels, skill.getName()));
         this.skill = skill;
         this.levels = levels;
     }

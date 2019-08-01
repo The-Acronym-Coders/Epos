@@ -18,7 +18,7 @@ public class LevelUpSkillFeatureProvider implements IPathFeatureProvider {
     @Override
     public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         String skillName = JsonUtils.getString(jsonObject, "skill");
-        int levels = JsonUtils.getInt(jsonObject, "levels");
+        int levels = JsonUtils.getInt(jsonObject, "level");
         ISkill skill = EposAPI.SKILL_REGISTRY.getEntry(skillName);
         if (skill != null) {
             return new LevelUpSkillFeature(skill, levels);
