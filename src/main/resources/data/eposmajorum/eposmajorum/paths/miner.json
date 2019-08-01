@@ -1,0 +1,23 @@
+{
+  "name": {
+    "translate": "path.eposmajorum.miner.name"
+  },
+  "description": {
+    "translate": "path.eposmajorum.miner.desc"
+  },
+  "maxLevel": 20,
+  "features": {
+    "3": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:obsidian_smasher"
+      }
+    ],
+    "6": [
+      {
+        "type": "eposmajorum:feat",
+        "skill": "eposmajorum:improvised_combat"
+      }
+    ]
+  }
+}

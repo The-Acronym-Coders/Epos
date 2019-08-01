@@ -45,7 +45,12 @@ public class Epos {
     public static final Logger LOGGER = LogManager.getLogger(ID);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/Epos.java
     public Epos() {
+=======
+
+    public EposMajorum() {
+>>>>>>> Started tweaking and fixing pahts:src/main/java/com/teamacronymcoders/eposmajorum/EposMajorum.java
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), "epos.toml").getAbsolutePath());

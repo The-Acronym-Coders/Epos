@@ -13,35 +13,203 @@
   "features": {
     "1": [
       {
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/resources/data/epos/epos/paths/monk.json
         "type": "epos:feat",
         "feat": "epos:unarmed_strike"
+=======
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:unarmed_strike"
+      },
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:palm_of_excavation"
+      }
+    ],
+    "2": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+>>>>>>> Started tweaking and fixing pahts:src/main/resources/data/eposmajorum/eposmajorum/paths/monk.json
       }
     ],
     "3": [
       {
         "type": "eposmajorum:feat",
         "feat": "eposmajorum:spirit_of_battle"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:palm_of_excavation",
+        "level": "1"
+      }
+    ],
+    "4": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
       }
     ],
     "5": [
       {
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/resources/data/epos/epos/paths/monk.json
         "type": "epos:skill_xp",
         "skill": "epos:unarmed_strike",
         "amount": "1000"
+=======
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:obsidian_smasher_no_tool"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "4"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:palm_of_excavation",
+        "level": "1"
+      }
+    ],
+    "6": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "7": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:ender_resistance"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:palm_of_excavation",
+        "level": "1"
+      }
+    ],
+    "8": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "9": [
+      {
+        "type": "eposmajorum:feat",
+        "feat": "eposmajorum:diamond_body"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:palm_of_excavation",
+        "level": "1"
+>>>>>>> Started tweaking and fixing pahts:src/main/resources/data/eposmajorum/eposmajorum/paths/monk.json
       }
     ],
     "10": [
       {
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/resources/data/epos/epos/paths/monk.json
         "type": "epos:skill_xp",
         "skill": "epos:unarmed_strike",
         "amount": "1000"
+=======
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "4"
+      },
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:palm_of_excavation",
+        "level": "1"
+      }
+    ],
+    "11": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "12": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "13": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "14": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+>>>>>>> Started tweaking and fixing pahts:src/main/resources/data/eposmajorum/eposmajorum/paths/monk.json
       }
     ],
     "15": [
       {
-        "type": "eposmajorum:skill_xp",
+        "type": "eposmajorum:level_skill",
         "skill": "eposmajorum:unarmed_strike",
-        "amount": "1000"
+        "level": "4"
+      }
+    ],
+    "16": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "17": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "18": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "19": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "1"
+      }
+    ],
+    "20": [
+      {
+        "type": "eposmajorum:level_skill",
+        "skill": "eposmajorum:unarmed_strike",
+        "level": "4"
       }
     ]
   }
