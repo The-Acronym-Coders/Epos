@@ -13,6 +13,7 @@ import javax.annotation.Nonnull;
 
 public class FeatPointFeatureProvider implements IPathFeatureProvider {
     private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "feat_points");
+
     @Override
     public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         int featPoints = JsonUtils.getInt(jsonObject, "points");

@@ -32,7 +32,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-
 import java.io.File;
 
 import static com.teamacronymcoders.epos.api.EposAPI.ID;
@@ -40,9 +39,14 @@ import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 
 @Mod(ID)
 @Mod.EventBusSubscriber
+<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/Epos.java
 public class Epos {
     private static final String config = "epos.toml";
+=======
+public class EposMajorum {
+>>>>>>> Reformat Code and Optimize Imports:src/main/java/com/teamacronymcoders/eposmajorum/EposMajorum.java
     public static final Logger LOGGER = LogManager.getLogger(ID);
+    private static final String config = "eposmajorum.toml";
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
 <<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/Epos.java

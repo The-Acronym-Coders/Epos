@@ -15,7 +15,7 @@ public class ItemRewardFeature extends PathFeature {
 
     public ItemRewardFeature(String identifier, ItemStack stack) {
         super(new TranslationTextComponent("pathfeature.eposmajorum.itemreward.name", stack.getDisplayName()),
-              new TranslationTextComponent("pathfeature.eposmajorum.itemreward.description", stack.getDisplayName()));
+                new TranslationTextComponent("pathfeature.eposmajorum.itemreward.description", stack.getDisplayName()));
         this.identifier = identifier;
         this.stack = stack;
     }
@@ -39,5 +39,6 @@ public class ItemRewardFeature extends PathFeature {
     }
 
     @Override
-    public void removeFrom(LivingEntity character, ICharacterStats characterStats) {}
+    public void removeFrom(LivingEntity character, ICharacterStats characterStats) {
+    }
 }

@@ -1,21 +1,5 @@
 package com.teamacronymcoders.eposmajorum.content.utility;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatAcquiredEvent;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.ForgeClientHandler;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-
 //TODO: Um.... Implement this x)
 //TODO: Wait for Sky to implement things :)
 //TODO: See: https://github.com/K-4U/DoubleJumper/tree/master/src/k4unl/minecraft/doubleJump

@@ -23,7 +23,7 @@ public class ItemRewardFeatureProvider implements IPathFeatureProvider {
     @Override
     public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         String identifier = JSONUtils.getString(jsonObject, "identifier");
-        String item = JsonUtils.getString(jsonObject,"item");
+        String item = JsonUtils.getString(jsonObject, "item");
         int quantity = JsonUtils.getInt(jsonObject, "quantity");
         CompoundNBT nbt = readNBT(jsonObject, "nbt");
         ItemStack stack = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item)), quantity, nbt);

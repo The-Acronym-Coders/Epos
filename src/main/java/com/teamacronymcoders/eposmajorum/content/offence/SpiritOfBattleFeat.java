@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.utility;
+package com.teamacronymcoders.eposmajorum.content.offence;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -14,10 +14,10 @@ public class SpiritOfBattleFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "spirit_of_battle");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
-                .withEventHandler(LivingDeathEvent.class,
-                        (livingDeathEvent, livingEntity, iCharacterStats) -> {
-                            if (!livingDeathEvent.isCanceled() && livingDeathEvent.getEntity() instanceof IMob && livingDeathEvent.getSource().getTrueSource() instanceof PlayerEntity) {
-                                ((PlayerEntity) livingDeathEvent.getSource().getTrueSource()).addPotionEffect(new EffectInstance(Effects.STRENGTH, 120, 0));
-                            }
-                        }).finish();
+                    .withEventHandler(LivingDeathEvent.class,
+                            (livingDeathEvent, livingEntity, iCharacterStats) -> {
+                                if (!livingDeathEvent.isCanceled() && livingDeathEvent.getEntity() instanceof IMob && livingDeathEvent.getSource().getTrueSource() instanceof PlayerEntity) {
+                                    ((PlayerEntity) livingDeathEvent.getSource().getTrueSource()).addPotionEffect(new EffectInstance(Effects.STRENGTH, 120, 0));
+                                }
+                            }).finish();
 }

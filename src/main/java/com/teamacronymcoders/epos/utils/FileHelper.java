@@ -36,6 +36,6 @@ public class FileHelper {
         if (!root.exists()) {
             root.mkdir();
         }
-        return new File(root,config + ".toml");
+        return new File(root, config + ".toml");
     }
 }

@@ -12,8 +12,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class PurityFeats {
     private static final ResourceLocation PURITY_NAME = new ResourceLocation(EposAPI.ID, "purity_of_body");
-    private static final ResourceLocation DIAMOND_NAME = new ResourceLocation(EposAPI.ID, "diamond_body");
-
     public static final Feat PURITY =
             FeatBuilder.start(PURITY_NAME)
                     .withEventHandler(TickEvent.PlayerTickEvent.class,
@@ -24,7 +22,7 @@ public class PurityFeats {
                                 removeEffect(entity, Effects.MINING_FATIGUE, -1);
                                 removeEffect(entity, Effects.SLOWNESS, -1);
                             })).finish();
-
+    private static final ResourceLocation DIAMOND_NAME = new ResourceLocation(EposAPI.ID, "diamond_body");
     public static final Feat DIAMOND =
             FeatBuilder.start(DIAMOND_NAME)
                     .withEventHandler(TickEvent.PlayerTickEvent.class,

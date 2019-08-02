@@ -11,7 +11,7 @@ public class FeatPointFeature extends PathFeature {
 
     public FeatPointFeature(int featPoints) {
         super(new TranslationTextComponent("pathfeature.eposmajorum.featpoints.name", featPoints),
-              new TranslationTextComponent("pathfeature.eposmajourm.featpoints.description", featPoints));
+                new TranslationTextComponent("pathfeature.eposmajourm.featpoints.description", featPoints));
         this.featPoints = featPoints;
     }
 

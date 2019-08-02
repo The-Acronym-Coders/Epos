@@ -13,21 +13,21 @@ public class MinersEfficiencySkill {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "miners_efficiency");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
-                .withEventHandler(PlayerEvent.BreakSpeed.class,
-                        (breakSpeed, entity, iCharacterStats) -> {
-                            if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
-                                float speed = breakSpeed.getNewSpeed();
-                                SkillInfo skill = iCharacterStats.getSkills().get(NAME.toString());
-                                int level = skill == null ? 0 : skill.getLevel();
-                                breakSpeed.setNewSpeed(speed + (0.4f * level));
+                    .withEventHandler(PlayerEvent.BreakSpeed.class,
+                            (breakSpeed, entity, iCharacterStats) -> {
+                                if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
+                                    float speed = breakSpeed.getNewSpeed();
+                                    SkillInfo skill = iCharacterStats.getSkills().get(NAME.toString());
+                                    int level = skill == null ? 0 : skill.getLevel();
+                                    breakSpeed.setNewSpeed(speed + (0.4f * level));
+                                }
                             }
-                        }
                     )
-                .withEventHandler(FeatAcquiredEvent.class,
-                        (featAcquiredEvent, entity, iCharacterStats) -> {
-                            if (featAcquiredEvent.getFeatAcquired().getRegistryName().compareTo(NAME) == 0) {
-                                iCharacterStats.getSkills().putSkill(NAME);
+                    .withEventHandler(FeatAcquiredEvent.class,
+                            (featAcquiredEvent, entity, iCharacterStats) -> {
+                                if (featAcquiredEvent.getFeatAcquired().getRegistryName().compareTo(NAME) == 0) {
+                                    iCharacterStats.getSkills().putSkill(NAME);
+                                }
                             }
-                        }
                     ).finish();
 }

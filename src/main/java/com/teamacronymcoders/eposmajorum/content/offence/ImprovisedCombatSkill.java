@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class ImprovisedCombatSkill {
-    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");
     public static final ArrayList<Item> VALID_ITEMS = new ArrayList<>();
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(AltLivingDamageEvent.class,

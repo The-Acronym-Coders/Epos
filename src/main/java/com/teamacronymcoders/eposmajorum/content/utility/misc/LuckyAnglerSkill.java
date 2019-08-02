@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.utility;
+package com.teamacronymcoders.eposmajorum.content.utility.misc;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -14,7 +14,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 /**
  * You might look at this in the future and look at the "Math.max()" call and wonder "Why?"
  * Well I'll leave this Quote from the Official Minecraft Wiki to explain why we have to have a Max of 5 on the "Lure" enchantment.
- *
+ * <p>
  * Lure increases the rate of a fish biting the player's hook while fishing. Specifically, it decreases the wait time for a fish to appear (by 5 seconds per level).
  * If commands are used to increase the enchantment level beyond 5, the wait timer does not start and fish do not bite.
  */
@@ -30,9 +30,9 @@ public class LuckyAnglerSkill {
                                     if (!oldEntity.getEntityData().contains("replaced") && oldEntity.getAngler() != null && skill != null) {
                                         ItemStack stack = oldEntity.getAngler().getActiveItemStack();
                                         FishingBobberEntity newEntity = new FishingBobberEntity(oldEntity.getAngler(),
-                                                                                                oldEntity.world,
-                                                                                     EnchantmentHelper.getFishingLuckBonus(stack) + skill.getLevel(),
-                                                                                                Math.max(5, EnchantmentHelper.getFishingSpeedBonus(stack) + skill.getLevel()));
+                                                oldEntity.world,
+                                                EnchantmentHelper.getFishingLuckBonus(stack) + skill.getLevel(),
+                                                Math.max(5, EnchantmentHelper.getFishingSpeedBonus(stack) + skill.getLevel()));
 
                                         newEntity.getEntityData().putBoolean("replaced", true);
                                         entityJoinWorldEvent.getWorld().addEntity(newEntity);
