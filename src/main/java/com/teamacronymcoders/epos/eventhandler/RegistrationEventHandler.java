@@ -15,6 +15,7 @@ import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
 import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
 import com.teamacronymcoders.eposmajorum.content.offence.UnarmedStrikeSkill;
+import com.teamacronymcoders.eposmajorum.content.utility.LuckyAnglerSkill;
 import com.teamacronymcoders.eposmajorum.content.utility.TimberFeat;
 import com.teamacronymcoders.eposmajorum.content.utility.mining.*;
 import com.teamacronymcoders.eposmajorum.content.utility.misc.GluttonousHungerFeat;
@@ -22,7 +23,6 @@ import com.teamacronymcoders.eposmajorum.content.utility.SpiritOfBattleFeat;
 import com.teamacronymcoders.eposmajorum.content.defence.EnderResistanceFeat;
 import com.teamacronymcoders.eposmajorum.content.offence.WayOfTheBladeSkill;
 import com.teamacronymcoders.eposmajorum.content.offence.ImprovisedCombatSkill;
-import com.teamacronymcoders.eposmajorum.content.utility.LuckyLureFeat;
 import com.teamacronymcoders.eposmajorum.content.utility.misc.PurityFeats;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
@@ -50,7 +50,7 @@ public class RegistrationEventHandler {
                 GluttonousHungerFeat.FEAT,
                 PurityFeats.PURITY,
                 PurityFeats.DIAMOND,
-                LuckyLureFeat.FEAT,
+                LuckyAnglerSkill.FEAT,
                 SpiritOfBattleFeat.FEAT,
                 TimberFeat.FEAT
         ));
