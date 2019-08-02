@@ -69,4 +69,8 @@
   "pathfeature.eposmajorum.levelup.description": "Grants %i Level-Up to Skill: %s",
   "pathfeature.eposmajorum.skillxp.name": "Grants %i Experience to Skill: %s",
   "pathfeature.eposmajorum.skillxp.description": "Grants %i Experience to Skill: %s",
+  "pathfeature.eposmajorum.item_reward.name": "Grants an %s item",
+  "pathfeature.eposmajorum.item_reward.description": "Grants an %s item",
+  "pathfeathre.eposmajorum.featpoints.name": "Grants %i Feat Points",
+  "pathfeathre.eposmajorum.featpoints.description": "Grants %i Feat Points"
 }
