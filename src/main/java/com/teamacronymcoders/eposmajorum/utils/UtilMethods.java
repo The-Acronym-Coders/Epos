@@ -2,6 +2,7 @@ package com.teamacronymcoders.eposmajorum.utils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.math.BlockPos;
@@ -11,10 +12,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import org.antlr.v4.runtime.misc.Array2DHashSet;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class UtilMethods {
     private static final Random RANDOM = new Random();
@@ -45,6 +43,18 @@ public class UtilMethods {
                         scheduled.add(mutable.toImmutable());
                     }
                 }
+            }
+        }
+    }
+
+    public static void handleAttributes(Collection<AttributeModifier> modifiers, String skill, AttributeModifier newValue) {
+        for (AttributeModifier modifier : modifiers) {
+            if (modifier.getName().equals(skill)) {
+                if (!modifier.equals(newValue)) {
+                    modifiers.remove(modifier);
+                    modifiers.add(newValue);
+                }
+                break;
             }
         }
     }
