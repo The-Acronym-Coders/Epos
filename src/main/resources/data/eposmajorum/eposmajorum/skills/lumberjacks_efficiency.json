@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.eposmajorum.lumberjacks_efficiency.name"
+  },
+  "description": {
+    "translate": "skill.eposmajorum.lumberjacks_efficiency.desc"
+  },
+  "maxLevel": 25,
+  "hidden": true
+}

@@ -54,6 +54,8 @@
   "skill.eposmajorum.improvised_combat.desc": "Unlocks the 'Improvised Combat' Skill, allowing for increased damage while wielding a Axe, Pickaxe or Shovel",
   "skill.eposmajorum.lucky_angler.name": "Lucky Angler",
   "skill.eposmajorum.lucky_angler.desc": "Unlocks 'Lucky Angler' Skill, providing a passive buff to Luck and Precision when Fishing!",
+  "skill.eposmajorum.lumberjacks_efficiency.name": "Lumberjack's Efficiency",
+  "skill.eposmajorum.lumberjacks_efficiency.desc": "Unlocks 'Lumberjack's Efficiency' Skill, slowly increasing the speed at which your axe chops",
   "skill.eposmajorum.unarmed_strike.name": "Unarmed Strike",
   "skill.eposmajorum.unarmed_strike.desc": "Unlocks 'Unarmed Strike' Skill, allowing increased damage from attacks when not wielding items",
   "skill.eposmajorum.way_of_the_sword.name": "Way of The Sword",
