@@ -19,12 +19,10 @@ import com.teamacronymcoders.eposmajorum.content.offence.ImprovisedCombatSkill;
 import com.teamacronymcoders.eposmajorum.content.offence.SpiritOfBattleFeat;
 import com.teamacronymcoders.eposmajorum.content.offence.UnarmedStrikeSkill;
 import com.teamacronymcoders.eposmajorum.content.offence.WayOfTheBladeSkill;
-import com.teamacronymcoders.eposmajorum.content.utility.TimberFeat;
-import com.teamacronymcoders.eposmajorum.content.utility.mining.*;
-import com.teamacronymcoders.eposmajorum.content.utility.misc.GluttonousHungerFeat;
-import com.teamacronymcoders.eposmajorum.content.utility.misc.LuckyAnglerSkill;
-import com.teamacronymcoders.eposmajorum.content.utility.misc.PurityFeats;
+import com.teamacronymcoders.eposmajorum.content.utility.*;
 import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
+import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatPointFeatureProvider;
+import com.teamacronymcoders.eposmajorum.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
 import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
 >>>>>>> Started tinkering with more content:src/main/java/com/teamacronymcoders/eposmajorum/eventhandler/RegistrationEventHandler.java
@@ -38,20 +36,21 @@ public class RegistrationEventHandler {
         featRegistryEvent.register(Lists.newArrayList(
                 EnderResistanceFeat.FEAT,
                 ImprovisedCombatSkill.FEAT,
+                SpiritOfBattleFeat.FEAT,
                 UnarmedStrikeSkill.FEAT,
                 WayOfTheBladeSkill.FEAT,
+                GluttonousHungerFeat.FEAT,
                 GravelExcavatorFeat.FEAT,
                 HarvestAreaSkill.FEAT,
+                LuckyAnglerSkill.FEAT,
+                LumberjacksEfficiencySkill.FEAT,
                 MinersEfficiencySkill.FEAT,
                 ObsidianSmasherFeat.TOOL_FEAT,
                 ObsidianSmasherFeat.NO_TOOL_FEAT,
                 OreExtractionFeat.FEAT,
                 PalmOfExcavationSkill.FEAT,
-                GluttonousHungerFeat.FEAT,
                 PurityFeats.PURITY,
                 PurityFeats.DIAMOND,
-                LuckyAnglerSkill.FEAT,
-                SpiritOfBattleFeat.FEAT,
                 TimberFeat.FEAT
         ));
     }
@@ -62,7 +61,9 @@ public class RegistrationEventHandler {
         pathFeatureProviderRegistryEvent.register(Lists.newArrayList(
                 new FeatFeatureProvider(),
                 new SkillXPFeatureProvider(),
-                new LevelUpSkillFeatureProvider()
+                new LevelUpSkillFeatureProvider(),
+                new ItemRewardFeatureProvider(),
+                new FeatPointFeatureProvider()
         ));
     }
 }
