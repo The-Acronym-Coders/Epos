@@ -22,6 +22,7 @@ public class PurityFeats {
                                 removeEffect(entity, Effects.MINING_FATIGUE, -1);
                                 removeEffect(entity, Effects.SLOWNESS, -1);
                             })).finish();
+
     private static final ResourceLocation DIAMOND_NAME = new ResourceLocation(EposAPI.ID, "diamond_body");
     public static final Feat DIAMOND =
             FeatBuilder.start(DIAMOND_NAME)
@@ -37,4 +38,5 @@ public class PurityFeats {
             entity.removePotionEffect(effect);
         }
     }
+
 }

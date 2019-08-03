@@ -33,7 +33,6 @@ public class LuckyAnglerSkill {
                                                 oldEntity.world,
                                                 EnchantmentHelper.getFishingLuckBonus(stack) + skill.getLevel(),
                                                 Math.max(5, EnchantmentHelper.getFishingSpeedBonus(stack) + skill.getLevel()));
-
                                         newEntity.getEntityData().putBoolean("replaced", true);
                                         entityJoinWorldEvent.getWorld().addEntity(newEntity);
                                         entityJoinWorldEvent.setCanceled(true);

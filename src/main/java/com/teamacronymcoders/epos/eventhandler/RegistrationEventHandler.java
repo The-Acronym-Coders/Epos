@@ -31,6 +31,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = EposAPI.ID)
 public class RegistrationEventHandler {
+
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
         featRegistryEvent.register(Lists.newArrayList(
@@ -66,4 +67,5 @@ public class RegistrationEventHandler {
                 new FeatPointFeatureProvider()
         ));
     }
+
 }
