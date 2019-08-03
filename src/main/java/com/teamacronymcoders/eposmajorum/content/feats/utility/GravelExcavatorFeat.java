@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.utility;
+package com.teamacronymcoders.eposmajorum.content.feats.utility;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;

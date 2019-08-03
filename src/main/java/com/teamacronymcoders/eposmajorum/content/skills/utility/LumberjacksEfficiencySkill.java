@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.content.utility;
+package com.teamacronymcoders.eposmajorum.content.skills.utility;
 
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
@@ -9,13 +9,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public class MinersEfficiencySkill {
-    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "miners_efficiency");
+public class LumberjacksEfficiencySkill {
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "lumberjacks_efficiency");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
                             (breakSpeed, entity, iCharacterStats) -> {
-                                if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
+                                if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {
                                     float speed = breakSpeed.getNewSpeed();
                                     SkillInfo skill = iCharacterStats.getSkills().get(NAME.toString());
                                     int level = skill == null ? 0 : skill.getLevel();
