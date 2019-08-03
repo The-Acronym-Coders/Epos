@@ -13,9 +13,12 @@ import org.antlr.v4.runtime.misc.Array2DHashSet;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class UtilMethods {
+    private static final Random RANDOM = new Random();
+
     public static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean willHarvest, @Nullable IFluidState fluid) {
         if (!MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world, pos, state, player))) {
             state.removedByPlayer(world, pos, player, true, null);
@@ -46,5 +49,7 @@ public class UtilMethods {
         }
     }
 
-
+    public static int nextIntInclusive(int min, int max) {
+        return RANDOM.nextInt(max - min + 1) + min;
+    }
 }
