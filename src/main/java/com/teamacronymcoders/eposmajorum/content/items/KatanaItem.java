@@ -10,7 +10,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
+import net.minecraft.item.SwordItem;
 import net.minecraft.world.World;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -28,13 +31,17 @@ public class KatanaItem extends SwordItem {
     }
 
     private double getAttackDamage(ItemStack stack, ICharacterStats stats) {
-        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) return 0d;
+        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) {
+            return 0d;
+        }
         SkillInfo wayOfTheSword = stats.getSkills().get("eposmajorum:way_of_the_sword");
         return this.attackDamage + (0.4d * (wayOfTheSword != null ? wayOfTheSword.getLevel() : 0));
     }
 
     private double getAttackSpeed(ItemStack stack, ICharacterStats stats) {
-        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) return 0d;
+        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) {
+            return 0d;
+        }
         SkillInfo iai = stats.getSkills().get("eposmajorum:iai");
         double speed = this.attackSpeed - (0.4d * (iai != null ? iai.getLevel() : 0));
         return Math.max(speed, 0.5d);
@@ -42,7 +49,6 @@ public class KatanaItem extends SwordItem {
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        if (stack.getEquipmentSlot() == null) return;
         if (stack.getEquipmentSlot() == EquipmentSlotType.MAINHAND) {
             Multimap<String, AttributeModifier> attributeModifiers = stack.getAttributeModifiers(stack.getEquipmentSlot());
             if (attributeModifiers.containsKey(SharedMonsterAttributes.ATTACK_DAMAGE.getName())) {

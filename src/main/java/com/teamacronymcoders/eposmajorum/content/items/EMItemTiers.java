@@ -7,7 +7,7 @@ import net.minecraftforge.common.Tags;
 
 import java.util.function.Supplier;
 
-public enum  EMItemTiers implements IItemTier {
+public enum EMItemTiers implements IItemTier {
     KATANA(0, Integer.MAX_VALUE, 0, 0.0F, 0, () -> {
         return Ingredient.fromTag(Tags.Items.INGOTS_IRON);
     });
