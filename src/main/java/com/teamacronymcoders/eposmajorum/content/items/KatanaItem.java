@@ -43,8 +43,7 @@ public class KatanaItem extends SwordItem {
             return 0d;
         }
         SkillInfo iai = stats.getSkills().get("eposmajorum:iai");
-        double speed = this.attackSpeed - (0.4d * (iai != null ? iai.getLevel() : 0));
-        return Math.max(speed, 0.5d);
+        return this.attackSpeed - (0.4d * (iai != null ? iai.getLevel() : 0));
     }
 
     @Override
