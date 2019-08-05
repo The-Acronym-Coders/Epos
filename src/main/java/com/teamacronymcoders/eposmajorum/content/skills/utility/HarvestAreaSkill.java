@@ -3,7 +3,7 @@ package com.teamacronymcoders.eposmajorum.content.skills.utility;
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
-import com.teamacronymcoders.eposmajorum.utils.UtilMethods;
+import com.teamacronymcoders.eposmajorum.utils.helpers.BlockBreakHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +28,7 @@ public class HarvestAreaSkill {
                                         pos.getX(), pos.getY() - 1, pos.getZ()
                                 )) {
                                     BlockState state = world.getBlockState(pos1);
-                                    UtilMethods.handleBreakBlock(world, pos1, state, player, true, null);
+                                    BlockBreakHelper.handleBreakBlock(world, pos1, state, player, true, null);
                                 }
                             } else if (skillLevel == 2) {
                                 for (BlockPos pos1 : BlockPos.getAllInBoxMutable(
@@ -36,7 +36,7 @@ public class HarvestAreaSkill {
                                         pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1
                                 )) {
                                     BlockState state = world.getBlockState(pos1);
-                                    UtilMethods.handleBreakBlock(world, pos1, state, player, true, null);
+                                    BlockBreakHelper.handleBreakBlock(world, pos1, state, player, true, null);
                                 }
                             }
                         }

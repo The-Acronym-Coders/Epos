@@ -3,7 +3,7 @@ package com.teamacronymcoders.eposmajorum.content.feats.utility;
 import com.teamacronymcoders.eposmajorum.api.EposAPI;
 import com.teamacronymcoders.eposmajorum.api.feat.Feat;
 import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
-import com.teamacronymcoders.eposmajorum.utils.UtilMethods;
+import com.teamacronymcoders.eposmajorum.utils.helpers.BlockBreakHelper;
 import net.minecraft.block.GravelBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +34,7 @@ public class GravelExcavatorFeat {
                             }
 
                             for (BlockPos pos1 : posDeque) {
-                                UtilMethods.handleBreakBlock(world, holder, world.getBlockState(pos1), player, true, null);
+                                BlockBreakHelper.handleBreakBlock(world, holder, world.getBlockState(pos1), player, true, null);
                             }
                         }
                     })

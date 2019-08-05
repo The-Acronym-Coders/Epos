@@ -4,7 +4,7 @@ import com.google.common.collect.Multimap;
 import com.teamacronymcoders.eposmajorum.api.EposCapabilities;
 import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.eposmajorum.api.skill.SkillInfo;
-import com.teamacronymcoders.eposmajorum.utils.UtilMethods;
+import com.teamacronymcoders.eposmajorum.utils.helpers.AttributeHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -51,10 +51,10 @@ public class KatanaItem extends SwordItem {
         if (stack.getEquipmentSlot() == EquipmentSlotType.MAINHAND) {
             Multimap<String, AttributeModifier> attributeModifiers = stack.getAttributeModifiers(stack.getEquipmentSlot());
             if (attributeModifiers.containsKey(SharedMonsterAttributes.ATTACK_DAMAGE.getName())) {
-                UtilMethods.handleAttributes(attributeModifiers.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName()), "way_of_the_sword", new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "way_of_the_sword", getAttackDamage(stack, (ICharacterStats) player.getCapability(EposCapabilities.CHARACTER_STATS, null)), AttributeModifier.Operation.ADDITION));
+                AttributeHelper.handleAttributes(attributeModifiers.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName()), "way_of_the_sword", new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "way_of_the_sword", getAttackDamage(stack, (ICharacterStats) player.getCapability(EposCapabilities.CHARACTER_STATS, null)), AttributeModifier.Operation.ADDITION));
             }
             if (attributeModifiers.containsKey(SharedMonsterAttributes.ATTACK_SPEED.getName())) {
-                UtilMethods.handleAttributes(attributeModifiers.get(SharedMonsterAttributes.ATTACK_SPEED.getName()), "iai", new AttributeModifier(ATTACK_SPEED_MODIFIER, "iai", getAttackSpeed(stack, (ICharacterStats) player.getCapability(EposCapabilities.CHARACTER_STATS, null)), AttributeModifier.Operation.ADDITION));
+                AttributeHelper.handleAttributes(attributeModifiers.get(SharedMonsterAttributes.ATTACK_SPEED.getName()), "iai", new AttributeModifier(ATTACK_SPEED_MODIFIER, "iai", getAttackSpeed(stack, (ICharacterStats) player.getCapability(EposCapabilities.CHARACTER_STATS, null)), AttributeModifier.Operation.ADDITION));
             }
         }
     }

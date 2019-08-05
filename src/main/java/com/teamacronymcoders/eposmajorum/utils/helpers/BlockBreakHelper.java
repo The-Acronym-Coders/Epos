@@ -1,8 +1,7 @@
-package com.teamacronymcoders.eposmajorum.utils;
+package com.teamacronymcoders.eposmajorum.utils.helpers;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.math.BlockPos;
@@ -12,11 +11,11 @@ import net.minecraftforge.event.world.BlockEvent;
 import org.antlr.v4.runtime.misc.Array2DHashSet;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-public class UtilMethods {
-    private static final Random RANDOM = new Random();
-
+public class BlockBreakHelper {
     public static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean willHarvest, @Nullable IFluidState fluid) {
         if (!MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world, pos, state, player))) {
             state.removedByPlayer(world, pos, player, true, null);
@@ -45,21 +44,5 @@ public class UtilMethods {
                 }
             }
         }
-    }
-
-    public static void handleAttributes(Collection<AttributeModifier> modifiers, String skill, AttributeModifier newValue) {
-        for (AttributeModifier modifier : modifiers) {
-            if (modifier.getName().equals(skill)) {
-                if (!modifier.equals(newValue)) {
-                    modifiers.remove(modifier);
-                    modifiers.add(newValue);
-                }
-                break;
-            }
-        }
-    }
-
-    public static int nextIntInclusive(int min, int max) {
-        return RANDOM.nextInt(max - min + 1) + min;
     }
 }
