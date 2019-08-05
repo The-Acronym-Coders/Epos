@@ -31,17 +31,11 @@ public class KatanaItem extends SwordItem {
     }
 
     private double getAttackDamage(ItemStack stack, ICharacterStats stats) {
-        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) {
-            return 0d;
-        }
         SkillInfo wayOfTheSword = stats.getSkills().get("eposmajorum:way_of_the_sword");
         return this.attackDamage + (0.4d * (wayOfTheSword != null ? wayOfTheSword.getLevel() : 0));
     }
 
     private double getAttackSpeed(ItemStack stack, ICharacterStats stats) {
-        if (stack.getEquipmentSlot() != EquipmentSlotType.MAINHAND) {
-            return 0d;
-        }
         SkillInfo iai = stats.getSkills().get("eposmajorum:iai");
         return this.attackSpeed - (0.4d * (iai != null ? iai.getLevel() : 0));
     }
