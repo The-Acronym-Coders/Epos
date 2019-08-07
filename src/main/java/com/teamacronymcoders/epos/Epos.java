@@ -7,7 +7,7 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.api.sounds.EposSoundEvents;
+import com.teamacronymcoders.epos.sounds.EposSoundEvents;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;

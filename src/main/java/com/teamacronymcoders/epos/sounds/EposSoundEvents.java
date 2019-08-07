@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.api.sounds;
+package com.teamacronymcoders.epos.sounds;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import net.minecraft.util.ResourceLocation;
