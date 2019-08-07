@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.api.feat;
+package com.teamacronymcoders.mcrpg.api.feat;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

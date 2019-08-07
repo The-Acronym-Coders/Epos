@@ -1,6 +1,6 @@
-package com.teamacronymcoders.eposmajorum.api.feat;
+package com.teamacronymcoders.mcrpg.api.feat;
 
-import com.teamacronymcoders.eposmajorum.api.registry.INamedRegistryEntry;
+import com.teamacronymcoders.mcrpg.api.registry.INamedRegistryEntry;
 
 import java.util.List;
 

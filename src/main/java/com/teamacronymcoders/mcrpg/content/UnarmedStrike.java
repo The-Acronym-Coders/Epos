@@ -1,14 +1,14 @@
-package com.teamacronymcoders.eposmajorum.content;
+package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.event.AltLivingDamageEvent;
-import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatAcquiredEvent;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
+import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.event.AltLivingDamageEvent;
+import com.teamacronymcoders.mcrpg.api.feat.Feat;
+import com.teamacronymcoders.mcrpg.api.feat.FeatAcquiredEvent;
+import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
 import net.minecraft.util.ResourceLocation;
 
 public class UnarmedStrike {
-    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "unarmed_strike");
+    public static final ResourceLocation NAME = new ResourceLocation(MCRPGAPI.ID, "unarmed_strike");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(AltLivingDamageEvent.class,

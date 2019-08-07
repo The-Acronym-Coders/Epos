@@ -1,10 +1,10 @@
-package com.teamacronymcoders.eposmajorum.api.feat;
+package com.teamacronymcoders.mcrpg.api.feat;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
-import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;

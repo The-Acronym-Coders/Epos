@@ -1,9 +1,9 @@
-package com.teamacronymcoders.eposmajorum.characterstats;
+package com.teamacronymcoders.mcrpg.characterstats;
 
-import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.eposmajorum.api.feat.Feats;
-import com.teamacronymcoders.eposmajorum.api.path.PathLevels;
-import com.teamacronymcoders.eposmajorum.api.skill.Skills;
+import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.mcrpg.api.feat.Feats;
+import com.teamacronymcoders.mcrpg.api.path.PathLevels;
+import com.teamacronymcoders.mcrpg.api.skill.Skills;
 import net.minecraft.nbt.CompoundNBT;
 
 public class CharacterStats implements ICharacterStats {

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.eposmajorum.api.event;
+package com.teamacronymcoders.mcrpg.api.event;
 
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 

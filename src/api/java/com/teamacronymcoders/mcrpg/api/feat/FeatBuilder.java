@@ -1,7 +1,7 @@
-package com.teamacronymcoders.eposmajorum.api.feat;
+package com.teamacronymcoders.mcrpg.api.feat;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.eposmajorum.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

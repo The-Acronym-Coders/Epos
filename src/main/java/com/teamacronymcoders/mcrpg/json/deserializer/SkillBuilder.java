@@ -1,9 +1,9 @@
-package com.teamacronymcoders.eposmajorum.json.deserializer;
+package com.teamacronymcoders.mcrpg.json.deserializer;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.eposmajorum.api.skill.ISkill;
-import com.teamacronymcoders.eposmajorum.skill.Skill;
+import com.teamacronymcoders.mcrpg.api.skill.ISkill;
+import com.teamacronymcoders.mcrpg.skill.Skill;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 

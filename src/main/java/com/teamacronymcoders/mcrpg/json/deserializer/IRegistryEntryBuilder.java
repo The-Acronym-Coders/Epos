@@ -1,7 +1,7 @@
-package com.teamacronymcoders.eposmajorum.json.deserializer;
+package com.teamacronymcoders.mcrpg.json.deserializer;
 
 import com.google.gson.JsonParseException;
-import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
+import com.teamacronymcoders.mcrpg.api.registry.IRegistryEntry;
 import net.minecraft.util.ResourceLocation;
 
 public interface IRegistryEntryBuilder<T extends IRegistryEntry> {

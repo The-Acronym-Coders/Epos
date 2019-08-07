@@ -1,7 +1,7 @@
-package com.teamacronymcoders.eposmajorum.api.feat;
+package com.teamacronymcoders.mcrpg.api.feat;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.eposmajorum.api.registry.MissingRegistryEntry;
+import com.teamacronymcoders.mcrpg.api.registry.MissingRegistryEntry;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;

@@ -1,17 +1,17 @@
-package com.teamacronymcoders.eposmajorum.eventhandler;
+package com.teamacronymcoders.mcrpg.eventhandler;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.feat.IFeat;
-import com.teamacronymcoders.eposmajorum.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
-import com.teamacronymcoders.eposmajorum.content.*;
-import com.teamacronymcoders.eposmajorum.pathfeature.feat.FeatFeatureProvider;
-import com.teamacronymcoders.eposmajorum.pathfeature.skillxp.SkillXPFeatureProvider;
+import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.feat.IFeat;
+import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
+import com.teamacronymcoders.mcrpg.content.*;
+import com.teamacronymcoders.mcrpg.pathfeature.feat.FeatFeatureProvider;
+import com.teamacronymcoders.mcrpg.pathfeature.skillxp.SkillXPFeatureProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EposAPI.ID)
+@EventBusSubscriber(modid = MCRPGAPI.ID)
 public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {

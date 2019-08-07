@@ -1,8 +1,8 @@
-package com.teamacronymcoders.eposmajorum.content;
+package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
+import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.feat.Feat;
+import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class GluttonousHunger {
-    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gluttonous_hunger");
+    public static final ResourceLocation NAME = new ResourceLocation(MCRPGAPI.ID, "gluttonous_hunger");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                 .withEventHandler(TickEvent.PlayerTickEvent.class, (playerTickEvent, livingEntity, iCharacterStats) -> {

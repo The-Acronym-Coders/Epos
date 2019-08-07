@@ -1,15 +1,15 @@
-package com.teamacronymcoders.eposmajorum.content;
+package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
+import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.feat.Feat;
+import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class LuckyLure {
-    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "lucky_lure");
+    public static final ResourceLocation NAME = new ResourceLocation(MCRPGAPI.ID, "lucky_lure");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                 .withEventHandler(TickEvent.PlayerTickEvent.class, ((event, livingEntity, iCharacterStats) -> {

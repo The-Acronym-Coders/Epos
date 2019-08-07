@@ -1,10 +1,10 @@
-package com.teamacronymcoders.eposmajorum.json.deserializer;
+package com.teamacronymcoders.mcrpg.json.deserializer;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.JsonAdapter;
-import com.teamacronymcoders.eposmajorum.api.path.IPath;
-import com.teamacronymcoders.eposmajorum.path.Path;
-import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
+import com.teamacronymcoders.mcrpg.api.path.IPath;
+import com.teamacronymcoders.mcrpg.path.Path;
+import com.teamacronymcoders.mcrpg.api.pathfeature.PathFeatures;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 

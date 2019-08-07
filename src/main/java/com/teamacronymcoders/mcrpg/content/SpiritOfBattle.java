@@ -1,8 +1,8 @@
-package com.teamacronymcoders.eposmajorum.content;
+package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.eposmajorum.api.EposAPI;
-import com.teamacronymcoders.eposmajorum.api.feat.Feat;
-import com.teamacronymcoders.eposmajorum.api.feat.FeatBuilder;
+import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.feat.Feat;
+import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 public class SpiritOfBattle {
-    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "spirit_of_battle");
+    public static final ResourceLocation NAME = new ResourceLocation(MCRPGAPI.ID, "spirit_of_battle");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                 .withEventHandler(LivingDeathEvent.class,
