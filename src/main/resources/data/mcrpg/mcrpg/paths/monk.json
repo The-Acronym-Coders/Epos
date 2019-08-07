@@ -1,0 +1,31 @@
+{
+  "name": {
+    "translate": "path.mcrpg.monk.name"
+  },
+  "description": {
+    "translate": "path.mcrpg.monk.description"
+  },
+  "maxLevel": 20,
+  "features": {
+    "1": [
+      {
+        "type": "mcrpg:feat",
+        "feat": "mcrpg:unarmed_strike"
+      }
+    ],
+    "5": [
+      {
+        "type": "mcrpg:skill_xp",
+        "skill": "mcrpg:unarmed_strike",
+        "amount": "1000"
+      }
+    ],
+    "10": [
+      {
+        "type": "mcrpg:skill_xp",
+        "skill": "mcrpg:unarmed_strike",
+        "amount": "1000"
+      }
+    ]
+  }
+}

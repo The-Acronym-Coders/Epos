@@ -1,0 +1,7 @@
+{
+  "level-up": {
+    "category": "player",
+    "subtitle": "mcrpg.subtitle.levelUp",
+    "sounds": [ "mcrpg:level-up" ]
+  }
+}
