@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.json.deserializer;
+package com.teamacronymcoders.epos.json.deserializer;
 
 import com.google.gson.JsonParseException;
 import com.teamacronymcoders.epos.api.registry.IRegistryEntry;

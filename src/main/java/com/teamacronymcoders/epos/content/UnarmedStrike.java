@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.content;
+package com.teamacronymcoders.epos.content;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.characterstats;
+package com.teamacronymcoders.epos.characterstats;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.feat.Feats;

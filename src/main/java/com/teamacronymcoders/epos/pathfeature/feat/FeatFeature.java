@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.pathfeature.feat;
+package com.teamacronymcoders.epos.pathfeature.feat;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposCapabilities;

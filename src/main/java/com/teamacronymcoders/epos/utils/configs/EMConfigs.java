@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.utils.configs;
+package com.teamacronymcoders.epos.utils.configs;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
