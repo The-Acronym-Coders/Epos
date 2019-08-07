@@ -1,8 +1,8 @@
-package com.teamacronymcoders.mcrpg.api.characterstats;
+package com.teamacronymcoders.epos.api.characterstats;
 
-import com.teamacronymcoders.mcrpg.api.feat.Feats;
-import com.teamacronymcoders.mcrpg.api.path.PathLevels;
-import com.teamacronymcoders.mcrpg.api.skill.Skills;
+import com.teamacronymcoders.epos.api.feat.Feats;
+import com.teamacronymcoders.epos.api.path.PathLevels;
+import com.teamacronymcoders.epos.api.skill.Skills;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
