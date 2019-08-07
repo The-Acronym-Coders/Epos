@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.utils;
 
 import com.teamacronymcoders.mcrpg.Epos;
-import com.teamacronymcoders.mcrpg.api.EposAPI;
+import com.teamacronymcoders.epos.api.EposAPI;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;

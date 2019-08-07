@@ -1,11 +1,11 @@
 package com.teamacronymcoders.mcrpg.pathfeature.feat;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.EposCapabilities;
-import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.mcrpg.api.feat.FeatSource;
-import com.teamacronymcoders.mcrpg.api.feat.IFeat;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.EposCapabilities;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.feat.FeatSource;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

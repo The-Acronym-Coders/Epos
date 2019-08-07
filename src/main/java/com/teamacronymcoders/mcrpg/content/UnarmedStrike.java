@@ -1,10 +1,10 @@
 package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.event.AltLivingDamageEvent;
-import com.teamacronymcoders.mcrpg.api.feat.Feat;
-import com.teamacronymcoders.mcrpg.api.feat.FeatAcquiredEvent;
-import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
+import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
+import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.util.ResourceLocation;
 
 public class UnarmedStrike {

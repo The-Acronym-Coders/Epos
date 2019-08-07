@@ -1,10 +1,10 @@
 package com.teamacronymcoders.mcrpg.eventhandler;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.feat.IFeat;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.mcrpg.content.*;
 import com.teamacronymcoders.mcrpg.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.mcrpg.pathfeature.skillxp.SkillXPFeatureProvider;

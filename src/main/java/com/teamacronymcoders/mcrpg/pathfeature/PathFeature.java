@@ -1,6 +1,6 @@
 package com.teamacronymcoders.mcrpg.pathfeature;
 
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import net.minecraft.util.text.ITextComponent;
 
 public abstract class PathFeature implements IPathFeature {

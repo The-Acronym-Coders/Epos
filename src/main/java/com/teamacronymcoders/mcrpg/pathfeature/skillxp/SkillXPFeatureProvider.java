@@ -3,11 +3,11 @@ package com.teamacronymcoders.mcrpg.pathfeature.skillxp;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.json.JsonUtils;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.mcrpg.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.json.JsonUtils;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.skill.ISkill;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;

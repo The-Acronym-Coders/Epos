@@ -1,9 +1,9 @@
 package com.teamacronymcoders.mcrpg.eventhandler;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.EposCapabilities;
-import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.mcrpg.api.event.AltLivingDamageEvent;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.EposCapabilities;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;

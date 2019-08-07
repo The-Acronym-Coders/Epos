@@ -1,11 +1,11 @@
 package com.teamacronymcoders.mcrpg.pathfeature.feat;
 
 import com.google.gson.*;
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.feat.IFeat;
-import com.teamacronymcoders.mcrpg.api.json.JsonUtils;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.json.JsonUtils;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;

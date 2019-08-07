@@ -1,8 +1,8 @@
 package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.feat.Feat;
-import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemTier;

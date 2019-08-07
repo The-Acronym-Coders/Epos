@@ -1,8 +1,8 @@
 package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.feat.Feat;
-import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;

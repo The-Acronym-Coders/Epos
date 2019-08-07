@@ -2,10 +2,10 @@ package com.teamacronymcoders.mcrpg.json.deserializer;
 
 import com.google.common.collect.Lists;
 import com.google.gson.*;
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.mcrpg.api.pathfeature.PathFeatures;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 

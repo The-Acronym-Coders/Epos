@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.skill;
 
-import com.teamacronymcoders.mcrpg.api.skill.ISkill;
-import com.teamacronymcoders.mcrpg.api.skill.SkillInfo;
+import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 

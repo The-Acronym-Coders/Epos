@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.pathfeature.skillxp;
 
-import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.mcrpg.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.mcrpg.pathfeature.PathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TranslationTextComponent;

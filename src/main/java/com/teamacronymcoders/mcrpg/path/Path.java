@@ -1,8 +1,8 @@
 package com.teamacronymcoders.mcrpg.path;
 
-import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.mcrpg.api.path.IPath;
-import com.teamacronymcoders.mcrpg.api.pathfeature.PathFeatures;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;

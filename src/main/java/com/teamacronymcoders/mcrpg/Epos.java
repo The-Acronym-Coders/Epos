@@ -1,13 +1,13 @@
 package com.teamacronymcoders.mcrpg;
 
-import com.teamacronymcoders.mcrpg.api.EposAPI;
-import com.teamacronymcoders.mcrpg.api.EposResourceType;
-import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.mcrpg.api.feat.IFeat;
-import com.teamacronymcoders.mcrpg.api.path.IPath;
-import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
-import com.teamacronymcoders.mcrpg.api.skill.ISkill;
-import com.teamacronymcoders.mcrpg.api.sounds.EposSoundEvents;
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.EposResourceType;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
+import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.sounds.EposSoundEvents;
 import com.teamacronymcoders.mcrpg.characterstats.CharacterStats;
 import com.teamacronymcoders.mcrpg.json.JsonLoader;
 import com.teamacronymcoders.mcrpg.utils.configs.EMConfigs;
@@ -35,8 +35,8 @@ import javax.annotation.Nullable;
 
 import java.io.File;
 
-import static com.teamacronymcoders.mcrpg.api.EposAPI.ID;
-import static com.teamacronymcoders.mcrpg.api.EposAPI.PATH_REGISTRY;
+import static com.teamacronymcoders.epos.api.EposAPI.ID;
+import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 
 @Mod(ID)
 @Mod.EventBusSubscriber
