@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.pathfeature.skillxp;
+package com.teamacronymcoders.epos.pathfeature.skillxp;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;

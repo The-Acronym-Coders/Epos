@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.path;
+package com.teamacronymcoders.epos.path;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.path.IPath;

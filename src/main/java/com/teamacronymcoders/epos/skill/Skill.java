@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.skill;
+package com.teamacronymcoders.epos.skill;
 
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;

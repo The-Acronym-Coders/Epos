@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg;
+package com.teamacronymcoders.epos;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposResourceType;
@@ -8,9 +8,9 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.sounds.EposSoundEvents;
-import com.teamacronymcoders.mcrpg.characterstats.CharacterStats;
-import com.teamacronymcoders.mcrpg.json.JsonLoader;
-import com.teamacronymcoders.mcrpg.utils.configs.EMConfigs;
+import com.teamacronymcoders.epos.characterstats.CharacterStats;
+import com.teamacronymcoders.epos.json.JsonLoader;
+import com.teamacronymcoders.epos.utils.configs.EMConfigs;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;

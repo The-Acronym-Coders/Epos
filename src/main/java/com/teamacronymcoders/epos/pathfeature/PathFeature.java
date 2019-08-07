@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.pathfeature;
+package com.teamacronymcoders.epos.pathfeature;
 
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import net.minecraft.util.text.ITextComponent;

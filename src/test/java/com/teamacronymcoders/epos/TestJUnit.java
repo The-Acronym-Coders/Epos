@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg;
+package com.teamacronymcoders.epos;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.mcrpg.eventhandler;
+package com.teamacronymcoders.epos.eventhandler;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposCapabilities;

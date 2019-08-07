@@ -1,9 +1,9 @@
-package com.teamacronymcoders.mcrpg.json;
+package com.teamacronymcoders.epos.json;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.teamacronymcoders.mcrpg.Epos;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.registry.IRegistryEntry;
 import com.teamacronymcoders.epos.api.registry.Registry;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
