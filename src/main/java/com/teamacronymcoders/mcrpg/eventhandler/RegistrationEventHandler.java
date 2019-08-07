@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.eventhandler;
 
 import com.google.common.collect.Lists;
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import com.teamacronymcoders.mcrpg.api.feat.IFeat;
 import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
@@ -11,7 +11,7 @@ import com.teamacronymcoders.mcrpg.pathfeature.skillxp.SkillXPFeatureProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(modid = MCRPGAPI.ID)
+@EventBusSubscriber(modid = EposAPI.ID)
 public class RegistrationEventHandler {
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {

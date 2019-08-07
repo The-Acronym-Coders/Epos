@@ -2,7 +2,7 @@ package com.teamacronymcoders.mcrpg.api;
 
 import net.minecraftforge.resource.IResourceType;
 
-public enum MCRPGResourceType implements IResourceType {
+public enum EposResourceType implements IResourceType {
     PATH,
     SKILL
 }

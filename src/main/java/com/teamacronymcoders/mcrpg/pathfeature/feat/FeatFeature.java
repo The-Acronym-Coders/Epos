@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.pathfeature.feat;
 
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
-import com.teamacronymcoders.mcrpg.api.MCRPGCapabilities;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
+import com.teamacronymcoders.mcrpg.api.EposCapabilities;
 import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.mcrpg.api.feat.FeatSource;
 import com.teamacronymcoders.mcrpg.api.feat.IFeat;
@@ -13,7 +13,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class FeatFeature implements IPathFeature {
     public static final FeatSource FEATURE_SOURCE =
-            new FeatSource(new ResourceLocation(MCRPGAPI.ID, "feature"), false);
+            new FeatSource(new ResourceLocation(EposAPI.ID, "feature"), false);
 
     private final IFeat feat;
     private final ITextComponent name;
@@ -21,8 +21,8 @@ public class FeatFeature implements IPathFeature {
 
     public FeatFeature(IFeat feat) {
         this.feat = feat;
-        this.name = new TranslationTextComponent("pathfeature.mcrpg.feat.name", feat.getName());
-        this.description = new TranslationTextComponent("pathfeature.mcrpg.feat.description", feat.getName());
+        this.name = new TranslationTextComponent("pathfeature.epos.feat.name", feat.getName());
+        this.description = new TranslationTextComponent("pathfeature.epos.feat.description", feat.getName());
     }
 
     @Override
@@ -37,7 +37,7 @@ public class FeatFeature implements IPathFeature {
 
     @Override
     public void applyTo(LivingEntity character, ICharacterStats characterStats) {
-        character.getCapability(MCRPGCapabilities.CHARACTER_STATS)
+        character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
                         .addFeat(feat, FEATURE_SOURCE));
@@ -45,7 +45,7 @@ public class FeatFeature implements IPathFeature {
 
     @Override
     public void removeFrom(LivingEntity character, ICharacterStats characterStats) {
-        character.getCapability(MCRPGCapabilities.CHARACTER_STATS)
+        character.getCapability(EposCapabilities.CHARACTER_STATS)
                 .ifPresent(iCharacterStats -> iCharacterStats
                         .getFeats()
                         .removeFeat(feat));

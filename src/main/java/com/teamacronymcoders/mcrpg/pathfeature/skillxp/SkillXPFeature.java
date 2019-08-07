@@ -11,8 +11,8 @@ public class SkillXPFeature extends PathFeature {
     private final int xpAmount;
 
     public SkillXPFeature(ISkill skill, int xpAmount) {
-        super(new TranslationTextComponent("pathfeature.mcrpg.skillxp.name", skill.getName(), xpAmount),
-            new TranslationTextComponent("pathfeature.mcrpg.skillxp.description", skill.getName(), xpAmount));
+        super(new TranslationTextComponent("pathfeature.epos.skillxp.name", skill.getName(), xpAmount),
+            new TranslationTextComponent("pathfeature.epos.skillxp.description", skill.getName(), xpAmount));
         this.skill = skill;
         this.xpAmount = xpAmount;
     }

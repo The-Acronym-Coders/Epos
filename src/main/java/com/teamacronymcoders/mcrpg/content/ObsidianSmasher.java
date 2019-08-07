@@ -1,6 +1,6 @@
 package com.teamacronymcoders.mcrpg.content;
 
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import com.teamacronymcoders.mcrpg.api.feat.Feat;
 import com.teamacronymcoders.mcrpg.api.feat.FeatBuilder;
 import net.minecraft.block.Blocks;
@@ -11,7 +11,7 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class ObsidianSmasher {
-    public static final ResourceLocation NAME = new ResourceLocation(MCRPGAPI.ID, "obsidian_smasher");
+    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                 .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {

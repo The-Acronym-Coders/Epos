@@ -13,8 +13,8 @@ public class MissingRegistryEntry<T extends INamedRegistryEntry<T>> implements I
 
     public MissingRegistryEntry(ResourceLocation registryName, String type) {
         this.registryName = registryName;
-        this.name = new TranslationTextComponent(type + ".eposmajorum.missing.name");
-        this.description = new TranslationTextComponent(type + "eposmajorum.missing.description");
+        this.name = new TranslationTextComponent(type + ".epos.missing.name");
+        this.description = new TranslationTextComponent(type + "epos.missing.description");
     }
 
     @Override

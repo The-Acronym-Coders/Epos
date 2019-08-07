@@ -1,6 +1,6 @@
 package com.teamacronymcoders.mcrpg.api.path;
 
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -55,7 +55,7 @@ public class PathLevels implements INBTSerializable<CompoundNBT> {
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         for (String key : nbt.keySet()) {
-            pathLevels.put(Integer.parseInt(key), MCRPGAPI.PATH_REGISTRY.getEntry(nbt.getString(key)));
+            pathLevels.put(Integer.parseInt(key), EposAPI.PATH_REGISTRY.getEntry(nbt.getString(key)));
         }
     }
 }

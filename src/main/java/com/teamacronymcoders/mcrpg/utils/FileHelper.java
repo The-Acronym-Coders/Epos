@@ -1,14 +1,14 @@
 package com.teamacronymcoders.mcrpg.utils;
 
-import com.teamacronymcoders.mcrpg.MCRPG;
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.Epos;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.IOException;
 
 public class FileHelper {
-    public static File root = new File(FMLPaths.CONFIGDIR.get().toFile(), MCRPGAPI.ID);
+    public static File root = new File(FMLPaths.CONFIGDIR.get().toFile(), EposAPI.ID);
 
     public static File getOrGenFile(String file) {
         return createFile(new File(file));
@@ -26,7 +26,7 @@ public class FileHelper {
         try {
             file.createNewFile();
         } catch (IOException e) {
-            MCRPG.LOGGER.error("Couldn't create File: " + file.getName());
+            Epos.LOGGER.error("Couldn't create File: " + file.getName());
         }
 
         return file;

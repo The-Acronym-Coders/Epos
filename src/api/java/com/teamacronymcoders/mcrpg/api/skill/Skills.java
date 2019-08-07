@@ -1,6 +1,6 @@
 package com.teamacronymcoders.mcrpg.api.skill;
 
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -37,7 +37,7 @@ public class Skills implements INBTSerializable<CompoundNBT> {
     public SkillInfo getOrCreate(String name) {
         SkillInfo skillInfo = this.get(name);
         if (skillInfo == null) {
-            skillInfo = new SkillInfo(MCRPGAPI.SKILL_REGISTRY.getEntryOrMissing(name));
+            skillInfo = new SkillInfo(EposAPI.SKILL_REGISTRY.getEntryOrMissing(name));
             this.putSkillInfo(skillInfo);
         }
         return skillInfo;
@@ -68,7 +68,7 @@ public class Skills implements INBTSerializable<CompoundNBT> {
         nbt.keySet().stream()
                 .map(key -> Pair.of(key, nbt.getCompound(key)))
                 .map(compound -> {
-                    ISkill skill = MCRPGAPI.SKILL_REGISTRY.getEntryOrMissing(compound.getKey());
+                    ISkill skill = EposAPI.SKILL_REGISTRY.getEntryOrMissing(compound.getKey());
                     SkillInfo skillInfo = skill.createSkillInfo();
                     skillInfo.deserializeNBT(compound.getValue());
                     return skillInfo;

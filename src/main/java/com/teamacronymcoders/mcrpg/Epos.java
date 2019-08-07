@@ -1,13 +1,13 @@
 package com.teamacronymcoders.mcrpg;
 
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
-import com.teamacronymcoders.mcrpg.api.MCRPGResourceType;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
+import com.teamacronymcoders.mcrpg.api.EposResourceType;
 import com.teamacronymcoders.mcrpg.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.mcrpg.api.feat.IFeat;
 import com.teamacronymcoders.mcrpg.api.path.IPath;
 import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
 import com.teamacronymcoders.mcrpg.api.skill.ISkill;
-import com.teamacronymcoders.mcrpg.api.sounds.MCRPGSoundEvents;
+import com.teamacronymcoders.mcrpg.api.sounds.EposSoundEvents;
 import com.teamacronymcoders.mcrpg.characterstats.CharacterStats;
 import com.teamacronymcoders.mcrpg.json.JsonLoader;
 import com.teamacronymcoders.mcrpg.utils.configs.EMConfigs;
@@ -35,20 +35,20 @@ import javax.annotation.Nullable;
 
 import java.io.File;
 
-import static com.teamacronymcoders.mcrpg.api.MCRPGAPI.ID;
-import static com.teamacronymcoders.mcrpg.api.MCRPGAPI.PATH_REGISTRY;
+import static com.teamacronymcoders.mcrpg.api.EposAPI.ID;
+import static com.teamacronymcoders.mcrpg.api.EposAPI.PATH_REGISTRY;
 
 @Mod(ID)
 @Mod.EventBusSubscriber
-public class MCRPG {
-    private static final String config = "mcrpg.toml";
+public class Epos {
+    private static final String config = "epos.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
-    private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", MCRPGResourceType.PATH, IPath.class, PATH_REGISTRY);
+    private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
-    public MCRPG() {
+    public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), "mcrpg.toml").getAbsolutePath());
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), "epos.toml").getAbsolutePath());
     }
 
     @SuppressWarnings("unused")
@@ -67,15 +67,15 @@ public class MCRPG {
         }, CharacterStats::new);
 
         DeferredWorkQueue.runLater(() -> {
-            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, MCRPGAPI.SKILL_REGISTRY));
-            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, MCRPGAPI.FEAT_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
+            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
     }
 
     @SubscribeEvent
     public void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
         eventRegistryEvent.getRegistry().registerAll(
-                MCRPGSoundEvents.levelUp
+                EposSoundEvents.levelUp
         );
     }
 

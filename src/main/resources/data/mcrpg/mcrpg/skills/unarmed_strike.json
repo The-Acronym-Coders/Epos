@@ -1,9 +1,9 @@
 {
   "name": {
-    "translate": "skill.mcrpg.unarmed_strike.name"
+    "translate": "skill.epos.unarmed_strike.name"
   },
   "description": {
-    "translate": "skill.mcrpg.unarmed_strike.description"
+    "translate": "skill.epos.unarmed_strike.description"
   },
   "maxLevel": 50,
   "hidden": true

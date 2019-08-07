@@ -3,14 +3,15 @@ loaderVersion="[28,)"
 issueTrackerURL="https://github.com/The-Acronym-Coders/mcrpg/issues"
 
 [[mods]]
-    modId="mcrpg"
+    modId="epos"
     version="${file.jarVersion}"
-    displayName="MCRPG"
+    displayName="Epos"
     authors="SkySom, Lanse505, pupnewfster"
     description='''
-        Adds Classes, Skills, and Leveling to Minecraft.
-
-        Credits to:
-            - Alexander for the Level-Up sound!
-                - http://www.orangefreesounds.com/level-sound-effect/
-    '''
+Adds Classes, Skills, and Leveling to Minecraft.
+    Credits to:
+        - Alexander for the Level-Up sound!
+            - http://www.orangefreesounds.com/level-sound-effect/
+        - HRZNStudio & The Titanium Team
+            - For the great work done with the Titanium API
+'''

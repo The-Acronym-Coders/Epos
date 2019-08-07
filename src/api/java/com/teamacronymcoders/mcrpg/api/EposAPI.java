@@ -10,8 +10,8 @@ import com.teamacronymcoders.mcrpg.api.registry.Registry;
 import com.teamacronymcoders.mcrpg.api.skill.ISkill;
 import com.teamacronymcoders.mcrpg.api.skill.MissingSkill;
 
-public class MCRPGAPI {
-    public static final String ID = "mcrpg";
+public class EposAPI {
+    public static final String ID = "epos";
 
     public static final Registry<IPath> PATH_REGISTRY = new Registry<>(MissingPath::new);
     public static final Registry<IFeat> FEAT_REGISTRY = new Registry<>(MissingFeat::new);

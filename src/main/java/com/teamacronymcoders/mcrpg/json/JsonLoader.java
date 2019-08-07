@@ -3,7 +3,7 @@ package com.teamacronymcoders.mcrpg.json;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.teamacronymcoders.mcrpg.MCRPG;
+import com.teamacronymcoders.mcrpg.Epos;
 import com.teamacronymcoders.mcrpg.api.registry.IRegistryEntry;
 import com.teamacronymcoders.mcrpg.api.registry.Registry;
 import com.teamacronymcoders.mcrpg.api.registry.RegistrationEvent;
@@ -18,7 +18,6 @@ import org.apache.commons.io.IOUtils;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +55,7 @@ public class JsonLoader<T extends IRegistryEntry> implements ISelectiveResourceR
     }
 
     private List<T> loadValues(IResourceManager resourceManager) {
-        final String folder = "mcrpg/" + type;
+        final String folder = "epos/" + type;
         final String extension = ".json";
         return resourceManager.getAllResourceLocations(folder, n -> n.endsWith(extension))
                 .stream()
@@ -66,7 +65,7 @@ public class JsonLoader<T extends IRegistryEntry> implements ISelectiveResourceR
                     try {
                         return resourceManager.getAllResources(resource);
                     } catch (IOException exception) {
-                        MCRPG.LOGGER.warn("Failed to Load Files for " + type, exception);
+                        Epos.LOGGER.warn("Failed to Load Files for " + type, exception);
                         return Lists.<IResource>newArrayList();
                     }
                 })
@@ -76,7 +75,7 @@ public class JsonLoader<T extends IRegistryEntry> implements ISelectiveResourceR
                                 return gson.fromJson(IOUtils.toString(resource.getInputStream(),
                                         StandardCharsets.UTF_8), tClass);
                             } catch (IOException e) {
-                                MCRPG.LOGGER.warn("Failed to Parse " + type + " for file: "
+                                Epos.LOGGER.warn("Failed to Parse " + type + " for file: "
                                         + resource.getLocation().toString());
                                 return null;
                             } finally {

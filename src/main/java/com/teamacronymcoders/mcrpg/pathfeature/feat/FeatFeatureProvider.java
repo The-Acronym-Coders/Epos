@@ -1,7 +1,7 @@
 package com.teamacronymcoders.mcrpg.pathfeature.feat;
 
 import com.google.gson.*;
-import com.teamacronymcoders.mcrpg.api.MCRPGAPI;
+import com.teamacronymcoders.mcrpg.api.EposAPI;
 import com.teamacronymcoders.mcrpg.api.feat.IFeat;
 import com.teamacronymcoders.mcrpg.api.json.JsonUtils;
 import com.teamacronymcoders.mcrpg.api.pathfeature.IPathFeature;
@@ -11,12 +11,12 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 
 public class FeatFeatureProvider implements IPathFeatureProvider {
-    private final ResourceLocation registryName = new ResourceLocation(MCRPGAPI.ID, "feat");
+    private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "feat");
 
     @Override
     public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) {
         String featName = JsonUtils.getString(jsonObject, "feat");
-        IFeat feat = MCRPGAPI.FEAT_REGISTRY.getEntry(featName);
+        IFeat feat = EposAPI.FEAT_REGISTRY.getEntry(featName);
         if (feat != null) {
             return new FeatFeature(feat);
         } else {
