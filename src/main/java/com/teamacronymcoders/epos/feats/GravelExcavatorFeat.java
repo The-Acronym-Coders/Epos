@@ -35,7 +35,7 @@ public class GravelExcavatorFeat {
                                 }
 
                                 for (BlockPos pos1 : posDeque) {
-                                    BlockBreakHelper.handleBreakBlock(world, holder, world.getBlockState(pos1), player, true, null);
+                                    BlockBreakHelper.handleBreakBlock(world, holder, world.getBlockState(pos1), player);
                                 }
                             }
                         })

@@ -20,7 +20,7 @@ public class BlockBreakHelper {
         iterable.forEach(blockPos -> handleBreakBlock(world, blockPos, world.getBlockState(blockPos), player));
     }
 
-    private static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world, pos, state, player))) {
             state.removedByPlayer(world, pos, player, true, null);
             state.getBlock().harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getActiveItemStack());
