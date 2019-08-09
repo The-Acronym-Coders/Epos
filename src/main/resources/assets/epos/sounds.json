@@ -1,0 +1,7 @@
+{
+  "level-up": {
+    "category": "player",
+    "subtitle": "epos.subtitle.levelUp",
+    "sounds": [ "epos:level-up" ]
+  }
+}

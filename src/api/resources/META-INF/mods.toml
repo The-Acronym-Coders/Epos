@@ -3,9 +3,9 @@ loaderVersion="[28,)"
 issueTrackerURL="https://github.com/The-Acronym-Coders/epos/issues"
 
 [[mods]]
-    modId="epos"
+    modId="epos-api"
     version="${file.jarVersion}"
-    displayName="Epos"
+    displayName="Epos-API"
     authors="SkySom, Lanse505, pupnewfster"
     description='''
 Adds Classes, Skills, and Leveling to Minecraft.
