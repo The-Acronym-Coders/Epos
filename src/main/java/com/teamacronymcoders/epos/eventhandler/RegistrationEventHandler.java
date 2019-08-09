@@ -8,7 +8,6 @@ import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
-import com.teamacronymcoders.epos.pathfeature.feat.FeatPointFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -47,8 +46,7 @@ public class RegistrationEventHandler {
                 new FeatFeatureProvider(),
                 new SkillXPFeatureProvider(),
                 new LevelUpSkillFeatureProvider(),
-                new ItemRewardFeatureProvider(),
-                new FeatPointFeatureProvider()
+                new ItemRewardFeatureProvider()
         ));
     }
 
