@@ -18,13 +18,8 @@ public class ObsidianSmasherFeat {
             FeatBuilder.start(TOOL_NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
                         PlayerEntity playerEntity = breakSpeed.getEntityPlayer();
-                        if (breakSpeed.getState().getBlock() == Blocks.OBSIDIAN &&
-                                playerEntity.getHeldItemMainhand().getHarvestLevel(ToolType.PICKAXE, playerEntity, breakSpeed.getState()) >= ItemTier.DIAMOND.getHarvestLevel()) {
-                            if (breakSpeed.getOriginalSpeed() == breakSpeed.getNewSpeed()) {
-                                breakSpeed.setNewSpeed(breakSpeed.getOriginalSpeed() * 10);
-                            } else {
-                                breakSpeed.setNewSpeed(breakSpeed.getNewSpeed() * 10);
-                            }
+                        if (breakSpeed.getState().getBlock() == Blocks.OBSIDIAN && playerEntity.getHeldItemMainhand().getHarvestLevel(ToolType.PICKAXE, playerEntity, breakSpeed.getState()) >= ItemTier.DIAMOND.getHarvestLevel()) {
+                            breakSpeed.setNewSpeed(breakSpeed.getNewSpeed() * 10);
                         }
                     }).finish();
 
@@ -33,11 +28,7 @@ public class ObsidianSmasherFeat {
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
                         PlayerEntity playerEntity = breakSpeed.getEntityPlayer();
                         if (breakSpeed.getState().getBlock() == Blocks.OBSIDIAN && playerEntity.getHeldItemMainhand().isEmpty()) {
-                            if (breakSpeed.getOriginalSpeed() == breakSpeed.getNewSpeed()) {
-                                breakSpeed.setNewSpeed(breakSpeed.getOriginalSpeed() * 10);
-                            } else {
-                                breakSpeed.setNewSpeed(breakSpeed.getNewSpeed() * 10);
-                            }
+                            breakSpeed.setNewSpeed(breakSpeed.getNewSpeed() * 10);
                         }
                     }).finish();
 }
