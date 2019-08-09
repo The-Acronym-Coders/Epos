@@ -14,9 +14,9 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class TimberFeat {
-    private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "timber");
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "timber");
     public static final Feat FEAT =
-            FeatBuilder.start(RL)
+            FeatBuilder.start(NAME)
                 .withEventHandler(BlockEvent.BreakEvent.class,
                         (breakEvent, entity, iCharacterStats) -> {
                             if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {

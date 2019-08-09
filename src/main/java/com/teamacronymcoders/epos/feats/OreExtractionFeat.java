@@ -12,9 +12,9 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class OreExtractionFeat {
-    private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "ore_extraction");
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "ore_extraction");
     public static final Feat FEAT =
-            FeatBuilder.start(RL)
+            FeatBuilder.start(NAME)
             .withEventHandler(BlockEvent.BreakEvent.class,
                     (breakEvent, entity, iCharacterStats) -> {
                         if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {

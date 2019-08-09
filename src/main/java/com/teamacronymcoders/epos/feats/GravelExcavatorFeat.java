@@ -16,9 +16,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class GravelExcavatorFeat {
-    private static final ResourceLocation RL = new ResourceLocation(EposAPI.ID, "gravel_excavator");
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gravel_excavator");
     public static final Feat FEAT =
-            FeatBuilder.start(RL)
+            FeatBuilder.start(NAME)
                 .withEventHandler(BlockEvent.BreakEvent.class,
                         (breakEvent, entity, iCharacterStats) -> {
                             if (entity.getActiveItemStack().getToolTypes().contains(ToolType.SHOVEL) && breakEvent.getState().getBlock() instanceof GravelBlock) {
