@@ -14,8 +14,8 @@ public class ItemRewardFeature extends PathFeature {
     private final ItemStack stack;
 
     public ItemRewardFeature(String identifier, ItemStack stack) {
-        super(new TranslationTextComponent("pathfeature.eposmajorum.itemreward.name", stack.getDisplayName()),
-                new TranslationTextComponent("pathfeature.eposmajorum.itemreward.description", stack.getDisplayName()));
+        super(new TranslationTextComponent("pathfeature.epos.itemreward.name", stack.getDisplayName()),
+                new TranslationTextComponent("pathfeature.epos.itemreward.description", stack.getDisplayName()));
         this.identifier = identifier;
         this.stack = stack;
     }

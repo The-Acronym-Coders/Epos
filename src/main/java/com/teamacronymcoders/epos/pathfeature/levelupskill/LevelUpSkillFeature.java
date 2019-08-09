@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.pathfeature.levelupskill;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.pathfeature.PathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -11,8 +12,8 @@ public class LevelUpSkillFeature extends PathFeature {
     private final int levels;
 
     public LevelUpSkillFeature(ISkill skill, int levels) {
-        super(new TranslationTextComponent("pathfeature.eposmajorum.levelup.name", levels, skill.getName()),
-                new TranslationTextComponent("pathfeature.eposmajorum.levelup.description", levels, skill.getName()));
+        super(new TranslationTextComponent("pathfeature.epos.levelup.name", levels, skill.getName()),
+                new TranslationTextComponent("pathfeature.epos.levelup.description", levels, skill.getName()));
         this.skill = skill;
         this.levels = levels;
     }
@@ -20,12 +21,14 @@ public class LevelUpSkillFeature extends PathFeature {
     @Override
     public void applyTo(LivingEntity character, ICharacterStats characterStats) {
         int level = characterStats.getSkills().getOrCreate(skill).getLevel();
-        characterStats.getSkills().getOrCreate(skill).setLevel(level + levels);
+        SkillInfo info = characterStats.getSkills().get(skill);
+        if (info != null) info.setLevel(level + levels);
     }
 
     @Override
     public void removeFrom(LivingEntity character, ICharacterStats characterStats) {
         int level = characterStats.getSkills().getOrCreate(skill).getLevel();
-        characterStats.getSkills().getOrCreate(skill).setLevel(level - levels);
+        SkillInfo info = characterStats.getSkills().get(skill);
+        if (info != null) info.setLevel(level + levels);
     }
 }

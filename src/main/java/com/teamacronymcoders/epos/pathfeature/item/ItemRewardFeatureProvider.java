@@ -15,8 +15,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
-import static net.minecraftforge.common.util.JsonUtils.readNBT;
-
 public class ItemRewardFeatureProvider implements IPathFeatureProvider {
     private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "item_reward");
 
@@ -25,7 +23,7 @@ public class ItemRewardFeatureProvider implements IPathFeatureProvider {
         String identifier = JSONUtils.getString(jsonObject, "identifier");
         String item = JsonUtils.getString(jsonObject, "item");
         int quantity = JsonUtils.getInt(jsonObject, "quantity");
-        CompoundNBT nbt = readNBT(jsonObject, "nbt");
+        CompoundNBT nbt = net.minecraftforge.common.util.JsonUtils.readNBT(jsonObject, "nbt");
         ItemStack stack = new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(item)), quantity, nbt);
         if (!identifier.isEmpty() && !stack.isEmpty()) {
             return new ItemRewardFeature(identifier, stack);
