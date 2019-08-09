@@ -29,7 +29,7 @@ public class HarvestAreaFeat {
                                     positions = BlockPos.getAllInBoxMutable(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1, pos.getX() - 1, pos.getY() - 1, pos.getZ() -1);
                                 }
                                 if (positions != null) {
-                                    positions.forEach(blockPos -> BlockBreakHelper.handleBreakBlock(world, blockPos, world.getBlockState(blockPos), player, true, null));
+                                    BlockBreakHelper.handleBreakBlock(positions, world, player);
                                 }
                             }
                         })

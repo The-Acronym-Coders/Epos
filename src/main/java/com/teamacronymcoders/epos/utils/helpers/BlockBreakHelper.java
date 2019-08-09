@@ -16,7 +16,11 @@ import java.util.List;
 import java.util.Set;
 
 public class BlockBreakHelper {
-    public static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player, boolean willHarvest, @Nullable IFluidState fluid) {
+    public static void handleBreakBlock(Iterable<BlockPos> iterable, World world, PlayerEntity player) {
+        iterable.forEach(blockPos -> handleBreakBlock(world, blockPos, world.getBlockState(blockPos), player));
+    }
+
+    private static void handleBreakBlock(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!MinecraftForge.EVENT_BUS.post(new BlockEvent.BreakEvent(world, pos, state, player))) {
             state.removedByPlayer(world, pos, player, true, null);
             state.getBlock().harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getActiveItemStack());
@@ -38,7 +42,7 @@ public class BlockBreakHelper {
                     BlockState shiftedState = world.getBlockState(mutable);
                     Block shiftedBlock = shiftedState.getBlock();
                     if (shiftedBlock.equals(block)) {
-                        handleBreakBlock(world, mutable, shiftedState, player, true, null);
+                        handleBreakBlock(world, mutable, shiftedState, player);
                         scheduled.add(mutable.toImmutable());
                     }
                 }
