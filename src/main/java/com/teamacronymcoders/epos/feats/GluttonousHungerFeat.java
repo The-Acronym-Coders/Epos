@@ -15,9 +15,7 @@ public class GluttonousHungerFeat {
             FeatBuilder.start(NAME)
                     .withEventHandler(TickEvent.PlayerTickEvent.class, (playerTickEvent, livingEntity, iCharacterStats) -> {
                         PlayerEntity playerEntity = playerTickEvent.player;
-                        if (playerEntity == null || playerEntity.isCreative() || playerEntity.isSpectator()) {
-                            return;
-                        } else {
+                        if (playerEntity != null && !playerEntity.isCreative() && !playerEntity.isSpectator()) {
                             int playerHunger = playerEntity.getFoodStats().getFoodLevel();
                             if (playerHunger < 20) {
                                 NonNullList<ItemStack> inventoryList = playerEntity.inventory.mainInventory;
