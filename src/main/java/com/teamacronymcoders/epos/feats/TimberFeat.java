@@ -5,9 +5,11 @@ import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import com.teamacronymcoders.epos.utils.helpers.BlockBreakHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -18,8 +20,7 @@ public class TimberFeat {
                 .withEventHandler(BlockEvent.BreakEvent.class,
                         (breakEvent, entity, iCharacterStats) -> {
                             if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {
-                                ResourceLocation tag = new ResourceLocation("minecraft", "logs");
-                                if (breakEvent.getState().getBlock().getTags().contains(tag)) {
+                                if (breakEvent.getState().getBlock().isIn(BlockTags.LOGS)) {
                                     BlockPos pos = breakEvent.getPos();
                                     World world = breakEvent.getWorld().getWorld();
                                     PlayerEntity player = breakEvent.getPlayer();
