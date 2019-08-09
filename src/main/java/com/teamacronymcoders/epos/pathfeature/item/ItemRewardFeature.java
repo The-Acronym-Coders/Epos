@@ -32,6 +32,7 @@ public class ItemRewardFeature extends PathFeature {
         } else {
             CompoundNBT newNBT = new CompoundNBT();
             newNBT.putBoolean(identifier, true);
+            character.getEntityData().put("item_rewards", newNBT);
             ItemEntity entity = new ItemEntity(world, character.posX, character.posY, character.posZ);
             entity.setItem(stack);
             character.world.addEntity(entity);
