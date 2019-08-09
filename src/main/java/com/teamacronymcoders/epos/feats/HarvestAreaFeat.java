@@ -4,8 +4,6 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import com.teamacronymcoders.epos.utils.helpers.BlockBreakHelper;
-import com.teamacronymcoders.epos.utils.helpers.SkillInfoHelper;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -23,23 +21,15 @@ public class HarvestAreaFeat {
                                 PlayerEntity player = breakEvent.getPlayer();
                                 BlockPos pos = breakEvent.getPos();
                                 World world = breakEvent.getWorld().getWorld();
-                                int skillLevel = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
+                                int skillLevel = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                Iterable<BlockPos> positions = null;
                                 if (skillLevel == 1) {
-                                    for (BlockPos pos1 : BlockPos.getAllInBoxMutable(
-                                            pos.getX(), pos.getY() + 1, pos.getZ(),
-                                            pos.getX(), pos.getY() - 1, pos.getZ()
-                                    )) {
-                                        BlockState state = world.getBlockState(pos1);
-                                        BlockBreakHelper.handleBreakBlock(world, pos1, state, player, true, null);
-                                    }
+                                    positions = BlockPos.getAllInBoxMutable(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX(), pos.getY() - 1, pos.getZ());
                                 } else if (skillLevel == 2) {
-                                    for (BlockPos pos1 : BlockPos.getAllInBoxMutable(
-                                            pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1,
-                                            pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1
-                                    )) {
-                                        BlockState state = world.getBlockState(pos1);
-                                        BlockBreakHelper.handleBreakBlock(world, pos1, state, player, true, null);
-                                    }
+                                    positions = BlockPos.getAllInBoxMutable(pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1, pos.getX() - 1, pos.getY() - 1, pos.getZ() -1);
+                                }
+                                if (positions != null) {
+                                    positions.forEach(blockPos -> BlockBreakHelper.handleBreakBlock(world, blockPos, world.getBlockState(blockPos), player, true, null));
                                 }
                             }
                         })

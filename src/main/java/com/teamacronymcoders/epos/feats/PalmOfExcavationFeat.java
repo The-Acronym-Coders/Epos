@@ -1,12 +1,9 @@
 package com.teamacronymcoders.epos.feats;
 
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import com.teamacronymcoders.epos.api.skill.SkillInfo;
-import com.teamacronymcoders.epos.utils.helpers.SkillInfoHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
@@ -19,7 +16,7 @@ public class PalmOfExcavationFeat {
             FeatBuilder.start(NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
                             ((breakSpeed, entity, iCharacterStats) -> {
-                                int level = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
+                                int level = iCharacterStats.getSkills().getSkillLevel(NAME);
                                 float oldSpeed = Math.min(breakSpeed.getOriginalSpeed(), 1);
                                 ToolType toolType = breakSpeed.getState().getHarvestTool();
                                 if ("pickaxe".equals(toolType.getName())) {
@@ -30,7 +27,7 @@ public class PalmOfExcavationFeat {
                             }))
                     .withEventHandler(PlayerEvent.HarvestCheck.class,
                             ((harvestCheck, entity, iCharacterStats) -> {
-                                int level = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
+                                int level = iCharacterStats.getSkills().getSkillLevel(NAME);
                                 BlockState state = harvestCheck.getTargetBlock();
                                 ToolType toolType = state.getHarvestTool();
                                 if (toolType != null && level >= state.getHarvestLevel()) {

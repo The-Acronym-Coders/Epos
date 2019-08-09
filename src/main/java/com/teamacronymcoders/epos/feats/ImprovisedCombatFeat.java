@@ -5,7 +5,6 @@ import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import com.teamacronymcoders.epos.utils.helpers.SkillInfoHelper;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
@@ -22,7 +21,7 @@ public class ImprovisedCombatFeat {
                             (altLivingDamageEvent, entity, iCharacterStats) -> {
                                 Set<ToolType> toolTypes = entity.getActiveItemStack().getToolTypes();
                                 if (toolTypes.contains(ToolType.PICKAXE) || toolTypes.contains(ToolType.AXE) || toolTypes.contains(ToolType.SHOVEL)) {
-                                    int skillLevel = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
+                                    int skillLevel = iCharacterStats.getSkills().getSkillLevel(NAME);
                                     altLivingDamageEvent.setAmount(altLivingDamageEvent.getAmount() * 1.25F + (0.01F * skillLevel));
                                 }
                             }
