@@ -4,6 +4,7 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +26,8 @@ public class GluttonousHungerFeat {
 
                                 for (ItemStack stack : inventoryList) {
                                     if (!stack.isEmpty() && stack.getItem().isFood()) {
-                                        int hungerPoints = stack.getItem().getFood().getHealing();
+                                        Food food = stack.getItem().getFood();
+                                        int hungerPoints = food != null ? food.getHealing() : 0;
                                         if (currentStack.isEmpty() ||
                                                 hungerPoints < bestHungerPoints && hungerPoints >= hungerNeeded ||
                                                 hungerPoints > bestHungerPoints && bestHungerPoints < hungerNeeded) {
