@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 
+// TODO: Import NBT-Code from BASE to not use MC's Horrid NBT Code
 public class ItemRewardFeatureProvider implements IPathFeatureProvider {
     private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "item_reward");
 
