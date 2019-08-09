@@ -7,7 +7,7 @@ import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.util.ResourceLocation;
 
-public class UnarmedStrikeSkill {
+public class UnarmedStrikeFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "unarmed_strike");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)

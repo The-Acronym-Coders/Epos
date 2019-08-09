@@ -6,19 +6,20 @@ import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
+import com.teamacronymcoders.epos.utils.helpers.SkillInfoHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-public class PalmOfExcavationSkill {
+public class PalmOfExcavationFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "palm_of_excavation");
 
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
                             ((breakSpeed, entity, iCharacterStats) -> {
-                                int level = getSkillLevel(iCharacterStats);
+                                int level = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
                                 float oldSpeed = Math.min(breakSpeed.getOriginalSpeed(), 1);
                                 ToolType toolType = breakSpeed.getState().getHarvestTool();
                                 if ("pickaxe".equals(toolType.getName())) {
@@ -29,7 +30,7 @@ public class PalmOfExcavationSkill {
                             }))
                     .withEventHandler(PlayerEvent.HarvestCheck.class,
                             ((harvestCheck, entity, iCharacterStats) -> {
-                                int level = getSkillLevel(iCharacterStats);
+                                int level = SkillInfoHelper.getSkillLevel(NAME, iCharacterStats);
                                 BlockState state = harvestCheck.getTargetBlock();
                                 ToolType toolType = state.getHarvestTool();
                                 if (toolType != null && level >= state.getHarvestLevel()) {
@@ -42,9 +43,4 @@ public class PalmOfExcavationSkill {
                                     iCharacterStats.getSkills().putSkill(NAME);
                                 }
                             }).finish();
-
-    private static int getSkillLevel(ICharacterStats stats) {
-        SkillInfo info = stats.getSkills().get(PalmOfExcavationSkill.NAME.toString());
-        return info != null ? info.getLevel() : 0;
-    }
 }

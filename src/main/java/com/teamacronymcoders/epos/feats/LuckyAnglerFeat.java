@@ -18,7 +18,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
  * Lure increases the rate of a fish biting the player's hook while fishing. Specifically, it decreases the wait time for a fish to appear (by 5 seconds per level).
  * If commands are used to increase the enchantment level beyond 5, the wait timer does not start and fish do not bite.
  */
-public class LuckyAnglerSkill {
+public class LuckyAnglerFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "lucky_angler");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
