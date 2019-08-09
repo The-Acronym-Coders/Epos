@@ -18,8 +18,7 @@ public class ObsidianSmasherFeat {
             FeatBuilder.start(TOOL_NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
                         PlayerEntity playerEntity = breakSpeed.getEntityPlayer();
-                        if (!breakSpeed.isCanceled() &&
-                                breakSpeed.getState().getBlock() == Blocks.OBSIDIAN &&
+                        if (breakSpeed.getState().getBlock() == Blocks.OBSIDIAN &&
                                 playerEntity.getHeldItemMainhand().getHarvestLevel(ToolType.PICKAXE, playerEntity, breakSpeed.getState()) >= ItemTier.DIAMOND.getHarvestLevel()) {
                             if (breakSpeed.getOriginalSpeed() == breakSpeed.getNewSpeed()) {
                                 breakSpeed.setNewSpeed(breakSpeed.getOriginalSpeed() * 10);
@@ -32,7 +31,8 @@ public class ObsidianSmasherFeat {
     public static final Feat NO_TOOL_FEAT =
             FeatBuilder.start(NO_TOOL_NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
-                        if (!breakSpeed.isCanceled() && breakSpeed.getState().getBlock() == Blocks.OBSIDIAN) {
+                        PlayerEntity playerEntity = breakSpeed.getEntityPlayer();
+                        if (breakSpeed.getState().getBlock() == Blocks.OBSIDIAN && playerEntity.getHeldItemMainhand().isEmpty()) {
                             if (breakSpeed.getOriginalSpeed() == breakSpeed.getNewSpeed()) {
                                 breakSpeed.setNewSpeed(breakSpeed.getOriginalSpeed() * 10);
                             } else {
