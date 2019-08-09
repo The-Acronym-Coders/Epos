@@ -15,7 +15,7 @@ public class WayOfTheBladeFeat {
                     .withEventHandler(AltLivingDamageEvent.class,
                             (altLivingDamageEvent, entity, iCharacterStats) -> {
                                 if (entity.getActiveItemStack().getItem() instanceof SwordItem) {
-                                    int skillLevel = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                    int skillLevel = iCharacterStats.getSkills().getLevel(NAME);
                                     altLivingDamageEvent.setAmount(altLivingDamageEvent.getAmount() * 1.25F + (0.01F * skillLevel));
                                 }
                             }

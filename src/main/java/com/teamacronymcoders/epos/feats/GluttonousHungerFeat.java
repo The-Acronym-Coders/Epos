@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.feats;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import com.teamacronymcoders.epos.utils.helpers.PlayerHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,7 @@ public class GluttonousHungerFeat {
             FeatBuilder.start(NAME)
                     .withEventHandler(TickEvent.PlayerTickEvent.class, (playerTickEvent, livingEntity, iCharacterStats) -> {
                         PlayerEntity playerEntity = playerTickEvent.player;
-                        if (PlayerHelper.eventChecks(playerEntity)) {
+                        if (eventChecks(playerEntity)) {
                             int playerHunger = playerEntity.getFoodStats().getFoodLevel();
                             if (playerHunger < 20) {
                                 NonNullList<ItemStack> inventoryList = playerEntity.inventory.mainInventory;
@@ -53,4 +52,8 @@ public class GluttonousHungerFeat {
 
                         }
                     }).finish();
+
+    public static boolean eventChecks(PlayerEntity playerEntity) {
+        return playerEntity != null && !playerEntity.isCreative() && !playerEntity.isSpectator();
+    }
 }

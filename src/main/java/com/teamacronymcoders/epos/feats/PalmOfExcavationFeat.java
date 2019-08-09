@@ -16,7 +16,7 @@ public class PalmOfExcavationFeat {
             FeatBuilder.start(NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
                             ((breakSpeed, entity, iCharacterStats) -> {
-                                int level = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                int level = iCharacterStats.getSkills().getLevel(NAME);
                                 float oldSpeed = Math.min(breakSpeed.getOriginalSpeed(), 1);
                                 ToolType toolType = breakSpeed.getState().getHarvestTool();
                                 if ("pickaxe".equals(toolType.getName())) {
@@ -27,7 +27,7 @@ public class PalmOfExcavationFeat {
                             }))
                     .withEventHandler(PlayerEvent.HarvestCheck.class,
                             ((harvestCheck, entity, iCharacterStats) -> {
-                                int level = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                int level = iCharacterStats.getSkills().getLevel(NAME);
                                 BlockState state = harvestCheck.getTargetBlock();
                                 ToolType toolType = state.getHarvestTool();
                                 if (toolType != null && level >= state.getHarvestLevel()) {

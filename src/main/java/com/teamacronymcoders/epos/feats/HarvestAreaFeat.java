@@ -21,7 +21,7 @@ public class HarvestAreaFeat {
                                 PlayerEntity player = breakEvent.getPlayer();
                                 BlockPos pos = breakEvent.getPos();
                                 World world = breakEvent.getWorld().getWorld();
-                                int skillLevel = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                int skillLevel = iCharacterStats.getSkills().getLevel(NAME);
                                 Iterable<BlockPos> positions = null;
                                 if (skillLevel == 1) {
                                     positions = BlockPos.getAllInBoxMutable(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX(), pos.getY() - 1, pos.getZ());

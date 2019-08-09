@@ -21,7 +21,7 @@ public class ImprovisedCombatFeat {
                             (altLivingDamageEvent, entity, iCharacterStats) -> {
                                 Set<ToolType> toolTypes = entity.getActiveItemStack().getToolTypes();
                                 if (toolTypes.contains(ToolType.PICKAXE) || toolTypes.contains(ToolType.AXE) || toolTypes.contains(ToolType.SHOVEL)) {
-                                    int skillLevel = iCharacterStats.getSkills().getSkillLevel(NAME);
+                                    int skillLevel = iCharacterStats.getSkills().getLevel(NAME);
                                     altLivingDamageEvent.setAmount(altLivingDamageEvent.getAmount() * 1.25F + (0.01F * skillLevel));
                                 }
                             }

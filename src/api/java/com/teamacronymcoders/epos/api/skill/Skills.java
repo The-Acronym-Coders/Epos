@@ -49,7 +49,7 @@ public class Skills implements INBTSerializable<CompoundNBT> {
         return skillInfo;
     }
 
-    public int getSkillLevel(ResourceLocation id) {
+    public int getLevel(ResourceLocation id) {
         SkillInfo info = get(id);
         return info == null ? 0 : info.getLevel();
     }
