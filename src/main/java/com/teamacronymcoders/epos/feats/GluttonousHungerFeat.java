@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 
 public class GluttonousHungerFeat {
-    public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gluttonous_hunger");
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gluttonous_hunger");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(TickEvent.PlayerTickEvent.class, (playerTickEvent, livingEntity, iCharacterStats) -> {
