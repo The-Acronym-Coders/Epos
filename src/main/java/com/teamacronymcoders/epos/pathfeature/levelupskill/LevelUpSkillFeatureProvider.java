@@ -20,11 +20,10 @@ public class LevelUpSkillFeatureProvider implements IPathFeatureProvider {
         String skillName = JsonUtils.getString(jsonObject, "skill");
         int levels = JsonUtils.getInt(jsonObject, "level");
         ISkill skill = EposAPI.SKILL_REGISTRY.getEntry(skillName);
-        if (skill != null) {
-            return new LevelUpSkillFeature(skill, levels);
-        } else {
+        if (skill == null) {
             throw new JsonParseException("No Skill found for name: " + skillName);
         }
+        return new LevelUpSkillFeature(skill, levels);
     }
 
     @Nonnull
