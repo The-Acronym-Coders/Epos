@@ -38,8 +38,8 @@ public class ItemRewardFeature extends PathFeature {
                     ItemEntity entity = new ItemEntity(world, character.posX, character.posY, character.posZ);
                     entity.setItem(stack);
                     character.world.addEntity(entity);
-                    return;
                 }
+                return;
             }
             ItemEntity entity = new ItemEntity(world, character.posX, character.posY, character.posZ);
             entity.setItem(stack);
