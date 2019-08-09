@@ -4,6 +4,7 @@ import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.pathfeature.PathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -31,6 +32,15 @@ public class ItemRewardFeature extends PathFeature {
         CompoundNBT itemRewards = entityNBT.getCompound("item_rewards");
         if (itemRewards.contains(identifier)) {
             itemRewards.putBoolean(identifier, true);
+            if (character instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) character;
+                if (!player.addItemStackToInventory(stack)) {
+                    ItemEntity entity = new ItemEntity(world, character.posX, character.posY, character.posZ);
+                    entity.setItem(stack);
+                    character.world.addEntity(entity);
+                    return;
+                }
+            }
             ItemEntity entity = new ItemEntity(world, character.posX, character.posY, character.posZ);
             entity.setItem(stack);
             character.world.addEntity(entity);
