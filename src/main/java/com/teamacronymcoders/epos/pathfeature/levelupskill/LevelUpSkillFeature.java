@@ -22,13 +22,17 @@ public class LevelUpSkillFeature extends PathFeature {
     public void applyTo(LivingEntity character, ICharacterStats characterStats) {
         int level = characterStats.getSkills().getOrCreate(skill).getLevel();
         SkillInfo info = characterStats.getSkills().get(skill);
-        if (info != null) info.setLevel(level + levels);
+        if (info != null) {
+            info.setLevel(level + levels);
+        }
     }
 
     @Override
     public void removeFrom(LivingEntity character, ICharacterStats characterStats) {
         int level = characterStats.getSkills().getOrCreate(skill).getLevel();
         SkillInfo info = characterStats.getSkills().get(skill);
-        if (info != null) info.setLevel(level + levels);
+        if (info != null) {
+            info.setLevel(level + levels);
+        }
     }
 }
