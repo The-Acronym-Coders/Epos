@@ -3,11 +3,7 @@
     "translate": "skill.epos.unarmed_strike.name"
   },
   "description": {
-<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/resources/data/epos/epos/skills/unarmed_strike.json
-    "translate": "skill.epos.unarmed_strike.description"
-=======
-    "translate": "skill.eposmajorum.unarmed_strike.desc"
->>>>>>> Added Skill Jsons:src/main/resources/data/eposmajorum/eposmajorum/skills/unarmed_strike.json
+    "translate": "skill.epos.unarmed_strike.desc"
   },
   "maxLevel": 50,
   "hidden": true

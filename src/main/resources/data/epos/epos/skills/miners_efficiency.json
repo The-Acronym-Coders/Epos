@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.epos.miners_efficiency.name"
+  },
+  "description": {
+    "translate": "skill.epos.miners_efficiency.desc"
+  },
+  "maxLevel": 25,
+  "hidden": true
+}

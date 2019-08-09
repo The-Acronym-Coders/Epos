@@ -3,17 +3,10 @@ package com.teamacronymcoders.epos.json;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/json/JsonLoader.java
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.registry.IRegistryEntry;
 import com.teamacronymcoders.epos.api.registry.Registry;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
-=======
-import com.teamacronymcoders.eposmajorum.EposMajorum;
-import com.teamacronymcoders.eposmajorum.api.registry.IRegistryEntry;
-import com.teamacronymcoders.eposmajorum.api.registry.RegistrationEvent;
-import com.teamacronymcoders.eposmajorum.api.registry.Registry;
->>>>>>> Reformat Code and Optimize Imports:src/main/java/com/teamacronymcoders/eposmajorum/json/JsonLoader.java
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;

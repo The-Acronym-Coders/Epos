@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.epos.lucky_angler.name"
+  },
+  "description": {
+    "translate": "skill.epos.lucky_angler.desc"
+  },
+  "maxLevel": 5,
+  "hidden": true
+}

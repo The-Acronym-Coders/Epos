@@ -2,15 +2,9 @@ package com.teamacronymcoders.epos.json.deserializer;
 
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.JsonAdapter;
-<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/json/deserializer/PathBuilder.java
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.path.Path;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
-=======
-import com.teamacronymcoders.eposmajorum.api.path.IPath;
-import com.teamacronymcoders.eposmajorum.api.pathfeature.PathFeatures;
-import com.teamacronymcoders.eposmajorum.path.Path;
->>>>>>> Reformat Code and Optimize Imports:src/main/java/com/teamacronymcoders/eposmajorum/json/deserializer/PathBuilder.java
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 

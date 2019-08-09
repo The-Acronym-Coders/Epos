@@ -11,17 +11,8 @@ public class SkillXPFeature extends PathFeature {
     private final int xpAmount;
 
     public SkillXPFeature(ISkill skill, int xpAmount) {
-<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/pathfeature/skillxp/SkillXPFeature.java
         super(new TranslationTextComponent("pathfeature.epos.skillxp.name", skill.getName(), xpAmount),
-            new TranslationTextComponent("pathfeature.epos.skillxp.description", skill.getName(), xpAmount));
-=======
-        super(new TranslationTextComponent("pathfeature.eposmajorum.skillxp.name", xpAmount, skill.getName()),
-<<<<<<< cb35bacfea2792459db9e29d3a9eaac40d952883:src/main/java/com/teamacronymcoders/epos/pathfeature/skillxp/SkillXPFeature.java
-            new TranslationTextComponent("pathfeature.eposmajorum.skillxp.description", xpAmount, skill.getName()));
->>>>>>> PathFeature stuff:src/main/java/com/teamacronymcoders/eposmajorum/pathfeature/skillxp/SkillXPFeature.java
-=======
-                new TranslationTextComponent("pathfeature.eposmajorum.skillxp.description", xpAmount, skill.getName()));
->>>>>>> Reformat Code and Optimize Imports:src/main/java/com/teamacronymcoders/eposmajorum/pathfeature/skillxp/SkillXPFeature.java
+              new TranslationTextComponent("pathfeature.epos.skillxp.description", skill.getName(), xpAmount));
         this.skill = skill;
         this.xpAmount = xpAmount;
     }
