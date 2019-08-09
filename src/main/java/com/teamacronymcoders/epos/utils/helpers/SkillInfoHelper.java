@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class SkillInfoHelper {
     public static int getSkillLevel(ResourceLocation id, ICharacterStats stats) {
-        SkillInfo info = stats.getSkills().get(id.toString());
+        SkillInfo info = stats.getSkills().get(id);
         return info != null ? info.getLevel() : 0;
     }
 }

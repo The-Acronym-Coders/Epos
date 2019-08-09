@@ -19,7 +19,7 @@ public class EfficiencyFeats {
                             (breakSpeed, entity, iCharacterStats) -> {
                                 if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
                                     float speed = breakSpeed.getNewSpeed();
-                                    SkillInfo skill = iCharacterStats.getSkills().get(MINER.toString());
+                                    SkillInfo skill = iCharacterStats.getSkills().get(MINER);
                                     int level = skill == null ? 0 : skill.getLevel();
                                     breakSpeed.setNewSpeed(speed + (0.4f * level));
                                 }
@@ -39,7 +39,7 @@ public class EfficiencyFeats {
                             (breakSpeed, entity, iCharacterStats) -> {
                                 if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {
                                     float speed = breakSpeed.getNewSpeed();
-                                    SkillInfo skill = iCharacterStats.getSkills().get(LUMBERJACK.toString());
+                                    SkillInfo skill = iCharacterStats.getSkills().get(LUMBERJACK);
                                     int level = skill == null ? 0 : skill.getLevel();
                                     breakSpeed.setNewSpeed(speed + (0.4f * level));
                                 }
