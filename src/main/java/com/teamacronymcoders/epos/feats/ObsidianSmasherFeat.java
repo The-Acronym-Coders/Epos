@@ -11,8 +11,8 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class ObsidianSmasherFeat {
-    public static final ResourceLocation TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher");
-    public static final ResourceLocation NO_TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher_no_tool");
+    private static final ResourceLocation TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher");
+    private static final ResourceLocation NO_TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher_no_tool");
 
     public static final Feat TOOL_FEAT =
             FeatBuilder.start(TOOL_NAME)
