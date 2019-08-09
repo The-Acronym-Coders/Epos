@@ -1,9 +1,11 @@
 package com.teamacronymcoders.epos.feats;
 
 import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
@@ -16,24 +18,21 @@ public class PalmOfExcavationSkill {
             FeatBuilder.start(NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
                             ((breakSpeed, entity, iCharacterStats) -> {
-                                int level = iCharacterStats.getSkills().get(NAME.toString()) != null ? iCharacterStats.getSkills().get(NAME.toString()).getLevel() : 0;
+                                int level = getSkillLevel(iCharacterStats);
                                 float oldSpeed = Math.min(breakSpeed.getOriginalSpeed(), 1);
                                 ToolType toolType = breakSpeed.getState().getHarvestTool();
                                 if ("pickaxe".equals(toolType.getName())) {
-                                    breakSpeed.setNewSpeed((((level * 25f) / 100f) * oldSpeed) + breakSpeed.getNewSpeed());
-                                } else {
                                     breakSpeed.setNewSpeed((((level * 50f) / 100f) * oldSpeed) + breakSpeed.getNewSpeed());
+                                } else {
+                                    breakSpeed.setNewSpeed((((level * 15f) / 100f) * oldSpeed) + breakSpeed.getNewSpeed());
                                 }
-
                             }))
                     .withEventHandler(PlayerEvent.HarvestCheck.class,
                             ((harvestCheck, entity, iCharacterStats) -> {
-                                int level = iCharacterStats.getSkills().get(NAME.toString()) != null ? iCharacterStats.getSkills().get(NAME.toString()).getLevel() : 0;
+                                int level = getSkillLevel(iCharacterStats);
                                 BlockState state = harvestCheck.getTargetBlock();
                                 ToolType toolType = state.getHarvestTool();
-
-                                if (toolType != null && (level >= state.getHarvestLevel() &&
-                                        ("pickaxe".equals(toolType.getName()) || "axe".equals(toolType.getName()) || "shovel".equals(toolType.getName())))) {
+                                if (toolType != null && level >= state.getHarvestLevel()) {
                                     harvestCheck.setCanHarvest(true);
                                 }
                             }))
@@ -43,4 +42,9 @@ public class PalmOfExcavationSkill {
                                     iCharacterStats.getSkills().putSkill(NAME);
                                 }
                             }).finish();
+
+    private static int getSkillLevel(ICharacterStats stats) {
+        SkillInfo info = stats.getSkills().get(PalmOfExcavationSkill.NAME.toString());
+        return info != null ? info.getLevel() : 0;
+    }
 }
