@@ -16,7 +16,7 @@ public class SpiritOfBattleFeat {
             FeatBuilder.start(NAME)
                     .withEventHandler(LivingDeathEvent.class,
                             (livingDeathEvent, livingEntity, iCharacterStats) -> {
-                                if (!livingDeathEvent.isCanceled() && livingDeathEvent.getEntity() instanceof IMob && livingDeathEvent.getSource().getTrueSource() instanceof PlayerEntity) {
+                                if (livingDeathEvent.getEntity() instanceof IMob && livingDeathEvent.getSource().getTrueSource() instanceof PlayerEntity) {
                                     ((PlayerEntity) livingDeathEvent.getSource().getTrueSource()).addPotionEffect(new EffectInstance(Effects.STRENGTH, 120, 0));
                                 }
                             }).finish();
