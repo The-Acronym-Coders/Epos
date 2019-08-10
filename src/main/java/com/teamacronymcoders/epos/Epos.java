@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos;
 
+import com.hrznstudio.titanium.module.ModuleController;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposResourceType;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
@@ -39,7 +40,7 @@ import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 
 @Mod(ID)
 @Mod.EventBusSubscriber
-public class Epos {
+public class Epos extends ModuleController {
     private static final String config = "epos.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
@@ -48,6 +49,11 @@ public class Epos {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), "epos.toml").getAbsolutePath());
+    }
+
+    @Override
+    protected void initModules() {
+
     }
 
     @SuppressWarnings("unused")
