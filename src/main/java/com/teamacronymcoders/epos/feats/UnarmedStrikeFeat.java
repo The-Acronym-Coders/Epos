@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.content;
+package com.teamacronymcoders.epos.feats;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
@@ -7,7 +7,7 @@ import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import net.minecraft.util.ResourceLocation;
 
-public class UnarmedStrike {
+public class UnarmedStrikeFeat {
     public static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "unarmed_strike");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
