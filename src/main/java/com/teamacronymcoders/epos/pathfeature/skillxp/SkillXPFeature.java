@@ -12,7 +12,7 @@ public class SkillXPFeature extends PathFeature {
 
     public SkillXPFeature(ISkill skill, int xpAmount) {
         super(new TranslationTextComponent("pathfeature.epos.skillxp.name", skill.getName(), xpAmount),
-              new TranslationTextComponent("pathfeature.epos.skillxp.description", skill.getName(), xpAmount));
+            new TranslationTextComponent("pathfeature.epos.skillxp.description", skill.getName(), xpAmount));
         this.skill = skill;
         this.xpAmount = xpAmount;
     }

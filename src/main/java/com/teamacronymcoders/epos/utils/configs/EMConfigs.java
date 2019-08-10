@@ -6,7 +6,6 @@ public class EMConfigs {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final GeneralConfigs GENERAL_CONFIGS = new GeneralConfigs(BUILDER);
     public static final SoundConfigs SOUND_CONFIGS = new SoundConfigs(BUILDER);
-    public static final ForgeConfigSpec build = BUILDER.build();
 
     public static class GeneralConfigs {
 
@@ -28,4 +27,6 @@ public class EMConfigs {
             builder.pop();
         }
     }
+
+    public static final ForgeConfigSpec build = BUILDER.build();
 }

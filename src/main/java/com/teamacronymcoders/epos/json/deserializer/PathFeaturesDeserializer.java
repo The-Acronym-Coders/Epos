@@ -17,17 +17,17 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
     @Override
     public PathFeatures deserialize(JsonElement jsonElement, Type type,
                                     JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        if (jsonElement != null && jsonElement.isJsonArray()) {
+        if (jsonElement  != null && jsonElement.isJsonArray()) {
             JsonObject featureObject = jsonElement.getAsJsonObject();
             Int2ObjectMap<List<IPathFeature>> pathFeaturesByLevel = new Int2ObjectOpenHashMap<>();
-            for (Map.Entry<String, JsonElement> featureElement : featureObject.entrySet()) {
+            for (Map.Entry<String,JsonElement> featureElement: featureObject.entrySet()) {
                 int level;
                 try {
                     level = Integer.parseInt(featureElement.getKey());
                     if (level < 1) {
                         throw new NumberFormatException();
                     }
-                } catch (NumberFormatException exception) {
+                } catch(NumberFormatException exception) {
                     throw new JsonParseException("all features object keys must be numbers > 0");
                 }
                 if (featureElement.getValue().isJsonObject()) {
@@ -35,7 +35,7 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
                             featureElement.getValue().getAsJsonObject(), jsonDeserializationContext)));
                 } else if (featureElement.getValue().isJsonArray()) {
                     List<IPathFeature> features = Lists.newArrayList();
-                    for (JsonElement arrayElement : featureElement.getValue().getAsJsonArray()) {
+                    for (JsonElement arrayElement: featureElement.getValue().getAsJsonArray()) {
                         if (arrayElement.isJsonObject()) {
                             features.add(parseJsonObject(arrayElement.getAsJsonObject(), jsonDeserializationContext));
                         } else {
@@ -52,7 +52,7 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
         throw new JsonParseException("features was null or not an object");
     }
 
-    private IPathFeature parseJsonObject(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
+    private IPathFeature parseJsonObject(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException{
         JsonPrimitive providerPrimitive = jsonObject.getAsJsonPrimitive("provider");
         if (providerPrimitive != null && providerPrimitive.isString()) {
             IPathFeatureProvider provider = EposAPI.PATH_FEATURE_PROVIDER_REGISTRY

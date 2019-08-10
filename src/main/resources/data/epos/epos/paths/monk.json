@@ -3,7 +3,7 @@
     "translate": "path.epos.monk.name"
   },
   "description": {
-    "translate": "path.epos.monk.desc"
+    "translate": "path.epos.monk.description"
   },
   "maxLevel": 20,
   "features": {
@@ -11,184 +11,20 @@
       {
         "type": "epos:feat",
         "feat": "epos:unarmed_strike"
-      },
-      {
-        "type": "epos:feat",
-        "feat": "epos:palm_of_excavation"
-      }
-    ],
-    "2": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "3": [
-      {
-        "type": "epos:feat",
-        "feat": "epos:spirit_of_battle"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:palm_of_excavation",
-        "level": "1"
-      }
-    ],
-    "4": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
       }
     ],
     "5": [
       {
-        "type": "epos:feat",
-        "feat": "epos:obsidian_smasher_no_tool"
-      },
-      {
-        "type": "epos:level_skill",
+        "type": "epos:skill_xp",
         "skill": "epos:unarmed_strike",
-        "level": "4"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:palm_of_excavation",
-        "level": "1"
-      }
-    ],
-    "6": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "7": [
-      {
-        "type": "epos:feat",
-        "feat": "epos:ender_resistance"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:palm_of_excavation",
-        "level": "1"
-      }
-    ],
-    "8": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "9": [
-      {
-        "type": "epos:feat",
-        "feat": "epos:diamond_body"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:palm_of_excavation",
-        "level": "1"
+        "amount": "1000"
       }
     ],
     "10": [
       {
-        "type": "epos:level_skill",
+        "type": "epos:skill_xp",
         "skill": "epos:unarmed_strike",
-        "level": "4"
-      },
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:palm_of_excavation",
-        "level": "1"
-      }
-    ],
-    "11": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "12": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "13": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "14": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "15": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "4"
-      }
-    ],
-    "16": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "17": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "18": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "19": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "1"
-      }
-    ],
-    "20": [
-      {
-        "type": "epos:level_skill",
-        "skill": "epos:unarmed_strike",
-        "level": "4"
+        "amount": "1000"
       }
     ]
   }
