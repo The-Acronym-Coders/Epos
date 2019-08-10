@@ -11,7 +11,7 @@ public class ItemRewardEventHandler {
     public static void onDeath(PlayerEvent.Clone event) {
         if (event.getOriginal().getEntityData().contains("item_rewards")) {
             CompoundNBT nbt = event.getOriginal().getEntityData().getCompound("item_rewards");
-            event.getEntityPlayer().getEntityData().put("item_rewards", nbt);
+            event.getPlayer().getEntityData().put("item_rewards", nbt);
         }
     }
 }
