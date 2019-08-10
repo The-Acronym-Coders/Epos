@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -24,6 +25,11 @@ public class Skills implements INBTSerializable<CompoundNBT> {
     }
 
     @Nullable
+    public SkillInfo get(ResourceLocation id) {
+        return get(id.toString());
+    }
+
+    @Nullable
     public SkillInfo get(ISkill skill) {
         return this.get(skill.getRegistryName().toString());
     }
@@ -41,6 +47,11 @@ public class Skills implements INBTSerializable<CompoundNBT> {
             this.putSkillInfo(skillInfo);
         }
         return skillInfo;
+    }
+
+    public int getLevel(ResourceLocation id) {
+        SkillInfo info = get(id);
+        return info == null ? 0 : info.getLevel();
     }
 
     public void putSkill(ResourceLocation registryName) {

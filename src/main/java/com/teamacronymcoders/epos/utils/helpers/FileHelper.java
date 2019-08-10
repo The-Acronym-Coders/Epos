@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.utils;
+package com.teamacronymcoders.epos.utils.helpers;
 
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.EposAPI;
@@ -36,6 +36,6 @@ public class FileHelper {
         if (!root.exists()) {
             root.mkdir();
         }
-        return new File(root,config + ".toml");
+        return new File(root, config + ".toml");
     }
 }

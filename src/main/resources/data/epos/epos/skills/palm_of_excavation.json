@@ -1,0 +1,10 @@
+{
+  "name": {
+    "translate": "skill.epos.palm_of_excavation.name"
+  },
+  "description": {
+    "translate": "skill.epos.palm_of_excavation.desc"
+  },
+  "maxLevel": 6,
+  "hidden": true
+}

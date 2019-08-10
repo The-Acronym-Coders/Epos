@@ -1,11 +1,14 @@
 package com.teamacronymcoders.epos.pathfeature.feat;
 
-import com.google.gson.*;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.json.JsonUtils;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
