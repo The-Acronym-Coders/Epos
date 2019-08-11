@@ -8,8 +8,7 @@ import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-
+import net.minecraftforge.event.TickEvent;
 
 public class GluttonousHungerFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gluttonous_hunger");

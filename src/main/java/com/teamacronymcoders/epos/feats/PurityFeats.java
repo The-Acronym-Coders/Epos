@@ -8,7 +8,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.event.TickEvent;
 
 public class PurityFeats {
     private static final ResourceLocation PURITY_NAME = new ResourceLocation(EposAPI.ID, "purity_of_body");
