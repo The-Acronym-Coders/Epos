@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos;
 
 import com.hrznstudio.titanium.module.ModuleController;
+import com.hrznstudio.titanium.tab.AdvancedTitaniumTab;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposResourceType;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
@@ -8,17 +9,22 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.sounds.EposSoundEvents;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.json.JsonLoader;
+import com.teamacronymcoders.epos.utils.EposModules;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -43,17 +49,20 @@ import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 public class Epos extends ModuleController {
     private static final String config = "epos.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
+    public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
     public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(ContainerType.class, this::registerContainer);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(SoundEvent.class, this::registerSound);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), config).getAbsolutePath());
     }
 
     @Override
     protected void initModules() {
-
+        this.addModule(EposModules.QUIVER);
     }
 
     @SuppressWarnings("unused")
@@ -77,8 +86,13 @@ public class Epos extends ModuleController {
         });
     }
 
-    @SubscribeEvent
-    public void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
+    private void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
+        event.getRegistry().registerAll(
+                IForgeContainerType.create(QuiverContainer::new).setRegistryName(new ResourceLocation(ID, "quiver_container"))
+        );
+    }
+
+    private void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
         eventRegistryEvent.getRegistry().registerAll(
                 EposSoundEvents.levelUp
         );
