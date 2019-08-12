@@ -47,8 +47,6 @@ public class QuiverItem extends Item {
         for (int i = 0; i < inventory.getSlots(); i++) {
             ItemStack stack = inventory.getStackInSlot(i);
             if (stack.getItem() instanceof ArrowItem ||
-                stack.getItem() instanceof TippedArrowItem ||
-                stack.getItem() instanceof SpectralArrowItem ||
                 stack.getItem() instanceof FireworkRocketItem) {
                 return stack;
             }
