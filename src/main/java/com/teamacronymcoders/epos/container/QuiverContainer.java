@@ -3,24 +3,17 @@ package com.teamacronymcoders.epos.container;
 import com.hrznstudio.titanium.api.client.AssetTypes;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
-import com.teamacronymcoders.epos.items.QuiverItem;
+import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 
-import javax.annotation.Nullable;
 import java.awt.*;
 
 public class QuiverContainer extends Container {
@@ -33,7 +26,7 @@ public class QuiverContainer extends Container {
     private int totalSlots;
 
     public QuiverContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-        this(((QuiverItem) playerInventory.player.getHeldItemMainhand().getItem()).getInventory(), playerInventory);
+        this(((QuiverItem) playerInventory.player.getHeldItemMainhand().getItem()).getHandler(playerInventory.player.getHeldItemMainhand()), playerInventory);
     }
 
     public QuiverContainer(PosInvHandler handler, PlayerInventory player) {

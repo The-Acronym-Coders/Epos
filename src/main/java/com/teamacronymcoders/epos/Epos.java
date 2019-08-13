@@ -9,24 +9,16 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.container.QuiverContainer;
-import com.teamacronymcoders.epos.sounds.EposSoundEvents;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.json.JsonLoader;
-import com.teamacronymcoders.epos.utils.EposModules;
+import com.teamacronymcoders.epos.feature.EposModules;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -55,8 +47,6 @@ public class Epos extends ModuleController {
     public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
-        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(ContainerType.class, this::registerContainer);
-        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(SoundEvent.class, this::registerSound);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), config).getAbsolutePath());
     }
 
@@ -84,18 +74,6 @@ public class Epos extends ModuleController {
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
-    }
-
-    private void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-        event.getRegistry().registerAll(
-                IForgeContainerType.create(QuiverContainer::new).setRegistryName(new ResourceLocation(ID, "quiver_container"))
-        );
-    }
-
-    private void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
-        eventRegistryEvent.getRegistry().registerAll(
-                EposSoundEvents.levelUp
-        );
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {

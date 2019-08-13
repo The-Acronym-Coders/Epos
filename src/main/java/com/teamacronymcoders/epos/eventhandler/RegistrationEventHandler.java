@@ -1,20 +1,44 @@
 package com.teamacronymcoders.epos.eventhandler;
 
 import com.google.common.collect.Lists;
+import com.hrznstudio.titanium.annotation.Save;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
+import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
+import com.teamacronymcoders.epos.sounds.EposSoundEvents;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(modid = EposAPI.ID)
+import static com.teamacronymcoders.epos.api.EposAPI.ID;
+
+@EventBusSubscriber(modid = EposAPI.ID, bus = EventBusSubscriber.Bus.MOD)
 public class RegistrationEventHandler {
+    @SubscribeEvent
+    public static void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
+        event.getRegistry().registerAll(
+                IForgeContainerType.create(QuiverContainer::new).setRegistryName(new ResourceLocation(ID, "quiver_container"))
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
+        eventRegistryEvent.getRegistry().registerAll(
+                EposSoundEvents.levelUp
+        );
+    }
 
     @SubscribeEvent
     public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
@@ -49,5 +73,4 @@ public class RegistrationEventHandler {
                 new ItemRewardFeatureProvider()
         ));
     }
-
 }
