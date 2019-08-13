@@ -44,23 +44,6 @@ public class QuiverContainer extends Container {
         addPlayerChestInventory();
     }
 
-    public void updateSlotPosition() {
-        int i = 0;
-        for (int y = 0; y < handler.getYSize(); ++y) {
-            for (int x = 0; x < handler.getXSize(); ++x) {
-                for (Slot inventorySlot : this.inventorySlots) {
-                    if (!(inventorySlot instanceof SlotItemHandler)) continue;
-                    if (((SlotItemHandler) inventorySlot).getItemHandler().equals(handler) && i == inventorySlot.getSlotIndex()) {
-                        inventorySlot.xPos = handler.getXPos() + x * 18;
-                        inventorySlot.yPos = handler.getYPos() + y * 18;
-                        break;
-                    }
-                }
-                ++i;
-            }
-        }
-    }
-
     private void addPlayerChestInventory() {
         Point invPos = IAssetProvider.getAsset(IAssetProvider.DEFAULT_PROVIDER, AssetTypes.BACKGROUND).getInventoryPosition();
         if (hasPlayerInventory) return;
@@ -70,11 +53,6 @@ public class QuiverContainer extends Container {
             }
         }
         hasPlayerInventory = true;
-    }
-
-    public void removeChestInventory() {
-        this.inventorySlots.removeIf(slot -> slot.getSlotIndex() >= 9 && slot.getSlotIndex() < 9 + 3 * 9);
-        hasPlayerInventory = false;
     }
 
     @Override
