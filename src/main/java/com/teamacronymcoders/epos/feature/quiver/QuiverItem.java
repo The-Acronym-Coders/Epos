@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.feature.quiver;
 
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.capability.PosInvHandlerCapabilityProvider;
 import com.teamacronymcoders.epos.client.gui.GuiQuiverAddonScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -13,7 +13,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -27,30 +26,19 @@ public class QuiverItem extends Item {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-        return new QuiverCapabilityProvider(new PosInvHandler("", 0, 0, 9)
-                .setInputFilter((idStack, integer) -> idStack.getItem().isIn(ItemTags.ARROWS) || idStack.getItem() instanceof FireworkRocketItem).setRange(3, 3));
+        return new PosInvHandlerCapabilityProvider(new PosInvHandler("", 0, 0, 9)
+                .setInputFilter((idStack, integer) -> ShootableItem.ARROWS_OR_FIREWORKS.test(idStack)).setRange(3, 3));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
-        if (stack.getItem() instanceof QuiverItem) {
-            stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capHandler -> playerIn.openContainer(new GuiQuiverAddonScreen((PosInvHandler) capHandler)));
-            Epos.LOGGER.info("Boop");
-        }
-        return new ActionResult<>(ActionResultType.FAIL, stack);
-    }
-
-    private PosInvHandler getTrueHandler(IItemHandler handler) {
-        return handler instanceof PosInvHandler ? (PosInvHandler) handler : null;
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capHandler -> player.openContainer(new GuiQuiverAddonScreen((PosInvHandler) capHandler)));
+        Epos.LOGGER.info("Boop");
+        return new ActionResult<>(ActionResultType.PASS, stack);
     }
 
     public PosInvHandler getHandler(ItemStack stack) {
-        final PosInvHandler[] trueHandler = new PosInvHandler[1];
-        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> trueHandler[0] = getTrueHandler(handler));
-        for (PosInvHandler handler : trueHandler) {
-            return handler;
-        }
-        return null;
+        return (PosInvHandler) stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
     }
 }

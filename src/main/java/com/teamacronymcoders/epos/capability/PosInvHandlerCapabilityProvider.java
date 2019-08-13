@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.feature.quiver;
+package com.teamacronymcoders.epos.capability;
 
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import net.minecraft.util.Direction;
@@ -11,10 +11,10 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class QuiverCapabilityProvider implements ICapabilityProvider {
+public class PosInvHandlerCapabilityProvider implements ICapabilityProvider {
     private final LazyOptional<IItemHandler> optional;
 
-    QuiverCapabilityProvider(PosInvHandler handler) {
+    public PosInvHandlerCapabilityProvider(PosInvHandler handler) {
         this.optional = LazyOptional.of(() -> handler);
     }
 
