@@ -45,6 +45,6 @@ public class GuiQuiverAddonScreen extends GuiAddonScreen implements INamedContai
     @Nullable
     @Override
     public Container createMenu(int num, PlayerInventory inventory, PlayerEntity entity) {
-        return new QuiverContainer(handler, inventory);
+        return new QuiverContainer(num, inventory, null);
     }
 }
