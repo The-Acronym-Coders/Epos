@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos;
 
 import com.hrznstudio.titanium.module.ModuleController;
+import com.hrznstudio.titanium.tab.AdvancedTitaniumTab;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposResourceType;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
@@ -8,19 +9,16 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.sounds.EposSoundEvents;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.json.JsonLoader;
+import com.teamacronymcoders.epos.feature.EposModules;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -43,6 +41,7 @@ import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 public class Epos extends ModuleController {
     private static final String config = "epos.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
+    public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
     public Epos() {
@@ -53,7 +52,7 @@ public class Epos extends ModuleController {
 
     @Override
     protected void initModules() {
-
+        this.addModule(EposModules.QUIVER);
     }
 
     @SuppressWarnings("unused")
@@ -75,13 +74,6 @@ public class Epos extends ModuleController {
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
-    }
-
-    @SubscribeEvent
-    public void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
-        eventRegistryEvent.getRegistry().registerAll(
-                EposSoundEvents.levelUp
-        );
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {
