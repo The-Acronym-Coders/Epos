@@ -5,11 +5,9 @@ import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 public class ImprovisedCombatFeat {

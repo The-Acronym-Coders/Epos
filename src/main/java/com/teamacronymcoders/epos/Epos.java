@@ -12,9 +12,8 @@ import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.client.gui.QuiverGui;
 import com.teamacronymcoders.epos.container.QuiverContainer;
-import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
-import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.feature.EposModules;
+import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.nbt.CompoundNBT;
@@ -44,9 +43,9 @@ import static com.teamacronymcoders.epos.api.EposAPI.PATH_REGISTRY;
 @Mod(ID)
 @Mod.EventBusSubscriber
 public class Epos extends ModuleController {
-    private static final String config = "epos.toml";
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
+    private static final String config = "epos.toml";
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceType.PATH, IPath.class, PATH_REGISTRY);
 
     public Epos() {

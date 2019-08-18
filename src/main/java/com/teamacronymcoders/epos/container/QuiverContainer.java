@@ -19,10 +19,9 @@ import java.awt.*;
 public class QuiverContainer extends Container {
     @ObjectHolder("epos:quiver_container")
     public static ContainerType<QuiverContainer> TYPE;
-
+    private final PosInvHandler handler;
     private PlayerInventory player;
     private boolean hasPlayerInventory;
-    private final PosInvHandler handler;
 
     public QuiverContainer(int id, PlayerInventory player, PacketBuffer buffer) {
         this(((QuiverItem) player.player.getHeldItemMainhand().getItem()).getHandler(player.player.getHeldItemMainhand()), player);
@@ -44,7 +43,9 @@ public class QuiverContainer extends Container {
 
     private void addPlayerChestInventory() {
         Point invPos = IAssetProvider.getAsset(IAssetProvider.DEFAULT_PROVIDER, AssetTypes.BACKGROUND).getInventoryPosition();
-        if (hasPlayerInventory) return;
+        if (hasPlayerInventory) {
+            return;
+        }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 addSlot(new Slot(player, j + i * 9 + 9, invPos.x + j * 18, invPos.y + i * 18));

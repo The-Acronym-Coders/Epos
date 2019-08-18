@@ -4,15 +4,12 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class EfficiencyFeats {
     private static final ResourceLocation MINER = new ResourceLocation(EposAPI.ID, "miners_efficiency");
-    private static final ResourceLocation LUMBERJACK = new ResourceLocation(EposAPI.ID, "lumberjacks_efficiency");
-
     public static final Feat MINER_FEAT =
             FeatBuilder.start(MINER)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,
@@ -31,7 +28,7 @@ public class EfficiencyFeats {
                                 }
                             }
                     ).finish();
-
+    private static final ResourceLocation LUMBERJACK = new ResourceLocation(EposAPI.ID, "lumberjacks_efficiency");
     public static final Feat LUMBERJACK_FEAT =
             FeatBuilder.start(LUMBERJACK)
                     .withEventHandler(PlayerEvent.BreakSpeed.class,

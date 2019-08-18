@@ -15,19 +15,19 @@ public class OreExtractionFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "ore_extraction");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
-            .withEventHandler(BlockEvent.BreakEvent.class,
-                    (breakEvent, entity, iCharacterStats) -> {
-                        if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
-                            ResourceLocation tag = new ResourceLocation("forge", "ores");
-                            if (breakEvent.getState().getBlock().getTags().contains(tag)) {
-                                BlockPos pos = breakEvent.getPos();
-                                World world = breakEvent.getWorld().getWorld();
-                                PlayerEntity player = breakEvent.getPlayer();
+                    .withEventHandler(BlockEvent.BreakEvent.class,
+                            (breakEvent, entity, iCharacterStats) -> {
+                                if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
+                                    ResourceLocation tag = new ResourceLocation("forge", "ores");
+                                    if (breakEvent.getState().getBlock().getTags().contains(tag)) {
+                                        BlockPos pos = breakEvent.getPos();
+                                        World world = breakEvent.getWorld().getWorld();
+                                        PlayerEntity player = breakEvent.getPlayer();
 
-                                // Runs through blocks, adding valid blocks to the schedueled list to check, and checked blocks to checked.
-                                BlockBreakHelper.handleHarvest(pos, world, player);
-                            }
-                        }
-                    })
-            .finish();
+                                        // Runs through blocks, adding valid blocks to the schedueled list to check, and checked blocks to checked.
+                                        BlockBreakHelper.handleHarvest(pos, world, player);
+                                    }
+                                }
+                            })
+                    .finish();
 }

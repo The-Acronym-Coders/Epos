@@ -18,7 +18,7 @@ import java.util.Objects;
 public class PosInvHandlerCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
     private PosInvHandler handler = new PosInvHandler("quiver", 62, 30, 9)
             .setInputFilter((idStack, integer) -> ShootableItem.ARROWS_OR_FIREWORKS.test(idStack))
-            .setRange(3, 3);;
+            .setRange(3, 3);
     private final LazyOptional<IItemHandler> posInv = LazyOptional.of(() -> handler);
 
     @Nonnull

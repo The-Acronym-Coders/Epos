@@ -1,8 +1,6 @@
 package com.teamacronymcoders.epos.eventhandler;
 
 import com.google.common.collect.Lists;
-import com.hrznstudio.titanium.annotation.Save;
-import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
@@ -10,9 +8,9 @@ import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
-import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
+import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
 import com.teamacronymcoders.epos.sounds.EposSoundEvents;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.ResourceLocation;
