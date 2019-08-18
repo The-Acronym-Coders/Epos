@@ -8,6 +8,7 @@ import com.hrznstudio.titanium.client.gui.addon.SlotsGuiAddon;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import javafx.geometry.Pos;
+import net.minecraft.client.gui.IHasContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -22,12 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GuiQuiverAddonScreen extends GuiAddonScreen implements INamedContainerProvider {
+    private final QuiverContainer container;
+    private PosInvHandler handler;
 
-    private final PosInvHandler handler;
-
-    public GuiQuiverAddonScreen(PosInvHandler handler) {
+    public GuiQuiverAddonScreen(QuiverContainer quiverContainer, PlayerInventory playerInventory, ITextComponent iTextComponent) {
         super(IAssetProvider.DEFAULT_PROVIDER, true);
-        this.handler = handler;
+        this.container = quiverContainer;
     }
 
     @Override
@@ -39,12 +40,12 @@ public class GuiQuiverAddonScreen extends GuiAddonScreen implements INamedContai
 
     @Override
     public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("epos.container.quiver");
+        return new TranslationTextComponent("epos.gui.quiver");
     }
 
     @Nullable
     @Override
-    public Container createMenu(int num, PlayerInventory inventory, PlayerEntity entity) {
-        return new QuiverContainer(num, inventory, null);
+    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+        return container;
     }
 }

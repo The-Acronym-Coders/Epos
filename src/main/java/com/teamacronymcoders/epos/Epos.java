@@ -10,9 +10,13 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
+import com.teamacronymcoders.epos.client.gui.GuiQuiverAddonScreen;
+import com.teamacronymcoders.epos.container.QuiverContainer;
+import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
 import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.feature.EposModules;
 import com.teamacronymcoders.epos.utils.configs.EMConfigs;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -23,6 +27,7 @@ import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -46,6 +51,7 @@ public class Epos extends ModuleController {
 
     public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverStart);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, EMConfigs.build, new File(FMLPaths.CONFIGDIR.get().toFile(), config).getAbsolutePath());
     }
@@ -74,6 +80,10 @@ public class Epos extends ModuleController {
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
         });
+    }
+
+    private void clientSetup(FMLClientSetupEvent event) {
+        ScreenManager.registerFactory(QuiverContainer.TYPE, QuiverItem.NewGuiQuiverAddonScreen::new);
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {

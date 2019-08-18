@@ -18,14 +18,10 @@ import java.awt.*;
 
 public class QuiverContainer extends Container {
     @ObjectHolder("epos:quiver_container")
-    public static final ContainerType<QuiverContainer> TYPE = null;
+    public static ContainerType<QuiverContainer> TYPE;
 
     private PlayerInventory player;
     private boolean hasPlayerInventory;
-
-    public QuiverContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-        this(((QuiverItem) playerInventory.player.getHeldItemMainhand().getItem()).getHandler(playerInventory.player.getHeldItemMainhand()), playerInventory);
-    }
 
     public QuiverContainer(PosInvHandler handler, PlayerInventory player) {
         super(TYPE, 0);
@@ -88,5 +84,26 @@ public class QuiverContainer extends Container {
         }
 
         return itemstack;
+    }
+
+    public void updateSlotPosition() {
+        if (tile.getMultiInventoryHandler() != null) {
+            for (PosInvHandler handler : tile.getMultiInventoryHandler().getInventoryHandlers()) {
+                int i = 0;
+                for (int y = 0; y < handler.getYSize(); ++y) {
+                    for (int x = 0; x < handler.getXSize(); ++x) {
+                        for (Slot inventorySlot : this.inventorySlots) {
+                            if (!(inventorySlot instanceof SlotItemHandler)) continue;
+                            if (((SlotItemHandler) inventorySlot).getItemHandler().equals(handler) && i == inventorySlot.getSlotIndex()) {
+                                inventorySlot.xPos = handler.getXPos() + x * 18;
+                                inventorySlot.yPos = handler.getYPos() + y * 18;
+                                break;
+                            }
+                        }
+                        ++i;
+                    }
+                }
+            }
+        }
     }
 }

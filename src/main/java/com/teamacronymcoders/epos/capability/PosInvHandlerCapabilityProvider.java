@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.capability;
 
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
+import net.minecraft.item.ShootableItem;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -12,17 +13,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class PosInvHandlerCapabilityProvider implements ICapabilityProvider {
-    private final LazyOptional<IItemHandler> optional;
-
-    public PosInvHandlerCapabilityProvider(PosInvHandler handler) {
-        this.optional = LazyOptional.of(() -> handler);
-    }
+    private final PosInvHandler handler = new PosInvHandler("quiver", 0, 0, 9)
+            .setInputFilter((idStack, integer) -> ShootableItem.ARROWS_OR_FIREWORKS.test(idStack))
+            .setRange(3, 3);;
+    private final LazyOptional<IItemHandler> posInv = LazyOptional.of(() -> handler);
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return optional.cast();
+            return posInv.cast();
         }
         return LazyOptional.empty();
     }
