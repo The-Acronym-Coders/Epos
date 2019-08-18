@@ -10,7 +10,7 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
-import com.teamacronymcoders.epos.client.gui.GuiQuiverAddonScreen;
+import com.teamacronymcoders.epos.client.gui.QuiverGui;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
 import com.teamacronymcoders.epos.json.JsonLoader;
@@ -83,7 +83,7 @@ public class Epos extends ModuleController {
     }
 
     private void clientSetup(FMLClientSetupEvent event) {
-        ScreenManager.registerFactory(QuiverContainer.TYPE, QuiverItem.NewGuiQuiverAddonScreen::new);
+        ScreenManager.registerFactory(QuiverContainer.TYPE, QuiverGui::new);
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {

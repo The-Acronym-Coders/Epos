@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class PosInvHandlerCapabilityProvider implements ICapabilityProvider {
-    private final PosInvHandler handler = new PosInvHandler("quiver", 0, 0, 9)
+    private PosInvHandler handler = new PosInvHandler("quiver", 62, 30, 9)
             .setInputFilter((idStack, integer) -> ShootableItem.ARROWS_OR_FIREWORKS.test(idStack))
             .setRange(3, 3);;
     private final LazyOptional<IItemHandler> posInv = LazyOptional.of(() -> handler);

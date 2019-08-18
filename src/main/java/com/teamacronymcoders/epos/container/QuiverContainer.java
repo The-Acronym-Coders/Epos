@@ -22,9 +22,15 @@ public class QuiverContainer extends Container {
 
     private PlayerInventory player;
     private boolean hasPlayerInventory;
+    private final PosInvHandler handler;
+
+    public QuiverContainer(int id, PlayerInventory player, PacketBuffer buffer) {
+        this(((QuiverItem) player.player.getHeldItemMainhand().getItem()).getHandler(player.player.getHeldItemMainhand()), player);
+    }
 
     public QuiverContainer(PosInvHandler handler, PlayerInventory player) {
         super(TYPE, 0);
+        this.handler = handler;
         this.player = player;
         int i = 0;
         for (int y = 0; y < handler.getYSize(); y++) {
@@ -86,24 +92,7 @@ public class QuiverContainer extends Container {
         return itemstack;
     }
 
-    public void updateSlotPosition() {
-        if (tile.getMultiInventoryHandler() != null) {
-            for (PosInvHandler handler : tile.getMultiInventoryHandler().getInventoryHandlers()) {
-                int i = 0;
-                for (int y = 0; y < handler.getYSize(); ++y) {
-                    for (int x = 0; x < handler.getXSize(); ++x) {
-                        for (Slot inventorySlot : this.inventorySlots) {
-                            if (!(inventorySlot instanceof SlotItemHandler)) continue;
-                            if (((SlotItemHandler) inventorySlot).getItemHandler().equals(handler) && i == inventorySlot.getSlotIndex()) {
-                                inventorySlot.xPos = handler.getXPos() + x * 18;
-                                inventorySlot.yPos = handler.getYPos() + y * 18;
-                                break;
-                            }
-                        }
-                        ++i;
-                    }
-                }
-            }
-        }
+    public PosInvHandler getHandler() {
+        return handler;
     }
 }
