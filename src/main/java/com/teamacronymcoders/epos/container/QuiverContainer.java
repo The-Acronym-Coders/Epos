@@ -20,17 +20,17 @@ public class QuiverContainer extends Container {
     @ObjectHolder("epos:quiver_container")
     public static ContainerType<QuiverContainer> TYPE;
     private final PosInvHandler handler;
-    private PlayerInventory player;
+    private PlayerInventory inventory;
     private boolean hasPlayerInventory;
 
-    public QuiverContainer(int id, PlayerInventory player, PacketBuffer buffer) {
-        this(((QuiverItem) player.player.getHeldItemMainhand().getItem()).getHandler(player.player.getHeldItemMainhand()), player);
+    public QuiverContainer(int id, PlayerInventory inventory, PacketBuffer buffer) {
+        this(((QuiverItem) inventory.player.getHeldItemMainhand().getItem()).getHandler(inventory.player.getHeldItemMainhand()), inventory);
     }
 
-    public QuiverContainer(PosInvHandler handler, PlayerInventory player) {
+    public QuiverContainer(PosInvHandler handler, PlayerInventory inventory) {
         super(TYPE, 0);
         this.handler = handler;
-        this.player = player;
+        this.inventory = inventory;
         int i = 0;
         for (int y = 0; y < handler.getYSize(); y++) {
             for (int x = 0; x < handler.getXSize(); x++) {
@@ -48,7 +48,7 @@ public class QuiverContainer extends Container {
         }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlot(new Slot(player, j + i * 9 + 9, invPos.x + j * 18, invPos.y + i * 18));
+                addSlot(new Slot(inventory, j + i * 9 + 9, invPos.x + j * 18, invPos.y + i * 18));
             }
         }
         hasPlayerInventory = true;

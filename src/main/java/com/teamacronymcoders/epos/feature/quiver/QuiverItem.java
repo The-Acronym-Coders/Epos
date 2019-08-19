@@ -3,7 +3,7 @@ package com.teamacronymcoders.epos.feature.quiver;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.capability.PosInvHandlerCapabilityProvider;
-import com.teamacronymcoders.epos.client.gui.QuiverGui;
+import com.teamacronymcoders.epos.gui.QuiverGui;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -40,11 +40,6 @@ public class QuiverItem extends Item {
                     NetworkHooks.openGui((ServerPlayerEntity) player, new QuiverGui(new QuiverContainer((PosInvHandler) handler, player.inventory), player.inventory, null)));
         }
         return new ActionResult<>(ActionResultType.PASS, stack);
-    }
-
-    @Override
-    public void onCreated(ItemStack stack, World worldIn, PlayerEntity playerIn) {
-        super.onCreated(stack, worldIn, playerIn);
     }
 
     public PosInvHandler getHandler(ItemStack stack) {

@@ -7,11 +7,13 @@ import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
 import net.minecraft.item.Item;
 
 public class EposModules {
-    public static final Module.Builder QUIVER =
-            Module.builder("quiver")
+    public static final Module.Builder ITEMS =
+            Module.builder("items")
                     .force()
-                    .description("Adds The Quiver").feature(
-                    Feature.builder("quiver")
+                    .description("Adds Epos Items")
+                    .feature(Feature.builder("Quiver")
                             .content(Item.class, new QuiverItem().setRegistryName(EposAPI.ID, "quiver"))
-            );
+                    );
+
+
 }

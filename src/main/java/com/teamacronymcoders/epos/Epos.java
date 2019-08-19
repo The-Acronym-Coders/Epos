@@ -10,7 +10,7 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
-import com.teamacronymcoders.epos.client.gui.QuiverGui;
+import com.teamacronymcoders.epos.gui.QuiverGui;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feature.EposModules;
 import com.teamacronymcoders.epos.json.JsonLoader;
@@ -57,7 +57,7 @@ public class Epos extends ModuleController {
 
     @Override
     protected void initModules() {
-        this.addModule(EposModules.QUIVER);
+        this.addModule(EposModules.ITEMS);
     }
 
     @SuppressWarnings("unused")

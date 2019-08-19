@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.client.gui;
+package com.teamacronymcoders.epos.gui;
 
 import com.hrznstudio.titanium.api.client.AssetTypes;
 import com.hrznstudio.titanium.api.client.IAsset;
