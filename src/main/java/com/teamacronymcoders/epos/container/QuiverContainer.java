@@ -20,7 +20,7 @@ public class QuiverContainer extends Container {
     @ObjectHolder("epos:quiver_container")
     public static ContainerType<QuiverContainer> TYPE;
     private final PosInvHandler handler;
-    private PlayerInventory inventory;
+    private final PlayerInventory inventory;
     private boolean hasPlayerInventory;
 
     public QuiverContainer(int id, PlayerInventory inventory, PacketBuffer buffer) {

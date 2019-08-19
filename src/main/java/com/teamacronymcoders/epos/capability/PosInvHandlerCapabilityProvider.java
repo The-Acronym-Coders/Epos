@@ -16,11 +16,12 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class PosInvHandlerCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
-    private PosInvHandler handler;
-    private final LazyOptional<IItemHandler> posInv = LazyOptional.of(() -> handler);
+    private final PosInvHandler handler;
+    private final LazyOptional<IItemHandler> posInv;
 
-    public PosInvHandlerCapabilityProvider(@Nonnull PosInvHandler invHandler) {
-        this.handler = invHandler;
+    public PosInvHandlerCapabilityProvider(@Nonnull PosInvHandler handler) {
+        this.handler = handler;
+        this.posInv = LazyOptional.of(() -> handler);
     }
 
     @Nonnull
