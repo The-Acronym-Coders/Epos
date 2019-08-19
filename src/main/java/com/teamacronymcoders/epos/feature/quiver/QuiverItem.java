@@ -10,6 +10,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
+import net.minecraft.item.ShootableItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -29,7 +30,9 @@ public class QuiverItem extends Item {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
-        return new PosInvHandlerCapabilityProvider();
+        return new PosInvHandlerCapabilityProvider(new PosInvHandler("quiver", 62, 30, 9)
+                .setInputFilter((idStack, integer) -> ShootableItem.ARROWS_OR_FIREWORKS.test(idStack))
+                .setRange(3, 3));
     }
 
     @Override

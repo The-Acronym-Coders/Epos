@@ -96,7 +96,7 @@ public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiA
         return false;
     }
 
-    @SuppressWarnings("NullableProblems")
+
     @Override
     public QuiverContainer getContainer() {
         return container;
@@ -107,16 +107,15 @@ public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiA
         return addons;
     }
 
-    @SuppressWarnings("NullableProblems")
+
     @Override
     public ITextComponent getDisplayName() {
         return new TranslationTextComponent("gui.epos.quiver");
     }
 
-    @SuppressWarnings("NullableProblems")
     @Nullable
     @Override
-    public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
+    public Container createMenu(int id, PlayerInventory inventory, PlayerEntity playerEntity) {
         return container;
     }
 }
