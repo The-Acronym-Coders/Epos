@@ -36,12 +36,12 @@ public class PosInvHandlerCapabilityProvider implements ICapabilityProvider, INB
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.put("items", Objects.requireNonNull(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.writeNBT(handler, null)));
+        nbt.put("items", handler.serializeNBT());
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.readNBT(handler, null, nbt.get("items"));
+        handler.deserializeNBT(nbt.getCompound("items"));
     }
 }
