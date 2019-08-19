@@ -29,8 +29,8 @@ import java.util.List;
 public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiAddonConsumer, IHasContainer<QuiverContainer>, INamedContainerProvider {
     private final QuiverContainer container;
     private IAssetProvider assetProvider;
-    private int x;
-    private int y;
+    private int xCenter;
+    private int yCenter;
     private List<IGuiAddon> addons;
 
     private boolean isMouseDragging;
@@ -51,24 +51,24 @@ public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiA
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         this.renderBackground();
-        x = (width - xSize) / 2;
-        y = (height - ySize) / 2;
+        xCenter = (width - xSize) / 2;
+        yCenter = (height - ySize) / 2;
         GlStateManager.color4f(1, 1, 1, 1);
         getMinecraft().getTextureManager().bindTexture(IAssetProvider.getAsset(assetProvider, AssetTypes.BACKGROUND).getResourceLocation());
-        blit(x, y, 0, 0, xSize, ySize);
-        drawCenteredString(Minecraft.getInstance().fontRenderer, TextFormatting.GRAY + new TranslationTextComponent("gui.epos.quiver").getFormattedText(), x + xSize / 2, y + 6, 0xFFFFFF);
+        blit(xCenter, yCenter, 0, 0, xSize, ySize);
+        drawCenteredString(Minecraft.getInstance().fontRenderer, TextFormatting.GRAY + new TranslationTextComponent("gui.epos.quiver").getFormattedText(), xCenter + xSize / 2, yCenter + 6, 0xFFFFFF);
         this.checkForMouseDrag(mouseX, mouseY);
-        addons.forEach(iGuiAddon -> iGuiAddon.drawGuiContainerBackgroundLayer(this, assetProvider, x, y, mouseX, mouseY, partialTicks));
+        addons.forEach(iGuiAddon -> iGuiAddon.drawGuiContainerBackgroundLayer(this, assetProvider, xCenter, yCenter, mouseX, mouseY, partialTicks));
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        addons.forEach(iGuiAddon -> iGuiAddon.drawGuiContainerForegroundLayer(this, assetProvider, x, y, mouseX, mouseY));
-        renderHoveredToolTip(mouseX - x, mouseY - y);
+        addons.forEach(iGuiAddon -> iGuiAddon.drawGuiContainerForegroundLayer(this, assetProvider, xCenter, yCenter, mouseX, mouseY));
+        renderHoveredToolTip(mouseX - xCenter, mouseY - yCenter);
         for (IGuiAddon iGuiAddon : addons) {
-            if (iGuiAddon.isInside(this, mouseX - x, mouseY - y) && !iGuiAddon.getTooltipLines().isEmpty()) {
-                renderTooltip(iGuiAddon.getTooltipLines(), mouseX - x, mouseY - y);
+            if (iGuiAddon.isInside(this, mouseX - xCenter, mouseY - yCenter) && !iGuiAddon.getTooltipLines().isEmpty()) {
+                renderTooltip(iGuiAddon.getTooltipLines(), mouseX - xCenter, mouseY - yCenter);
             }
         }
     }
@@ -91,23 +91,12 @@ public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiA
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        new ArrayList<>(addons).stream().filter(iGuiAddon -> iGuiAddon instanceof IClickable && iGuiAddon.isInside(this, mouseX - x, mouseY - y))
-                .forEach(iGuiAddon -> ((IClickable) iGuiAddon).handleClick(this, x, y, mouseX, mouseY, mouseButton));
+        new ArrayList<>(addons).stream().filter(iGuiAddon -> iGuiAddon instanceof IClickable && iGuiAddon.isInside(this, mouseX - xCenter, mouseY - yCenter))
+                .forEach(iGuiAddon -> ((IClickable) iGuiAddon).handleClick(this, xCenter, yCenter, mouseX, mouseY, mouseButton));
         return false;
     }
 
-    public IAssetProvider getAssetProvider() {
-        return assetProvider;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
+    @SuppressWarnings("NullableProblems")
     @Override
     public QuiverContainer getContainer() {
         return container;
@@ -118,11 +107,13 @@ public class QuiverGui extends ContainerScreen<QuiverContainer> implements IGuiA
         return addons;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public ITextComponent getDisplayName() {
         return new TranslationTextComponent("gui.epos.quiver");
     }
 
+    @SuppressWarnings("NullableProblems")
     @Nullable
     @Override
     public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
