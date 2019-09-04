@@ -30,6 +30,14 @@ public class LockRegistry {
         //Does this have any negative performance impact
     }
 
+    /**
+     * For use in reloading, and unit tests
+     */
+    public void clearLocks() {
+        locks.clear();
+        fuzzyLockInfo.clear();
+    }
+
     public void addLockByKey(@Nonnull ILockKey key, @Nonnull List<IRequirement> requirements) {
         if (key instanceof GenericLockKey || requirements.isEmpty()) {
             //Don't allow having locks on the generic key that is just for when there isn't enough information about a fuzzy lock key

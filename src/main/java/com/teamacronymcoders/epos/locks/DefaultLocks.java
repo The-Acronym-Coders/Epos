@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 
 public class DefaultLocks {
 
-    //TODO: Call this from somewhere
     public static void registerKeyLookups() {
         //ItemLockKey
         EposAPI.LOCK_REGISTRY.registerLockType(object -> object instanceof ItemStack ? ItemLockKey.fromItemStack((ItemStack) object) : null);

@@ -5,17 +5,13 @@ import com.teamacronymcoders.epos.api.locks.keys.NBTLockKey;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class ModLockKey extends NBTLockKey {
 
@@ -33,47 +29,33 @@ public class ModLockKey extends NBTLockKey {
 
     @Nullable
     public static ModLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof ItemStack) {
+        if (object instanceof IForgeRegistryEntry<?>) {
+            return fromRegistryEntry((IForgeRegistryEntry<?>) object, null);
+        } else if (object instanceof ItemStack) {
             ItemStack stack = (ItemStack) object;
             if (stack.isEmpty()) {
                 return null;
             }
-            return fromItem(stack.getItem(), stack.getTag());
-        } else if (object instanceof Item) {
-            return fromItem((Item) object, null);
+            return fromRegistryEntry(stack.getItem(), stack.getTag());
         } else if (object instanceof BlockState) {
-            return fromRegistryName(((BlockState) object).getBlock().getRegistryName(), null);
-        } else if (object instanceof Block) {
-            return fromRegistryName(((Block) object).getRegistryName(), null);
+            return fromRegistryEntry(((BlockState) object).getBlock(), null);
         } else if (object instanceof FluidStack) {
             FluidStack stack = (FluidStack) object;
             if (stack.isEmpty()) {
                 return null;
             }
-            return fromFluid(stack.getFluid(), stack.getTag());
-        } else if (object instanceof Fluid) {
-            return fromFluid((Fluid) object, null);
+            return fromRegistryEntry(stack.getFluid(), stack.getTag());
         } else if (object instanceof FluidState) {
-            return fromFluid(((FluidState) object).getFluid(), null);
+            return fromRegistryEntry(((FluidState) object).getFluid(), null);
         }
-        //TODO: Support getting from things that implement IForgeRegistry??
         return null;
     }
 
     @Nullable
-    private static ModLockKey fromItem(@Nonnull Item item, @Nullable CompoundNBT nbt) {
-        return item == Items.AIR ? null : fromRegistryName(item.getRegistryName(), nbt);
-    }
-
-    @Nullable
-    private static ModLockKey fromFluid(@Nonnull Fluid fluid, @Nullable CompoundNBT nbt) {
-        return fluid == Fluids.EMPTY ? null : fromRegistryName(fluid.getRegistryName(), nbt);
-    }
-
-    @Nullable
-    private static ModLockKey fromRegistryName(@Nullable ResourceLocation registryName, @Nullable CompoundNBT nbt) {
+    private static <T> ModLockKey fromRegistryEntry(@Nonnull IForgeRegistryEntry<T> registryEntry, @Nullable CompoundNBT nbt) {
         //If the registry name is somehow null we can't instantiate a new mod lock
         // Should never happen but gets rid of the null pointer warning
+        ResourceLocation registryName = registryEntry.getRegistryName();
         return registryName == null ? null : new ModLockKey(registryName.getNamespace(), nbt);
     }
 

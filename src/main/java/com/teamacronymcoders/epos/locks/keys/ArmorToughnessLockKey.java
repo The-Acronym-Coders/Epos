@@ -22,8 +22,7 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
 
     public ArmorToughnessLockKey(double toughness) {
         if (toughness < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Armor toughness must be greater than or equal to zero. Received: '" + toughness + "'.");
         }
         this.toughness = toughness;
     }

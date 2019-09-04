@@ -19,8 +19,7 @@ public class SaturationLockKey implements IFuzzyLockKey {
 
     public SaturationLockKey(float saturation) {
         if (saturation < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Saturation value must be greater than or equal to zero. Received: '" + saturation + "'.");
         }
         this.saturation = saturation;
     }
@@ -48,10 +47,7 @@ public class SaturationLockKey implements IFuzzyLockKey {
 
     @Nullable
     private static SaturationLockKey fromFood(@Nullable Food food) {
-        //TODO: Check if the saturation is accurate or if it is what used to be saturation modifier
-        // If it is old equiv then it should be
-        // saturation = food.getHealing() * food.getSaturation() * 2f;
-        return food == null ? null : new SaturationLockKey(food.getSaturation());
+        return food == null ? null : new SaturationLockKey(food.getHealing() * food.getSaturation() * 2F);
     }
 
     @Override

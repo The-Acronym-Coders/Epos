@@ -19,8 +19,7 @@ public class HungerLockKey implements IFuzzyLockKey {
 
     public HungerLockKey(int hunger) {
         if (hunger < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Hunger value must be greater than or equal to zero. Received: '" + hunger + "'.");
         }
         this.hunger = hunger;
     }

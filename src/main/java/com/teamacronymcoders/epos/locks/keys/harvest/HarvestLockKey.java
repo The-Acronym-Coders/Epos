@@ -8,8 +8,7 @@ public abstract class HarvestLockKey implements IFuzzyLockKey {
 
     protected HarvestLockKey(int harvestLevel) {
         if (harvestLevel < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Harvest level must be greater than or equal to zero. Received: '" + harvestLevel + "'.");
         }
         this.harvestLevel = harvestLevel;
     }

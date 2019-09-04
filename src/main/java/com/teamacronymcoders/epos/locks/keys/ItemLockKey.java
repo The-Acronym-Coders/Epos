@@ -26,7 +26,6 @@ public class ItemLockKey extends NBTLockKey {
     @Nullable
     public static ItemLockKey fromItemStack(@Nonnull ItemStack stack) {
         return stack.isEmpty() ? null : new ItemLockKey(stack.getItem(), stack.getTag());
-
         //TODO: Add case for block and for blockstate (or maybe just add a BlockStateLockKey)
     }
 

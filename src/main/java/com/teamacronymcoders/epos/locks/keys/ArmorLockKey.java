@@ -22,8 +22,7 @@ public class ArmorLockKey implements IFuzzyLockKey {
 
     public ArmorLockKey(double armor) {
         if (armor < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Armor value must be greater than or equal to zero. Received: '" + armor + "'.");
         }
         this.armor = armor;
     }

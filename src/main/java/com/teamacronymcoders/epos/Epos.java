@@ -9,6 +9,7 @@ import com.teamacronymcoders.epos.capability.NBTCapabilityStorage;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.configs.EposClientConfig;
 import com.teamacronymcoders.epos.feature.EposModules;
+import com.teamacronymcoders.epos.locks.DefaultLocks;
 import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.json.jsondirector.RegistryJsonDirector;
 import com.teamacronymcoders.epos.json.jsonprovider.PathJsonProvider;
@@ -47,6 +48,8 @@ public class Epos extends ModuleController {
     @SuppressWarnings("unused")
     private void setup(final FMLCommonSetupEvent event) {
         CapabilityManager.INSTANCE.register(ICharacterStats.class, NBTCapabilityStorage.create(), CharacterStats::new);
+
+        DefaultLocks.registerKeyLookups();
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {

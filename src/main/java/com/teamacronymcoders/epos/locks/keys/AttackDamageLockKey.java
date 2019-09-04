@@ -23,8 +23,7 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
 
     public AttackDamageLockKey(double attackDamage) {
         if (attackDamage < 0) {
-            //TODO: Add whatever information is needed here for a better error message
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Damage value must be greater than or equal to zero. Received: '" + attackDamage + "'.");
         }
         this.attackDamage = attackDamage;
     }
@@ -35,17 +34,8 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
             return null;
         }
         Item item = stack.getItem();
-        //TODO: Decide if we should also check offhand
         Multimap<String, AttributeModifier> attributeModifiers = item.getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
         Collection<AttributeModifier> damage = attributeModifiers.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
-        /*
-        //TODO: This is for compat with TConstruct's ranged weapons probably can just be deleted or something
-        if (damage.isEmpty() && TinkersCompatHandler.ENABLED) {//For ranged tinker's weapons like the shuriken
-            if (item instanceof slimeknights.tconstruct.library.tools.ranged.IProjectile) {
-                attributeModifiers = ((slimeknights.tconstruct.library.tools.ranged.IProjectile) item).getProjectileAttributeModifier(stack);
-                damage = attributeModifiers.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
-            }
-        }*/
         return damage.isEmpty() ? null : new AttackDamageLockKey(damage.stream().findFirst().map(AttributeModifier::getAmount).orElse(0D));
     }
 

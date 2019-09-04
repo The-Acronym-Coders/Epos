@@ -14,13 +14,11 @@ public final class GenericLockKey implements ILockKey {
 
     @Override
     public boolean equals(Object o) {
-        //TODO: Verify this is correct even when used via an enum
         return o == this || o instanceof GenericLockKey && type.equals(((GenericLockKey) o).type);
     }
 
     @Override
     public int hashCode() {
-        //TODO: Verify this is the same even when used via an enum
         return type.hashCode();
     }
 }

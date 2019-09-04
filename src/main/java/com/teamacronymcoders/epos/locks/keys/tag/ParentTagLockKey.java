@@ -18,17 +18,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-//TODO: Javadoc, this is basically a wrapper for TagLockKey to be able to get the requirements of all the different tags on an item/block/etc
 public class ParentTagLockKey implements IParentLockKey {
 
     @Nonnull
     private final Collection<ResourceLocation> tags;
     @Nullable
     private final CompoundNBT nbt;
-
-    public ParentTagLockKey(@Nonnull Collection<ResourceLocation> tags) {
-        this(tags, null);
-    }
 
     public ParentTagLockKey(@Nonnull Collection<ResourceLocation> tags, @Nullable CompoundNBT nbt) {
         this.tags = tags;
@@ -42,15 +37,16 @@ public class ParentTagLockKey implements IParentLockKey {
             if (stack.isEmpty()) {
                 return null;
             }
-            return fromItem(stack.getItem(), stack.getTag());
+            return fromTags(stack.getItem().getTags(), stack.getTag());
         } else if (object instanceof Item) {
-            return fromItem((Item) object, null);
+            return fromTags(((Item) object).getTags());
         } else if (object instanceof BlockState) {
             return fromTags(((BlockState) object).getBlock().getTags());
         } else if (object instanceof Block) {
             return fromTags(((Block) object).getTags());
         } else if (object instanceof FluidStack) {
-            return fromTags((((FluidStack) object).getFluid()).getTags());
+            FluidStack stack = (FluidStack) object;
+            return fromTags(stack.getFluid().getTags(), stack.getTag());
         } else if (object instanceof Fluid) {
             return fromTags(((Fluid) object).getTags());
         } else if (object instanceof FluidState) {
@@ -60,14 +56,13 @@ public class ParentTagLockKey implements IParentLockKey {
     }
 
     @Nullable
-    private static ParentTagLockKey fromItem(@Nonnull Item item, @Nullable CompoundNBT nbt) {
-        Collection<ResourceLocation> tags = item.getTags();
-        return tags.isEmpty() ? null : new ParentTagLockKey(tags, nbt);
+    private static ParentTagLockKey fromTags(@Nonnull Collection<ResourceLocation> tags) {
+        return fromTags(tags, null);
     }
 
     @Nullable
-    private static ParentTagLockKey fromTags(@Nonnull Collection<ResourceLocation> tags) {
-        return tags.isEmpty() ? null : new ParentTagLockKey(tags);
+    private static ParentTagLockKey fromTags(@Nonnull Collection<ResourceLocation> tags, @Nullable CompoundNBT nbt) {
+        return tags.isEmpty() ? null : new ParentTagLockKey(tags, nbt);
     }
 
     @Nonnull
