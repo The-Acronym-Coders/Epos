@@ -21,7 +21,8 @@ public class ListLockKey<TYPE> implements IParentLockKey {
         if (object instanceof List<?>) {
             return new ListLockKey<>((List<?>) object);
         } else if (object instanceof String) {
-            return new ListLockKey<>(Arrays.asList(((String) object).split("\\s*,\\s*")));
+            String string = (String) object;
+            return string.contains(",") ? new ListLockKey<>(Arrays.asList(string.split("\\s*,\\s*"))) : null;
         }
         return null;
     }
