@@ -12,6 +12,7 @@ import net.minecraft.nbt.IntArrayNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.LongArrayNBT;
 import net.minecraftforge.common.util.Constants;
+import org.apache.commons.lang3.ArrayUtils;
 
 public abstract class NBTLockKey implements IFuzzyLockKey {
 
@@ -22,7 +23,6 @@ public abstract class NBTLockKey implements IFuzzyLockKey {
         this.nbt = nbt == null || nbt.isEmpty() ? null : nbt;
     }
 
-    //TODO: Re-evaluate this and try to deduplicate the code and make sure tag list isn't checking duplicates
     protected static boolean similarNBT(@Nullable INBT full, @Nullable INBT partial) {
         if (full == null) {
             return partial == null;
@@ -54,6 +54,8 @@ public abstract class NBTLockKey implements IFuzzyLockKey {
                 if (fTagList.isEmpty() && !pTagList.isEmpty() || fTagList.getTagType() != pTagList.getTagType()) {
                     return false;
                 }
+                //TODO: Add similar support to this for making sure repeats get counted based on how many times they appear in partial
+                // This is an edge case so isn't super important for now but is something to keep in mind
                 for (int i = 0; i < pTagList.size(); i++) {
                     INBT pTag = pTagList.get(i);
                     boolean hasTag = false;
@@ -69,62 +71,32 @@ public abstract class NBTLockKey implements IFuzzyLockKey {
                 }
                 return true;
             case Constants.NBT.TAG_BYTE_ARRAY:
-                byte[] fByteArray = ((ByteArrayNBT) full).getByteArray();
-                byte[] pByteArray = ((ByteArrayNBT) partial).getByteArray();
-                List<Integer> hits = new ArrayList<>();
-                for (byte pByte : pByteArray) {
-                    boolean hasMatch = false;
-                    for (int i = 0; i < fByteArray.length; i++) {
-                        if (!hits.contains(i) && pByte == fByteArray[i]) {
-                            hits.add(i);
-                            hasMatch = true;
-                            break;
-                        }
-                    }
-                    if (!hasMatch) {
-                        return false;
-                    }
-                }
-                return true;
+                return compareArrays(ArrayUtils.toObject(((ByteArrayNBT) full).getByteArray()), ArrayUtils.toObject(((ByteArrayNBT) partial).getByteArray()));
             case Constants.NBT.TAG_INT_ARRAY:
-                int[] fIntArray = ((IntArrayNBT) full).getIntArray();
-                int[] pIntArray = ((IntArrayNBT) partial).getIntArray();
-                hits = new ArrayList<>();
-                for (int pInt : pIntArray) {
-                    boolean hasMatch = false;
-                    for (int i = 0; i < fIntArray.length; i++) {
-                        if (!hits.contains(i) && pInt == fIntArray[i]) {
-                            hits.add(i);
-                            hasMatch = true;
-                            break;
-                        }
-                    }
-                    if (!hasMatch) {
-                        return false;
-                    }
-                }
-                return true;
+                return compareArrays(ArrayUtils.toObject(((IntArrayNBT) full).getIntArray()), ArrayUtils.toObject(((IntArrayNBT) partial).getIntArray()));
             case Constants.NBT.TAG_LONG_ARRAY:
-                long[] fLongArray = ((LongArrayNBT) full).getAsLongArray();
-                long[] pLongArray = ((LongArrayNBT) partial).getAsLongArray();
-                hits = new ArrayList<>();
-                for (long pLong : pLongArray) {
-                    boolean hasMatch = false;
-                    for (int i = 0; i < fLongArray.length; i++) {
-                        if (!hits.contains(i) && pLong == fLongArray[i]) {
-                            hits.add(i);
-                            hasMatch = true;
-                            break;
-                        }
-                    }
-                    if (!hasMatch) {
-                        return false;
-                    }
-                }
-                return true;
+                return compareArrays(ArrayUtils.toObject(((LongArrayNBT) full).getAsLongArray()), ArrayUtils.toObject(((LongArrayNBT) partial).getAsLongArray()));
             default:
                 return false;
         }
+    }
+
+    private static <T extends Comparable<T>> boolean compareArrays(T[] fullArray, T[] partialArray) {
+        List<Integer> hits = new ArrayList<>();
+        for (T partial : partialArray) {
+            boolean hasMatch = false;
+            for (int i = 0; i < fullArray.length; i++) {
+                if (!hits.contains(i) && partial.compareTo(fullArray[i]) == 0) {
+                    hits.add(i);
+                    hasMatch = true;
+                    break;
+                }
+            }
+            if (!hasMatch) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Nullable
