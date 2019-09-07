@@ -17,10 +17,10 @@ public class HungerLockKey implements IFuzzyLockKey {
 
     private final int hunger;
 
+    /**
+     * @apiNote Ensure that the given hunger value is positive.
+     */
     public HungerLockKey(int hunger) {
-        if (hunger < 0) {
-            throw new IllegalArgumentException("Hunger value must be greater than or equal to zero. Received: '" + hunger + "'.");
-        }
         this.hunger = hunger;
     }
 
@@ -47,7 +47,12 @@ public class HungerLockKey implements IFuzzyLockKey {
 
     @Nullable
     private static HungerLockKey fromFood(@Nullable Food food) {
-        return food == null ? null : new HungerLockKey(food.getHealing());
+        if (food == null) {
+            return null;
+        }
+        int healing = food.getHealing();
+        //Ensure that the value is actually positive
+        return healing < 0 ? null : new HungerLockKey(healing);
     }
 
     @Override

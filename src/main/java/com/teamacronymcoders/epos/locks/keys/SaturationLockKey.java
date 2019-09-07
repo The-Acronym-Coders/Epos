@@ -17,10 +17,10 @@ public class SaturationLockKey implements IFuzzyLockKey {
 
     private final float saturation;
 
+    /**
+     * @apiNote Ensure that the given saturation value is positive.
+     */
     public SaturationLockKey(float saturation) {
-        if (saturation < 0) {
-            throw new IllegalArgumentException("Saturation value must be greater than or equal to zero. Received: '" + saturation + "'.");
-        }
         this.saturation = saturation;
     }
 
@@ -47,7 +47,12 @@ public class SaturationLockKey implements IFuzzyLockKey {
 
     @Nullable
     private static SaturationLockKey fromFood(@Nullable Food food) {
-        return food == null ? null : new SaturationLockKey(food.getHealing() * food.getSaturation() * 2F);
+        if (food == null) {
+            return null;
+        }
+        float saturation = food.getHealing() * food.getSaturation() * 2F;
+        //Ensure that the value is actually positive
+        return saturation < 0 ? null : new SaturationLockKey(saturation);
     }
 
     @Override

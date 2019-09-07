@@ -16,6 +16,9 @@ public class BlockHarvestLockKey extends HarvestLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.BLOCK_HARVEST);
 
+    /**
+     * @apiNote Ensure that the given harvest level is positive.
+     */
     public BlockHarvestLockKey(int harvestLevel) {
         super(harvestLevel);
     }

@@ -5,7 +5,7 @@ import com.teamacronymcoders.epos.api.locks.keys.GenericLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
 import com.teamacronymcoders.epos.locks.FuzzyLockKeyTypes;
-import java.util.Collection;
+import com.teamacronymcoders.epos.utils.AttributeUtils;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,10 +21,10 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
 
     private final double attackDamage;
 
+    /**
+     * @apiNote Ensure that the given damage value is positive.
+     */
     public AttackDamageLockKey(double attackDamage) {
-        if (attackDamage < 0) {
-            throw new IllegalArgumentException("Damage value must be greater than or equal to zero. Received: '" + attackDamage + "'.");
-        }
         this.attackDamage = attackDamage;
     }
 
@@ -35,8 +35,9 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
         }
         Item item = stack.getItem();
         Multimap<String, AttributeModifier> attributeModifiers = item.getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
-        Collection<AttributeModifier> damage = attributeModifiers.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
-        return damage.isEmpty() ? null : new AttackDamageLockKey(damage.stream().findFirst().map(AttributeModifier::getAmount).orElse(0D));
+        double damage = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ATTACK_DAMAGE);
+        //Ensure that the value is actually positive
+        return damage < 0 ? null : new AttackDamageLockKey(damage);
     }
 
     @Override

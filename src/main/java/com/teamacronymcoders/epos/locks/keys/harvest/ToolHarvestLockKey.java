@@ -24,12 +24,18 @@ public class ToolHarvestLockKey extends HarvestLockKey {
     @Nullable
     private final ToolType toolType;
 
+    /**
+     * @apiNote Ensure that the given harvest level is positive.
+     */
     public ToolHarvestLockKey(@Nullable ToolType toolType, int harvestLevel) {
         super(harvestLevel);
         this.toolType = toolType;
         this.typeLevels = new HashMap<>();
     }
 
+    /**
+     * @apiNote Ensure that the given harvest level is positive.
+     */
     private ToolHarvestLockKey(@Nonnull Map<ToolType, Integer> typeLevels, int harvestLevel) {
         super(harvestLevel);
         this.toolType = null;
@@ -56,7 +62,7 @@ public class ToolHarvestLockKey extends HarvestLockKey {
         }
         //TODO: Decide if it matches only one tool type if it should just be that type instead of it as a map
         // Note: Would have to rewrite fuzzyEquals implementation
-        return highestLevel == -1 ? null : new ToolHarvestLockKey(typeLevels, highestLevel);
+        return highestLevel < 0 || typeLevels.isEmpty() ? null : new ToolHarvestLockKey(typeLevels, highestLevel);
     }
 
     @Override

@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
+//TODO: JavaDoc all methods once the RequirementCombiner system is developed, as some of the methods here may change slightly
 public class LockRegistry {
 
     private static final List<IRequirement> EMPTY_REQUIREMENTS = Collections.emptyList();
@@ -23,11 +24,16 @@ public class LockRegistry {
     private final Map<ILockKey, List<IRequirement>> locks = new HashMap<>();
     private final Map<ILockKey, Set<IFuzzyLockKey>> fuzzyLockInfo = new HashMap<>();
 
+    /**
+     * Unlike the 1.12 system this has it so that each lock key has one registration for each type it can be created from Each one has to be checked when getting by type
+     * rather than knowing it "should" be good for that type already
+     *
+     * @param creator A Lock Key Creator that creates keys of type KEY given an object.
+     * @param <KEY>   The type of key the given lock creator is for.
+     */
+    //TODO: Evaluate if there is any performance impact of checking against all compared to directly getting the subset that works
     public <KEY extends ILockKey> void registerLockType(@Nonnull ILockKeyCreator<KEY> creator) {
         keyCreators.add(creator);
-        //Unlike the 1.12 system this has it so that each lock key has one registration for each type it can be created from
-        //Each one has to be checked when getting by type rather than knowing it "should" be good for that type already
-        //Does this have any negative performance impact
     }
 
     /**
@@ -39,17 +45,15 @@ public class LockRegistry {
     }
 
     public void addLockByKey(@Nonnull ILockKey key, @Nonnull List<IRequirement> requirements) {
-        if (key instanceof GenericLockKey || requirements.isEmpty()) {
-            //Don't allow having locks on the generic key that is just for when there isn't enough information about a fuzzy lock key
-            return;
-        }
-        locks.put(key, requirements);
-
-        if (key instanceof IFuzzyLockKey) {
-            IFuzzyLockKey fuzzy = (IFuzzyLockKey) key;
-            if (!fuzzy.isNotFuzzy()) {
-                //Store the fuzzy instance in a list for the specific item
-                fuzzyLockInfo.computeIfAbsent(fuzzy.getNotFuzzy(), k -> new HashSet<>()).add(fuzzy);
+        //Don't allow having locks on the generic key that is just for when there isn't enough information about a fuzzy lock key
+        if (!(key instanceof GenericLockKey) && !requirements.isEmpty()) {
+            locks.put(key, requirements);
+            if (key instanceof IFuzzyLockKey) {
+                IFuzzyLockKey fuzzy = (IFuzzyLockKey) key;
+                if (!fuzzy.isNotFuzzy()) {
+                    //Store the fuzzy instance in a list for the specific item
+                    fuzzyLockInfo.computeIfAbsent(fuzzy.getNotFuzzy(), k -> new HashSet<>()).add(fuzzy);
+                }
             }
         }
     }

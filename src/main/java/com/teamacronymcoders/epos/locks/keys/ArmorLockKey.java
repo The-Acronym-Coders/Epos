@@ -1,10 +1,11 @@
 package com.teamacronymcoders.epos.locks.keys;
 
+import com.google.common.collect.Multimap;
 import com.teamacronymcoders.epos.api.locks.keys.GenericLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
 import com.teamacronymcoders.epos.locks.FuzzyLockKeyTypes;
-import java.util.Collection;
+import com.teamacronymcoders.epos.utils.AttributeUtils;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,10 +21,10 @@ public class ArmorLockKey implements IFuzzyLockKey {
 
     private final double armor;
 
+    /**
+     * @apiNote Ensure that the given armor value is positive.
+     */
     public ArmorLockKey(double armor) {
-        if (armor < 0) {
-            throw new IllegalArgumentException("Armor value must be greater than or equal to zero. Received: '" + armor + "'.");
-        }
         this.armor = armor;
     }
 
@@ -35,12 +36,10 @@ public class ArmorLockKey implements IFuzzyLockKey {
         Item item = stack.getItem();
         if (item instanceof ArmorItem) {
             ArmorItem armorItem = (ArmorItem) item;
-            double armor = armorItem.getDamageReduceAmount();
-            Collection<AttributeModifier> protection = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack).get(SharedMonsterAttributes.ARMOR.getName());
-            if (!protection.isEmpty()) {
-                armor += protection.stream().findFirst().map(AttributeModifier::getAmount).orElse(0D);
-            }
-            return new ArmorLockKey(armor);
+            Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
+            double armor = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR, armorItem.getDamageReduceAmount());
+            //Ensure that the value is actually positive
+            return armor < 0 ? null : new ArmorLockKey(armor);
         }
         return null;
     }

@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
@@ -25,7 +27,7 @@ public class ParentTagLockKey implements IParentLockKey {
     @Nullable
     private final CompoundNBT nbt;
 
-    public ParentTagLockKey(@Nonnull Collection<ResourceLocation> tags, @Nullable CompoundNBT nbt) {
+    private ParentTagLockKey(@Nonnull Collection<ResourceLocation> tags, @Nullable CompoundNBT nbt) {
         this.tags = tags;
         this.nbt = nbt == null || nbt.isEmpty() ? null : nbt;
     }
@@ -51,6 +53,10 @@ public class ParentTagLockKey implements IParentLockKey {
             return fromTags(((Fluid) object).getTags());
         } else if (object instanceof FluidState) {
             return fromTags(((FluidState) object).getFluid().getTags());
+        } else if (object instanceof Entity) {
+            return fromTags(((Entity) object).getType().getTags());
+        } else if (object instanceof EntityType<?>) {
+            return fromTags(((EntityType<?>) object).getTags());
         }
         return null;
     }

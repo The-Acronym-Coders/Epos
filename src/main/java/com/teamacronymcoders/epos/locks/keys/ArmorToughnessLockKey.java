@@ -1,10 +1,11 @@
 package com.teamacronymcoders.epos.locks.keys;
 
+import com.google.common.collect.Multimap;
 import com.teamacronymcoders.epos.api.locks.keys.GenericLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
 import com.teamacronymcoders.epos.locks.FuzzyLockKeyTypes;
-import java.util.Collection;
+import com.teamacronymcoders.epos.utils.AttributeUtils;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -20,10 +21,10 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
 
     private final double toughness;
 
+    /**
+     * @apiNote Ensure that the given armor toughness value is positive.
+     */
     public ArmorToughnessLockKey(double toughness) {
-        if (toughness < 0) {
-            throw new IllegalArgumentException("Armor toughness must be greater than or equal to zero. Received: '" + toughness + "'.");
-        }
         this.toughness = toughness;
     }
 
@@ -35,12 +36,10 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
         Item item = stack.getItem();
         if (item instanceof ArmorItem) {
             ArmorItem armorItem = (ArmorItem) item;
-            double toughness = armorItem.getToughness();
-            Collection<AttributeModifier> protection = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack).get(SharedMonsterAttributes.ARMOR_TOUGHNESS.getName());
-            if (!protection.isEmpty()) {
-                toughness += protection.stream().findFirst().map(AttributeModifier::getAmount).orElse(0D);
-            }
-            return new ArmorToughnessLockKey(toughness);
+            Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
+            double toughness = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR_TOUGHNESS, armorItem.getToughness());
+            //Ensure that the value is actually positive
+            return toughness < 0 ? null : new ArmorToughnessLockKey(toughness);
         }
         return null;
     }

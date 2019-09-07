@@ -14,7 +14,10 @@ public class GenericNBTLockKey extends NBTLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.GENERIC_NBT);
 
-    public GenericNBTLockKey(@Nullable CompoundNBT nbt) {
+    /**
+     * @apiNote Ensure that the given Compound is not empty.
+     */
+    public GenericNBTLockKey(@Nonnull CompoundNBT nbt) {
         super(nbt);
     }
 
@@ -22,11 +25,16 @@ public class GenericNBTLockKey extends NBTLockKey {
     public static GenericNBTLockKey fromObject(@Nonnull Object object) {
         if (object instanceof ItemStack) {
             ItemStack stack = (ItemStack) object;
-            return stack.isEmpty() ? null : new GenericNBTLockKey(((ItemStack) object).getTag());
+            return stack.hasTag() ? fromCompound(stack.getTag()) : null;
         } else if (object instanceof CompoundNBT) {
-            return new GenericNBTLockKey((CompoundNBT) object);
+            return fromCompound((CompoundNBT) object);
         }
         return null;
+    }
+
+    @Nullable
+    private static GenericNBTLockKey fromCompound(@Nonnull CompoundNBT nbt) {
+        return nbt.isEmpty() ? null : new GenericNBTLockKey(nbt);
     }
 
     @Override
