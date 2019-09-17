@@ -1,7 +1,6 @@
 package com.teamacronymcoders.epos.capability;
 
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
-import net.minecraft.item.ShootableItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,7 +12,6 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class PosInvHandlerCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
     private final PosInvHandler handler;

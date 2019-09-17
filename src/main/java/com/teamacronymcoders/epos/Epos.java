@@ -19,6 +19,8 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -81,6 +83,7 @@ public class Epos extends ModuleController {
         });
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void clientSetup(FMLClientSetupEvent event) {
         ScreenManager.registerFactory(QuiverContainer.TYPE, QuiverGui::new);
     }
