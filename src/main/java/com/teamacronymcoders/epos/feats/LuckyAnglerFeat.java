@@ -27,13 +27,13 @@ public class LuckyAnglerFeat {
                                 if (entityJoinWorldEvent.getEntity() instanceof FishingBobberEntity) {
                                     SkillInfo skill = iCharacterStats.getSkills().get(NAME.toString());
                                     FishingBobberEntity oldEntity = (FishingBobberEntity) entityJoinWorldEvent.getEntity();
-                                    if (!oldEntity.getEntityData().contains("replaced") && oldEntity.getAngler() != null && skill != null) {
+                                    if (!oldEntity.getPersistantData().contains("replaced") && oldEntity.getAngler() != null && skill != null) {
                                         ItemStack stack = oldEntity.getAngler().getActiveItemStack();
                                         FishingBobberEntity newEntity = new FishingBobberEntity(oldEntity.getAngler(),
                                                 oldEntity.world,
                                                 EnchantmentHelper.getFishingLuckBonus(stack) + skill.getLevel(),
                                                 Math.max(5, EnchantmentHelper.getFishingSpeedBonus(stack) + skill.getLevel()));
-                                        newEntity.getEntityData().putBoolean("replaced", true);
+                                        newEntity.getPersistantData().putBoolean("replaced", true);
                                         entityJoinWorldEvent.getWorld().addEntity(newEntity);
                                         entityJoinWorldEvent.setCanceled(true);
                                     }

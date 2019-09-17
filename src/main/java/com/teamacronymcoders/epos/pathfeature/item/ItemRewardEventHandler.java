@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = EposAPI.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ItemRewardEventHandler {
     public static void onDeath(PlayerEvent.Clone event) {
-        if (event.getOriginal().getEntityData().contains("item_rewards")) {
-            CompoundNBT nbt = event.getOriginal().getEntityData().getCompound("item_rewards");
-            event.getPlayer().getEntityData().put("item_rewards", nbt);
+        if (event.getOriginal().getPersistantData().contains("item_rewards")) {
+            CompoundNBT nbt = event.getOriginal().getPersistantData().getCompound("item_rewards");
+            event.getPlayer().getPersistantData().put("item_rewards", nbt);
         }
     }
 }

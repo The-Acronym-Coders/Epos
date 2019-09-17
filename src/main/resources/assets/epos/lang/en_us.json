@@ -1,4 +1,9 @@
 {
+  "itemGroup.epos": "Epos",
+
+  "item.epos.quiver": "Quiver",
+  "gui.epos.quiver": "Quiver",
+
   "feat.epos.missing.name": "Missing Feat",
   "feat.epos.missing.description": "The Feat for registry name %s is missing",
   "path.epos.missing.name": "Missing Path",

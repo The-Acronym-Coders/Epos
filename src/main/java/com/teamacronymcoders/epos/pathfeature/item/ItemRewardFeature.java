@@ -24,10 +24,10 @@ public class ItemRewardFeature extends PathFeature {
     @Override
     public void applyTo(LivingEntity character, ICharacterStats characterStats) {
         World world = character.world;
-        CompoundNBT entityNBT = character.getEntityData();
+        CompoundNBT entityNBT = character.getPersistantData();
         if (!entityNBT.contains("item_rewards")) {
             CompoundNBT newNBT = new CompoundNBT();
-            character.getEntityData().put("item_rewards", newNBT);
+            character.getPersistantData().put("item_rewards", newNBT);
         }
         CompoundNBT itemRewards = entityNBT.getCompound("item_rewards");
         if (itemRewards.contains(identifier)) {

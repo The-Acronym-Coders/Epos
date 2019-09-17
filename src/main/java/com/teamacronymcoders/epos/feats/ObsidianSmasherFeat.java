@@ -12,8 +12,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class ObsidianSmasherFeat {
     private static final ResourceLocation TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher");
-    private static final ResourceLocation NO_TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher_no_tool");
-
     public static final Feat TOOL_FEAT =
             FeatBuilder.start(TOOL_NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
@@ -22,7 +20,7 @@ public class ObsidianSmasherFeat {
                             breakSpeed.setNewSpeed(breakSpeed.getNewSpeed() * 10);
                         }
                     }).finish();
-
+    private static final ResourceLocation NO_TOOL_NAME = new ResourceLocation(EposAPI.ID, "obsidian_smasher_no_tool");
     public static final Feat NO_TOOL_FEAT =
             FeatBuilder.start(NO_TOOL_NAME)
                     .withEventHandler(PlayerEvent.BreakSpeed.class, (breakSpeed, livingEntity, iCharacterStats) -> {
