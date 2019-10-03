@@ -28,22 +28,6 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
         this.toughness = toughness;
     }
 
-    @Nullable
-    public static ArmorToughnessLockKey fromItemStack(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()) {
-            return null;
-        }
-        Item item = stack.getItem();
-        if (item instanceof ArmorItem) {
-            ArmorItem armorItem = (ArmorItem) item;
-            Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
-            double toughness = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR_TOUGHNESS, armorItem.getToughness());
-            //Ensure that the value is actually positive
-            return toughness < 0 ? null : new ArmorToughnessLockKey(toughness);
-        }
-        return null;
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof ArmorToughnessLockKey && toughness >= ((ArmorToughnessLockKey) o).toughness;
@@ -68,5 +52,26 @@ public class ArmorToughnessLockKey implements IFuzzyLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(toughness);
+    }
+
+    @Nullable
+    public static ArmorToughnessLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            if (stack.isEmpty()) {
+                return null;
+            }
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                ArmorItem armorItem = (ArmorItem) item;
+                Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
+                double toughness = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR_TOUGHNESS, armorItem.getToughness());
+                //Ensure that the value is actually positive
+                if (toughness >= 0) {
+                    return new ArmorToughnessLockKey(toughness);
+                }
+            }
+        }
+        return null;
     }
 }

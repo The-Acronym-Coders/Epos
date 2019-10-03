@@ -27,6 +27,29 @@ public class ModLockKey extends NBTLockKey {
         this.modName = modName.toLowerCase();
     }
 
+    @Override
+    @Nonnull
+    public ILockKey getNotFuzzy() {
+        return isNotFuzzy() ? this : new ModLockKey(modName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o instanceof ModLockKey) {
+            ModLockKey other = (ModLockKey) o;
+            return modName.equals(other.modName) && Objects.equals(nbt, other.nbt);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(modName, nbt);
+    }
+
     @Nullable
     public static ModLockKey fromObject(@Nonnull Object object) {
         if (object instanceof IForgeRegistryEntry<?>) {
@@ -57,28 +80,5 @@ public class ModLockKey extends NBTLockKey {
         // Should never happen but gets rid of the null pointer warning
         ResourceLocation registryName = registryEntry.getRegistryName();
         return registryName == null ? null : new ModLockKey(registryName.getNamespace(), nbt);
-    }
-
-    @Override
-    @Nonnull
-    public ILockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new ModLockKey(modName);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (o instanceof ModLockKey) {
-            ModLockKey other = (ModLockKey) o;
-            return modName.equals(other.modName) && Objects.equals(nbt, other.nbt);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(modName, nbt);
     }
 }

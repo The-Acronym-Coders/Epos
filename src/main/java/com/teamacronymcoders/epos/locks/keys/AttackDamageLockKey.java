@@ -28,18 +28,6 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
         this.attackDamage = attackDamage;
     }
 
-    @Nullable
-    public static AttackDamageLockKey fromItemStack(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()) {
-            return null;
-        }
-        Item item = stack.getItem();
-        Multimap<String, AttributeModifier> attributeModifiers = item.getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
-        double damage = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ATTACK_DAMAGE);
-        //Ensure that the value is actually positive
-        return damage < 0 ? null : new AttackDamageLockKey(damage);
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof AttackDamageLockKey && attackDamage >= ((AttackDamageLockKey) o).attackDamage;
@@ -64,5 +52,23 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(attackDamage);
+    }
+
+    @Nullable
+    public static AttackDamageLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            if (stack.isEmpty()) {
+                return null;
+            }
+            Item item = stack.getItem();
+            Multimap<String, AttributeModifier> attributeModifiers = item.getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
+            double damage = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ATTACK_DAMAGE);
+            //Ensure that the value is actually positive
+            if (damage >= 0) {
+                return new AttackDamageLockKey(damage);
+            }
+        }
+        return null;
     }
 }

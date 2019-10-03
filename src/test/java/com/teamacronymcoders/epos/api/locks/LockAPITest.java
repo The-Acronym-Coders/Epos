@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.api.locks;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.locks.keys.DoubleLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IntegerLockKey;
-import com.teamacronymcoders.epos.api.locks.keys.ListLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.StringLockKey;
 import com.teamacronymcoders.epos.api.requirements.IRequirement;
 import com.teamacronymcoders.epos.api.requirements.SimpleRequirement;
@@ -22,8 +21,9 @@ class LockAPITest {
     static void registerLockTypes() {
         EposAPI.LOCK_REGISTRY.registerLockType(DoubleLockKey::fromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(IntegerLockKey::fromObject);
-        EposAPI.LOCK_REGISTRY.registerLockType(ListLockKey::fromObject);
-        EposAPI.LOCK_REGISTRY.registerLockType(object -> object instanceof String ? new StringLockKey((String) object) : null);
+        EposAPI.LOCK_REGISTRY.registerLockType(StringLockKey::fromObject);
+
+        EposAPI.LOCK_REGISTRY.registerMultiLockType(StringLockKey::getKeysFromObject);
     }
 
     /**
@@ -47,9 +47,8 @@ class LockAPITest {
     }
 
     @Test
-    @DisplayName("Test retrieval via ParentLockKey")
+    @DisplayName("Test retrieval via multi lock creator system")
     void fromParentLock() {
-        //ListLockKey
         EposAPI.LOCK_REGISTRY.addLockByKey(new StringLockKey("1"), Collections.singletonList(new SimpleRequirement("1")));
         EposAPI.LOCK_REGISTRY.addLockByKey(new StringLockKey("2"), Collections.singletonList(new SimpleRequirement("2")));
         EposAPI.LOCK_REGISTRY.addLockByKey(new StringLockKey("3"), Collections.singletonList(new SimpleRequirement("3")));

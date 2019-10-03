@@ -29,28 +29,6 @@ public class ToolHarvestLockKey extends HarvestLockKey {
         this.toolType = toolType;
     }
 
-    @Nonnull
-    public static List<ToolHarvestLockKey> getKeysFromObject(@Nonnull Object object) {
-        if (!(object instanceof ItemStack)) {
-            //If we are not an ItemStack fail
-            return EMPTY;
-        }
-        ItemStack stack = (ItemStack) object;
-        if (stack.isEmpty()) {
-            //Fail if our stack is empty
-            return EMPTY;
-        }
-        List<ToolHarvestLockKey> keys = new ArrayList<>();
-        Item item = stack.getItem();
-        for (ToolType type : item.getToolTypes(stack)) {
-            int level = item.getHarvestLevel(stack, type, null, null);
-            if (level >= 0) {
-                keys.add(new ToolHarvestLockKey(type, level));
-            }
-        }
-        return keys;
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         if (o == this) {
@@ -84,5 +62,25 @@ public class ToolHarvestLockKey extends HarvestLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(toolType, harvestLevel);
+    }
+
+    @Nonnull
+    public static List<ToolHarvestLockKey> getKeysFromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            if (stack.isEmpty()) {
+                return EMPTY;
+            }
+            List<ToolHarvestLockKey> keys = new ArrayList<>();
+            Item item = stack.getItem();
+            for (ToolType type : item.getToolTypes(stack)) {
+                int level = item.getHarvestLevel(stack, type, null, null);
+                if (level >= 0) {
+                    keys.add(new ToolHarvestLockKey(type, level));
+                }
+            }
+            return keys;
+        }
+        return EMPTY;
     }
 }

@@ -28,22 +28,6 @@ public class ArmorLockKey implements IFuzzyLockKey {
         this.armor = armor;
     }
 
-    @Nullable
-    public static ArmorLockKey fromItemStack(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()) {
-            return null;
-        }
-        Item item = stack.getItem();
-        if (item instanceof ArmorItem) {
-            ArmorItem armorItem = (ArmorItem) item;
-            Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
-            double armor = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR, armorItem.getDamageReduceAmount());
-            //Ensure that the value is actually positive
-            return armor < 0 ? null : new ArmorLockKey(armor);
-        }
-        return null;
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof ArmorLockKey && armor >= ((ArmorLockKey) o).armor;
@@ -68,5 +52,26 @@ public class ArmorLockKey implements IFuzzyLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(armor);
+    }
+
+    @Nullable
+    public static ArmorLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            if (stack.isEmpty()) {
+                return null;
+            }
+            Item item = stack.getItem();
+            if (item instanceof ArmorItem) {
+                ArmorItem armorItem = (ArmorItem) item;
+                Multimap<String, AttributeModifier> attributeModifiers = armorItem.getAttributeModifiers(armorItem.getEquipmentSlot(), stack);
+                double armor = AttributeUtils.calculateValueFromModifiers(attributeModifiers, SharedMonsterAttributes.ARMOR, armorItem.getDamageReduceAmount());
+                //Ensure that the value is actually positive
+                if (armor >= 0) {
+                    return new ArmorLockKey(armor);
+                }
+            }
+        }
+        return null;
     }
 }

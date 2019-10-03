@@ -24,6 +24,32 @@ public class HungerLockKey implements IFuzzyLockKey {
         this.hunger = hunger;
     }
 
+    @Override
+    public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
+        return o == this || o instanceof HungerLockKey && hunger >= ((HungerLockKey) o).hunger;
+    }
+
+    @Override
+    public boolean isNotFuzzy() {
+        return false;
+    }
+
+    @Override
+    @Nonnull
+    public ILockKey getNotFuzzy() {
+        return NOT_FUZZY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hunger);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof HungerLockKey && hunger == ((HungerLockKey) o).hunger;
+    }
+
     @Nullable
     public static HungerLockKey fromObject(@Nonnull Object object) {
         if (object instanceof ItemStack) {
@@ -53,31 +79,5 @@ public class HungerLockKey implements IFuzzyLockKey {
         int healing = food.getHealing();
         //Ensure that the value is actually positive
         return healing < 0 ? null : new HungerLockKey(healing);
-    }
-
-    @Override
-    public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
-        return o == this || o instanceof HungerLockKey && hunger >= ((HungerLockKey) o).hunger;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
-    }
-
-    @Override
-    @Nonnull
-    public ILockKey getNotFuzzy() {
-        return NOT_FUZZY;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(hunger);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o == this || o instanceof HungerLockKey && hunger == ((HungerLockKey) o).hunger;
     }
 }

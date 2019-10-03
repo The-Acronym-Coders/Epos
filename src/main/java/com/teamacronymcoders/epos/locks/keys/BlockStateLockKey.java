@@ -34,16 +34,6 @@ public class BlockStateLockKey implements IFuzzyLockKey {
         this.properties = properties;
     }
 
-    @Nullable
-    public static BlockStateLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof BlockState) {
-            return new BlockStateLockKey((BlockState) object);
-        } else if (object instanceof Block) {
-            return new BlockStateLockKey(((Block) object));
-        }
-        return null;
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         if (o == this) {
@@ -100,5 +90,15 @@ public class BlockStateLockKey implements IFuzzyLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(block, properties);
+    }
+
+    @Nullable
+    public static BlockStateLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof BlockState) {
+            return new BlockStateLockKey((BlockState) object);
+        } else if (object instanceof Block) {
+            return new BlockStateLockKey(((Block) object));
+        }
+        return null;
     }
 }

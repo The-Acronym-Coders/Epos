@@ -21,22 +21,6 @@ public class GenericNBTLockKey extends NBTLockKey {
         super(nbt);
     }
 
-    @Nullable
-    public static GenericNBTLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof ItemStack) {
-            ItemStack stack = (ItemStack) object;
-            return stack.hasTag() ? fromCompound(stack.getTag()) : null;
-        } else if (object instanceof CompoundNBT) {
-            return fromCompound((CompoundNBT) object);
-        }
-        return null;
-    }
-
-    @Nullable
-    private static GenericNBTLockKey fromCompound(@Nonnull CompoundNBT nbt) {
-        return nbt.isEmpty() ? null : new GenericNBTLockKey(nbt);
-    }
-
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
@@ -51,5 +35,21 @@ public class GenericNBTLockKey extends NBTLockKey {
     @Override
     public int hashCode() {
         return nbt == null ? super.hashCode() : nbt.hashCode();
+    }
+
+    @Nullable
+    public static GenericNBTLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            return stack.hasTag() ? fromCompound(stack.getTag()) : null;
+        } else if (object instanceof CompoundNBT) {
+            return fromCompound((CompoundNBT) object);
+        }
+        return null;
+    }
+
+    @Nullable
+    private static GenericNBTLockKey fromCompound(@Nonnull CompoundNBT nbt) {
+        return nbt.isEmpty() ? null : new GenericNBTLockKey(nbt);
     }
 }

@@ -11,14 +11,14 @@ public class EntityDamageKey<TYPE extends Entity> extends EntityLockKey<TYPE> {
         super(entityType);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof EntityDamageKey && super.equals(obj);
+    }
+
     @Nullable
     public static EntityDamageKey fromObject(@Nonnull Object object) {
         EntityType<? extends Entity> type = getEntityType(object);
         return type == null ? null : new EntityDamageKey<>(type);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof EntityDamageKey && super.equals(obj);
     }
 }

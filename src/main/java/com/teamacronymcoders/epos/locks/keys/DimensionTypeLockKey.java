@@ -16,6 +16,16 @@ public class DimensionTypeLockKey implements ILockKey {
         this.dimension = dimension;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj == this || obj instanceof DimensionTypeLockKey && dimension.equals(((DimensionTypeLockKey) obj).dimension);
+    }
+
+    @Override
+    public int hashCode() {
+        return dimension.hashCode();
+    }
+
     @Nullable
     public static DimensionTypeLockKey fromObject(@Nonnull Object object) {
         if (object instanceof DimensionType) {
@@ -26,15 +36,5 @@ public class DimensionTypeLockKey implements ILockKey {
             return new DimensionTypeLockKey(((IWorld) object).getDimension().getType());
         }
         return null;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj == this || obj instanceof DimensionTypeLockKey && dimension.equals(((DimensionTypeLockKey) obj).dimension);
-    }
-
-    @Override
-    public int hashCode() {
-        return dimension.hashCode();
     }
 }

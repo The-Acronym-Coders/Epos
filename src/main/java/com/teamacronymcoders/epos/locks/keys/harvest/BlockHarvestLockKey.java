@@ -23,24 +23,6 @@ public class BlockHarvestLockKey extends HarvestLockKey {
         super(harvestLevel);
     }
 
-    @Nullable
-    public static BlockHarvestLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof ItemStack) {
-            ItemStack stack = (ItemStack) object;
-            if (stack.isEmpty()) {
-                return null;
-            }
-            Block block = Block.getBlockFromItem(stack.getItem());
-            return block == Blocks.AIR ? null : new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
-        } else if (object instanceof BlockState) {
-            return new BlockHarvestLockKey(((BlockState) object).getHarvestLevel());
-        } else if (object instanceof Block) {
-            Block block = (Block) object;
-            return new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
-        }
-        return null;
-    }
-
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof BlockHarvestLockKey && harvestLevel >= ((BlockHarvestLockKey) o).harvestLevel;
@@ -60,5 +42,23 @@ public class BlockHarvestLockKey extends HarvestLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(harvestLevel);
+    }
+
+    @Nullable
+    public static BlockHarvestLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            if (stack.isEmpty()) {
+                return null;
+            }
+            Block block = Block.getBlockFromItem(stack.getItem());
+            return block == Blocks.AIR ? null : new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
+        } else if (object instanceof BlockState) {
+            return new BlockHarvestLockKey(((BlockState) object).getHarvestLevel());
+        } else if (object instanceof Block) {
+            Block block = (Block) object;
+            return new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
+        }
+        return null;
     }
 }

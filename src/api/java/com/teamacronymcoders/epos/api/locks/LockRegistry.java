@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.api.locks;
 import com.teamacronymcoders.epos.api.locks.keys.GenericLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
-import com.teamacronymcoders.epos.api.locks.keys.IParentLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.creator.ILockKeyCreator;
 import com.teamacronymcoders.epos.api.locks.keys.creator.IMultiLockKeyCreator;
 import com.teamacronymcoders.epos.api.requirements.IRequirement;
@@ -76,8 +75,6 @@ public class LockRegistry {
      * retrieves all requirements that match; similar to {@link #getFuzzyRequirements(IFuzzyLockKey)}.
      * @param key The {@link ILockKey} to retrieve the requirements of.
      * @return A {@link List} of requirements for the given {@link ILockKey}
-     * @apiNote This method does not have special handling for {@link IParentLockKey} as parent lock keys
-     * should not be directly initialized, and are for internal use via the lock key creators.
      */
     @Nonnull
     public List<IRequirement> getRequirementsByKey(@Nonnull ILockKey key) {
@@ -135,36 +132,17 @@ public class LockRegistry {
             if (lockKey != null) {
                 //We didn't fail to create a lock key with our object,
                 // so we can add any requirements we find to our list of requirements.
-                addRequirementsFromCreatedKey(requirements, lockKey);
+                requirements.addAll(getRequirementsByKey(lockKey));
             }
         }
         //Handle any multi keys
         for (IMultiLockKeyCreator<? extends ILockKey> keyCreator : multiKeyCreators) {
             Collection<? extends ILockKey> lockKeys = keyCreator.createFrom(object);
             for (ILockKey lockKey : lockKeys) {
-                addRequirementsFromCreatedKey(requirements, lockKey);
+                requirements.addAll(getRequirementsByKey(lockKey));
             }
         }
         return requirements;
-    }
-
-    /**
-     * Figures out what kind of key the given key is, and retrieves the proper set of requirements
-     * for it and adds them to the given requirement list.
-     * @param requirements List of requirements to add to
-     * @param key The lock key to get the requirements of.
-     */
-    private void addRequirementsFromCreatedKey(@Nonnull List<IRequirement> requirements, @Nonnull ILockKey key) {
-        if (key instanceof IFuzzyLockKey) {
-            requirements.addAll(getFuzzyRequirements((IFuzzyLockKey) key));
-        } else {
-            addRequirementsFromLock(requirements, key);
-        }
-        if (key instanceof IParentLockKey) {
-            //Add all the sub requirements the lock key may have
-            // (if there is one that matches the key itself it will have been caught above)
-            requirements.addAll(((IParentLockKey) key).getSubRequirements());
-        }
     }
 
     /**

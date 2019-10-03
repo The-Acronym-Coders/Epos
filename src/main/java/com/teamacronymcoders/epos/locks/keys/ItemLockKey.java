@@ -23,17 +23,6 @@ public class ItemLockKey extends NBTLockKey {
         this.item = item;
     }
 
-    @Nullable
-    public static ItemLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof ItemStack) {
-            ItemStack stack = (ItemStack) object;
-            return stack.isEmpty() ? null : new ItemLockKey(stack.getItem(), stack.getTag());
-        } else if (object instanceof Item) {
-            return new ItemLockKey((Item) object);
-        }
-        return null;
-    }
-
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
@@ -55,5 +44,16 @@ public class ItemLockKey extends NBTLockKey {
     @Override
     public int hashCode() {
         return Objects.hash(item, nbt);
+    }
+
+    @Nullable
+    public static ItemLockKey fromObject(@Nonnull Object object) {
+        if (object instanceof ItemStack) {
+            ItemStack stack = (ItemStack) object;
+            return stack.isEmpty() ? null : new ItemLockKey(stack.getItem(), stack.getTag());
+        } else if (object instanceof Item) {
+            return new ItemLockKey((Item) object);
+        }
+        return null;
     }
 }

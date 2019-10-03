@@ -24,6 +24,32 @@ public class SaturationLockKey implements IFuzzyLockKey {
         this.saturation = saturation;
     }
 
+    @Override
+    public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
+        return o == this || o instanceof SaturationLockKey && saturation >= ((SaturationLockKey) o).saturation;
+    }
+
+    @Override
+    public boolean isNotFuzzy() {
+        return false;
+    }
+
+    @Override
+    @Nonnull
+    public ILockKey getNotFuzzy() {
+        return NOT_FUZZY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(saturation);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o == this || o instanceof SaturationLockKey && saturation == ((SaturationLockKey) o).saturation;
+    }
+
     @Nullable
     public static SaturationLockKey fromObject(@Nonnull Object object) {
         if (object instanceof ItemStack) {
@@ -53,31 +79,5 @@ public class SaturationLockKey implements IFuzzyLockKey {
         float saturation = food.getHealing() * food.getSaturation() * 2F;
         //Ensure that the value is actually positive
         return saturation < 0 ? null : new SaturationLockKey(saturation);
-    }
-
-    @Override
-    public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
-        return o == this || o instanceof SaturationLockKey && saturation >= ((SaturationLockKey) o).saturation;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
-    }
-
-    @Override
-    @Nonnull
-    public ILockKey getNotFuzzy() {
-        return NOT_FUZZY;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(saturation);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o == this || o instanceof SaturationLockKey && saturation == ((SaturationLockKey) o).saturation;
     }
 }
