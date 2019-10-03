@@ -3,8 +3,8 @@ package com.teamacronymcoders.epos.pathfeature.feat;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposCapabilities;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatSource;
-import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
@@ -15,11 +15,11 @@ public class FeatFeature implements IPathFeature {
     public static final FeatSource FEATURE_SOURCE =
             new FeatSource(new ResourceLocation(EposAPI.ID, "feature"), false);
 
-    private final IFeat feat;
+    private final Feat feat;
     private final ITextComponent name;
     private final ITextComponent description;
 
-    public FeatFeature(IFeat feat) {
+    public FeatFeature(Feat feat) {
         this.feat = feat;
         this.name = new TranslationTextComponent("pathfeature.epos.feat.name", feat.getName());
         this.description = new TranslationTextComponent("pathfeature.epos.feat.description", feat.getName());

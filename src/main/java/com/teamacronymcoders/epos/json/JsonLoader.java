@@ -1,97 +1,51 @@
 package com.teamacronymcoders.epos.json;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.registry.IRegistryEntry;
-import com.teamacronymcoders.epos.api.registry.Registry;
-import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
-import net.minecraft.resources.IResource;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.teamacronymcoders.epos.json.jsondirector.IJsonDirector;
+import com.teamacronymcoders.epos.json.jsonprovider.IJsonProvider;
+import net.minecraft.client.resources.JsonReloadListener;
+import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.resource.IResourceType;
-import net.minecraftforge.resource.ISelectiveResourceReloadListener;
-import org.apache.commons.io.IOUtils;
+import net.minecraft.util.Tuple;
+import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
-public class JsonLoader<T extends IRegistryEntry> implements ISelectiveResourceReloadListener {
-    private final IResourceType resourceType;
-    private final Class<T> tClass;
-    private final Registry<T> registry;
+public class JsonLoader<T> extends JsonReloadListener {
+    private final IJsonDirector<T> director;
     private final String type;
+    private final Logger logger;
+    private final IJsonProvider<T> jsonProvider;
 
-    private final Gson gson;
-
-    public JsonLoader(String type, IResourceType resourceType, Class<T> tClass, Registry<T> registry) {
+    public JsonLoader(String type, Logger logger, IJsonDirector<T> director, IJsonProvider<T> jsonProvider) {
+        super(new Gson(), type);
         this.type = type;
-        this.resourceType = resourceType;
-        this.tClass = tClass;
-        this.registry = registry;
-        this.gson = new GsonBuilder().create();
+        this.logger = logger;
+        this.director = director;
+        this.jsonProvider = jsonProvider;
     }
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
-        if (resourcePredicate.test(this.getResourceType())) {
-            registry.clear();
-
-            RegistrationEvent<T> registryEvent = new RegistrationEvent<>(tClass, registry);
-
-            registryEvent.register(loadValues(resourceManager));
-
-            MinecraftForge.EVENT_BUS.post(registryEvent);
-        }
-    }
-
-    private List<T> loadValues(IResourceManager resourceManager) {
-        final String folder = "epos/" + type;
-        final String extension = ".json";
-        return resourceManager.getAllResourceLocations(folder, n -> n.endsWith(extension))
-                .stream()
-                .map(resource -> new ResourceLocation(resource.getNamespace(),
-                        resource.getPath().substring(folder.length() + 1, resource.getPath().length() - extension.length())))
-                .map(resource -> {
+    protected void apply(Map<ResourceLocation, JsonObject> ts, IResourceManager resourceManager, IProfiler iProfiler) {
+        director.clear();
+        ts.entrySet()
+                .parallelStream()
+                .map(entry -> {
                     try {
-                        return resourceManager.getAllResources(resource);
-                    } catch (IOException exception) {
-                        Epos.LOGGER.warn("Failed to Load Files for " + type, exception);
-                        return Lists.<IResource>newArrayList();
+                        return new Tuple<>(entry.getKey(), jsonProvider.provide(entry.getKey(), entry.getValue()));
+                    } catch (JsonParseException exception) {
+                        logger.error("Failed to load " + type + " for file " + entry.getKey().toString(), exception);
+                        return null;
                     }
                 })
-                .map(resources -> resources.stream()
-                        .map(resource -> {
-                            try {
-                                return gson.fromJson(IOUtils.toString(resource.getInputStream(),
-                                        StandardCharsets.UTF_8), tClass);
-                            } catch (IOException e) {
-                                Epos.LOGGER.warn("Failed to Parse " + type + " for file: "
-                                        + resource.getLocation().toString());
-                                return null;
-                            } finally {
-                                IOUtils.closeQuietly(resource);
-                            }
-                            //TODO Proper Merging
-                        }).reduce((first, last) -> last == null ? first : last)
-                )
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
-    }
-
-    @Nullable
-    @Override
-    public IResourceType getResourceType() {
-        return resourceType;
+                .filter(Objects::nonNull)
+                .forEach(tuple -> director.put(tuple.getA(), tuple.getB()));
+        logger.info("Loaded " + ts.size() + " " + type);
     }
 }

@@ -15,6 +15,14 @@ public class NBTCapabilityStorage<T extends INBT, U extends INBTSerializable<T>>
         this.nbtClass = nbtClass;
     }
 
+    public static <V extends INBT, W extends INBTSerializable<V>> NBTCapabilityStorage<V, W> create(Class<V> tClass) {
+        return new NBTCapabilityStorage<>(tClass);
+    }
+
+    public static <V extends INBTSerializable<CompoundNBT>> NBTCapabilityStorage<CompoundNBT, V> create() {
+        return new NBTCapabilityStorage<>(CompoundNBT.class);
+    }
+
     @Nullable
     @Override
     public INBT writeNBT(Capability<U> capability, U instance, Direction side) {
@@ -26,13 +34,5 @@ public class NBTCapabilityStorage<T extends INBT, U extends INBTSerializable<T>>
         if (nbtClass.isInstance(nbt)) {
             instance.deserializeNBT(nbtClass.cast(nbt));
         }
-    }
-
-    public static <V extends INBT, W extends INBTSerializable<V>>  NBTCapabilityStorage<V, W> create(Class<V> tClass) {
-        return new NBTCapabilityStorage<>(tClass);
-    }
-
-    public static <V extends INBTSerializable<CompoundNBT>>  NBTCapabilityStorage<CompoundNBT, V> create() {
-        return new NBTCapabilityStorage<>(CompoundNBT.class);
     }
 }

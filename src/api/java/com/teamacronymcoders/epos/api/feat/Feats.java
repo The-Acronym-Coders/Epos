@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Feats implements INBTSerializable<CompoundNBT> {
-    private final Map<IFeat, FeatSource> feats;
+    private final Map<Feat, FeatSource> feats;
     private final LoadingCache<Class, List<FeatEventHandler>> featCache;
 
     private int maxPoints;
@@ -32,7 +32,7 @@ public class Feats implements INBTSerializable<CompoundNBT> {
                     public List<FeatEventHandler> load(@Nonnull Class key) {
                         return feats.keySet()
                                 .parallelStream()
-                                .map(IFeat::getEventHandlers)
+                                .map(Feat::getEventHandlers)
                                 .flatMap(List::parallelStream)
                                 .filter(checkKey(key))
                                 .collect(Collectors.toList());
@@ -47,11 +47,11 @@ public class Feats implements INBTSerializable<CompoundNBT> {
         return handler -> handler.getClass().isAssignableFrom(eventClass);
     }
 
-    public Set<IFeat> getAll() {
+    public Set<Feat> getAll() {
         return this.feats.keySet();
     }
 
-    public boolean addFeat(@Nonnull IFeat feat, @Nonnull FeatSource featSource) {
+    public boolean addFeat(@Nonnull Feat feat, @Nonnull FeatSource featSource) {
         if ((!featSource.countsTowardsPoints || this.usedPoints < this.maxPoints)) {
             this.feats.put(feat, featSource);
             for (FeatEventHandler featEventHandler : feat.getEventHandlers()) {
@@ -62,7 +62,7 @@ public class Feats implements INBTSerializable<CompoundNBT> {
         return false;
     }
 
-    public void removeFeat(@Nonnull IFeat feat) {
+    public void removeFeat(@Nonnull Feat feat) {
         FeatSource featSource = this.feats.remove(feat);
         if (featSource != null && featSource.countsTowardsPoints) {
             this.usedPoints--;

@@ -32,10 +32,6 @@ import static com.teamacronymcoders.epos.api.EposAPI.*;
 public class Epos extends ModuleController {
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
-    private final JsonLoader<IPath> pathLoader = new JsonLoader<>("epos/paths", LOGGER,
-            new RegistryJsonDirector<>(PATH_REGISTRY), new PathJsonProvider());
-    private final JsonLoader<ISkill> skillLoader = new JsonLoader<>("epos/skills", LOGGER,
-            new RegistryJsonDirector<>(SKILL_REGISTRY), new SkillJsonProvider());
 
     public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -54,7 +50,10 @@ public class Epos extends ModuleController {
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {
-        event.getServer().getResourceManager().addReloadListener(pathLoader);
-        event.getServer().getResourceManager().addReloadListener(skillLoader);
+        event.getServer().getResourceManager().addReloadListener(new JsonLoader<>("epos/skills", LOGGER,
+            new RegistryJsonDirector<>(SKILL_REGISTRY), new SkillJsonProvider()));
+        event.getServer().getResourceManager().addReloadListener(new JsonLoader<>("epos/paths", LOGGER,
+                new RegistryJsonDirector<>(PATH_REGISTRY), new PathJsonProvider()));
+
     }
 }

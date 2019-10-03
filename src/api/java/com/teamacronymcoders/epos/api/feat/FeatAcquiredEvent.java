@@ -6,11 +6,11 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
 public class FeatAcquiredEvent extends LivingEvent {
-    private final IFeat featAcquired;
+    private final Feat featAcquired;
     private final FeatSource featSource;
     private final ICharacterStats characterStats;
 
-    protected FeatAcquiredEvent(LivingEntity character, IFeat featAcquired, FeatSource featSource,
+    protected FeatAcquiredEvent(LivingEntity character, Feat featAcquired, FeatSource featSource,
                                 ICharacterStats characterStats) {
         super(character);
         this.featAcquired = featAcquired;
@@ -18,7 +18,7 @@ public class FeatAcquiredEvent extends LivingEvent {
         this.characterStats = characterStats;
     }
 
-    public IFeat getFeatAcquired() {
+    public Feat getFeatAcquired() {
         return featAcquired;
     }
 
@@ -32,13 +32,13 @@ public class FeatAcquiredEvent extends LivingEvent {
 
     @Cancelable
     public static class Pre extends FeatAcquiredEvent {
-        public Pre(LivingEntity entity, IFeat featAcquired, FeatSource featSource, ICharacterStats characterStats) {
+        public Pre(LivingEntity entity, Feat featAcquired, FeatSource featSource, ICharacterStats characterStats) {
             super(entity, featAcquired, featSource, characterStats);
         }
     }
 
     public static class Post extends FeatAcquiredEvent {
-        public Post(LivingEntity entity, IFeat featAcquired, FeatSource featSource, ICharacterStats characterStats) {
+        public Post(LivingEntity entity, Feat featAcquired, FeatSource featSource, ICharacterStats characterStats) {
             super(entity, featAcquired, featSource, characterStats);
         }
     }

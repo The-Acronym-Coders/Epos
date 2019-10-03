@@ -9,14 +9,14 @@
   "features": {
     "3": [
       {
-        "type": "epos:feat",
+        "provider": "epos:feat",
         "feat": "epos:obsidian_smasher"
       }
     ],
     "6": [
       {
-        "type": "epos:feat",
-        "skill": "epos:improvised_combat"
+        "provider": "epos:feat",
+        "feat": "epos:improvised_combat"
       }
     ]
   }

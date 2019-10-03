@@ -1,36 +1,24 @@
 package com.teamacronymcoders.epos.pathfeature.feat;
 
-import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.json.JsonUtils;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-
+import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.json.JsonUtils;
+import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nonnull;
-
-public class FeatFeatureProvider implements IPathFeatureProvider {
-    private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "feat");
-
+public class FeatFeatureProvider extends PathFeatureProvider {
     @Override
-    public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) {
+    public IPathFeature provide(JsonObject jsonObject) {
         String featName = JsonUtils.getString(jsonObject, "feat");
-        IFeat feat = EposAPI.FEAT_REGISTRY.getEntry(featName);
+        Feat feat = EposAPI.FEAT_REGISTRY.getValue(new ResourceLocation(featName));
         if (feat != null) {
             return new FeatFeature(feat);
         } else {
             throw new JsonParseException("No feat for registry name: " + featName);
         }
 
-    }
-
-    @Nonnull
-    @Override
-    public ResourceLocation getRegistryName() {
-        return this.registryName;
     }
 }

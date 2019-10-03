@@ -53,6 +53,6 @@ public class FeatBuilder {
     }
 
     public Feat finish() {
-        return new Feat(registryName, name, description, eventHandlers);
+        return new Feat(name, description, eventHandlers).setRegistryName(registryName);
     }
 }

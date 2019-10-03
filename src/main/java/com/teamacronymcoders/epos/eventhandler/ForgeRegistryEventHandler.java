@@ -1,10 +1,8 @@
 package com.teamacronymcoders.epos.eventhandler;
 
-import com.google.common.collect.Lists;
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
+import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
@@ -19,11 +17,12 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.RegistryBuilder;
 
 import static com.teamacronymcoders.epos.api.EposAPI.ID;
 
 @EventBusSubscriber(modid = EposAPI.ID, bus = EventBusSubscriber.Bus.MOD)
-public class RegistrationEventHandler {
+public class ForgeRegistryEventHandler {
     @SubscribeEvent
     public static void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
         event.getRegistry().registerAll(
@@ -39,8 +38,18 @@ public class RegistrationEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
-        featRegistryEvent.register(Lists.newArrayList(
+    public static void registerPathFeatureProviders(RegistryEvent.Register<PathFeatureProvider> pathFeatureProviderRegistryEvent) {
+        pathFeatureProviderRegistryEvent.getRegistry().registerAll(
+                new FeatFeatureProvider().setRegistryName(new ResourceLocation(ID, "feat")),
+                new SkillXPFeatureProvider().setRegistryName(new ResourceLocation(ID, "skill_xp")),
+                new LevelUpSkillFeatureProvider().setRegistryName(new ResourceLocation(ID, "skill_level")),
+                new ItemRewardFeatureProvider().setRegistryName(new ResourceLocation(ID, "item_reward"))
+        );
+    }
+
+    @SubscribeEvent
+    public static void registerFeats(RegistryEvent.Register<Feat> featRegistryEvent) {
+        featRegistryEvent.getRegistry().registerAll(
                 EnderResistanceFeat.FEAT,
                 ImprovisedCombatFeat.FEAT,
                 SpiritOfBattleFeat.FEAT,
@@ -59,16 +68,19 @@ public class RegistrationEventHandler {
                 PurityFeats.PURITY,
                 PurityFeats.DIAMOND,
                 TimberFeat.FEAT
-        ));
+        );
     }
 
     @SubscribeEvent
-    public static void registerPathFeatureProviders(RegistrationEvent<IPathFeatureProvider> pathFeatureProviderRegistryEvent) {
-        pathFeatureProviderRegistryEvent.register(Lists.newArrayList(
-                new FeatFeatureProvider(),
-                new SkillXPFeatureProvider(),
-                new LevelUpSkillFeatureProvider(),
-                new ItemRewardFeatureProvider()
-        ));
+    public static void registryCreation(RegistryEvent.NewRegistry newRegistry) {
+        new RegistryBuilder<Feat>()
+                .setName(new ResourceLocation(ID, "feat"))
+                .setType(Feat.class)
+                .create();
+
+        new RegistryBuilder<PathFeatureProvider>()
+                .setName(new ResourceLocation(ID, "path_feature"))
+                .setType(PathFeatureProvider.class)
+                .create();
     }
 }

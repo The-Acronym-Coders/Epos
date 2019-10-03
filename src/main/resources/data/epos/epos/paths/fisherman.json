@@ -9,36 +9,36 @@
   "features": {
     "1": [
       {
-        "type": "epos:feat",
+        "provider": "epos:feat",
         "feat": "epos:lucky_angler"
       }
     ],
     "2": [
       {
-        "type": "epos:level_skill",
+        "provider": "epos:skill_level",
         "skill": "epos:lucky_angler",
-        "level": "1"
+        "level": 1
       }
     ],
     "3": [
       {
-        "type": "epos:level_skill",
+        "provider": "epos:skill_level",
         "skill": "epos:lucky_angler",
-        "level": "1"
+        "level": 1
       }
     ],
     "4": [
       {
-        "type": "epos:level_skill",
+        "provider": "epos:skill_level",
         "skill": "epos:lucky_angler",
-        "level": "1"
+        "level": 1
       }
     ],
     "5": [
       {
-        "type": "epos:level_skill",
+        "provider": "epos:skill_level",
         "skill": "epos:lucky_angler",
-        "level": "1"
+        "level": 1
       }
     ]
   }
