@@ -1,8 +1,7 @@
 package com.teamacronymcoders.epos.configs;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-
 import java.util.Objects;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 public class EposClientConfig {
     private static EposClientConfig instance;

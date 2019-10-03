@@ -1,12 +1,11 @@
 package com.teamacronymcoders.epos.capability;
 
+import javax.annotation.Nullable;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
-
-import javax.annotation.Nullable;
 
 public class NBTCapabilityStorage<T extends INBT, U extends INBTSerializable<T>> implements Capability.IStorage<U> {
     private final Class<T> nbtClass;

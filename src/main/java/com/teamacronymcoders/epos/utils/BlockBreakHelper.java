@@ -1,5 +1,8 @@
 package com.teamacronymcoders.epos.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,10 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent;
 import org.antlr.v4.runtime.misc.Array2DHashSet;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class BlockBreakHelper {
     public static void handleBreakBlock(Iterable<BlockPos> iterable, World world, PlayerEntity player) {

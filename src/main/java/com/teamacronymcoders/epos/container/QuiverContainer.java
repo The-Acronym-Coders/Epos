@@ -4,6 +4,7 @@ import com.hrznstudio.titanium.api.client.AssetTypes;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
 import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
+import java.awt.Point;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -13,8 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
-
-import java.awt.*;
 
 public class QuiverContainer extends Container {
     @ObjectHolder("epos:quiver_container")

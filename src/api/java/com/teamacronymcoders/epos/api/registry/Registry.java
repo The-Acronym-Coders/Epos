@@ -1,14 +1,13 @@
 package com.teamacronymcoders.epos.api.registry;
 
 import com.google.common.collect.Maps;
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import net.minecraft.util.ResourceLocation;
 
 @ParametersAreNonnullByDefault
 public class Registry<T extends IRegistryEntry> {

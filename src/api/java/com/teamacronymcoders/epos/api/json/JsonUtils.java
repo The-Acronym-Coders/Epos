@@ -4,13 +4,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class JsonUtils {
     @Nonnull

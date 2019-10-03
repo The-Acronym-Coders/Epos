@@ -5,17 +5,16 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.eventbus.api.Event;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import javax.annotation.Nonnull;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.eventbus.api.Event;
 
 public class Feats implements INBTSerializable<CompoundNBT> {
     private final Map<Feat, FeatSource> feats;

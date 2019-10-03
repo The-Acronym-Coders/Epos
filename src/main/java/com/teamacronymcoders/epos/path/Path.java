@@ -3,11 +3,10 @@ package com.teamacronymcoders.epos.path;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
+import javax.annotation.Nonnull;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nonnull;
 
 public class Path implements IPath {
     private final ResourceLocation registryName;

@@ -1,8 +1,7 @@
 package com.teamacronymcoders.epos.api.registry;
 
-import net.minecraftforge.eventbus.api.GenericEvent;
-
 import java.util.List;
+import net.minecraftforge.eventbus.api.GenericEvent;
 
 public class RegistrationEvent<T extends IRegistryEntry> extends GenericEvent<T> {
     private final Registry<T> registry;

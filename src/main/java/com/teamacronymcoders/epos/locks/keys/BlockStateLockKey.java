@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.pattern.BlockStateMatcher;
 
 //TODO: Figure out the fuzzy and non fuzzy state of this. Use BlockStateMatcher to match blockstates
 public class BlockStateLockKey implements IFuzzyLockKey {
