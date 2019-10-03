@@ -103,7 +103,7 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compile fg.deobf("com.hrznstudio:titanium:${titanium_version}")
+    compile fg.deobf("com.hrznstudio:titanium:${minecraft_version}-${titanium_version}")
 }
 
 task srcJar(type: Jar) {

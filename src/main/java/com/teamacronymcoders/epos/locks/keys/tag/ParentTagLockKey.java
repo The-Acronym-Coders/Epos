@@ -34,6 +34,9 @@ public class ParentTagLockKey implements IParentLockKey {
 
     @Nullable
     public static ParentTagLockKey fromObject(@Nonnull Object object) {
+        //TODO: Make an easier way for third party mods to add an object -> tag list/tags system
+        // At that point it may make more sense for this to not exist and just directly interact with TagLockKey,
+        // and keep track of Tag<TYPE>
         if (object instanceof ItemStack) {
             ItemStack stack = (ItemStack) object;
             if (stack.isEmpty()) {

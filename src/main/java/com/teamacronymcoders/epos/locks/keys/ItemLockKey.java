@@ -31,7 +31,6 @@ public class ItemLockKey extends NBTLockKey {
         } else if (object instanceof Item) {
             return new ItemLockKey((Item) object);
         }
-        //TODO: Add case for block and for blockstate (or maybe just add a BlockStateLockKey)
         return null;
     }
 

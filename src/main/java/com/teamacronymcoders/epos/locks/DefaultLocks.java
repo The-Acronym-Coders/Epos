@@ -4,6 +4,7 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.locks.keys.ArmorLockKey;
 import com.teamacronymcoders.epos.locks.keys.ArmorToughnessLockKey;
 import com.teamacronymcoders.epos.locks.keys.AttackDamageLockKey;
+import com.teamacronymcoders.epos.locks.keys.BlockStateLockKey;
 import com.teamacronymcoders.epos.locks.keys.DimensionTypeLockKey;
 import com.teamacronymcoders.epos.locks.keys.GenericNBTLockKey;
 import com.teamacronymcoders.epos.locks.keys.HungerLockKey;
@@ -22,6 +23,7 @@ public class DefaultLocks {
 
     public static void registerKeyLookups() {
         EposAPI.LOCK_REGISTRY.registerLockType(ItemLockKey::fromObject);
+        EposAPI.LOCK_REGISTRY.registerLockType(BlockStateLockKey::fromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(ModLockKey::fromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(GenericNBTLockKey::fromObject);
 
