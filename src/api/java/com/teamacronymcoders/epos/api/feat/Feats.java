@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -101,5 +102,10 @@ public class Feats implements INBTSerializable<CompoundNBT> {
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
 
+    }
+
+    public boolean hasFeat(ResourceLocation featName) {
+        //TODO: Add Proper Feat checking once Feats are rewritten to normal objects
+        return true;
     }
 }

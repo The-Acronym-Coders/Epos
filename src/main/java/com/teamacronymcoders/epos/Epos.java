@@ -9,6 +9,7 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.capability.storage.NBTCapStorage;
 import com.teamacronymcoders.epos.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.json.JsonLoader;
 import com.teamacronymcoders.epos.feature.EposModules;
@@ -57,18 +58,7 @@ public class Epos extends ModuleController {
 
     @SuppressWarnings("unused")
     private void setup(final FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE.register(ICharacterStats.class, new Capability.IStorage<ICharacterStats>() {
-            @Nullable
-            @Override
-            public INBT writeNBT(Capability<ICharacterStats> capability, ICharacterStats instance, Direction side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<ICharacterStats> capability, ICharacterStats instance, Direction side, INBT nbt) {
-                instance.deserializeNBT((CompoundNBT) nbt);
-            }
-        }, CharacterStats::new);
+        CapabilityManager.INSTANCE.register(ICharacterStats.class, new NBTCapStorage<>(), CharacterStats::new);
 
         DeferredWorkQueue.runLater(() -> {
             MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));

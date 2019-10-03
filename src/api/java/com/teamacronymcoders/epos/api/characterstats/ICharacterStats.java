@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos.api.characterstats;
 
+import com.teamacronymcoders.epos.api.ability.Abilities;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.PathLevels;
 import com.teamacronymcoders.epos.api.skill.Skills;
@@ -12,4 +13,6 @@ public interface ICharacterStats extends INBTSerializable<CompoundNBT> {
     Feats getFeats();
 
     Skills getSkills();
+
+    Abilities getAbilities();
 }

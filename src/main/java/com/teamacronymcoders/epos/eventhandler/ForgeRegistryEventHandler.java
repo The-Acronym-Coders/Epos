@@ -1,14 +1,11 @@
 package com.teamacronymcoders.epos.eventhandler;
 
 import com.google.common.collect.Lists;
-import com.hrznstudio.titanium.annotation.Save;
-import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
+import com.teamacronymcoders.epos.api.source.SourceType;
 import com.teamacronymcoders.epos.container.QuiverContainer;
-import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
@@ -21,11 +18,12 @@ import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.registries.RegistryBuilder;
 
 import static com.teamacronymcoders.epos.api.EposAPI.ID;
 
 @EventBusSubscriber(modid = EposAPI.ID, bus = EventBusSubscriber.Bus.MOD)
-public class RegistrationEventHandler {
+public class ForgeRegistryEventHandler {
     @SubscribeEvent
     public static void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
         event.getRegistry().registerAll(
@@ -40,37 +38,26 @@ public class RegistrationEventHandler {
         );
     }
 
-    @SubscribeEvent
-    public static void registerFeats(RegistrationEvent<IFeat> featRegistryEvent) {
-        featRegistryEvent.register(Lists.newArrayList(
-                EnderResistanceFeat.FEAT,
-                ImprovisedCombatFeat.FEAT,
-                SpiritOfBattleFeat.FEAT,
-                UnarmedStrikeFeat.FEAT,
-                WayOfTheBladeFeat.FEAT,
-                GluttonousHungerFeat.FEAT,
-                GravelExcavatorFeat.FEAT,
-                HarvestAreaFeat.FEAT,
-                LuckyAnglerFeat.FEAT,
-                EfficiencyFeats.LUMBERJACK_FEAT,
-                EfficiencyFeats.MINER_FEAT,
-                ObsidianSmasherFeat.TOOL_FEAT,
-                ObsidianSmasherFeat.NO_TOOL_FEAT,
-                OreExtractionFeat.FEAT,
-                PalmOfExcavationFeat.FEAT,
-                PurityFeats.PURITY,
-                PurityFeats.DIAMOND,
-                TimberFeat.FEAT
-        ));
-    }
 
     @SubscribeEvent
-    public static void registerPathFeatureProviders(RegistrationEvent<IPathFeatureProvider> pathFeatureProviderRegistryEvent) {
-        pathFeatureProviderRegistryEvent.register(Lists.newArrayList(
-                new FeatFeatureProvider(),
-                new SkillXPFeatureProvider(),
-                new LevelUpSkillFeatureProvider(),
-                new ItemRewardFeatureProvider()
-        ));
+    public static void registerPathFeatureProviders(RegistryEvent.Register<PathFeatureProvider> pathFeatureProviderRegistryEvent) {
+        pathFeatureProviderRegistryEvent.getRegistry().registerAll(
+                new FeatFeatureProvider().setRegistryName(new ResourceLocation(ID, "feat")),
+                new SkillXPFeatureProvider().setRegistryName(new ResourceLocation(ID, "skill_xp")),
+                new LevelUpSkillFeatureProvider().setRegistryName(new ResourceLocation(ID, "level_up")),
+                new ItemRewardFeatureProvider().setRegistryName(new ResourceLocation(ID, "item"))
+        );
+    }
+
+    public static void registerRegistries(RegistryEvent.NewRegistry newRegistry) {
+        new RegistryBuilder<SourceType>()
+                .setName(new ResourceLocation(ID, "source_type"))
+                .setType(SourceType.class)
+                .create();
+
+        new RegistryBuilder<PathFeatureProvider>()
+                .setName(new ResourceLocation(ID, "path_feature_provider"))
+                .setType(PathFeatureProvider.class)
+                .create();
     }
 }

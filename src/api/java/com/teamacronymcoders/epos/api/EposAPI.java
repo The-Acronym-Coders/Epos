@@ -4,11 +4,13 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.feat.MissingFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.MissingPath;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
-import com.teamacronymcoders.epos.api.pathfeature.MissingPathFeatureProvider;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.api.registry.Registry;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.MissingSkill;
+import com.teamacronymcoders.epos.api.source.SourceType;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryManager;
 
 public class EposAPI {
     public static final String ID = "epos";
@@ -16,6 +18,9 @@ public class EposAPI {
     public static final Registry<IPath> PATH_REGISTRY = new Registry<>(MissingPath::new);
     public static final Registry<IFeat> FEAT_REGISTRY = new Registry<>(MissingFeat::new);
     public static final Registry<ISkill> SKILL_REGISTRY = new Registry<>(MissingSkill::new);
-    public static final Registry<IPathFeatureProvider> PATH_FEATURE_PROVIDER_REGISTRY =
-            new Registry<>(MissingPathFeatureProvider::new);
+
+    public static final IForgeRegistry<PathFeatureProvider> PATH_FEATURE_PROVIDERS =
+            RegistryManager.ACTIVE.getRegistry(PathFeatureProvider.class);
+
+    public static final IForgeRegistry<SourceType> SOURCE_TYPES = RegistryManager.ACTIVE.getRegistry(SourceType.class);
 }

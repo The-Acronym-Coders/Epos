@@ -4,10 +4,11 @@ import com.google.common.collect.Lists;
 import com.google.gson.*;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.util.ResourceLocation;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -55,11 +56,13 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
     private IPathFeature parseJsonObject(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
         JsonPrimitive providerPrimitive = jsonObject.getAsJsonPrimitive("provider");
         if (providerPrimitive != null && providerPrimitive.isString()) {
-            IPathFeatureProvider provider = EposAPI.PATH_FEATURE_PROVIDER_REGISTRY
-                    .getEntryOrMissing(providerPrimitive.getAsString());
+            PathFeatureProvider provider = EposAPI.PATH_FEATURE_PROVIDERS
+                    .getValue(new ResourceLocation(providerPrimitive.getAsString()));
             jsonObject.remove("provider");
+            if (provider == null) {
+                throw new JsonParseException("No Path Feature Provider found for name " + providerPrimitive.getAsString());
+            }
             return provider.provide(jsonObject, context);
-
         }
         throw new JsonParseException("feature.provider must be a nonnull String");
     }

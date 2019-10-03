@@ -4,7 +4,7 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.json.JsonUtils;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
-import com.teamacronymcoders.epos.api.pathfeature.IPathFeatureProvider;
+import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
@@ -13,9 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class FeatFeatureProvider implements IPathFeatureProvider {
-    private final ResourceLocation registryName = new ResourceLocation(EposAPI.ID, "feat");
-
+public class FeatFeatureProvider extends PathFeatureProvider {
     @Override
     public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) {
         String featName = JsonUtils.getString(jsonObject, "feat");
@@ -26,11 +24,5 @@ public class FeatFeatureProvider implements IPathFeatureProvider {
             throw new JsonParseException("No feat for registry name: " + featName);
         }
 
-    }
-
-    @Nonnull
-    @Override
-    public ResourceLocation getRegistryName() {
-        return this.registryName;
     }
 }

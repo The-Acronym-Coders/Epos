@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos.characterstats;
 
+import com.teamacronymcoders.epos.api.ability.Abilities;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.PathLevels;
@@ -10,15 +11,17 @@ public class CharacterStats implements ICharacterStats {
     private final PathLevels pathLevels;
     private final Feats feats;
     private final Skills skills;
+    private final Abilities abilities;
 
     public CharacterStats() {
-        this(new PathLevels(), new Feats(), new Skills());
+        this(new PathLevels(), new Feats(), new Skills(), new Abilities());
     }
 
-    public CharacterStats(PathLevels pathLevels, Feats feats, Skills skills) {
+    public CharacterStats(PathLevels pathLevels, Feats feats, Skills skills, Abilities abilities) {
         this.pathLevels = pathLevels;
         this.feats = feats;
         this.skills = skills;
+        this.abilities = abilities;
     }
 
     @Override
@@ -34,6 +37,11 @@ public class CharacterStats implements ICharacterStats {
     @Override
     public Skills getSkills() {
         return skills;
+    }
+
+    @Override
+    public Abilities getAbilities() {
+        return abilities;
     }
 
     @Override
