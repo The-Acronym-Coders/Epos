@@ -4,65 +4,51 @@ import com.teamacronymcoders.epos.api.locks.keys.GenericLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
 import com.teamacronymcoders.epos.locks.FuzzyLockKeyTypes;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ToolType;
 
-//TODO: Add back in some form of support based on tool type
-// Or should that be part of the logic handler abilities that merges this with another for handling specific tool types
 public class ToolHarvestLockKey extends HarvestLockKey {
 
+    private static final List<ToolHarvestLockKey> EMPTY = Collections.emptyList();
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.TOOL_HARVEST);
 
     @Nonnull
-    private final Map<ToolType, Integer> typeLevels;
-    @Nullable
     private final ToolType toolType;
 
     /**
      * @apiNote Ensure that the given harvest level is positive.
      */
-    public ToolHarvestLockKey(@Nullable ToolType toolType, int harvestLevel) {
+    public ToolHarvestLockKey(@Nonnull ToolType toolType, int harvestLevel) {
         super(harvestLevel);
         this.toolType = toolType;
-        this.typeLevels = new HashMap<>();
     }
 
-    /**
-     * @apiNote Ensure that the given harvest level is positive.
-     */
-    private ToolHarvestLockKey(@Nonnull Map<ToolType, Integer> typeLevels, int harvestLevel) {
-        super(harvestLevel);
-        this.toolType = null;
-        this.typeLevels = typeLevels;
-    }
-
-    @Nullable
-    public static ToolHarvestLockKey fromItemStack(@Nonnull ItemStack stack) {
-        if (stack.isEmpty()) {
-            return null;
+    @Nonnull
+    public static List<ToolHarvestLockKey> getKeysFromObject(@Nonnull Object object) {
+        if (!(object instanceof ItemStack)) {
+            //If we are not an ItemStack fail
+            return EMPTY;
         }
-        int highestLevel = -1;
+        ItemStack stack = (ItemStack) object;
+        if (stack.isEmpty()) {
+            //Fail if our stack is empty
+            return EMPTY;
+        }
+        List<ToolHarvestLockKey> keys = new ArrayList<>();
         Item item = stack.getItem();
-        Map<ToolType, Integer> typeLevels = new HashMap<>();
         for (ToolType type : item.getToolTypes(stack)) {
             int level = item.getHarvestLevel(stack, type, null, null);
-            if (level < 0) {
-                continue;
-            }
-            typeLevels.put(type, level);
-            if (level > highestLevel) {
-                highestLevel = level;
+            if (level >= 0) {
+                keys.add(new ToolHarvestLockKey(type, level));
             }
         }
-        //TODO: Decide if it matches only one tool type if it should just be that type instead of it as a map
-        // Note: Would have to rewrite fuzzyEquals implementation
-        return highestLevel < 0 || typeLevels.isEmpty() ? null : new ToolHarvestLockKey(typeLevels, highestLevel);
+        return keys;
     }
 
     @Override
@@ -72,12 +58,7 @@ public class ToolHarvestLockKey extends HarvestLockKey {
         }
         if (o instanceof ToolHarvestLockKey) {
             ToolHarvestLockKey toolLock = (ToolHarvestLockKey) o;
-            if (harvestLevel >= toolLock.harvestLevel) {
-                if (toolLock.toolType == null) {
-                    return toolType == null;
-                }
-                return toolLock.typeLevels.keySet().stream().noneMatch(s -> !typeLevels.containsKey(s) || typeLevels.get(s) < toolLock.typeLevels.get(s));
-            }
+            return harvestLevel >= toolLock.harvestLevel && toolType.equals(toolLock.toolType);
         }
         return false;
     }
@@ -95,9 +76,6 @@ public class ToolHarvestLockKey extends HarvestLockKey {
         }
         if (o instanceof ToolHarvestLockKey) {
             ToolHarvestLockKey toolLock = (ToolHarvestLockKey) o;
-            if (toolType == null) {
-                return toolLock.toolType == null && harvestLevel == toolLock.harvestLevel;
-            }
             return harvestLevel == toolLock.harvestLevel && toolType.equals(toolLock.toolType);
         }
         return false;

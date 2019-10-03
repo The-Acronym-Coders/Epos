@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.api.locks;
+package com.teamacronymcoders.epos.api.locks.keys.creator;
 
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
 import javax.annotation.Nonnull;

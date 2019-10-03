@@ -20,6 +20,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
+//TODO: Instead of this being a ParentLockKey, this could be done via the MultiLockKeyCreator system
 public class ParentTagLockKey implements IParentLockKey {
 
     @Nonnull

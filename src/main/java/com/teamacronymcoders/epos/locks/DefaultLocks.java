@@ -38,7 +38,7 @@ public class DefaultLocks {
         EposAPI.LOCK_REGISTRY.registerLockType(HungerLockKey::fromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(SaturationLockKey::fromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(BlockHarvestLockKey::fromObject);
-        EposAPI.LOCK_REGISTRY.registerLockType(object -> object instanceof ItemStack ? ToolHarvestLockKey.fromItemStack((ItemStack) object) : null);
+        EposAPI.LOCK_REGISTRY.registerMultiLockType(ToolHarvestLockKey::getKeysFromObject);
         EposAPI.LOCK_REGISTRY.registerLockType(ParentTagLockKey::fromObject);
     }
 }
