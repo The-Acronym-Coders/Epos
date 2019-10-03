@@ -57,23 +57,7 @@ public class Epos extends ModuleController {
 
     @SuppressWarnings("unused")
     private void setup(final FMLCommonSetupEvent event) {
-        CapabilityManager.INSTANCE.register(ICharacterStats.class, new Capability.IStorage<ICharacterStats>() {
-            @Nullable
-            @Override
-            public INBT writeNBT(Capability<ICharacterStats> capability, ICharacterStats instance, Direction side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<ICharacterStats> capability, ICharacterStats instance, Direction side, INBT nbt) {
-                instance.deserializeNBT((CompoundNBT) nbt);
-            }
-        }, CharacterStats::new);
-
-        DeferredWorkQueue.runLater(() -> {
-            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(ISkill.class, EposAPI.SKILL_REGISTRY));
-            MinecraftForge.EVENT_BUS.post(new RegistrationEvent<>(IFeat.class, EposAPI.FEAT_REGISTRY));
-        });
+        CapabilityManager.INSTANCE.register(ICharacterStats.class, NBTCapabilityStorage.create(), CharacterStats::new);
     }
 
     private void serverStart(FMLServerAboutToStartEvent event) {
