@@ -7,15 +7,12 @@ import com.hrznstudio.titanium.client.gui.GuiAddonScreen;
 import com.hrznstudio.titanium.client.gui.addon.SlotsGuiAddon;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
 import com.teamacronymcoders.epos.container.QuiverContainer;
-import javafx.geometry.Pos;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

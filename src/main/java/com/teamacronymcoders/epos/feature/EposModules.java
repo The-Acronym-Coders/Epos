@@ -11,7 +11,7 @@ public class EposModules {
             Module.builder("quiver")
                     .force()
                     .description("Adds The Quiver").feature(
-                            Feature.builder("quiver")
-                                    .content(Item.class, new QuiverItem().setRegistryName(EposAPI.ID, "quiver"))
+                    Feature.builder("quiver")
+                            .content(Item.class, new QuiverItem().setRegistryName(EposAPI.ID, "quiver"))
             );
 }

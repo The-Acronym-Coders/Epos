@@ -15,10 +15,6 @@ public class EposClientConfig {
         this.spec = builder.build();
     }
 
-    public ForgeConfigSpec getSpec() {
-        return spec;
-    }
-
     public static ForgeConfigSpec initialize() {
         EposClientConfig config = new EposClientConfig(new ForgeConfigSpec.Builder());
         instance = config;
@@ -31,6 +27,10 @@ public class EposClientConfig {
 
     public static Sounds getSounds() {
         return instance.sounds;
+    }
+
+    public ForgeConfigSpec getSpec() {
+        return spec;
     }
 
     public static class Sounds {
