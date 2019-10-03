@@ -2,20 +2,36 @@ package com.teamacronymcoders.epos.locks.keys;
 
 import com.teamacronymcoders.epos.api.locks.keys.IFuzzyLockKey;
 import com.teamacronymcoders.epos.api.locks.keys.ILockKey;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.state.IProperty;
 
-//TODO: Figure out the fuzzy and non fuzzy state of this. Use BlockStateMatcher to match blockstates
 public class BlockStateLockKey implements IFuzzyLockKey {
 
+    private static Map<IProperty<?>, Comparable<?>> EMPTY_PROPERTIES = Collections.emptyMap();
+
     @Nonnull
-    private BlockState state;
+    private final Block block;
+    //Can be empty if we only care about the block type and not its state
+    @Nonnull
+    private final Map<IProperty<?>, Comparable<?>> properties;
 
     public BlockStateLockKey(@Nonnull BlockState state) {
-        this.state = state;
+        this(state.getBlock(), state.getValues());
+    }
+
+    public BlockStateLockKey(@Nonnull Block block) {
+        this(block, EMPTY_PROPERTIES);
+    }
+
+    private BlockStateLockKey(@Nonnull Block block, @Nonnull Map<IProperty<?>, Comparable<?>> properties) {
+        this.block = block;
+        this.properties = properties;
     }
 
     @Nullable
@@ -23,7 +39,7 @@ public class BlockStateLockKey implements IFuzzyLockKey {
         if (object instanceof BlockState) {
             return new BlockStateLockKey((BlockState) object);
         } else if (object instanceof Block) {
-            return new BlockStateLockKey(((Block) object).getDefaultState());
+            return new BlockStateLockKey(((Block) object));
         }
         return null;
     }
@@ -35,21 +51,36 @@ public class BlockStateLockKey implements IFuzzyLockKey {
         }
         if (o instanceof BlockStateLockKey) {
             BlockStateLockKey other = (BlockStateLockKey) o;
-            //TODO
+            if (block == other.block) {
+                //Compare the properties making sure that they match
+                return properties.entrySet().stream().allMatch(entry -> compareProperty(entry.getKey(), other));
+            }
         }
         return false;
     }
 
+    private <T extends Comparable<T>> boolean compareProperty(IProperty<T> property, BlockStateLockKey other) {
+        if (other.properties.containsKey(property)) {
+            //TODO: If we find a use case where it makes sense to use the compareTo as >= 0
+            // so that it is fuzzy in that regard, potentially change this to >= from ==
+            return getValue(property).compareTo(other.getValue(property)) == 0;
+        }
+        return false;
+    }
+
+    private <T extends Comparable<T>> T getValue(IProperty<T> property) {
+        return (T) properties.get(property);
+    }
+
     @Override
     public boolean isNotFuzzy() {
-        //TODO
-        return false;
+        return properties.isEmpty();
     }
 
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new BlockStateLockKey(state);
+        return isNotFuzzy() ? this : new BlockStateLockKey(block);
     }
 
     @Override
@@ -61,12 +92,13 @@ public class BlockStateLockKey implements IFuzzyLockKey {
             return false;
         }
         BlockStateLockKey other = (BlockStateLockKey) o;
-        //TODO
-        return false;//item == other.item && Objects.equals(nbt, other.nbt);
+        //Note: Map#equals is declared to ensure they are both maps and that the keys and values are equal.
+        // The type of the map does not matter
+        return block == other.block && properties.equals(other.properties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(state);
+        return Objects.hash(block, properties);
     }
 }
