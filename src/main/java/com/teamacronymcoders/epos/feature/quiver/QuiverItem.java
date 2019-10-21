@@ -3,7 +3,7 @@ package com.teamacronymcoders.epos.feature.quiver;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.capability.PosInvHandlerCapabilityProvider;
-import com.teamacronymcoders.epos.client.gui.GuiQuiverAddonScreen;
+import com.teamacronymcoders.epos.screen.item.QuiverScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -37,7 +37,7 @@ public class QuiverItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote) {
-            stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capHandler -> NetworkHooks.openGui((ServerPlayerEntity) player, new GuiQuiverAddonScreen((PosInvHandler) capHandler)));
+            stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capHandler -> NetworkHooks.openGui((ServerPlayerEntity) player, new QuiverScreen((PosInvHandler) capHandler)));
         }
         Epos.LOGGER.info("Boop");
         return new ActionResult<>(ActionResultType.PASS, stack);

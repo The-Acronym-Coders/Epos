@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.container;
+package com.teamacronymcoders.epos.container.item;
 
 import com.hrznstudio.titanium.api.client.AssetTypes;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;

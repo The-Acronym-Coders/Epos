@@ -3,7 +3,7 @@ package com.teamacronymcoders.epos.eventhandler;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
-import com.teamacronymcoders.epos.container.QuiverContainer;
+import com.teamacronymcoders.epos.container.item.QuiverContainer;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
