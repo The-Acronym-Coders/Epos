@@ -7,10 +7,14 @@ import com.hrznstudio.titanium.client.gui.GuiAddonScreen;
 import com.hrznstudio.titanium.client.gui.addon.SlotsGuiAddon;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
 import com.teamacronymcoders.epos.container.item.QuiverContainer;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import net.minecraft.client.gui.IHasContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -19,13 +23,14 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuiverScreen extends GuiAddonScreen implements INamedContainerProvider {
-
+public class QuiverScreen extends GuiAddonScreen implements IHasContainer<QuiverContainer> {
     private final PosInvHandler handler;
+    private final QuiverContainer container;
 
-    public QuiverScreen(PosInvHandler handler) {
+    public QuiverScreen(QuiverContainer container) {
         super(IAssetProvider.DEFAULT_PROVIDER, true);
-        this.handler = handler;
+        this.handler = container.getPosInvHandler();
+        this.container = container;
     }
 
     @Override
@@ -37,13 +42,11 @@ public class QuiverScreen extends GuiAddonScreen implements INamedContainerProvi
 
     @Override
     @Nonnull
-    public ITextComponent getDisplayName() {
-        return new TranslationTextComponent("epos.container.quiver");
+    public QuiverContainer getContainer() {
+        return container;
     }
 
-    @Nullable
-    @Override
-    public Container createMenu(int num, @Nonnull PlayerInventory inventory, @Nonnull PlayerEntity entity) {
-        return new QuiverContainer(num, inventory, null);
+    public static QuiverScreen create(QuiverContainer container, PlayerInventory playerInventory, ITextComponent displayName) {
+        return new QuiverScreen(container);
     }
 }

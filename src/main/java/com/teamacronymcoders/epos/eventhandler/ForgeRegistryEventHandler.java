@@ -3,6 +3,7 @@ package com.teamacronymcoders.epos.eventhandler;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
+import com.teamacronymcoders.epos.container.character.SkillsContainer;
 import com.teamacronymcoders.epos.container.item.QuiverContainer;
 import com.teamacronymcoders.epos.feat.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
@@ -26,7 +27,8 @@ public class ForgeRegistryEventHandler {
     @SubscribeEvent
     public static void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
         event.getRegistry().registerAll(
-                IForgeContainerType.create(QuiverContainer::new).setRegistryName(new ResourceLocation(ID, "quiver_container"))
+                IForgeContainerType.create(QuiverContainer::create).setRegistryName(new ResourceLocation(ID, "quiver")),
+                IForgeContainerType.create(SkillsContainer::new).setRegistryName(new ResourceLocation(ID, "skills"))
         );
     }
 

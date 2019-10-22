@@ -3,7 +3,7 @@ package com.teamacronymcoders.epos.container.item;
 import com.hrznstudio.titanium.api.client.AssetTypes;
 import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.hrznstudio.titanium.client.gui.asset.IAssetProvider;
-import com.teamacronymcoders.epos.feature.quiver.QuiverItem;
+import com.hrznstudio.titanium.container.TitaniumContainerBase;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -14,22 +14,21 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ObjectHolder;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class QuiverContainer extends Container {
-    @ObjectHolder("epos:quiver_container")
-    public static final ContainerType<QuiverContainer> TYPE = null;
+public class QuiverContainer extends TitaniumContainerBase {
+    @ObjectHolder("epos:quiver")
+    public static ContainerType<QuiverContainer> TYPE;
 
-    private PlayerInventory player;
+    private final PlayerInventory player;
+    private final PosInvHandler inventory;
     private boolean hasPlayerInventory;
-
-    public QuiverContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-        this(((QuiverItem) playerInventory.player.getHeldItemMainhand().getItem()).getHandler(playerInventory.player.getHeldItemMainhand()), playerInventory);
-    }
 
     public QuiverContainer(PosInvHandler handler, PlayerInventory player) {
         super(TYPE, 0);
         this.player = player;
+        this.inventory = handler;
         int i = 0;
         for (int y = 0; y < handler.getYSize(); y++) {
             for (int x = 0; x < handler.getXSize(); x++) {
@@ -52,11 +51,12 @@ public class QuiverContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
         return true;
     }
 
     @Override
+    @Nonnull
     public ItemStack transferStackInSlot(PlayerEntity player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(index);
@@ -88,5 +88,18 @@ public class QuiverContainer extends Container {
         }
 
         return itemstack;
+    }
+
+    public static QuiverContainer create(int num, PlayerInventory inventory, PacketBuffer buffer) {
+        return new QuiverContainer(new PosInvHandler(
+                buffer.readString(),
+                buffer.readInt(),
+                buffer.readInt(),
+                buffer.readInt()
+        ), inventory);
+    }
+
+    public PosInvHandler getPosInvHandler() {
+        return inventory;
     }
 }
