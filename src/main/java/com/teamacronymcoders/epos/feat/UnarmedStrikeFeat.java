@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.feats;
+package com.teamacronymcoders.epos.feat;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;

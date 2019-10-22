@@ -1,20 +1,23 @@
-package com.teamacronymcoders.epos.feats;
+package com.teamacronymcoders.epos.feat;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
 
-public class WayOfTheBladeFeat {
-    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "way_of_the_blade");
+import java.util.Set;
+
+public class ImprovisedCombatFeat {
+    private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");
     public static final Feat FEAT =
             FeatBuilder.start(NAME)
                     .withEventHandler(AltLivingDamageEvent.class,
                             (altLivingDamageEvent, entity, iCharacterStats) -> {
-                                if (entity.getActiveItemStack().getItem() instanceof SwordItem) {
+                                Set<ToolType> toolTypes = entity.getActiveItemStack().getToolTypes();
+                                if (toolTypes.contains(ToolType.PICKAXE) || toolTypes.contains(ToolType.AXE) || toolTypes.contains(ToolType.SHOVEL)) {
                                     int skillLevel = iCharacterStats.getSkills().getLevel(NAME);
                                     altLivingDamageEvent.setAmount(altLivingDamageEvent.getAmount() * 1.25F + (0.01F * skillLevel));
                                 }

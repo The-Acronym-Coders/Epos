@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.configs;
+package com.teamacronymcoders.epos.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
