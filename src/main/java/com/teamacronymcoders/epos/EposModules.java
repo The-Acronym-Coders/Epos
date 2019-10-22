@@ -8,10 +8,7 @@ import com.teamacronymcoders.epos.container.item.QuiverContainer;
 import com.teamacronymcoders.epos.item.QuiverItem;
 import com.teamacronymcoders.epos.screen.item.QuiverScreen;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class EposModules {

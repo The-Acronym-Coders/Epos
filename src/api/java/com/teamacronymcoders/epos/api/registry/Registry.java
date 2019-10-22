@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -42,6 +43,10 @@ public class Registry<T extends IRegistryEntry> {
     @Nullable
     public T getEntry(ResourceLocation entryName) {
         return this.getEntry(entryName.toString());
+    }
+
+    public Collection<T> getEntries() {
+        return entries.values();
     }
 
     public void clear() {

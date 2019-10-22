@@ -1,7 +1,6 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -83,6 +82,10 @@ public class Skills implements INBTSerializable<CompoundNBT> {
                     SkillInfo skillInfo = skill.createSkillInfo();
                     skillInfo.deserializeNBT(compound.getValue());
                     return skillInfo;
-                }).forEach(skillInfo -> skillInfoMap.put(skillInfo.getRegistryName(), skillInfo));
+                })
+                .forEach(skillInfo -> skillInfoMap.put(skillInfo.getRegistryName(), skillInfo));
+
+        EposAPI.SKILL_REGISTRY.getEntries().forEach(skill ->
+                skillInfoMap.computeIfAbsent(skill.getRegistryName().toString(), name -> skill.createSkillInfo()));
     }
 }
