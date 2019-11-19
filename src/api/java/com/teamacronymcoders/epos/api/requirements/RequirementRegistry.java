@@ -3,6 +3,8 @@ package com.teamacronymcoders.epos.api.requirements;
 //TODO: Look into if this can/should use an existing system.
 // Requirements could just be a forge registry, and then we have a class
 // that helps manage them and interact with them.
+//TODO: Evaluate doing it similar to vanilla and have a RequirementType registry
+// and a RequirementSerializer recipe
 public class RequirementRegistry {
 
     //TODO: We will need serializers to get requirements from JSON and also for sending

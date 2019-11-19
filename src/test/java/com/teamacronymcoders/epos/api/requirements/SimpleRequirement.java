@@ -47,4 +47,18 @@ public class SimpleRequirement implements IRequirement {
     public boolean isMet(@Nonnull LivingEntity entity, @Nonnull ICharacterStats stats) {
         return false;
     }
+
+    @Nonnull
+    @Override
+    public RequirementComparision compare(IRequirement other) {
+        if (other == this) {
+            return RequirementComparision.IDENTICAL;
+        } else if (other instanceof SimpleRequirement) {
+            if (name.equals(((SimpleRequirement) other).name)) {
+                return RequirementComparision.IDENTICAL;
+            }
+            return RequirementComparision.TYPE_MATCHES;
+        }
+        return RequirementComparision.INCOMPATIBLE;
+    }
 }
