@@ -25,7 +25,6 @@ import org.apache.logging.log4j.Logger;
 import static com.teamacronymcoders.epos.api.EposAPI.*;
 
 @Mod(ID)
-@Mod.EventBusSubscriber
 public class Epos extends ModuleController {
     public static final Logger LOGGER = LogManager.getLogger(ID);
     public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);

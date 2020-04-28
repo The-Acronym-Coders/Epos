@@ -3,16 +3,13 @@ package com.teamacronymcoders.epos.eventhandler;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
-import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.skillxp.SkillXPFeatureProvider;
 import com.teamacronymcoders.epos.sounds.EposSoundEvents;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -41,36 +38,11 @@ public class ForgeRegistryEventHandler {
     }
 
     @SubscribeEvent
-    public static void registerFeats(RegistryEvent.Register<Feat> featRegistryEvent) {
-        featRegistryEvent.getRegistry().registerAll(
-                EnderResistanceFeat.FEAT,
-                ImprovisedCombatFeat.FEAT,
-                SpiritOfBattleFeat.FEAT,
-                UnarmedStrikeFeat.FEAT,
-                WayOfTheBladeFeat.FEAT,
-                GluttonousHungerFeat.FEAT,
-                GravelExcavatorFeat.FEAT,
-                HarvestAreaFeat.FEAT,
-                LuckyAnglerFeat.FEAT,
-                EfficiencyFeats.LUMBERJACK_FEAT,
-                EfficiencyFeats.MINER_FEAT,
-                ObsidianSmasherFeat.TOOL_FEAT,
-                ObsidianSmasherFeat.NO_TOOL_FEAT,
-                OreExtractionFeat.FEAT,
-                PalmOfExcavationFeat.FEAT,
-                PurityFeats.PURITY,
-                PurityFeats.DIAMOND,
-                TimberFeat.FEAT
-        );
-    }
-
-    @SubscribeEvent
     public static void registryCreation(RegistryEvent.NewRegistry newRegistry) {
         new RegistryBuilder<Feat>()
                 .setName(new ResourceLocation(ID, "feat"))
                 .setType(Feat.class)
                 .create();
-
         new RegistryBuilder<PathFeatureProvider>()
                 .setName(new ResourceLocation(ID, "path_feature"))
                 .setType(PathFeatureProvider.class)
