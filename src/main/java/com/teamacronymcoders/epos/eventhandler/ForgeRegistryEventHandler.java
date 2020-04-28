@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.eventhandler;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
-import com.teamacronymcoders.epos.container.QuiverContainer;
 import com.teamacronymcoders.epos.feats.*;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
@@ -23,12 +22,6 @@ import static com.teamacronymcoders.epos.api.EposAPI.ID;
 
 @EventBusSubscriber(modid = EposAPI.ID, bus = EventBusSubscriber.Bus.MOD)
 public class ForgeRegistryEventHandler {
-    @SubscribeEvent
-    public static void registerContainer(RegistryEvent.Register<ContainerType<?>> event) {
-        event.getRegistry().registerAll(
-                IForgeContainerType.create(QuiverContainer::new).setRegistryName(new ResourceLocation(ID, "quiver_container"))
-        );
-    }
 
     @SubscribeEvent
     public static void registerSound(RegistryEvent.Register<SoundEvent> eventRegistryEvent) {
