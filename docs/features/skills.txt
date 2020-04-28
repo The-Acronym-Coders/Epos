@@ -1,0 +1,18 @@
+Skills:
+- Skills are Passive/Active Feats that can be leveled.
+    - Defining Characteristics:
+        - Has Levels
+            - Grants either Active/Passive Bonuses or Unlocks new Feats.
+            - Grants Path-Points at certain points.
+        - Has Experience
+            - You gain experience from doing "Something"
+    - By leveling up your Skills you eventually unlocks more Path Points.
+    - By leveling these they either provide some kind of:
+        - Passive Bonus
+        - Active Bonus
+        - Unlocks other Feats
+    - Gaining Experience for Skills can be done in different ways depending on what's setup for the skill.
+        - Mining Certain Blocks
+        - Killing Mobs
+        - Casting Spells (addon)
+        - Completing Multiblocks (addon)

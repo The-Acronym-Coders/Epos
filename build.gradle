@@ -45,6 +45,10 @@ sourceSets {
         compileClasspath += sourceSets.api.output
         runtimeClasspath += sourceSets.api.output
     }
+    datagen {
+        compileClasspath += sourceSets.api.output
+        runtimeClasspath += sourceSets.api.output
+    }
     test {
         compileClasspath += sourceSets.api.output
         runtimeClasspath += sourceSets.api.output
@@ -92,7 +96,9 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.console.level', 'info'
             args '--mod', 'epos', '--all', '--output', file('generated'), '--input', file('src/main/resources')
+            source sourceSets.datagen
             source sourceSets.main
+            source sourceSets.api
         }
     }
 }

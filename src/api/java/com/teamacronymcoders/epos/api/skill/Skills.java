@@ -19,70 +19,14 @@ public class Skills implements INBTSerializable<CompoundNBT> {
         skillInfoMap = new HashMap<>();
     }
 
-    @Nullable
-    public SkillInfo get(String name) {
-        return this.skillInfoMap.get(name);
-    }
-
-    @Nullable
-    public SkillInfo get(ResourceLocation id) {
-        return get(id.toString());
-    }
-
-    @Nullable
-    public SkillInfo get(ISkill skill) {
-        return this.get(skill.getRegistryName().toString());
-    }
-
-    @Nonnull
-    public SkillInfo getOrCreate(ISkill skill) {
-        return this.getOrCreate(skill.getRegistryName().toString());
-    }
-
-    @Nonnull
-    public SkillInfo getOrCreate(String name) {
-        SkillInfo skillInfo = this.get(name);
-        if (skillInfo == null) {
-            skillInfo = new SkillInfo(EposAPI.SKILL_REGISTRY.getEntryOrMissing(name));
-            this.putSkillInfo(skillInfo);
-        }
-        return skillInfo;
-    }
-
-    public int getLevel(ResourceLocation id) {
-        SkillInfo info = get(id);
-        return info == null ? 0 : info.getLevel();
-    }
-
-    public void putSkill(ResourceLocation registryName) {
-        this.putSkillInfo(this.getOrCreate(registryName.toString()));
-    }
-
-    public void putSkill(ISkill skill) {
-        this.putSkillInfo(skill.createSkillInfo());
-    }
-
-    public void putSkillInfo(SkillInfo skillInfo) {
-        this.skillInfoMap.putIfAbsent(skillInfo.getRegistryName(), skillInfo);
-    }
 
     @Override
     public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        this.skillInfoMap.values().forEach(skillInfo -> nbt.put(skillInfo.getRegistryName(), skillInfo.serializeNBT()));
-        return nbt;
+        return null;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        this.skillInfoMap.clear();
-        nbt.keySet().stream()
-                .map(key -> Pair.of(key, nbt.getCompound(key)))
-                .map(compound -> {
-                    ISkill skill = EposAPI.SKILL_REGISTRY.getEntryOrMissing(compound.getKey());
-                    SkillInfo skillInfo = skill.createSkillInfo();
-                    skillInfo.deserializeNBT(compound.getValue());
-                    return skillInfo;
-                }).forEach(skillInfo -> skillInfoMap.put(skillInfo.getRegistryName(), skillInfo));
+
     }
 }

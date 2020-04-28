@@ -1,11 +1,13 @@
 package com.teamacronymcoders.epos.api.skill;
 
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nonnull;
 
-public class MissingSkill implements ISkill {
+public class MissingSkill extends Skill {
     private final ResourceLocation registryName;
 
     public MissingSkill(String registryName) {
@@ -16,44 +18,13 @@ public class MissingSkill implements ISkill {
         this.registryName = name;
     }
 
-    @Nonnull
     @Override
-    public ResourceLocation getRegistryName() {
-        return registryName;
+    public Int2IntOpenHashMap getExperienceForLevelMap() {
+        return new Int2IntOpenHashMap();
     }
 
     @Override
-    public boolean isFound() {
-        return false;
-    }
-
-    @Override
-    public ITextComponent getName() {
-        return null;
-    }
-
-    @Override
-    public ITextComponent getDescription() {
-        return null;
-    }
-
-    @Override
-    public int compareTo(ISkill o) {
-        return String.CASE_INSENSITIVE_ORDER.compare(this.getName().getString(), o.getName().getString());
-    }
-
-    @Override
-    public SkillInfo createSkillInfo() {
-        return new SkillInfo(this);
-    }
-
-    @Override
-    public boolean isHidden() {
-        return true;
-    }
-
-    @Override
-    public int getMaxLevel() {
+    public int getExperienceForLevel(int level) {
         return 0;
     }
 }

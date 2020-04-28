@@ -1,11 +1,19 @@
 package com.teamacronymcoders.epos.api.skill;
 
-import com.teamacronymcoders.epos.api.registry.INamedRegistryEntry;
+import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
 
-public interface ISkill extends INamedRegistryEntry<ISkill> {
+public interface ISkill {
     SkillInfo createSkillInfo();
 
     boolean isHidden();
 
-    int getMaxLevel();
+    default int getMinLevel(){
+        return 0;
+    }
+    default int getMaxLevel() {
+        return 16;
+    }
+
+    Int2IntOpenHashMap getExperienceForLevelMap();
+    int getExperienceForLevel(int level);
 }

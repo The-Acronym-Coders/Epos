@@ -1,0 +1,13 @@
+Paths:
+- Paths are what can be considered in terms of RPGs as "Paths/Jobs/Classes/etc"
+    - Paths are what people invest their "Path Points" into as they level-up.
+    - Paths can unlock:
+        - Skills
+        - Feats
+        - Path Rewards
+        - Etc...
+    - Certain Paths/Path Levels can also be required to unlocks other Paths.
+        - Examples:
+            - Warrior 5 + Mage 5          -> Unlocks Battle-Mage Path
+            - Warrior 5 + Pyromancer 5    -> Unlocks Dragon-Warrior Path
+            - Mage 5    + Necromancer 5   -> Unlocks Lich Path
