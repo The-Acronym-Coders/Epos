@@ -1,10 +1,10 @@
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[${loader_version},)"
 issueTrackerURL="https://github.com/The-Acronym-Coders/epos/issues"
 
 [[mods]]
     modId="epos"
-    version="${file.jarVersion}"
+    version="${version}"
     displayName="Epos"
     authors="SkySom, Lanse505, pupnewfster"
     description='''
@@ -15,3 +15,14 @@ Adds Classes, Skills, and Leveling to Minecraft.
         - HRZNStudio & The Titanium Team
             - For the great work done with the Titanium API
 '''
+
+[[dependencies.epos]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[${mc_version}]"
+    side="BOTH"
+[[dependencies.epos]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_version},)"
+    side="BOTH"

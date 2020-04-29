@@ -1,14 +1,15 @@
 package com.teamacronymcoders.epos;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class TestJUnit {
+@DisplayName("Test JUnit")
+class TestJUnit {
 
     @Test
-    public void test() {
-        //Ensure JUnit is working properly
-        assertTrue(true);
+    @DisplayName("Ensure JUnit is working properly")
+    void test() {
+        Assertions.assertTrue(true);
     }
 }
