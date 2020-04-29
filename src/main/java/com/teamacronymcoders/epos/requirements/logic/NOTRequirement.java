@@ -46,4 +46,9 @@ public class NOTRequirement implements IRequirement {
         }
         return RequirementComparision.INCOMPATIBLE;
     }
+
+    @Override
+    public boolean canCompareWith(IRequirement other) {
+        return other instanceof NOTRequirement;
+    }
 }

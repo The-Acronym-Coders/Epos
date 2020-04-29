@@ -18,8 +18,8 @@ public class ORRequirement extends DoubleRequirement {
     @Nonnull
     @Override
     public ITextComponent getToolTip(boolean matches) {
-        //TODO: Add the lang key to the lang file with the proper format
-        return new TranslationTextComponent("requirement.epos.tooltip.or", leftRequirement.getToolTip(!matches), rightRequirement.getToolTip(!matches));
+        //TODO: Add the lang key to the lang file with the proper format, and matching values, as one may match and the other may not
+        return new TranslationTextComponent("requirement.epos.tooltip.or", leftRequirement.getToolTip(matches), rightRequirement.getToolTip(matches));
     }
 
     @Override
@@ -54,6 +54,27 @@ public class ORRequirement extends DoubleRequirement {
 
         } else if (leftComparision == RequirementComparision.MORE_RESTRICTIVE_THAN && rightComparision == RequirementComparision.MORE_RESTRICTIVE_THAN) {
 
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
+    protected RequirementComparision getSingleComparision(RequirementComparision leftComparision, RequirementComparision rightComparision) {
+        if (leftComparision == rightComparision) {
+            //If they both agree on the comparision type, then we go with that type
+            return leftComparision;
+        } else if (leftComparision == RequirementComparision.IDENTICAL && rightComparision == RequirementComparision.MORE_RESTRICTIVE_THAN ||
+                   rightComparision == RequirementComparision.IDENTICAL && leftComparision == RequirementComparision.MORE_RESTRICTIVE_THAN) {
+            //If one is identical, but the other is more restrictive, then the more restrictive compare is identical
+            return RequirementComparision.IDENTICAL;
+        } else if (leftComparision == RequirementComparision.IDENTICAL && rightComparision == RequirementComparision.LESS_RESTRICTIVE_THAN ||
+                   rightComparision == RequirementComparision.IDENTICAL && leftComparision == RequirementComparision.LESS_RESTRICTIVE_THAN) {
+            //If one is identical, but the other is less restrictive, then we are less restrictive overall
+            return RequirementComparision.LESS_RESTRICTIVE_THAN;
+        } else if (leftComparision == RequirementComparision.IDENTICAL || rightComparision == RequirementComparision.IDENTICAL) {
+            //If only one of them is identical, we have extra options being the second requirement so we are less restrictive
+            return RequirementComparision.LESS_RESTRICTIVE_THAN;
         }
         return null;
     }

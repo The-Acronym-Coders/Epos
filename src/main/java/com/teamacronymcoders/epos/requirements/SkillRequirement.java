@@ -33,4 +33,9 @@ public class SkillRequirement implements IRequirement {
         }
         return RequirementComparision.INCOMPATIBLE;
     }
+
+    @Override
+    public boolean canCompareWith(IRequirement other) {
+        return other instanceof SkillRequirement;
+    }
 }

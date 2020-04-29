@@ -18,8 +18,8 @@ public class NORRequirement extends DoubleRequirement {
     @Nonnull
     @Override
     public ITextComponent getToolTip(boolean matches) {
-        //TODO: Add the lang key to the lang file with the proper format
-        return new TranslationTextComponent("requirement.epos.tooltip.nor", leftRequirement.getToolTip(!matches), rightRequirement.getToolTip(!matches));
+        //TODO: Add the lang key to the lang file with the proper format, and matching values, as one may match and the other may not
+        return new TranslationTextComponent("requirement.epos.tooltip.nor", leftRequirement.getToolTip(matches), rightRequirement.getToolTip(matches));
     }
 
     @Override
@@ -38,6 +38,13 @@ public class NORRequirement extends DoubleRequirement {
         if (leftComparision == RequirementComparision.IDENTICAL && rightComparision == RequirementComparision.IDENTICAL) {
             return RequirementComparision.IDENTICAL;
         }
+        //TODO: Implement
+        return null;
+    }
+
+    @Nullable
+    @Override
+    protected RequirementComparision getSingleComparision(RequirementComparision leftComparision, RequirementComparision rightComparision) {
         //TODO: Implement
         return null;
     }
