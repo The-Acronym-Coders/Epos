@@ -4,6 +4,8 @@ import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
 import com.teamacronymcoders.epos.utils.BlockBreakHelper;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import net.minecraft.block.GravelBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -11,9 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public class GravelExcavatorFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "gravel_excavator");

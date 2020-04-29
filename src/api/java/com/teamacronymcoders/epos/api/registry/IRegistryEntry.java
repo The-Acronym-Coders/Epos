@@ -1,8 +1,7 @@
 package com.teamacronymcoders.epos.api.registry;
 
-import net.minecraft.util.ResourceLocation;
-
 import javax.annotation.Nonnull;
+import net.minecraft.util.ResourceLocation;
 
 public interface IRegistryEntry {
     @Nonnull

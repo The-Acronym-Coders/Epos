@@ -5,10 +5,9 @@ import com.teamacronymcoders.epos.api.event.AltLivingDamageEvent;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.feat.FeatAcquiredEvent;
 import com.teamacronymcoders.epos.api.feat.FeatBuilder;
+import java.util.Set;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
-
-import java.util.Set;
 
 public class ImprovisedCombatFeat {
     private static final ResourceLocation NAME = new ResourceLocation(EposAPI.ID, "improvised_combat");

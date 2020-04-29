@@ -5,16 +5,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.teamacronymcoders.epos.json.jsondirector.IJsonDirector;
 import com.teamacronymcoders.epos.json.jsonprovider.IJsonProvider;
+import java.util.Map;
+import java.util.Objects;
+import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Map;
-import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 public class JsonLoader<T> extends JsonReloadListener {

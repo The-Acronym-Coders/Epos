@@ -1,10 +1,9 @@
 package com.teamacronymcoders.epos.api.registry;
 
+import javax.annotation.Nonnull;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-
-import javax.annotation.Nonnull;
 
 public class MissingRegistryEntry<T extends INamedRegistryEntry<T>> implements INamedRegistryEntry<T> {
     private final ResourceLocation registryName;

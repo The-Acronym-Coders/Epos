@@ -2,10 +2,9 @@ package com.teamacronymcoders.epos.skill;
 
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
+import javax.annotation.Nonnull;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nonnull;
 
 public class Skill implements ISkill {
     private final ResourceLocation registryName;

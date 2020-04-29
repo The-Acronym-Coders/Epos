@@ -1,12 +1,8 @@
 package com.teamacronymcoders.epos.api.feat;
 
-import net.minecraft.util.ResourceLocation;
+import java.util.List;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import net.minecraftforge.registries.IForgeRegistry;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class Feat extends ForgeRegistryEntry<Feat> {
     private final List<FeatEventHandler<?>> eventHandlers;

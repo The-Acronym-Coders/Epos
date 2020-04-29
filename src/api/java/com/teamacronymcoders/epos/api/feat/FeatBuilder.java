@@ -2,16 +2,15 @@ package com.teamacronymcoders.epos.api.feat;
 
 import com.google.common.collect.Lists;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Event;
 import org.apache.logging.log4j.util.TriConsumer;
-
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
 
 @ParametersAreNonnullByDefault
 public class FeatBuilder {

@@ -2,7 +2,6 @@ package com.teamacronymcoders.epos.pathfeature.item;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.json.JsonUtils;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
@@ -11,8 +10,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nonnull;
 
 // TODO: Import NBT-Code from BASE to not use MC's Horrid NBT Code
 public class ItemRewardFeatureProvider extends PathFeatureProvider {

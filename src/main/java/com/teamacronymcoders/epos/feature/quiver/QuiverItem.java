@@ -4,6 +4,7 @@ import com.hrznstudio.titanium.block.tile.inventory.PosInvHandler;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.capability.PosInvHandlerCapabilityProvider;
 import com.teamacronymcoders.epos.client.gui.GuiQuiverAddonScreen;
+import javax.annotation.Nullable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -18,8 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
-
-import javax.annotation.Nullable;
 
 public class QuiverItem extends Item {
     public QuiverItem() {

@@ -1,12 +1,11 @@
 package com.teamacronymcoders.epos.api.feat;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import java.util.Objects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.Event;
 import org.apache.logging.log4j.util.TriConsumer;
-
-import java.util.Objects;
 
 public class FeatEventHandler<T extends Event> {
     public final ResourceLocation featId;

@@ -13,10 +13,9 @@ import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.util.ResourceLocation;
-
 import java.util.List;
 import java.util.Map;
+import net.minecraft.util.ResourceLocation;
 
 public class PathJsonProvider implements IJsonProvider<IPath> {
     @Override

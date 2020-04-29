@@ -2,8 +2,6 @@ package com.teamacronymcoders.epos.api.pathfeature;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
-import net.minecraft.network.PacketBuffer;
-
 import java.util.List;
 
 public class PathFeatures {

@@ -1,9 +1,8 @@
 package com.teamacronymcoders.epos.api.skill;
 
+import javax.annotation.Nonnull;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-
-import javax.annotation.Nonnull;
 
 public class MissingSkill implements ISkill {
     private final ResourceLocation registryName;

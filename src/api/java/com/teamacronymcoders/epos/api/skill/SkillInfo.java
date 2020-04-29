@@ -1,9 +1,8 @@
 package com.teamacronymcoders.epos.api.skill;
 
+import javax.annotation.Nonnull;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
-
-import javax.annotation.Nonnull;
 
 public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<SkillInfo> {
     private final String registryName;

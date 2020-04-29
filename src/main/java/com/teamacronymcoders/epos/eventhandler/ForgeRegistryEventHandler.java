@@ -1,10 +1,26 @@
 package com.teamacronymcoders.epos.eventhandler;
 
+import static com.teamacronymcoders.epos.api.EposAPI.ID;
+
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.Feat;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.container.QuiverContainer;
-import com.teamacronymcoders.epos.feats.*;
+import com.teamacronymcoders.epos.feats.EfficiencyFeats;
+import com.teamacronymcoders.epos.feats.EnderResistanceFeat;
+import com.teamacronymcoders.epos.feats.GluttonousHungerFeat;
+import com.teamacronymcoders.epos.feats.GravelExcavatorFeat;
+import com.teamacronymcoders.epos.feats.HarvestAreaFeat;
+import com.teamacronymcoders.epos.feats.ImprovisedCombatFeat;
+import com.teamacronymcoders.epos.feats.LuckyAnglerFeat;
+import com.teamacronymcoders.epos.feats.ObsidianSmasherFeat;
+import com.teamacronymcoders.epos.feats.OreExtractionFeat;
+import com.teamacronymcoders.epos.feats.PalmOfExcavationFeat;
+import com.teamacronymcoders.epos.feats.PurityFeats;
+import com.teamacronymcoders.epos.feats.SpiritOfBattleFeat;
+import com.teamacronymcoders.epos.feats.TimberFeat;
+import com.teamacronymcoders.epos.feats.UnarmedStrikeFeat;
+import com.teamacronymcoders.epos.feats.WayOfTheBladeFeat;
 import com.teamacronymcoders.epos.pathfeature.feat.FeatFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.item.ItemRewardFeatureProvider;
 import com.teamacronymcoders.epos.pathfeature.levelupskill.LevelUpSkillFeatureProvider;
@@ -18,8 +34,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.RegistryBuilder;
-
-import static com.teamacronymcoders.epos.api.EposAPI.ID;
 
 @EventBusSubscriber(modid = EposAPI.ID, bus = EventBusSubscriber.Bus.MOD)
 public class ForgeRegistryEventHandler {

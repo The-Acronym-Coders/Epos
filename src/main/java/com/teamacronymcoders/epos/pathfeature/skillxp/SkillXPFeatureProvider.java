@@ -7,9 +7,6 @@ import com.teamacronymcoders.epos.api.json.JsonUtils;
 import com.teamacronymcoders.epos.api.pathfeature.IPathFeature;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
 
 public class SkillXPFeatureProvider extends PathFeatureProvider {
     @Override

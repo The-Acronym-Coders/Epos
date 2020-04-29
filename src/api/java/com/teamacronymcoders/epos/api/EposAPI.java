@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.api;
 
 import com.teamacronymcoders.epos.api.feat.Feat;
+import com.teamacronymcoders.epos.api.locks.LockRegistry;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.MissingPath;
 import com.teamacronymcoders.epos.api.pathfeature.PathFeatureProvider;
@@ -20,4 +21,6 @@ public class EposAPI {
             RegistryManager.ACTIVE.getRegistry(Feat.class);
     public static final IForgeRegistry<PathFeatureProvider> PATH_FEATURE_PROVIDER_REGISTRY =
             RegistryManager.ACTIVE.getRegistry(PathFeatureProvider.class);
+
+    public static final LockRegistry LOCK_REGISTRY = new LockRegistry();
 }
