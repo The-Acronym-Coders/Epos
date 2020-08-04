@@ -1,4 +1,4 @@
 package com.teamacronymcoders.epos.api.feat;
 
-public class Feat {
+public class IFeat {
 }

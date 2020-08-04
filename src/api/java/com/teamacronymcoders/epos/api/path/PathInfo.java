@@ -1,25 +1,24 @@
-package com.teamacronymcoders.epos.api.skill;
+package com.teamacronymcoders.epos.api.path;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<SkillInfo> {
+public class PathInfo implements INBTSerializable<CompoundNBT>, Comparable<PathInfo> {
     private final String registryName;
-    private final ISkill skill;
+    private final IPath path;
     private boolean active;
     private int level;
-    private int experience;
     private CompoundNBT data;
 
-    public SkillInfo(ISkill skill) {
-        this.skill = skill;
-        this.registryName = skill.toString();
+    public PathInfo(IPath path) {
+        this.path = path;
+        this.registryName = path.toString();
         this.data = new CompoundNBT();
     }
 
     @Override
-    public int compareTo(SkillInfo o) {
-        return 0;
+    public int compareTo(PathInfo o) {
+        return o.registryName.equals(this.registryName) && o.path == this.path && o.level == this.level ? 1 : 0;
     }
 
     @Override
@@ -27,7 +26,6 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
         CompoundNBT nbt = new CompoundNBT();
         nbt.putBoolean("Active", active);
         nbt.putInt("Level", level);
-        nbt.putInt("Experience", experience);
         nbt.put("Data", data);
         return nbt;
     }
@@ -36,7 +34,6 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
     public void deserializeNBT(CompoundNBT nbt) {
         this.active = nbt.getBoolean("Active");
         this.level = nbt.getInt("Level");
-        this.experience = nbt.getInt("Experience");
         this.data = nbt.getCompound("Data");
     }
 }

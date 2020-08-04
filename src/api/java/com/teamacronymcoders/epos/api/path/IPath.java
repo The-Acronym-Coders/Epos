@@ -1,18 +1,34 @@
 package com.teamacronymcoders.epos.api.path;
 
-import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.epos.api.pathfeature.PathFeatures;
-import com.teamacronymcoders.epos.api.registry.INamedRegistryEntry;
-import net.minecraft.entity.LivingEntity;
+import com.teamacronymcoders.epos.api.path.feature.IPathFeature;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public interface IPath extends INamedRegistryEntry<IPath> {
-    /**
-     * @return An Immutable Object Containing All the Feats, Stat Increases, and Other Features
-     * that a character will receive as they level up.
-     */
-    PathFeatures getPathFeatures();
+import java.util.List;
+import java.util.Map;
 
-    void addLevel(LivingEntity character, ICharacterStats characterStats, int newClassLevel);
+public interface IPath {
+    // PathInfo
+    PathInfo createPathInfo();
 
-    void removeLevel(LivingEntity character, ICharacterStats characterStats, int newPathLevel);
+    // Visibility
+    boolean isHidden();
+    boolean isUnlocked();
+
+    // Levels
+    default int getMinLevel() {
+        return 0;
+    }
+    default int getMaxLevel() {
+        return 10;
+    }
+
+    // Features
+    List<IPathFeature> getAllPathFeatures();
+    Map<Integer, List<IPathFeature>> getLevelToPathFeaturesMap();
+    List<IPathFeature> getFeaturesForLevel(int level);
+
+    // Localization
+    TranslationTextComponent getName();
+    TranslationTextComponent getDescription();
 }

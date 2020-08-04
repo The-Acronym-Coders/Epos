@@ -1,11 +1,8 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nonnull;
-
-public class MissingSkill implements ISkill {
+public class MissingSkill extends Skill {
     private final ResourceLocation registryName;
 
     public MissingSkill(String registryName) {
@@ -16,44 +13,9 @@ public class MissingSkill implements ISkill {
         this.registryName = name;
     }
 
-    @Nonnull
     @Override
-    public ResourceLocation getRegistryName() {
-        return registryName;
-    }
-
-    @Override
-    public boolean isFound() {
+    public boolean isHidden() {
         return false;
     }
 
-    @Override
-    public ITextComponent getName() {
-        return null;
-    }
-
-    @Override
-    public ITextComponent getDescription() {
-        return null;
-    }
-
-    @Override
-    public int compareTo(ISkill o) {
-        return String.CASE_INSENSITIVE_ORDER.compare(this.getName().getString(), o.getName().getString());
-    }
-
-    @Override
-    public SkillInfo createSkillInfo() {
-        return new SkillInfo(this);
-    }
-
-    @Override
-    public boolean isHidden() {
-        return true;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return 0;
-    }
 }

@@ -1,34 +1,51 @@
 buildscript {
     repositories {
-        mavenCentral()
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "3.+", changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+idea {
+    module {
+        //Exclude directories from being managed
+        for (String excludeDirName in ["run", "out", "logs", "gradle"]) {
+            File excludeDir = new File(projectDir, excludeDirName)
+            excludeDirs.add(excludeDir)
+        }
     }
 }
 
-apply plugin: "net.minecraftforge.gradle"
-apply plugin: "maven"
-apply plugin: "java"
-apply plugin: "idea"
+configurations {
+    //Make sure all our sub source set stuff extends the proper base methods so that
+    // they can see all the dependencies we have in dependencies including forge
+    def compileExtenders = [apiCompile, testCompile, datagenCompile]
+    def compileOnlyExtenders = [apiCompileOnly, testCompileOnly, datagenCompileOnly]
+    def runtimeOnlyExtenders = [apiRuntimeOnly, datagenRuntimeOnly]
+    for (def compileExtender : compileExtenders) {
+        compileExtender.extendsFrom(compile)
+    }
+    for (def compileOnlyExtender : compileOnlyExtenders) {
+        compileOnlyExtender.extendsFrom(compileOnly)
+    }
+    for (def runtimeOnlyExtender : runtimeOnlyExtenders) {
+        runtimeOnlyExtender.extendsFrom(runtimeOnly)
+    }
+}
 
 version = "${minecraft_version}-" + getVersion()
 group = "${group}"
 archivesBaseName = "${archive}"
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-    maven {
-        name = "forge"
-        url = "http://files.minecraftforge.net/maven"
-    }
-}
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 sourceSets {
     api {
@@ -37,37 +54,79 @@ sourceSets {
         }
     }
     main {
+        resources {
+            include '**/**'
+            //Add the generated resources
+            srcDirs += 'src/datagen/generated'
+            //But exclude the cache of the generated data from what gets built
+            exclude '.cache'
+        }
         compileClasspath += sourceSets.api.output
         runtimeClasspath += sourceSets.api.output
+    }
+    datagen {
+        java.srcDirs = ['src/datagen/java']
+        resources.srcDirs = ['src/datagen/resources']
+        compileClasspath += sourceSets.api.output
+        compileClasspath += sourceSets.main.output
     }
     test {
-        compileClasspath += sourceSets.api.output
-        runtimeClasspath += sourceSets.api.output
+        compileClasspath += sourceSets.api.output + sourceSets.main.output
+        runtimeClasspath += sourceSets.api.output + sourceSets.main.output
     }
-}
-
-configurations {
-    apiCompile.extendsFrom(compile)
 }
 
 test {
     useJUnitPlatform()
 }
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings channel: "snapshot", version: "${mappings_version}"
 
     runs {
         client {
             workingDirectory project.file("run")
-            source sourceSets.main
-            source sourceSets.api
+            if (project.hasProperty('mc_uuid')) {
+                //Your uuid without any dashes in the middle
+                args '--uuid', project.getProperty('mc_uuid')
+            }
+            if (project.hasProperty('mc_username')) {
+                //Your username/display name, this is the name that shows up in chat
+                // Note: This is not your email, even if you have a Mojang account
+                args '--username', project.getProperty('mc_username')
+            }
+            if (project.hasProperty('mc_accessToken')) {
+                //Your access token, you can find it in your '.minecraft/launcher_profiles.json' file
+                args '--accessToken', project.getProperty('mc_accessToken')
+            }
+            mods {
+                epos {
+                    sources(sourceSets.main, sourceSets.api)
+                }
+            }
         }
 
         server {
             workingDirectory project.file("run")
-            source sourceSets.main
-            source sourceSets.api
+            mods {
+                epos {
+                    sources(sourceSets.main, sourceSets.api)
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            environment 'target', 'fmluserdevdata'
+            properties 'fml.earlyprogresswindow': 'false'
+            args '--all', '--output', file('src/datagen/generated'),
+                    '--mod', 'epos', '--existing', sourceSets.main.resources.srcDirs[0]
+            mods {
+                epos {
+                    sources(sourceSets.main, sourceSets.api, sourceSets.datagen)
+                }
+            }
         }
     }
 }
@@ -76,14 +135,21 @@ repositories {
     maven {
         url 'https://cdn.hrzn.studio/maven/'
     }
+    maven {
+        url 'https://maven.blamejared.com'
+    }
+    maven {
+        url 'https://dvs1.progwml6.com/files/maven'
+    }
 }
 
 dependencies {
-    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
-
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compile fg.deobf('com.hrznstudio:titanium:2.1.+')
+    minecraft 'net.minecraftforge:forge:1.16.1-32.0.98'
+
+    compile fg.deobf("com.hrznstudio:titanium:${minecraft_version}-${titanium_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 }
 
 task srcJar(type: Jar) {
@@ -105,13 +171,13 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "${title}",
-                "Specification-Vendor"    : "${team}",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "${team}",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Specification-Title": "examplemod",
+            "Specification-Vendor": "examplemodsareus",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"examplemodsareus",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
@@ -122,27 +188,11 @@ artifacts {
     archives apiJar
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
-        }
-    }
+reobf {
+    apiJar { classpath = sourceSets.api.compileClasspath }
+    srcJar { classpath = sourceSets.main.compileClasspath }
+    javadocJar { classpath = sourceSets.main.compileClasspath }
 }
-
-wrapper {
-    distributionType = Wrapper.DistributionType.ALL
-    version = '4.9'
-}
-
-idea {
-    module {
-        sourceDirs = sourceDirs + sourceSets.api.allJava.srcDirs
-    }
-}
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
 
 String getVersion() {
     String version = "${base_version}"
@@ -166,8 +216,4 @@ static String getBuildNumber() {
         buildNumber = System.getenv("bamboo_buildNumber") != null ? System.getenv("bamboo_buildNumber") : ""
     }
     return buildNumber
-}
-
-configurations {
-    apiCompile.extendsFrom(compile)
 }
