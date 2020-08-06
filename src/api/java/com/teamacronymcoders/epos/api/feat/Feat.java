@@ -1,41 +1,42 @@
 package com.teamacronymcoders.epos.api.feat;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.util.text.ITextComponent;
 
-public abstract class Feat extends ForgeRegistryEntry<Feat> implements IFeat {
-    @Override
-    public FeatInfo createFeatInfo() {
-        return new FeatInfo(this);
+import javax.annotation.Nonnull;
+import java.util.List;
+
+public class Feat implements IFeat {
+    private final List<FeatEventHandler<?>> eventHandlers;
+    private final ResourceLocation registryName;
+    private final ITextComponent name;
+    private final ITextComponent description;
+
+    public Feat(ResourceLocation registryName, ITextComponent name, ITextComponent description, List<FeatEventHandler<?>> eventHandlers) {
+        this.name = name;
+        this.description = description;
+        this.eventHandlers = eventHandlers;
+        this.registryName = registryName;
     }
 
     @Override
-    public boolean isHidden() {
-        return false;
+    public List<FeatEventHandler<?>> getEventHandlers() {
+        return eventHandlers;
     }
 
     @Override
-    public boolean isUnlocked() {
-        return true;
+    @Nonnull
+    public ResourceLocation getRegistryName() {
+        return registryName;
     }
 
     @Override
-    public TranslationTextComponent getName() {
-        final ResourceLocation id = this.getRegistryName();
-        final String unlocalized = "feat." + id.getNamespace() + "." + id.getPath();
-        return new TranslationTextComponent(unlocalized);
+    public ITextComponent getName() {
+        return this.name;
     }
 
     @Override
-    public TranslationTextComponent getDescription() {
-        final ResourceLocation id = this.getRegistryName();
-        final String unlocalized = "feat." + id.getNamespace() + "." + id.getPath() + ".desc";
-        return new TranslationTextComponent(unlocalized);
-    }
-
-    @Override
-    public String toString() {
-        return this.getRegistryName().toString();
+    public ITextComponent getDescription() {
+        return this.description;
     }
 }

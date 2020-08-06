@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.api.capability;
 
 import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.api.EposCapabilities;
 import com.teamacronymcoders.epos.api.characterstats.CharacterStats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,13 +23,13 @@ public class CharacterStatsProvider implements ICapabilityProvider, ICapabilityS
         optional.invalidate();
     }
 
-    public CharacterStatsProvider(LivingEntity character) {
-        stats = new CharacterStats(character);
+    public CharacterStatsProvider() {
+        stats = new CharacterStats();
         optional = LazyOptional.of(() -> stats);
     }
 
-    public CharacterStatsProvider(LivingEntity character, CompoundNBT nbt) {
-        stats = new CharacterStats(character);
+    public CharacterStatsProvider(CompoundNBT nbt) {
+        stats = new CharacterStats();
         stats.deserializeNBT(nbt);
         optional = LazyOptional.of(() -> stats);
     }
@@ -36,7 +37,7 @@ public class CharacterStatsProvider implements ICapabilityProvider, ICapabilityS
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == EposAPI.CHARACTER_STATS) {
+        if (cap == EposCapabilities.CHARACTER_STATS) {
             return optional.cast();
         }
         return LazyOptional.empty();

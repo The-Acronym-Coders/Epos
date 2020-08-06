@@ -1,42 +1,30 @@
 package com.teamacronymcoders.epos.api.characterstats;
 
 import com.teamacronymcoders.epos.api.EposUtils;
+import com.teamacronymcoders.epos.api.ability.Abilities;
 import com.teamacronymcoders.epos.api.characterstats.points.PointInfo;
 import com.teamacronymcoders.epos.api.characterstats.points.PointType;
 import com.teamacronymcoders.epos.api.feat.Feats;
-import com.teamacronymcoders.epos.api.path.Paths;
+import com.teamacronymcoders.epos.api.path.PathLevels;
 import com.teamacronymcoders.epos.api.skill.Skills;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 
 public class CharacterStats implements ICharacterStats {
-
-    private final LivingEntity character;
-    private Paths paths;
+    private PathLevels paths;
     private Skills skills;
     private Feats feats;
+    private Abilities abilities;
 
     private PointInfo pathPoints;
     private PointInfo skillPoints;
     private PointInfo featPoints;
 
     public CharacterStats() {
-        this.character = null;
-        this.paths = new Paths();
+        this.paths = new PathLevels();
         this.skills = new Skills();
         this.feats = new Feats();
-
-        // Player Starts with 1 of each point for the first level of choices.
-        this.pathPoints = new PointInfo(PointType.PATH, 1, 1);
-        this.skillPoints = new PointInfo(PointType.SKILL, 1, 1);
-        this.featPoints = new PointInfo(PointType.FEAT, 1, 1);
-    }
-
-    public CharacterStats(LivingEntity character) {
-        this.character = character;
-        this.paths = new Paths();
-        this.skills = new Skills();
-        this.feats = new Feats();
+        this.abilities = new Abilities();
 
         // Player Starts with 1 of each point for the first level of choices.
         this.pathPoints = new PointInfo(PointType.PATH, 1, 1);
@@ -45,28 +33,27 @@ public class CharacterStats implements ICharacterStats {
     }
 
     // Used for Respawning Players/Entities
-    public CharacterStats (LivingEntity character, CompoundNBT nbt) {
-        this.character = character;
+    public CharacterStats (CompoundNBT nbt) {
         deserializeNBT(nbt);
     }
 
     @Override
-    public LivingEntity getCharacter() {
-        return character;
-    }
-
-    @Override
-    public Paths getPaths() {
+    public PathLevels getPathLevels() {
         return paths;
     }
 
-    public void setPaths(Paths paths) {
+    public void setPaths(PathLevels paths) {
         this.paths = paths;
     }
 
     @Override
     public Skills getSkills() {
         return skills;
+    }
+
+    @Override
+    public Abilities getAbilities() {
+        return null;
     }
 
     public void setSkills(Skills skills) {

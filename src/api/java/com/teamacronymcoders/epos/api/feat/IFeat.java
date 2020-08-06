@@ -1,16 +1,9 @@
 package com.teamacronymcoders.epos.api.feat;
 
-import net.minecraft.util.text.TranslationTextComponent;
+import com.teamacronymcoders.epos.api.registry.INamedRegistryEntry;
 
-public interface IFeat {
-    // FeatInfo
-    FeatInfo createFeatInfo();
+import java.util.List;
 
-    // Visibility
-    boolean isHidden();
-    boolean isUnlocked();
-
-    // Localization
-    TranslationTextComponent getName();
-    TranslationTextComponent getDescription();
+public interface IFeat extends INamedRegistryEntry<IFeat> {
+    List<FeatEventHandler<?>> getEventHandlers();
 }
