@@ -11,14 +11,14 @@ public class PathInfo implements INBTSerializable<CompoundNBT>, Comparable<PathI
     private CompoundNBT data;
 
     public PathInfo(IPath path) {
-        this.path = path;
         this.registryName = path.toString();
+        this.path = path;
         this.data = new CompoundNBT();
     }
 
     @Override
     public int compareTo(PathInfo o) {
-        return o.registryName.equals(this.registryName) && o.path == this.path && o.level == this.level ? 1 : 0;
+        return o.registryName.equals(this.registryName) && o.path == this.path && o.active == this.active && o.level == this.level  && o.data.equals(this.data) ? 1 : 0;
     }
 
     @Override

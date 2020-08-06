@@ -2,7 +2,6 @@ package com.teamacronymcoders.epos.api.path;
 
 import com.teamacronymcoders.epos.api.path.feature.IPathFeature;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.List;
 import java.util.Map;

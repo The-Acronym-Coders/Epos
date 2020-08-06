@@ -25,5 +25,17 @@ public class EposConstants {
         public static final String PATHS = "Paths";
         public static final String SKILLS = "Skills";
         public static final String FEATS = "Feats";
+
+        // Paths Sub-Storage
+        public static final String PATH_ID = "PathID";
+        public static final String PATH_INFO = "PathInfo";
+
+        // Skills Sub-Storage
+        public static final String SKILL_ID = "SkillID";
+        public static final String SKILL_INFO = "SkillInfo";
+
+        // Feats Sub-Storage
+        public static final String FEAT_ID = "FeatID";
+        public static final String FEAT_INFO = "FeatInfo";
     }
 }

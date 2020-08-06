@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public interface ISkill {
     // SkillInfo
@@ -16,4 +17,8 @@ public interface ISkill {
     // Experience
     Int2IntOpenHashMap getExperienceForLevelMap();
     int getExperienceForLevel(int level);
+
+    // Localization
+    TranslationTextComponent getName();
+    TranslationTextComponent getDescription();
 }
