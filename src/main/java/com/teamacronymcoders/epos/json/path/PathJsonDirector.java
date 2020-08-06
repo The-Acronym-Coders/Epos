@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos.json.path;
 
+import com.hrznstudio.titanium.json.JsonLoader;
 import com.hrznstudio.titanium.json.jsondirector.IJsonDirector;
 import com.teamacronymcoders.epos.path.Path;
 import net.minecraft.util.ResourceLocation;
