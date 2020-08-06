@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.capability;
+package com.teamacronymcoders.epos.api.capability;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;

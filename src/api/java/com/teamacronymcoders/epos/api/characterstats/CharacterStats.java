@@ -20,7 +20,19 @@ public class CharacterStats implements ICharacterStats {
     private PointInfo skillPoints;
     private PointInfo featPoints;
 
-    public CharacterStats (LivingEntity character) {
+    public CharacterStats() {
+        this.character = null;
+        this.paths = new Paths();
+        this.skills = new Skills();
+        this.feats = new Feats();
+
+        // Player Starts with 1 of each point for the first level of choices.
+        this.pathPoints = new PointInfo(PointType.PATH, 1, 1);
+        this.skillPoints = new PointInfo(PointType.SKILL, 1, 1);
+        this.featPoints = new PointInfo(PointType.FEAT, 1, 1);
+    }
+
+    public CharacterStats(LivingEntity character) {
         this.character = character;
         this.paths = new Paths();
         this.skills = new Skills();
