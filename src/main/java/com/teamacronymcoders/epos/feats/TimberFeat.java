@@ -8,7 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags.Blocks;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -22,11 +24,12 @@ public class TimberFeat {
                     if (entity.getActiveItemStack().getToolTypes().contains(ToolType.AXE)) {
                         if (breakEvent.getState().getBlock().isIn(BlockTags.LOGS)) {
                             BlockPos pos = breakEvent.getPos();
-                            World world = breakEvent.getWorld().getWorld();
-                            PlayerEntity player = breakEvent.getPlayer();
-
-                            // Runs through blocks, adding valid blocks to the schedueled list to check, and checked blocks to checked.
-                            BlockBreakHelper.handleHarvest(pos, world, player);
+                            IWorld iWorld = breakEvent.getWorld();
+                            if (iWorld instanceof World) {
+                                World world = (World) iWorld;
+                                PlayerEntity player = breakEvent.getPlayer();
+                                BlockBreakHelper.cascadingBreakBlocks(player.getHeldItem(player.getActiveHand()), world, world.getBlockState(pos), pos, player, BlockTags.LOGS, 125, 75);
+                            }
                         }
                     }
                 })

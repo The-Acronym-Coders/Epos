@@ -1,6 +1,5 @@
 package com.teamacronymcoders.epos;
 
-import com.hrznstudio.titanium.tab.AdvancedTitaniumTab;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposResourceTypes;
 import com.teamacronymcoders.epos.api.capability.CharacterStatsProvider;
@@ -27,7 +26,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(EposAPI.ID)
 public class Epos {
     private static final String CONFIG = "epos.toml";
-    public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
+    //public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
     private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceTypes.PATH, IPath.class, EposAPI.PATH_REGISTRY);
     public static final ResourceLocation CHARACTER_STAT_CAPABILITY = new ResourceLocation(EposAPI.ID, "character_stats");
 

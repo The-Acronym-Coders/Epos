@@ -7,7 +7,9 @@ import com.teamacronymcoders.epos.util.helpers.BlockBreakHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Tags.Blocks;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.world.BlockEvent;
 
@@ -19,14 +21,14 @@ public class OreExtractionFeat {
             .withEventHandler(BlockEvent.BreakEvent.class,
                 (breakEvent, entity, iCharacterStats) -> {
                     if (entity.getActiveItemStack().getToolTypes().contains(ToolType.PICKAXE)) {
-                        ResourceLocation tag = new ResourceLocation("forge", "ores");
-                        if (breakEvent.getState().getBlock().getTags().contains(tag)) {
+                        if (breakEvent.getState().getBlock().isIn(Blocks.ORES)) {
                             BlockPos pos = breakEvent.getPos();
-                            World world = breakEvent.getWorld().getWorld();
-                            PlayerEntity player = breakEvent.getPlayer();
-
-                            // Runs through blocks, adding valid blocks to the schedueled list to check, and checked blocks to checked.
-                            BlockBreakHelper.handleHarvest(pos, world, player);
+                            IWorld iWorld = breakEvent.getWorld();
+                            if (iWorld instanceof World) {
+                                World world = (World) iWorld;
+                                PlayerEntity player = breakEvent.getPlayer();
+                                BlockBreakHelper.cascadingBreakBlocks(player.getHeldItem(player.getActiveHand()), world, world.getBlockState(pos), pos, player, Blocks.ORES, 125, 25);
+                            }
                         }
                     }
                 })
