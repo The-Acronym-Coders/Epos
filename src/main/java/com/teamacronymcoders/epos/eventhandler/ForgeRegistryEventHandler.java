@@ -1,11 +1,10 @@
 package com.teamacronymcoders.epos.eventhandler;
 
-import com.teamacronymcoders.epos.api.path.feature.PathFeatureProvider;
+import com.teamacronymcoders.epos.api.path.feature.CharacterClassFeatureProvider;
 import com.teamacronymcoders.epos.api.source.SourceType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -29,8 +28,8 @@ public class ForgeRegistryEventHandler {
 
 
     @SubscribeEvent
-    public static void registerPathFeatureProviders(RegistryEvent.Register<PathFeatureProvider> pathFeatureProviderRegistryEvent) {
-        pathFeatureProviderRegistryEvent.getRegistry().registerAll(
+    public static void registerClassFeatureProviders(RegistryEvent.Register<CharacterClassFeatureProvider> classFeatureProviderRegistryEvent) {
+        classFeatureProviderRegistryEvent.getRegistry().registerAll(
 //            new FeatFeatureProvider().setRegistryName(new ResourceLocation(ID, "feat")),
 //            new SkillXPFeatureProvider().setRegistryName(new ResourceLocation(ID, "skill_xp")),
 //            new LevelUpSkillFeatureProvider().setRegistryName(new ResourceLocation(ID, "level_up")),
@@ -44,9 +43,9 @@ public class ForgeRegistryEventHandler {
             .setType(SourceType.class)
             .create();
 
-        new RegistryBuilder<PathFeatureProvider>()
+        new RegistryBuilder<CharacterClassFeatureProvider>()
             .setName(new ResourceLocation(ID, "path_feature_provider"))
-            .setType(PathFeatureProvider.class)
+            .setType(CharacterClassFeatureProvider.class)
             .create();
     }
 }

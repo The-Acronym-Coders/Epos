@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.path.feature.xp.skill;
+package com.teamacronymcoders.epos.classes.feature.xp.skill;
 
 
 import com.google.gson.JsonDeserializationContext;
@@ -6,13 +6,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.json.JsonUtils;
-import com.teamacronymcoders.epos.api.path.feature.IPathFeature;
-import com.teamacronymcoders.epos.api.path.feature.PathFeatureProvider;
+import com.teamacronymcoders.epos.api.path.feature.IClassFeature;
+import com.teamacronymcoders.epos.api.path.feature.CharacterClassFeatureProvider;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 
-public class SkillXPFeatureProvider extends PathFeatureProvider {
+public class SkillXPFeatureProvider extends CharacterClassFeatureProvider {
     @Override
-    public IPathFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public IClassFeature provide(JsonObject jsonObject, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         String skillName = JsonUtils.getString(jsonObject, "skill");
         int xpAmount = JsonUtils.getInt(jsonObject, "amount");
         ISkill skill = EposAPI.SKILL_REGISTRY.getEntry(skillName);

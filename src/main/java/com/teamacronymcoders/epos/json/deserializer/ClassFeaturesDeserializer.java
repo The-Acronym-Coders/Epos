@@ -8,9 +8,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.path.feature.IPathFeature;
-import com.teamacronymcoders.epos.api.path.feature.PathFeatureProvider;
-import com.teamacronymcoders.epos.api.path.feature.PathFeatures;
+import com.teamacronymcoders.epos.api.path.feature.IClassFeature;
+import com.teamacronymcoders.epos.api.path.feature.CharacterClassFeatureProvider;
+import com.teamacronymcoders.epos.api.path.feature.CharacterClassFeatures;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.util.ResourceLocation;
@@ -19,12 +19,12 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> {
+public class ClassFeaturesDeserializer implements JsonDeserializer<CharacterClassFeatures> {
     @Override
-    public PathFeatures deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public CharacterClassFeatures deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         if (jsonElement != null && jsonElement.isJsonArray()) {
             JsonObject featureObject = jsonElement.getAsJsonObject();
-            Int2ObjectMap<List<IPathFeature>> pathFeaturesByLevel = new Int2ObjectOpenHashMap<>();
+            Int2ObjectMap<List<IClassFeature>> pathFeaturesByLevel = new Int2ObjectOpenHashMap<>();
             for (Map.Entry<String, JsonElement> featureElement : featureObject.entrySet()) {
                 int level;
                 try {
@@ -39,7 +39,7 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
                     pathFeaturesByLevel.put(level, Lists.newArrayList(parseJsonObject(
                         featureElement.getValue().getAsJsonObject(), jsonDeserializationContext)));
                 } else if (featureElement.getValue().isJsonArray()) {
-                    List<IPathFeature> features = Lists.newArrayList();
+                    List<IClassFeature> features = Lists.newArrayList();
                     for (JsonElement arrayElement : featureElement.getValue().getAsJsonArray()) {
                         if (arrayElement.isJsonObject()) {
                             features.add(parseJsonObject(arrayElement.getAsJsonObject(), jsonDeserializationContext));
@@ -52,18 +52,18 @@ public class PathFeaturesDeserializer implements JsonDeserializer<PathFeatures> 
                     throw new JsonParseException("all features object values must be objects or arrays of objects");
                 }
             }
-            return new PathFeatures(pathFeaturesByLevel);
+            return new CharacterClassFeatures(pathFeaturesByLevel);
         }
         throw new JsonParseException("features was null or not an object");
     }
 
-    private IPathFeature parseJsonObject(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
+    private IClassFeature parseJsonObject(JsonObject jsonObject, JsonDeserializationContext context) throws JsonParseException {
         JsonPrimitive providerPrimitive = jsonObject.getAsJsonPrimitive("provider");
         if (providerPrimitive != null && providerPrimitive.isString()) {
-            PathFeatureProvider provider = EposAPI.PATH_FEATURE_PROVIDERS.getValue(new ResourceLocation(providerPrimitive.getAsString()));
+            CharacterClassFeatureProvider provider = EposAPI.CLASS_FEATURE_PROVIDERS.getValue(new ResourceLocation(providerPrimitive.getAsString()));
             jsonObject.remove("provider");
             if (provider == null) {
-                throw new JsonParseException("No Path Feature Provider found for name " + providerPrimitive.getAsString());
+                throw new JsonParseException("No Character Class Feature Provider found for name " + providerPrimitive.getAsString());
             }
             return provider.provide(jsonObject, context);
         }

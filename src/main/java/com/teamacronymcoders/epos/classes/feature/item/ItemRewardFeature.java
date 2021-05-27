@@ -1,7 +1,7 @@
-package com.teamacronymcoders.epos.path.feature.item;
+package com.teamacronymcoders.epos.classes.feature.item;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
-import com.teamacronymcoders.epos.path.feature.PathFeature;
+import com.teamacronymcoders.epos.classes.feature.CharacterClassFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
-public class ItemRewardFeature extends PathFeature {
+public class ItemRewardFeature extends CharacterClassFeature {
     private final String identifier;
     private final ItemStack stack;
 

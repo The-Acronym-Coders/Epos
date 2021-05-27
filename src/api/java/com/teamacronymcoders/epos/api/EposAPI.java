@@ -2,9 +2,9 @@ package com.teamacronymcoders.epos.api;
 
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.feat.MissingFeat;
-import com.teamacronymcoders.epos.api.path.IPath;
-import com.teamacronymcoders.epos.api.path.MissingPath;
-import com.teamacronymcoders.epos.api.path.feature.PathFeatureProvider;
+import com.teamacronymcoders.epos.api.path.IClass;
+import com.teamacronymcoders.epos.api.path.MissingClass;
+import com.teamacronymcoders.epos.api.path.feature.CharacterClassFeatureProvider;
 import com.teamacronymcoders.epos.api.registry.Registry;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.MissingSkill;
@@ -29,11 +29,11 @@ public class EposAPI {
     //public static IForgeRegistry<Skill> SKILL = RegistryManager.ACTIVE.getRegistry(Skill.class);
     //public static IForgeRegistry<Feat> FEAT = RegistryManager.ACTIVE.getRegistry(Feat.class);
 
-    public static final Registry<IPath> PATH_REGISTRY = new Registry<>(MissingPath::new);
+    public static final Registry<IClass> CLASS_REGISTRY = new Registry<>(MissingClass::new);
     public static final Registry<IFeat> FEAT_REGISTRY = new Registry<>(MissingFeat::new);
     public static final Registry<ISkill> SKILL_REGISTRY = new Registry<>(MissingSkill::new);
 
-    public static final IForgeRegistry<PathFeatureProvider> PATH_FEATURE_PROVIDERS = RegistryManager.ACTIVE.getRegistry(PathFeatureProvider.class);
+    public static final IForgeRegistry<CharacterClassFeatureProvider> CLASS_FEATURE_PROVIDERS = RegistryManager.ACTIVE.getRegistry(CharacterClassFeatureProvider.class);
     public static final IForgeRegistry<SourceType> SOURCE_TYPES = RegistryManager.ACTIVE.getRegistry(SourceType.class);
 
     @SuppressWarnings("unchecked")

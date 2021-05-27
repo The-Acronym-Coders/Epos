@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public enum PointType implements IStringSerializable {
-    PATH("path", NBT.PATH_POINTS_CURRENT, NBT.PATH_POINTS_TOTAL),
+    CHARACTER_CLASS("path", NBT.CLASS_POINTS_CURRENT, NBT.CLASS_POINTS_TOTAL),
     SKILL("skill", NBT.SKILL_POINTS_CURRENT, NBT.SKILL_POINTS_TOTAL),
     FEAT("feat", NBT.FEAT_POINTS_CURRENT, NBT.FEAT_POINTS_TOTAL);
 

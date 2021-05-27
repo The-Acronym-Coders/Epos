@@ -23,7 +23,7 @@ public class EposUtils {
 
     public static void serializePoints(CharacterStats stats, CompoundNBT nbt) {
         CompoundNBT points = new CompoundNBT();
-        points.put(NBT.PATH, stats.getPointInfo(PointType.PATH).serializeNBT());
+        points.put(NBT.CLASS, stats.getPointInfo(PointType.CHARACTER_CLASS).serializeNBT());
         points.put(NBT.SKILL, stats.getPointInfo(PointType.SKILL).serializeNBT());
         points.put(NBT.FEAT, stats.getPointInfo(PointType.FEAT).serializeNBT());
         nbt.put(NBT.POINTS, points);
@@ -31,13 +31,13 @@ public class EposUtils {
 
     public static void deserializePoints(CharacterStats stats, CompoundNBT nbt) {
         CompoundNBT points = nbt.getCompound(NBT.POINTS);
-        stats.setPointInfo(PointInfo.createFromNBT(points.getCompound(NBT.PATH)), PointType.PATH);
+        stats.setPointInfo(PointInfo.createFromNBT(points.getCompound(NBT.CLASS)), PointType.CHARACTER_CLASS);
         stats.setPointInfo(PointInfo.createFromNBT(points.getCompound(NBT.SKILL)), PointType.SKILL);
         stats.setPointInfo(PointInfo.createFromNBT(points.getCompound(NBT.FEAT)), PointType.FEAT);
     }
 
     public static void serializeStorages(CharacterStats stats, CompoundNBT nbt) {
-        nbt.put(NBT.PATHS, stats.getPathLevels().serializeNBT());
+        nbt.put(NBT.CLASSES, stats.getClassLevels().serializeNBT());
         nbt.put(NBT.SKILLS, stats.getSkills().serializeNBT());
         nbt.put(NBT.FEATS, stats.getFeats().serializeNBT());
     }

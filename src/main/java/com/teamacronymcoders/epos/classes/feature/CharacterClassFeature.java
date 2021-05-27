@@ -1,13 +1,13 @@
-package com.teamacronymcoders.epos.path.feature;
+package com.teamacronymcoders.epos.classes.feature;
 
-import com.teamacronymcoders.epos.api.path.feature.IPathFeature;
+import com.teamacronymcoders.epos.api.path.feature.IClassFeature;
 import net.minecraft.util.text.ITextComponent;
 
-public abstract class PathFeature implements IPathFeature {
+public abstract class CharacterClassFeature implements IClassFeature {
     private final ITextComponent name;
     private final ITextComponent description;
 
-    public PathFeature(ITextComponent name, ITextComponent description) {
+    public CharacterClassFeature(ITextComponent name, ITextComponent description) {
         this.name = name;
         this.description = description;
     }

@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.lang;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.path.IClass;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
@@ -37,7 +37,7 @@ public class EposBaseLangProvider extends LanguageProvider {
      * @param path The path to be localized.
      * @param translation The translation.
      */
-    public void add(IPath path, String translation) {
+    public void add(IClass path, String translation) {
         add(path.getRegistryName().toString(), translation);
     }
 

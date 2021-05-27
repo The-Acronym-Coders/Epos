@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.path.feature.item;
+package com.teamacronymcoders.epos.classes.feature.item;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerEvent;

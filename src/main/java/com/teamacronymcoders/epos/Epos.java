@@ -7,7 +7,7 @@ import com.teamacronymcoders.epos.api.capability.NBTCapabilityStorage;
 import com.teamacronymcoders.epos.api.characterstats.CharacterStats;
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.path.IClass;
 import com.teamacronymcoders.epos.api.registry.RegistrationEvent;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.json.JsonLoader;
@@ -27,7 +27,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class Epos {
     private static final String CONFIG = "epos.toml";
     //public static final AdvancedTitaniumTab EPOS_TAB = new AdvancedTitaniumTab("epos", false);
-    private final JsonLoader<IPath> pathLoader = new JsonLoader<>("path", EposResourceTypes.PATH, IPath.class, EposAPI.PATH_REGISTRY);
+    private final JsonLoader<IClass> classLoader = new JsonLoader<>("path", EposResourceTypes.CLASS, IClass.class, EposAPI.CLASS_REGISTRY);
     public static final ResourceLocation CHARACTER_STAT_CAPABILITY = new ResourceLocation(EposAPI.ID, "character_stats");
 
     public Epos() {
@@ -45,7 +45,7 @@ public class Epos {
     }
 
     private void addReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(pathLoader);
+        event.addListener(classLoader);
     }
 
     private void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {

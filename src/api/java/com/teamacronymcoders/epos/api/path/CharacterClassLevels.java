@@ -8,28 +8,28 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public class PathLevels implements INBTSerializable<CompoundNBT> {
-    private final Int2ObjectMap<IPath> pathLevels;
+public class CharacterClassLevels implements INBTSerializable<CompoundNBT> {
+    private final Int2ObjectMap<IClass> classLevels;
     private int currentLevel;
 
-    public PathLevels() {
-        pathLevels = new Int2ObjectOpenHashMap<>();
+    public CharacterClassLevels() {
+        classLevels = new Int2ObjectOpenHashMap<>();
     }
 
-    public boolean levelUp(LivingEntity character, ICharacterStats characterStats, IPath iPath) {
+    public boolean levelUp(LivingEntity character, ICharacterStats characterStats, IClass iPath) {
         boolean addedPath = false;
         int currentCheck = 0;
         do {
             currentCheck++;
-            if (pathLevels.get(currentCheck) == null) {
-                pathLevels.put(currentCheck, iPath);
+            if (classLevels.get(currentCheck) == null) {
+                classLevels.put(currentCheck, iPath);
                 addedPath = true;
             }
         } while (!addedPath && currentCheck < currentLevel);
 
         int newClassTotal = 0;
         if (addedPath) {
-            for (Int2ObjectMap.Entry<IPath> entry : pathLevels.int2ObjectEntrySet()) {
+            for (Int2ObjectMap.Entry<IClass> entry : classLevels.int2ObjectEntrySet()) {
                 if (entry.getValue() == iPath) {
                     newClassTotal++;
                 }
@@ -46,7 +46,7 @@ public class PathLevels implements INBTSerializable<CompoundNBT> {
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        for (Int2ObjectMap.Entry<IPath> entry : pathLevels.int2ObjectEntrySet()) {
+        for (Int2ObjectMap.Entry<IClass> entry : classLevels.int2ObjectEntrySet()) {
             nbt.putString(Integer.toString(entry.getIntKey()), entry.getValue().getRegistryName().toString());
         }
         return nbt;
@@ -55,7 +55,7 @@ public class PathLevels implements INBTSerializable<CompoundNBT> {
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
         for (String key : nbt.keySet()) {
-            pathLevels.put(Integer.parseInt(key), EposAPI.PATH_REGISTRY.getEntry(nbt.getString(key)));
+            classLevels.put(Integer.parseInt(key), EposAPI.CLASS_REGISTRY.getEntry(nbt.getString(key)));
         }
     }
 }

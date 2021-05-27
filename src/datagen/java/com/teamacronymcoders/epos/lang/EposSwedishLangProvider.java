@@ -11,7 +11,7 @@ public class EposSwedishLangProvider extends EposBaseLangProvider {
     @Override
     protected void addTranslations() {
         addAdvancements();
-        addPaths();
+        addClasses();
         addSkills();
         addFeats();
     }
@@ -20,7 +20,7 @@ public class EposSwedishLangProvider extends EposBaseLangProvider {
 
     }
 
-    private void addPaths() {
+    private void addClasses() {
 
     }
 
