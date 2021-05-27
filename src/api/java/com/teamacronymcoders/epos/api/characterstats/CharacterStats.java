@@ -5,28 +5,28 @@ import com.teamacronymcoders.epos.api.ability.Abilities;
 import com.teamacronymcoders.epos.api.characterstats.points.PointInfo;
 import com.teamacronymcoders.epos.api.characterstats.points.PointType;
 import com.teamacronymcoders.epos.api.feat.Feats;
-import com.teamacronymcoders.epos.api.path.CharacterClassLevels;
+import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
 import net.minecraft.nbt.CompoundNBT;
 
 public class CharacterStats implements ICharacterStats {
-    private CharacterClassLevels classes;
+    private Paths paths;
     private Skills skills;
     private Feats feats;
     private Abilities abilities;
 
-    private PointInfo classPoints;
+    private PointInfo pathPoints;
     private PointInfo skillPoints;
     private PointInfo featPoints;
 
     public CharacterStats() {
-        this.classes = new CharacterClassLevels();
+        this.paths = new Paths();
         this.skills = new Skills();
         this.feats = new Feats();
         this.abilities = new Abilities();
 
         // Player Starts with 1 of each point for the first level of choices.
-        this.classPoints = new PointInfo(PointType.CHARACTER_CLASS, 1, 1);
+        this.pathPoints = new PointInfo(PointType.PATH, 1, 1);
         this.skillPoints = new PointInfo(PointType.SKILL, 1, 1);
         this.featPoints = new PointInfo(PointType.FEAT, 1, 1);
     }
@@ -37,12 +37,12 @@ public class CharacterStats implements ICharacterStats {
     }
 
     @Override
-    public CharacterClassLevels getClassLevels() {
-        return classes;
+    public Paths getPaths() {
+        return paths;
     }
 
-    public void setClasses(CharacterClassLevels classes) {
-        this.classes = classes;
+    public void setPaths(Paths paths) {
+        this.paths = paths;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class CharacterStats implements ICharacterStats {
 
     public PointInfo getPointInfo(PointType type) {
         switch (type) {
-            case CHARACTER_CLASS: return classPoints;
+            case PATH: return pathPoints;
             case SKILL: return skillPoints;
             case FEAT: return featPoints;
         }
@@ -79,7 +79,7 @@ public class CharacterStats implements ICharacterStats {
 
     public void setPointInfo(PointInfo info, PointType type) {
         switch (type) {
-            case CHARACTER_CLASS: classPoints = info;
+            case PATH: pathPoints = info;
             case SKILL: skillPoints = info;
             case FEAT: featPoints = info;
         }
