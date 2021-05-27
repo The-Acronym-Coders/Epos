@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.classes.feature.feat;
+package com.teamacronymcoders.epos.paths.feature.feat;
 
 import com.teamacronymcoders.epos.api.EposAPI;
 import com.teamacronymcoders.epos.api.EposCapabilities;

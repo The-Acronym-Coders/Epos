@@ -1,13 +1,13 @@
-package com.teamacronymcoders.epos.classes.feature.levelup.skill;
+package com.teamacronymcoders.epos.paths.feature.levelup.skill;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
-import com.teamacronymcoders.epos.classes.feature.CharacterClassFeature;
+import com.teamacronymcoders.epos.paths.feature.PathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class LevelUpSkillFeature extends CharacterClassFeature {
+public class LevelUpSkillFeature extends PathFeature {
     private final ISkill skill;
     private final int levels;
 

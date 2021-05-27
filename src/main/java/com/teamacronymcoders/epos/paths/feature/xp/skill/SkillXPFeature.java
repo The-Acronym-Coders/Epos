@@ -1,12 +1,12 @@
-package com.teamacronymcoders.epos.classes.feature.xp.skill;
+package com.teamacronymcoders.epos.paths.feature.xp.skill;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.classes.feature.CharacterClassFeature;
+import com.teamacronymcoders.epos.paths.feature.PathFeature;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class SkillXPFeature extends CharacterClassFeature {
+public class SkillXPFeature extends PathFeature {
     private final ISkill skill;
     private final int xpAmount;
 

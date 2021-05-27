@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.classes.feature.levelup.skill;
+package com.teamacronymcoders.epos.paths.feature.levelup.skill;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;

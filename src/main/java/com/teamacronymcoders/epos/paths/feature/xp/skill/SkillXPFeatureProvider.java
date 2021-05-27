@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.classes.feature.xp.skill;
+package com.teamacronymcoders.epos.paths.feature.xp.skill;
 
 
 import com.google.gson.JsonDeserializationContext;

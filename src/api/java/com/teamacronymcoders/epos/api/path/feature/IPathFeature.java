@@ -4,7 +4,7 @@ import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 
-public interface IClassFeature {
+public interface IPathFeature {
     /**
      * @return The Name of the Entry.
      */
