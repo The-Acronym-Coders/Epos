@@ -4,10 +4,10 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 
 import java.util.List;
 
-public class ClassFeatures {
+public class CharacterClassFeatures {
     private final Int2ObjectMap<List<IClassFeature>> featuresByLevel;
 
-    public ClassFeatures(Int2ObjectMap<List<IClassFeature>> featuresByLevel) {
+    public CharacterClassFeatures(Int2ObjectMap<List<IClassFeature>> featuresByLevel) {
         this.featuresByLevel = featuresByLevel;
     }
 
