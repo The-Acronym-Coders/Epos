@@ -152,9 +152,6 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    //compile fg.deobf("com.hrznstudio:titanium:${minecraft_version}-${titanium_version}")
-    //compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 }
 
 task srcJar(type: Jar) {

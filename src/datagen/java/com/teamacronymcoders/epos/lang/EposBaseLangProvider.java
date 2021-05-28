@@ -1,7 +1,6 @@
 package com.teamacronymcoders.epos.lang;
 
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import net.minecraft.advancements.Advancement;
