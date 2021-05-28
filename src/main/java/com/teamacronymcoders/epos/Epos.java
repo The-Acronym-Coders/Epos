@@ -32,8 +32,8 @@ public class Epos {
 
     public Epos() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::addReloadListeners);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onAttachEntityCapabilities);
+        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::addReloadListeners);
+        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onAttachEntityCapabilities);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

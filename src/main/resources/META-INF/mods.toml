@@ -1,6 +1,7 @@
 modLoader="javafml"
 loaderVersion="[${loader_version},)"
 issueTrackerURL="https://github.com/The-Acronym-Coders/epos/issues"
+license = "MIT"
 
 [[mods]]
     modId="epos"
@@ -14,7 +15,7 @@ Adds Classes, Skills, and Leveling to Minecraft.
 [[dependencies.epos]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${mc_version}]"
+    versionRange="[1.16,]"
     side="BOTH"
 [[dependencies.epos]]
     modId="forge"
