@@ -13,6 +13,9 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
 
     public SkillInfo(ISkill skill) {
         this.skill = skill;
+        this.experience = 0;
+        this.level = 1;
+        this.active = false;
     }
 
     public ISkill getSkill() {

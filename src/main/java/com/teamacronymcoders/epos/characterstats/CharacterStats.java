@@ -24,4 +24,5 @@ public class CharacterStats implements ICharacterStats {
     public void deserializeNBT(CompoundNBT nbt) {
 
     }
+
 }
