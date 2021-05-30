@@ -6,6 +6,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod(EposAPI.ID)
 public class Epos {
+    // Paths, Skills, Feats, Abilities
     private static final String CONFIG = "epos.toml";
 
     public Epos() {

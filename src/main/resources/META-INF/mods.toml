@@ -17,6 +17,7 @@ Adds Classes, Skills, and Leveling to Minecraft.
     mandatory=true
     versionRange="[1.16,]"
     side="BOTH"
+
 [[dependencies.epos]]
     modId="forge"
     mandatory=true
