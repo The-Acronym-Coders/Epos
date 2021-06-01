@@ -28,10 +28,14 @@ configurations {
     //Make sure all our sub source set stuff extends the proper base methods so that
     // they can see all the dependencies we have in dependencies including forge
     def compileExtenders = [apiCompile, testCompile, datagenCompile]
+    def implementationExtenders = [apiImplementation, testImplementation, datagenImplementation]
     def compileOnlyExtenders = [apiCompileOnly, testCompileOnly, datagenCompileOnly]
     def runtimeOnlyExtenders = [apiRuntimeOnly, datagenRuntimeOnly]
     for (def compileExtender : compileExtenders) {
         compileExtender.extendsFrom(compile)
+    }
+    for (def implementationExtender : implementationExtenders) {
+        implementationExtender.extendsFrom(implementation)
     }
     for (def compileOnlyExtender : compileOnlyExtenders) {
         compileOnlyExtender.extendsFrom(compileOnly)
@@ -71,6 +75,8 @@ sourceSets {
         compileClasspath += sourceSets.main.output
     }
     test {
+        //The test module has no resources
+        resources.srcDirs = []
         compileClasspath += sourceSets.api.output + sourceSets.main.output
         runtimeClasspath += sourceSets.api.output + sourceSets.main.output
     }
@@ -152,6 +158,8 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junit_version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit_version}"
 }
 
 task srcJar(type: Jar) {

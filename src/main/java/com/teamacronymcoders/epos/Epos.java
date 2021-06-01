@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos;
 
 import com.teamacronymcoders.epos.api.EposAPI;
+import com.teamacronymcoders.epos.locks.DefaultLocks;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -14,7 +15,7 @@ public class Epos {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
+        event.enqueueWork(DefaultLocks::registerKeyLookups);
     }
 
 }
