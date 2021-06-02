@@ -1,0 +1,20 @@
+// Add External Plugins
+pluginManagement {
+    // Add MinecraftForge maven to plugin management
+    repositories {
+        maven {
+            name 'Minecraft Forge'
+            url 'https://maven.minecraftforge.net'
+        }
+        gradlePluginPortal()
+    }
+
+    // Resolve ForgeGradle within plugin block
+    resolutionStrategy.eachPlugin {
+        if (requested.id.id == 'net.minecraftforge.gradle')
+            useModule group: requested.id, name: 'ForgeGradle', version: requested.version
+    }
+}
+
+// Project Name
+rootProject.name = 'Epos'

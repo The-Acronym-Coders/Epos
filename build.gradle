@@ -1,0 +1,161 @@
+// Attach plugins
+plugins {
+    id 'net.minecraftforge.gradle' version '4.1.+'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+// Standard Project Information
+version = "$project.minecraftVersion-$project.modSpecVer.$project.modImplVer"
+group = project.userGroup
+archivesBaseName = project.modId
+
+// Sets the toolchain to compile against OpenJDK 8
+java.toolchain {
+    languageVersion = JavaLanguageVersion.of(8)
+    vendor = JvmVendorSpec.ADOPTOPENJDK
+}
+
+// Add generated source set and attach to main source set
+sourceSets {
+    api
+    generated
+    main{
+        java {
+            srcDirs += sourceSets.api.java.srcDirs
+        }
+        resources {
+            srcDirs += sourceSets.api.resources.srcDirs
+            srcDirs += sourceSets.generated.resources.srcDirs
+            exclude '.cache/'
+        }
+    }
+}
+
+minecraft {
+    // The mappings can be changed at any time, and must be in the following format:
+    // Channel:   Version:
+    // snapshot   YYYYMMDD   Snapshot are built nightly
+    // stable     #          Stables are built at the discretion of the MCP team
+    // official   MCVersion  Official field/method names from Mojang mapping files
+    //
+    // You must be aware of the Mojang license when using the 'official' mappings
+    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Use non-default mappings at your own risk. they may not always work
+    // Simply re-run your setup task after changing the mappings to update your workspace
+    mappings channel: project.mappingsType, version: project.mappingsVersion
+    
+    // Exposes fields, methods, constructors, and classes for use within the mod
+    // Set mod_transformer to 'true' within gradle.properties to enable
+    if (project.hasProperty('modTransformer') && project.getProperty('modTransformer').toBoolean())
+        accessTransformer file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // Default run configurations
+    // These can be tweaked, removed, or duplicated as needed
+    runs {
+        // Client run configuration
+        client {
+            // Directory for the project to run in
+            workingDirectory file('run/client')
+
+            // Set the console logging level
+            property 'forge.logging.console.level', 'debug'
+
+            // Attach the sources to the run
+            mods.create(project.modId).source(sourceSets.main)
+        }
+
+        // Server run configuration
+        server {
+            workingDirectory file('run/server')
+            property 'forge.logging.console.level', 'debug'
+            mods.create(project.modId).source(sourceSets.main)
+        }
+
+
+        // Data run configuration
+        data {
+            workingDirectory file('run/data')
+            property 'forge.logging.console.level', 'debug'
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources
+            args '--mod', project.modId,
+                '--all',
+                '--output', sourceSets.generated.resources.srcDirs[0],
+                '--existing', sourceSets.main.resources.srcDirs[0]
+
+            mods.create(project.modId).source(sourceSets.main)
+        }
+    }
+}
+
+repositories {
+    maven {
+        name 'Registrate'
+        url 'http://maven.tterrag.com/'
+    }
+    maven {
+        name 'Thiakil Mappings'
+        url 'https://maven.thiakil.com'
+        content {
+            includeGroup 'de.oceanlabs.mcp'
+            includeGroup 'net.minecraft'
+        }
+    }
+}
+
+configurations {
+    shade
+}
+
+dependencies {
+    // Include MinecraftForge as a dependency
+    minecraft group: 'net.minecraftforge', name: 'forge', version: "$project.minecraftVersion-$project.forgeVersion"
+    
+    // Add exp4j as shaded library for string expression evaluation
+    def exp4j = 'net.objecthunter:exp4j:latest.release'
+    implementation exp4j
+    shade exp4j
+    
+    // Add Registrate as shaded library
+    def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
+    implementation fg.deobf(registrate)
+    shade registrate
+    
+    // Add JUnit for testing
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    configurations = [project.configurations.shade]
+    relocate 'net.objecthunter.exp4j', "${project.userGroup}.${project.modId}.repack.exp4j"
+    relocate 'com.tterrag.registrate', "${project.userGroup}.${project.modId}.repack.registrate"
+    
+    finalizedBy 'reobfShadowJar'
+}
+
+// Set attributes of the jar
+jar {
+    // Set manifest information
+    manifest.attributes([
+        'Specification-Title': project.modName,
+        'Specification-Vendor': project.userName,
+        'Specification-Version': project.modSpecVer,
+        'Implementation-Title': project.modName,
+        'Implementation-Version': project.version,
+        'Implementation-Vendor': project.userName,
+        'Implementation-Timestamp': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ')
+    ])
+
+    finalizedBy 'reobfJar'
+}
+
+reobf {
+    shadowJar {}
+}
