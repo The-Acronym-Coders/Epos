@@ -14,9 +14,11 @@ public interface IFuzzyLockKey extends ILockKey {
     boolean fuzzyEquals(@Nonnull IFuzzyLockKey other);
 
     /**
-     * @return True if the fuzzy data is not used in the current instance of the object, false otherwise.
+     * @return True if the fuzzy data is used in the current instance of the object, false otherwise.
      */
-    boolean isNotFuzzy();
+    default boolean isFuzzy() {//TODO: Improve javadocs
+        return true;
+    }
 
     /**
      * @return A non fuzzy "generic" variant of the key. If there is no generic type return a GenericLockKey instead. Allows for getting partial locks

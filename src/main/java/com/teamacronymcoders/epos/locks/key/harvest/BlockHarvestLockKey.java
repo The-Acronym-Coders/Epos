@@ -9,18 +9,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
 
+/**
+ * Used for locking blocks based on the harvest level of the block.
+ */
 public class BlockHarvestLockKey extends HarvestLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.BLOCK_HARVEST);
 
-    /**
-     * @apiNote Ensure that the given harvest level is positive.
-     */
     public BlockHarvestLockKey(int harvestLevel) {
         super(harvestLevel);
+        //TODO: Block lock key based on "required tool type"???
+        // Maybe should be part of this lock key (with it being nullable)
+        // also would it be using getHarvestTool or isToolEffective
     }
 
     @Override
@@ -46,19 +47,21 @@ public class BlockHarvestLockKey extends HarvestLockKey {
 
     @Nullable
     public static BlockHarvestLockKey fromObject(@Nonnull Object object) {
-        if (object instanceof ItemStack) {
-            ItemStack stack = (ItemStack) object;
-            if (stack.isEmpty()) {
-                return null;
-            }
-            Block block = Block.getBlockFromItem(stack.getItem());
-            return block == Blocks.AIR ? null : new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
-        } else if (object instanceof BlockState) {
-            return new BlockHarvestLockKey(((BlockState) object).getHarvestLevel());
+        if (object instanceof BlockState) {
+            return fromState((BlockState) object);
         } else if (object instanceof Block) {
-            Block block = (Block) object;
-            return new BlockHarvestLockKey(block.getHarvestLevel(block.getDefaultState()));
+            return fromState(((Block) object).getDefaultState());
         }
         return null;
+    }
+
+    @Nullable
+    private static BlockHarvestLockKey fromState(@Nonnull BlockState state) {
+        //Note: This air check isn't "perfect" due to not being positional based, but given the positional based air is going away in 1.17 it should be fine for now
+        if (state.isAir()) {
+            return null;
+        }
+        int harvestLevel = state.getHarvestLevel();
+        return harvestLevel < 0 ? null : new BlockHarvestLockKey(harvestLevel);
     }
 }

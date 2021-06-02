@@ -1,10 +1,11 @@
 package com.teamacronymcoders.epos.util;
 
 import com.google.common.collect.Multimap;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 
 public class AttributeUtils {
 
@@ -12,23 +13,36 @@ public class AttributeUtils {
         return calculateValueFromModifiers(attributeModifiers, attribute, 0);
     }
 
+    /**
+     * Based on ModifiableAttributeInstance#computeValue.
+     */
     public static double calculateValueFromModifiers(Multimap<Attribute, AttributeModifier> attributeModifiers, Attribute attribute, double initialValue) {
         Collection<AttributeModifier> modifiers = attributeModifiers.get(attribute);
+        if (modifiers.isEmpty()) {
+            return attribute.clampValue(initialValue);
+        }
+        List<AttributeModifier> baseMultiplicationModifiers = new ArrayList<>();
+        List<AttributeModifier> totalMultiplicationModifiers = new ArrayList<>();
         for (AttributeModifier modifier : modifiers) {
-            Operation operation = modifier.getOperation();
-            switch (operation) {
+            switch (modifier.getOperation()) {
                 case ADDITION:
                     initialValue += modifier.getAmount();
                     break;
                 case MULTIPLY_BASE:
-                    //TODO: Figure out how we should handle MULTIPLY_BASE so that we have the correct value
-                    //attribute.getDefaultValue() * modifier.getAmount();
+                    baseMultiplicationModifiers.add(modifier);
                     break;
                 case MULTIPLY_TOTAL:
-                    initialValue *= modifier.getAmount();
+                    totalMultiplicationModifiers.add(modifier);
                     break;
             }
         }
-        return initialValue;
+        double value = initialValue;
+        for (AttributeModifier modifier : baseMultiplicationModifiers) {
+            value += initialValue * modifier.getAmount();
+        }
+        for (AttributeModifier modifier : totalMultiplicationModifiers) {
+            value *= 1.0D + modifier.getAmount();
+        }
+        return attribute.clampValue(value);
     }
 }

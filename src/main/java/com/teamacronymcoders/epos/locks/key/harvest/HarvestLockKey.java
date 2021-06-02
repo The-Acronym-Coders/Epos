@@ -6,15 +6,10 @@ public abstract class HarvestLockKey implements IFuzzyLockKey {
 
     protected final int harvestLevel;
 
-    /**
-     * @apiNote Ensure that the given harvest level is positive.
-     */
     protected HarvestLockKey(int harvestLevel) {
+        if (harvestLevel < 0) {
+            throw new IllegalArgumentException("Harvest level must be at least zero.");
+        }
         this.harvestLevel = harvestLevel;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 }

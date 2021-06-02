@@ -6,7 +6,7 @@ import com.teamacronymcoders.epos.locks.key.ArmorLockKey;
 import com.teamacronymcoders.epos.locks.key.ArmorToughnessLockKey;
 import com.teamacronymcoders.epos.locks.key.AttackDamageLockKey;
 import com.teamacronymcoders.epos.locks.key.BlockStateLockKey;
-import com.teamacronymcoders.epos.locks.key.DimensionTypeLockKey;
+import com.teamacronymcoders.epos.locks.key.WorldLockKey;
 import com.teamacronymcoders.epos.locks.key.GenericNBTLockKey;
 import com.teamacronymcoders.epos.locks.key.HungerLockKey;
 import com.teamacronymcoders.epos.locks.key.ItemLockKey;
@@ -29,7 +29,7 @@ public class DefaultLocks {
         lockRegistry.registerLockType(GenericNBTLockKey::fromObject);
 
         //Ones that probably will be in an addon but for now are from CompatSkills for more test cases of seeing how the system works
-        lockRegistry.registerLockType(DimensionTypeLockKey::fromObject);
+        lockRegistry.registerLockType(WorldLockKey::fromObject);
         lockRegistry.registerLockType(EntityDamageKey::fromObject);
         lockRegistry.registerLockType(EntityMountKey::fromObject);
         lockRegistry.registerLockType(EntityTameKey::fromObject);

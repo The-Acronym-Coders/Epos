@@ -40,11 +40,6 @@ public class DoubleLockKey implements IFuzzyLockKey {
         return o == this || o instanceof DoubleLockKey && value >= ((DoubleLockKey) o).value;
     }
 
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public ILockKey getNotFuzzy() {

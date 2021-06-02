@@ -18,7 +18,7 @@ public class EntityDamageKey<TYPE extends Entity> extends EntityLockKey<TYPE> {
 
     @Nullable
     public static EntityDamageKey<?> fromObject(@Nonnull Object object) {
-        EntityType<? extends Entity> type = getEntityType(object);
+        EntityType<?> type = getEntityType(object);
         return type == null ? null : new EntityDamageKey<>(type);
     }
 }

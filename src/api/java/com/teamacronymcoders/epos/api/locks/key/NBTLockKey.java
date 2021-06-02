@@ -26,14 +26,11 @@ public abstract class NBTLockKey implements IFuzzyLockKey {
     protected static boolean similarNBT(@Nullable INBT full, @Nullable INBT partial) {
         if (full == null) {
             return partial == null;
-        }
-        if (partial == null) {
+        } else if (partial == null) {
             return true;
-        }
-        if (full.getId() != partial.getId()) {
+        } else if (full.getId() != partial.getId()) {
             return false;
-        }
-        if (full.equals(partial)) {
+        } else if (full.equals(partial)) {
             return true;
         }
         switch (full.getId()) {
@@ -104,8 +101,8 @@ public abstract class NBTLockKey implements IFuzzyLockKey {
     }
 
     @Override
-    public boolean isNotFuzzy() {
-        return this.nbt == null;
+    public boolean isFuzzy() {
+        return this.nbt != null;
     }
 
     @Override

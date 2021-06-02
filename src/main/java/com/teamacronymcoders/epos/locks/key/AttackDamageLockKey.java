@@ -13,30 +13,27 @@ import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Used for locking items based on their attack damage value.
+ */
 public class AttackDamageLockKey implements IFuzzyLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.ATTACK_DAMAGE);
 
     private final double attackDamage;
 
-    /**
-     * @apiNote Ensure that the given damage value is positive.
-     */
     public AttackDamageLockKey(double attackDamage) {
+        if (attackDamage < 0) {
+            throw new IllegalArgumentException("Attack damage value must be at least zero.");
+        }
         this.attackDamage = attackDamage;
     }
 
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof AttackDamageLockKey && attackDamage >= ((AttackDamageLockKey) o).attackDamage;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 
     @Override
@@ -62,8 +59,7 @@ public class AttackDamageLockKey implements IFuzzyLockKey {
             if (stack.isEmpty()) {
                 return null;
             }
-            Item item = stack.getItem();
-            Multimap<Attribute, AttributeModifier> attributeModifiers = item.getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
+            Multimap<Attribute, AttributeModifier> attributeModifiers = stack.getItem().getAttributeModifiers(EquipmentSlotType.MAINHAND, stack);
             double damage = AttributeUtils.calculateValueFromModifiers(attributeModifiers, Attributes.ATTACK_DAMAGE);
             //Ensure that the value is actually positive
             if (damage >= 0) {

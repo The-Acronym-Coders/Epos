@@ -16,11 +16,11 @@ public abstract class EntityLockKey<TYPE extends Entity> implements ILockKey {
     }
 
     @Nullable
-    protected static EntityType<? extends Entity> getEntityType(@Nonnull Object object) {
+    protected static EntityType<?> getEntityType(@Nonnull Object object) {
         if (object instanceof Entity) {
             return ((Entity) object).getType();
         } else if (object instanceof EntityType) {
-            return (EntityType<? extends Entity>) object;
+            return (EntityType<?>) object;
         }
         return null;
     }

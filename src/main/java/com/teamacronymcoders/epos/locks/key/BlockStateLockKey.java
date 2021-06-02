@@ -11,6 +11,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.Property;
 
+/**
+ * Used for locking blocks based on the block type and optionally properties in the state.
+ */
 public class BlockStateLockKey implements IFuzzyLockKey {
 
     private static Map<Property<?>, Comparable<?>> EMPTY_PROPERTIES = Collections.emptyMap();
@@ -63,28 +66,28 @@ public class BlockStateLockKey implements IFuzzyLockKey {
     }
 
     @Override
-    public boolean isNotFuzzy() {
-        return properties.isEmpty();
+    public boolean isFuzzy() {
+        //We are only actually fuzzy if we have any properties and aren't just an overall block lock
+        return !properties.isEmpty();
     }
 
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new BlockStateLockKey(block);
+        return isFuzzy() ? new BlockStateLockKey(block) : this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
+        } else if (o instanceof BlockStateLockKey) {
+            BlockStateLockKey other = (BlockStateLockKey) o;
+            //Note: Map#equals is declared to ensure they are both maps and that the keys and values are equal.
+            // The type of the map does not matter
+            return block == other.block && properties.equals(other.properties);
         }
-        if (!(o instanceof BlockStateLockKey)) {
-            return false;
-        }
-        BlockStateLockKey other = (BlockStateLockKey) o;
-        //Note: Map#equals is declared to ensure they are both maps and that the keys and values are equal.
-        // The type of the map does not matter
-        return block == other.block && properties.equals(other.properties);
+        return false;
     }
 
     @Override

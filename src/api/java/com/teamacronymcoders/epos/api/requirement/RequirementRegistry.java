@@ -13,4 +13,8 @@ public class RequirementRegistry {
     // do a few checks to try and simplify things similar to the LogicParser class in
     // Reskillable. We should also make sure that if it gets simplified it prints out
     // a message to the log to inform the pack dev that they can simplify their requirement
+
+    //TODO: Requirements/RequirementTypes should have a Codec and a name, beyond that we
+    // probably don't actually even need to have a registry for requirements as they are mostly just used as
+    // values corresponding to various locks. The use of having the types in a registry would be for serializing/deserializing
 }

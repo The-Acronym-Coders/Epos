@@ -13,6 +13,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ToolType;
 
+/**
+ * Used for locking items based on their tool type and harvest level.
+ */
 public class ToolHarvestLockKey extends HarvestLockKey {
 
     private static final List<ToolHarvestLockKey> EMPTY = Collections.emptyList();
@@ -26,6 +29,7 @@ public class ToolHarvestLockKey extends HarvestLockKey {
      */
     public ToolHarvestLockKey(@Nonnull ToolType toolType, int harvestLevel) {
         super(harvestLevel);
+        //TODO: Enforce tooltype not being null
         this.toolType = toolType;
     }
 
@@ -51,8 +55,7 @@ public class ToolHarvestLockKey extends HarvestLockKey {
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        }
-        if (o instanceof ToolHarvestLockKey) {
+        } else if (o instanceof ToolHarvestLockKey) {
             ToolHarvestLockKey toolLock = (ToolHarvestLockKey) o;
             return harvestLevel == toolLock.harvestLevel && toolType.equals(toolLock.toolType);
         }

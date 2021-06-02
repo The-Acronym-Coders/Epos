@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.locks.key;
 
 import com.teamacronymcoders.epos.api.locks.key.ILockKey;
 import com.teamacronymcoders.epos.api.locks.key.NBTLockKey;
+import java.util.Locale;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,21 +25,21 @@ public class ModLockKey extends NBTLockKey {
 
     public ModLockKey(@Nonnull String modName, @Nullable CompoundNBT nbt) {
         super(nbt);
-        this.modName = modName.toLowerCase();
+        //TODO: Validate it is a valid modname?
+        this.modName = modName.toLowerCase(Locale.ROOT);
     }
 
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new ModLockKey(modName);
+        return isFuzzy() ? new ModLockKey(modName) : this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        }
-        if (o instanceof ModLockKey) {
+        } else if (o instanceof ModLockKey) {
             ModLockKey other = (ModLockKey) o;
             return modName.equals(other.modName) && Objects.equals(nbt, other.nbt);
         }

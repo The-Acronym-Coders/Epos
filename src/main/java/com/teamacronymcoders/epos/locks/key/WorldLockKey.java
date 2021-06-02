@@ -6,18 +6,21 @@ import javax.annotation.Nullable;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.World;
 
-public class DimensionTypeLockKey implements ILockKey {
+/**
+ * Used for locking worlds.
+ */
+public class WorldLockKey implements ILockKey {
 
     @Nonnull
     private final RegistryKey<World> dimension;
 
-    public DimensionTypeLockKey(@Nonnull RegistryKey<World> dimension) {
+    public WorldLockKey(@Nonnull RegistryKey<World> dimension) {
         this.dimension = dimension;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj == this || obj instanceof DimensionTypeLockKey && dimension == ((DimensionTypeLockKey) obj).dimension;
+        return obj == this || obj instanceof WorldLockKey && dimension == ((WorldLockKey) obj).dimension;
     }
 
     @Override
@@ -26,9 +29,9 @@ public class DimensionTypeLockKey implements ILockKey {
     }
 
     @Nullable
-    public static DimensionTypeLockKey fromObject(@Nonnull Object object) {
+    public static WorldLockKey fromObject(@Nonnull Object object) {
         if (object instanceof World) {
-            return new DimensionTypeLockKey(((World) object).getDimensionKey());
+            return new WorldLockKey(((World) object).getDimensionKey());
         }
         return null;
     }

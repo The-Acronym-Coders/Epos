@@ -10,29 +10,26 @@ import javax.annotation.Nullable;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
 
+/**
+ * Used for locking food items based on their provided saturation value.
+ */
 public class SaturationLockKey implements IFuzzyLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.SATURATION);
 
     private final float saturation;
 
-    /**
-     * @apiNote Ensure that the given saturation value is positive.
-     */
     public SaturationLockKey(float saturation) {
+        if (saturation < 0) {
+            throw new IllegalArgumentException("Saturation value must be at least zero.");
+        }
         this.saturation = saturation;
     }
 
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof SaturationLockKey && saturation >= ((SaturationLockKey) o).saturation;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 
     @Override
@@ -59,8 +56,8 @@ public class SaturationLockKey implements IFuzzyLockKey {
                 return null;
             }
             return fromItem(stack.getItem());
-        } else if (object instanceof IItemProvider) {
-            return fromItem(((IItemProvider) object).asItem());
+        } else if (object instanceof Item) {
+            return fromItem((Item) object);
         } else if (object instanceof Food) {
             return fromFood((Food) object);
         }
@@ -77,6 +74,7 @@ public class SaturationLockKey implements IFuzzyLockKey {
         if (food == null) {
             return null;
         }
+        //Calculate actual saturation value based on the healing the food provides and the saturation modifier of the food
         float saturation = food.getHealing() * food.getSaturation() * 2F;
         //Ensure that the value is actually positive
         return saturation < 0 ? null : new SaturationLockKey(saturation);

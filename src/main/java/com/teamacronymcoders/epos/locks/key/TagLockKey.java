@@ -18,10 +18,18 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ITagCollection;
+import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
 
 //TODO: Do we want a param that says "what type" the tag is for (would it even make sense to have one like that)
+//TODO: Should this actually instead be split into multiple tag lock keys as realistically different tag types (item vs block)
+// may not be included on both variants and aren't actually equivalent in terms of which things we may want locked
+// and things like entities we may want to be doing via the damage, mount, and tame etc instead
 public class TagLockKey extends NBTLockKey {
 
     private static final List<TagLockKey> EMPTY = Collections.emptyList();
@@ -40,15 +48,14 @@ public class TagLockKey extends NBTLockKey {
     @Override
     @Nonnull
     public ILockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new TagLockKey(tag);
+        return isFuzzy() ? new TagLockKey(tag) : this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == this) {
             return true;
-        }
-        if (o instanceof TagLockKey && tag.equals(((TagLockKey) o).tag)) {
+        } else if (o instanceof TagLockKey && tag.equals(((TagLockKey) o).tag)) {
             return getNBT() == null ? ((TagLockKey) o).getNBT() == null : getNBT().equals(((TagLockKey) o).getNBT());
         }
         return false;
@@ -77,6 +84,9 @@ public class TagLockKey extends NBTLockKey {
             return fromTags(((Block) object).getTags());
         } else if (object instanceof FluidStack) {
             FluidStack stack = (FluidStack) object;
+            if (stack.isEmpty()) {
+                return EMPTY;
+            }
             return fromTags(stack.getFluid().getTags(), stack.getTag());
         } else if (object instanceof Fluid) {
             return fromTags(((Fluid) object).getTags());
@@ -86,7 +96,20 @@ public class TagLockKey extends NBTLockKey {
             return fromTags(((Entity) object).getType().getTags());
         } else if (object instanceof EntityType<?>) {
             return fromTags(((EntityType<?>) object).getTags());
-        }//TODO: Check forge's custom tag types
+        } else if (object instanceof IForgeRegistryEntry) {
+            return genericLookup((IForgeRegistryEntry) object);
+        }
+        return EMPTY;
+    }
+
+    //TODO: Better name and test if this even works properly. Also decide if we want to have this generic thing support all tag types
+    // or just add in the ones forge exposes ourselves and leave the generic expansion method we will make as the way mods can make theirs be known as well
+    private static <V extends IForgeRegistryEntry<V>> List<TagLockKey> genericLookup(V registryEntry) {
+        IForgeRegistry<V> retrievedRegistry = RegistryManager.ACTIVE.getRegistry(registryEntry.getRegistryType());
+        ITagCollection<V> tagCollection = (ITagCollection<V>) TagCollectionManager.getManager().getCustomTagTypes().get(retrievedRegistry.getRegistryName());
+        if (tagCollection != null) {
+            return fromTags(tagCollection.getOwningTags(registryEntry));
+        }
         return EMPTY;
     }
 

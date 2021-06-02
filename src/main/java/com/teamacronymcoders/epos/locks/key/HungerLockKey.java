@@ -10,30 +10,26 @@ import javax.annotation.Nullable;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
-import org.lwjgl.system.CallbackI.I;
 
+/**
+ * Used for locking food items based on their provided hunger value.
+ */
 public class HungerLockKey implements IFuzzyLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.HUNGER);
 
     private final int hunger;
 
-    /**
-     * @apiNote Ensure that the given hunger value is positive.
-     */
     public HungerLockKey(int hunger) {
+        if (hunger < 0) {
+            throw new IllegalArgumentException("Hunger value must be at least zero.");
+        }
         this.hunger = hunger;
     }
 
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof HungerLockKey && hunger >= ((HungerLockKey) o).hunger;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 
     @Override
@@ -60,8 +56,8 @@ public class HungerLockKey implements IFuzzyLockKey {
                 return null;
             }
             return fromItem(stack.getItem());
-        } else if (object instanceof IItemProvider) {
-            return fromItem(((IItemProvider) object).asItem());
+        } else if (object instanceof Item) {
+            return fromItem((Item) object);
         } else if (object instanceof Food) {
             return fromFood((Food) object);
         }

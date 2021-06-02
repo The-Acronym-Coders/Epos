@@ -9,7 +9,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.fluids.FluidStack;
 
+/**
+ * Used for locking items and fluids based on their NBT.
+ */
 public class GenericNBTLockKey extends NBTLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.GENERIC_NBT);
@@ -19,6 +23,7 @@ public class GenericNBTLockKey extends NBTLockKey {
      */
     public GenericNBTLockKey(@Nonnull CompoundNBT nbt) {
         super(nbt);
+        //TODO: Force that it isn't empty or null as while the base NBTLockKey can handle it, there is no reason to allow it
     }
 
     @Override
@@ -41,7 +46,10 @@ public class GenericNBTLockKey extends NBTLockKey {
     public static GenericNBTLockKey fromObject(@Nonnull Object object) {
         if (object instanceof ItemStack) {
             ItemStack stack = (ItemStack) object;
-            return stack.hasTag() ? fromCompound(stack.getTag()) : null;
+            return !stack.isEmpty() && stack.hasTag() ? fromCompound(stack.getTag()) : null;
+        } else if (object instanceof FluidStack) {
+            FluidStack stack = (FluidStack) object;
+            return !stack.isEmpty() && stack.hasTag() ? fromCompound(stack.getTag()) : null;
         } else if (object instanceof CompoundNBT) {
             return fromCompound((CompoundNBT) object);
         }

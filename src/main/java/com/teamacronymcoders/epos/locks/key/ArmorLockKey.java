@@ -16,27 +16,25 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Used for locking armor items based on their armor value.
+ */
 public class ArmorLockKey implements IFuzzyLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.ARMOR);
 
     private final double armor;
 
-    /**
-     * @apiNote Ensure that the given armor value is positive.
-     */
     public ArmorLockKey(double armor) {
+        if (armor < 0) {
+            throw new IllegalArgumentException("Armor value must be at least zero.");
+        }
         this.armor = armor;
     }
 
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof ArmorLockKey && armor >= ((ArmorLockKey) o).armor;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 
     @Override

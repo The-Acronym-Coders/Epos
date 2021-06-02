@@ -16,27 +16,25 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Used for locking armor items based on their armor toughness.
+ */
 public class ArmorToughnessLockKey implements IFuzzyLockKey {
 
     private static final GenericLockKey NOT_FUZZY = new GenericLockKey(FuzzyLockKeyTypes.ARMOR_TOUGHNESS);
 
     private final double toughness;
 
-    /**
-     * @apiNote Ensure that the given armor toughness value is positive.
-     */
     public ArmorToughnessLockKey(double toughness) {
+        if (toughness < 0) {
+            throw new IllegalArgumentException("Armor toughness value must be at least zero.");
+        }
         this.toughness = toughness;
     }
 
     @Override
     public boolean fuzzyEquals(@Nonnull IFuzzyLockKey o) {
         return o == this || o instanceof ArmorToughnessLockKey && toughness >= ((ArmorToughnessLockKey) o).toughness;
-    }
-
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
     }
 
     @Override

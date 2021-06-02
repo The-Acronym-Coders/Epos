@@ -34,11 +34,6 @@ public class IntegerLockKey implements IFuzzyLockKey {
         return o == this || o instanceof IntegerLockKey && value >= ((IntegerLockKey) o).value;
     }
 
-    @Override
-    public boolean isNotFuzzy() {
-        return false;
-    }
-
     @Nonnull
     @Override
     public ILockKey getNotFuzzy() {

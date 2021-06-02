@@ -21,7 +21,7 @@ public interface ILockRegistry {//TODO: Re-evaluate javadocs
      * @param <KEY>   The type of key the given lock creator is for.
      */
     //TODO: Evaluate if there is any performance impact of checking against all compared to directly getting the subset that works
-    <KEY extends ILockKey> void registerLockType(@Nonnull ILockKeyCreator<KEY> creator);
+    void registerLockType(@Nonnull ILockKeyCreator<?> creator);
 
     /**
      * @param creator A Lock Key Creator that creates multiple keys at once of type KEY given an object.
