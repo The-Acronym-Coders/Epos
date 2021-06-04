@@ -1,0 +1,11 @@
+{
+    "type": "epos:skill",
+    "name": {
+        "translate": "skill.epos.test"
+    },
+    "description": {
+        "translate": "skill.epos.test.desc"
+    },
+    "maxLevel": 5,
+    "expresion": "1 + x"
+}

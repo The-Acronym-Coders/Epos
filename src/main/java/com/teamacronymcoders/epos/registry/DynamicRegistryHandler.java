@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -38,10 +39,12 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
+import com.google.gson.JsonElement;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistryBuilder;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
+import com.teamacronymcoders.epos.network.DynamicRegistryPacket;
 
 import net.minecraft.util.ResourceLocation;
 
@@ -54,6 +57,7 @@ public class DynamicRegistryHandler {
     private final BiMap<Class<? extends IDynamic<?, ?>>, ResourceLocation> superTypes;
     private final Set<ResourceLocation> persisted;
     private final Set<ResourceLocation> synced;
+    private boolean needsSync;
 
     public DynamicRegistryHandler() {
         this.registries = new HashMap<>();
@@ -91,6 +95,37 @@ public class DynamicRegistryHandler {
         if (builder.shouldSync())
             this.synced.add(name);
         return this.getRegistry(name);
+    }
+
+    public void reloadResources(Map<ResourceLocation, JsonElement> entries) {
+        this.registries.values().forEach(registry -> {
+            registry.unfreeze();
+            registry.clear();
+        });
+        entries.forEach((loc, element) -> {
+            String[] paths = loc.getPath().split("/", 3);
+            ResourceLocation registryName = new ResourceLocation(paths[0], paths[1]);
+            ResourceLocation entryName = new ResourceLocation(loc.getNamespace(), paths[2]);
+            DynamicRegistry<? extends IDynamic<?, ?>, ?> registry = this.getRegistry(registryName);
+            if (registry == null)
+                LOGGER.error("Registry does not exist: {}", registryName);
+            else
+                registry.registerDynamic(entryName, element);
+        });
+        this.registries.values().forEach(DynamicRegistry::freeze);
+        this.needsSync = true;
+    }
+
+    public DynamicRegistryPacket syncPacket() {
+        return new DynamicRegistryPacket(this.synced.stream().map(this::getRegistry).collect(Collectors.toList()));
+    }
+
+    public boolean needsSync() {
+        return this.needsSync;
+    }
+
+    public void synced() {
+        this.needsSync = false;
     }
 
     private void findSuperTypes(Class<?> type, Set<Class<?>> types) {

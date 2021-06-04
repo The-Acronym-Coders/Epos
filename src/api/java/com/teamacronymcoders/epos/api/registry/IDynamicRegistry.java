@@ -36,6 +36,8 @@ public interface IDynamicRegistry<V extends IDynamic<V, ?>, S extends ISerialize
 
     ResourceLocation getRegistryName();
 
+    Class<V> getSuperType();
+
     void register(V val);
 
     boolean containsKey(ResourceLocation loc);

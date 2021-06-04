@@ -32,10 +32,12 @@ import java.util.function.BiConsumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.JsonElement;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.util.EposCodecs;
@@ -44,33 +46,49 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 
-// TODO: Finish
+// TODO: Finish, use FMLCommonSetupEvent to create registry
 public class DynamicRegistry<V extends IDynamic<V, ?>, S extends ISerializer<V, S>>
         implements IDynamicRegistry<V, S>, Codec<V> {
 
     private static final Logger LOGGER = LogManager.getLogger("Dynamic Registries");
     public static final ResourceLocation MISSING_ENTRY = new ResourceLocation(Epos.ID, "missing");
     private final ResourceLocation name;
+    private final Class<V> superType;
     private final Map<ResourceLocation, V> entries;
+    private final V missingEntry;
     private final IForgeRegistry<S> serializationRegistry;
     private final Codec<V> entryCodec;
     private final Codec<Snapshot<V, S>> snapshotCodec;
-    private boolean isFrozen = false;
+    private boolean isFrozen;
 
     public DynamicRegistry(DynamicRegistryBuilder<V, S> builder) {
         this.name = builder.getName();
+        this.superType = builder.getType();
         this.serializationRegistry = builder.getSerializer();
         this.entries = new HashMap<>();
+        this.missingEntry = builder.getMissingEntry();
+        this.missingEntry.setRegistryName(MISSING_ENTRY);
         this.entryCodec = EposCodecs.dynamicRegistryEntry(this.serializationRegistry);
         this.snapshotCodec = RecordCodecBuilder.create(instance -> {
             return instance.group(Codec.unboundedMap(ResourceLocation.CODEC, this.entryCodec).fieldOf("entries")
                     .forGetter(snap -> snap.entries)).apply(instance, Snapshot::new);
         });
+        this.addMissingEntry();
+        this.freeze();
+    }
+
+    private void addMissingEntry() {
+        this.register(this.missingEntry);
     }
 
     @Override
     public ResourceLocation getRegistryName() {
         return this.name;
+    }
+
+    @Override
+    public Class<V> getSuperType() {
+        return this.superType;
     }
 
     @Override
@@ -92,6 +110,17 @@ public class DynamicRegistry<V extends IDynamic<V, ?>, S extends ISerializer<V, 
                     this.getRegistryName(), this.get(registryName), val);
         }
         this.entries.put(registryName, val);
+    }
+
+    public void registerDynamic(ResourceLocation entryName, JsonElement element) {
+        this.parse(JsonOps.INSTANCE, element)
+                .resultOrPartial(
+                        str -> LOGGER.error("Something went wrong trying to deserialize {} into the {} registry: {}",
+                                entryName, this.getRegistryName(), str))
+                .ifPresent(obj -> {
+                    obj.setRegistryName(entryName);
+                    this.register(obj);
+                });
     }
 
     public void freeze() {
@@ -175,6 +204,7 @@ public class DynamicRegistry<V extends IDynamic<V, ?>, S extends ISerializer<V, 
         if (this.isLocked())
             throw new IllegalStateException("The registry is currently locked: " + this.getRegistryName());
         this.entries.clear();
+        this.addMissingEntry();
     }
 
     @Override

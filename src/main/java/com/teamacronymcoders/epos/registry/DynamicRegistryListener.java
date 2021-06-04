@@ -22,33 +22,30 @@
  * SOFTWARE.
  */
 
-package com.teamacronymcoders.epos.test;
+package com.teamacronymcoders.epos.registry;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import java.util.Map;
 
-import com.teamacronymcoders.epos.skill.Skill;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
+import net.minecraft.client.resources.JsonReloadListener;
+import net.minecraft.profiler.IProfiler;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 
-public class ExpressionTest {
+public class DynamicRegistryListener extends JsonReloadListener {
 
-    @Test
-    public void testDefaultExpressions() {
-        Expression skill = new ExpressionBuilder(Skill.DEFAULT_SKILL_EXPRESSION).variable("x").build();
-        double skill99Exp = 2_097_152d;
-        Assertions.assertEquals(skill99Exp, skill.setVariable("x", 99).evaluate(),
-                "The skill expression does not correctly evaluate at level 99.");
-        long skill256Exp = 11_838_663_293_001l;
-        Assertions.assertEquals(skill256Exp, (long) skill.setVariable("x", 256).evaluate(),
-                "The skill expression does not correctly evaluate at level 256.");
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+
+    public DynamicRegistryListener() {
+        super(GSON, "dynamic_registries");
     }
 
-    @Test
-    public void testNoVariableInputs() {
-        Expression test = new ExpressionBuilder("0").variable("x").build();
-        Assertions.assertEquals(0, test.evaluate());
-        Assertions.assertEquals(0, test.setVariable("x", 14).evaluate());
+    @Override
+    protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn,
+            IProfiler profilerIn) {
+        DynamicRegistryHandler.INSTANCE.reloadResources(objectIn);
     }
 }

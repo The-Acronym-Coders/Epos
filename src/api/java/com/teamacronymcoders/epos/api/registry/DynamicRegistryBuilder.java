@@ -35,7 +35,8 @@ public class DynamicRegistryBuilder<V extends IDynamic<V, ?>, S extends ISeriali
 
     private ResourceLocation registryName;
     private Class<V> registryType;
-    private Supplier<IForgeRegistry<S>> serializerRegistry;
+    private IForgeRegistry<S> serializerRegistry;
+    private Supplier<V> missingEntry;
     private boolean sync = true;
     private boolean saveToDisc = true;
 
@@ -49,8 +50,13 @@ public class DynamicRegistryBuilder<V extends IDynamic<V, ?>, S extends ISeriali
         return this;
     }
 
-    public DynamicRegistryBuilder<V, S> setSerializer(Supplier<IForgeRegistry<S>> serializerRegistry) {
+    public DynamicRegistryBuilder<V, S> setSerializer(IForgeRegistry<S> serializerRegistry) {
         this.serializerRegistry = serializerRegistry;
+        return this;
+    }
+
+    public DynamicRegistryBuilder<V, S> setMissingEntry(Supplier<V> entry) {
+        this.missingEntry = entry;
         return this;
     }
 
@@ -73,7 +79,11 @@ public class DynamicRegistryBuilder<V extends IDynamic<V, ?>, S extends ISeriali
     }
 
     public IForgeRegistry<S> getSerializer() {
-        return this.serializerRegistry.get();
+        return this.serializerRegistry;
+    }
+
+    public V getMissingEntry() {
+        return this.missingEntry.get();
     }
 
     public boolean shouldSync() {

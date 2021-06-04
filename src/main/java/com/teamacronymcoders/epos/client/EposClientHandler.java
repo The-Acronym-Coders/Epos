@@ -26,14 +26,32 @@ package com.teamacronymcoders.epos.client;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.google.common.annotations.VisibleForTesting;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
+import com.teamacronymcoders.epos.client.renderer.model.DynamicRegistryBakedModel;
 import com.teamacronymcoders.epos.client.renderer.model.EposResourceType;
+import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.resource.VanillaResourceType;
 
@@ -47,10 +65,47 @@ public class EposClientHandler {
         instance = this;
         this.mc = Minecraft.getInstance();
         this.resourceLoaders = new HashMap<>();
+        modBus.addListener(this::registerModels);
+
+        // FOR TESTING
+        // this.addTestCases(modBus, forgeBus);
     }
 
     public static final EposClientHandler clientInstance() {
         return instance;
+    }
+
+    private void registerModels(ModelRegistryEvent event) {
+        this.addResourceType(new ResourceLocation(Epos.ID, "skill"), EposResourceType.SKILL);
+    }
+
+    @VisibleForTesting
+    private void addTestCases(IEventBus modBus, IEventBus forgeBus) {
+        forgeBus.addListener(this::testDraw);
+    }
+
+    // Puts model at (1, 1, 1)
+    @VisibleForTesting
+    private void testDraw(RenderWorldLastEvent event) {
+        MatrixStack stack = event.getMatrixStack();
+        Vector3d projection = this.mc.gameRenderer.getMainCamera().getPosition();
+        IRenderTypeBuffer.Impl buffer = this.mc.renderBuffers().bufferSource();
+        stack.pushPose();
+        stack.translate(1 - projection.x, 1 - projection.y, 1 - projection.z);
+        IVertexBuilder builder = buffer.getBuffer(RenderType.translucentMovingBlock());
+        List<BakedQuad> quads = EposResourceType.SKILL.getQuads(DynamicRegistryHandler.INSTANCE
+                .getRegistry(new ResourceLocation(Epos.ID, "skill")).get(new ResourceLocation(Epos.ID, "test")));
+        for (BakedQuad quad : quads) {
+            builder.addVertexData(event.getMatrixStack().last(), quad, 1.0f, 1.0f, 1.0f, 1.0f,
+                    WorldRenderer.getLightColor(this.mc.level, new BlockPos(1, 1, 1)), OverlayTexture.NO_OVERLAY, true);
+        }
+        stack.popPose();
+    }
+
+    private void addResourceType(ResourceLocation registryName, EposResourceType resourceType) {
+        this.resourceLoaders.put(registryName, resourceType);
+        ModelLoaderRegistry.registerLoader(registryName, new DynamicRegistryBakedModel.Loader(resourceType));
+        ModelLoader.addSpecialModel(resourceType.getMainModel());
     }
 
     public void refreshResource(Collection<DynamicRegistry<?, ?>> registries) {
