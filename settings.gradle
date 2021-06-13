@@ -6,13 +6,17 @@ pluginManagement {
             name 'Minecraft Forge'
             url 'https://maven.minecraftforge.net'
         }
+        maven {
+            name 'Parchment Test'
+            url 'https://sizableshrimp.me/maven'
+        }
         gradlePluginPortal()
     }
 
     // Resolve ForgeGradle within plugin block
     resolutionStrategy.eachPlugin {
         if (requested.id.id == 'net.minecraftforge.gradle')
-            useModule group: requested.id, name: 'ForgeGradle', version: requested.version
+            useModule group: 'me.sizableshrimp.parchmenttest', name: 'ForgeGradle', version: requested.version
     }
 }
 

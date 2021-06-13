@@ -1,6 +1,6 @@
 // Attach plugins
 plugins {
-    id 'net.minecraftforge.gradle' version '4.1.+'
+    id 'net.minecraftforge.gradle' version '5.+'
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
@@ -47,7 +47,7 @@ minecraft {
     mappings channel: project.mappingsType, version: project.mappingsVersion
     
     // Exposes fields, methods, constructors, and classes for use within the mod
-    // Set mod_transformer to 'true' within gradle.properties to enable
+    // Set modTransformer to 'true' within gradle.properties to enable
     if (project.hasProperty('modTransformer') && project.getProperty('modTransformer').toBoolean())
         accessTransformer file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -93,15 +93,19 @@ minecraft {
 repositories {
     maven {
         name 'Registrate'
-        url 'http://maven.tterrag.com/'
+        url 'https://maven.tterrag.com/'
     }
-    maven {
+    /*maven {
         name 'Thiakil Mappings'
         url 'https://maven.thiakil.com'
         content {
             includeGroup 'de.oceanlabs.mcp'
             includeGroup 'net.minecraft'
         }
+    }*/
+    maven {
+        name 'Just Enough Items'
+        url 'https://dvs1.progwml6.com/files/maven/'
     }
 }
 
@@ -122,6 +126,10 @@ dependencies {
     def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
     implementation fg.deobf(registrate)
     shade registrate
+    
+    // Add JEI
+    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
     
     // Add JUnit for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
