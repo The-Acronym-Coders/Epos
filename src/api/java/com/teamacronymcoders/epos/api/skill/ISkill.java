@@ -30,9 +30,17 @@ import com.teamacronymcoders.epos.api.registry.IDynamic;
 // TODO: Document
 public interface ISkill extends IDynamic<ISkill, ISkill>, IDescribable {
 
+    /**
+     * Returns the {@link ISkill} 's Max Level as an integer.
+     * @return Returns the Max Level of the {@link ISkill}
+     */
     int getMaxLevel();
 
     // TODO: Rewrite equation library to use BigInteger instead of double, exp4j is
     // currently under Apache-2.0 so need to mention license
+    /**
+     * The experience scaling expression returned as a parsable {@link String}.
+     * @return The Experience-Scaling Expression as a {@link String}.
+     */
     String getExpression();
 }

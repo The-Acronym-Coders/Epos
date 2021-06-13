@@ -28,6 +28,8 @@ import java.util.function.Supplier;
 
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.api.feat.FeatSerializer;
+import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
@@ -47,12 +49,18 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
         return new EposRegistrate(modid).registerEventListeners(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
+    private final Supplier<IForgeRegistry<PathSerializer>> pathSerializerRegistry;
     private final Supplier<IForgeRegistry<SkillSerializer>> skillSerializerRegistry;
+    private final Supplier<IForgeRegistry<FeatSerializer>> featSerializerRegistry;
 
     protected EposRegistrate(String modid) {
         super(modid);
+        this.pathSerializerRegistry = this.makeRegistry("path_serializer", PathSerializer.class,
+                () -> new RegistryBuilder<PathSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path")));
         this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class,
                 () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
+        this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class,
+            () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
     }
 
     public IForgeRegistry<SkillSerializer> getSkillSerializerRegistry() {
