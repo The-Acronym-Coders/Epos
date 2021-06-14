@@ -5,7 +5,7 @@ import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public final class PathSerializer extends ForgeRegistryEntry<PathSerializer> implements ISerializer<IPath, SkillSerializer> {
+public final class PathSerializer extends ForgeRegistryEntry<PathSerializer> implements ISerializer<IPath, PathSerializer> {
 
     private final Codec<? extends IPath> codec;
 

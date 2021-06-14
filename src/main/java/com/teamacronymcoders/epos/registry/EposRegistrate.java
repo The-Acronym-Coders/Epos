@@ -29,6 +29,8 @@ import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.feat.FeatSerializer;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
@@ -63,8 +65,34 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
             () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
     }
 
+    public IForgeRegistry<PathSerializer> getPathSerializerRegistry() {
+        return pathSerializerRegistry.get();
+    }
+
     public IForgeRegistry<SkillSerializer> getSkillSerializerRegistry() {
         return this.skillSerializerRegistry.get();
+    }
+
+    public IForgeRegistry<FeatSerializer> getFeatSerializerRegistry() {
+        return featSerializerRegistry.get();
+    }
+
+    // Path
+    public SerializerBuilder<PathSerializer, PathSerializer, EposRegistrate> pathSerializer(
+        NonNullSupplier<Codec<? extends IPath>> codec) {
+        return this.pathSerializer(this.self(), codec);
+    }
+
+    public <P> SerializerBuilder<PathSerializer, PathSerializer, P> pathSerializer(P parent, NonNullSupplier<Codec<? extends IPath>> codec) {
+        return this.pathSerializer(parent, this.currentName(), codec);
+    }
+
+    public SerializerBuilder<PathSerializer, PathSerializer, EposRegistrate> pathSerializer(String name, NonNullSupplier<Codec<? extends IPath>> codec) {
+        return this.pathSerializer(this.self(), name, codec);
+    }
+
+    public <P> SerializerBuilder<PathSerializer, PathSerializer, P> pathSerializer(P parent, String name, NonNullSupplier<Codec<? extends IPath>> codec) {
+        return this.dynamicSerializer(parent, name, PathSerializer.class, () -> new PathSerializer(codec.get()));
     }
 
     // Skill
@@ -88,6 +116,25 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
         return this.dynamicSerializer(parent, name, SkillSerializer.class, () -> new SkillSerializer(codec.get()));
     }
 
+    // Feat
+    public SerializerBuilder<FeatSerializer, FeatSerializer, EposRegistrate> featSerializer(
+        NonNullSupplier<Codec<? extends IFeat>> codec) {
+        return this.featSerializer(this.self(), codec);
+    }
+
+    public <P> SerializerBuilder<FeatSerializer, FeatSerializer, P> featSerializer(P parent, NonNullSupplier<Codec<? extends IFeat>> codec) {
+        return this.featSerializer(parent, this.currentName(), codec);
+    }
+
+    public SerializerBuilder<FeatSerializer, FeatSerializer, EposRegistrate> featSerializer(String name, NonNullSupplier<Codec<? extends IFeat>> codec) {
+        return this.featSerializer(this.self(), name, codec);
+    }
+
+    public <P> SerializerBuilder<FeatSerializer, FeatSerializer, P> featSerializer(P parent, String name, NonNullSupplier<Codec<? extends IFeat>> codec) {
+        return this.dynamicSerializer(parent, name, FeatSerializer.class, () -> new FeatSerializer(codec.get()));
+    }
+
+    // Dynamic
     public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, I extends R, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(
             Class<? super R> serializerClass, NonNullSupplier<? extends I> factory) {
         return this.dynamicSerializer(this.self(), serializerClass, factory);
