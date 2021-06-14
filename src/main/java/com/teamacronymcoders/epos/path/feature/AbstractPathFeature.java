@@ -24,10 +24,4 @@ public abstract class AbstractPathFeature implements IPathFeature {
     public IFormattableTextComponent getDescription() {
         return this.description;
     }
-
-    @Override
-    public void applyTo(LivingEntity character, ICharacterStats stats) {}
-
-    @Override
-    public void removeFrom(LivingEntity character, ICharacterStats stats) {}
 }

@@ -44,8 +44,14 @@ public class SkillInfo {
         return experience;
     }
 
+    // TODO: Basic implementation, Look over this later
     public void addExperience(int xpAmount) {
         this.setExperience(Math.max(this.getExperience() + xpAmount, Integer.MAX_VALUE)); //TODO: Have a method for checking Max Level Experience Cap!
+    }
+
+    // TODO: Basic implementation, Look over this later
+    public void removeExperience(int xpAmount) {
+        this.setExperience(Math.max(this.getExperience() - xpAmount, 0)); //TODO: Have a method for checking Max Level Experience Cap!
     }
 
     public void setExperience(int experience) {

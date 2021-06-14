@@ -53,6 +53,9 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
+import java.util.logging.Logger;
+
+
 @Mod(Epos.ID)
 public class Epos {
 
@@ -61,6 +64,7 @@ public class Epos {
     private final EposRegistrate registrate;
     private final DynamicRegistryListener registryListener;
     private SimpleChannel network;
+    private static final Logger LOGGER = Logger.getLogger(ID);
 
     public Epos() {
         instance = this;
@@ -87,6 +91,10 @@ public class Epos {
 
     public SimpleChannel getNetwork() {
         return this.network;
+    }
+
+    public static Logger getLogger() {
+        return LOGGER;
     }
 
     private void setup(FMLCommonSetupEvent event) {
