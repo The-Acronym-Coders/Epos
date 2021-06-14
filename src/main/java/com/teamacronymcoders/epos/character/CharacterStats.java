@@ -84,13 +84,13 @@ public class CharacterStats implements ICharacterStats {
     // TODO: Basic implementation, Look over this later
     @Override
     public void levelUp(int levels) {
-        this.getCharacterInfo().currentLevel = Math.max(this.maxLevel, this.getCharacterInfo().getCurrentLevel() + levels);
+        this.getCharacterInfo().currentLevel = Math.min(this.maxLevel, this.getCharacterInfo().getCurrentLevel() + levels);
     }
 
     // TODO: Basic implementation, Look over this later
     @Override
     public void levelDown(int levels) {
-        this.getCharacterInfo().currentLevel = Math.min(1, this.getCharacterInfo().currentLevel = levels);
+        this.getCharacterInfo().currentLevel = Math.max(1, this.getCharacterInfo().currentLevel = levels);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class CharacterStats implements ICharacterStats {
 
     @Override
     public void addExperience(int experience) {
-        this.getCharacterInfo().experience = Math.max(Integer.MAX_VALUE, this.getCharacterInfo().experience + experience);
+        this.getCharacterInfo().experience = Math.min(Integer.MAX_VALUE, this.getCharacterInfo().experience + experience);
     }
 
     @Override

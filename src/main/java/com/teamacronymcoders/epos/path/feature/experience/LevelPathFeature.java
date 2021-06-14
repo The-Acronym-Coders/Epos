@@ -11,41 +11,41 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 
-public class ExperiencePathFeature extends AbstractPathFeature {
+public class LevelPathFeature extends AbstractPathFeature {
 
-    public static final Codec<ExperiencePathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
+    public static final Codec<LevelPathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
         .group(
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(ExperiencePathFeature::getName),
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(ExperiencePathFeature::getDescription),
-            EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(ExperiencePathFeature::getGrantType),
-            ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(ExperiencePathFeature::getSkillID),
-            Codec.INT.fieldOf("experience").forGetter(ExperiencePathFeature::getExperience)
-        ).apply(instance, ExperiencePathFeature::new)
+            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(LevelPathFeature::getName),
+            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(LevelPathFeature::getDescription),
+            EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(LevelPathFeature::getGrantType),
+            ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(LevelPathFeature::getSkillID),
+            Codec.INT.fieldOf("levels").forGetter(LevelPathFeature::getLevels)
+        ).apply(instance, LevelPathFeature::new)
     );
 
     private final EposGrantType type;
     private final ResourceLocation skillID;
-    private final int experience;
+    private final int levels;
 
-    public ExperiencePathFeature(IFormattableTextComponent name, IFormattableTextComponent description,
-                                 EposGrantType type, ResourceLocation skillID,
-                                 int experience) {
+    public LevelPathFeature(IFormattableTextComponent name, IFormattableTextComponent description,
+                            EposGrantType type, ResourceLocation skillID,
+                            int levels) {
         super(name, description);
         this.type = type;
         this.skillID = skillID;
-        this.experience = experience;
+        this.levels = levels;
     }
 
     public EposGrantType getGrantType() {
-        return type;
+        return this.type;
     }
 
     public ResourceLocation getSkillID() {
-        return skillID;
+        return this.skillID;
     }
 
-    public int getExperience() {
-        return experience;
+    public int getLevels() {
+        return this.levels;
     }
 
     // TODO: Basic implementation, Look over this later
@@ -53,9 +53,9 @@ public class ExperiencePathFeature extends AbstractPathFeature {
     public void applyTo(LivingEntity character, ICharacterStats stats) {
         if (character instanceof PlayerEntity) {
             if (this.getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
-                stats.getSkills().getOrCreate(getSkillID()).addExperience(getExperience());
+                //stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());
             } else {
-                stats.addExperience(experience);
+                //stats.addExperience(experience);
             }
         }
     }
@@ -65,9 +65,9 @@ public class ExperiencePathFeature extends AbstractPathFeature {
     public void removeFrom(LivingEntity character, ICharacterStats stats) {
         if (character instanceof PlayerEntity) {
             if (getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
-                stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());
+                //stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());
             } else {
-                stats.removeExperience(experience);
+                //stats.removeExperience(experience);
             }
         }
     }

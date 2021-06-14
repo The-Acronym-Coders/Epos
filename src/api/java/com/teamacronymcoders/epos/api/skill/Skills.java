@@ -33,7 +33,7 @@ public class Skills {
 
     @Nonnull
     public SkillInfo getOrCreate(ResourceLocation id) {
-        return skillInfoMap.computeIfAbsent(id, resourceLocation -> new SkillInfo());
+        return skillInfoMap.computeIfAbsent(id, SkillInfo::new);
     }
 
     public Map<ResourceLocation, SkillInfo> getSkillInfoMap() {
