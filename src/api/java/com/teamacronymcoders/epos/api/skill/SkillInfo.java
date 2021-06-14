@@ -1,29 +1,44 @@
 package com.teamacronymcoders.epos.api.skill;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.INBTSerializable;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 //TODO: Everything that's commented out needs to be checked by Ash
-public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<SkillInfo> {
-    //private final ResourceLocation registryName;
-    //private final ISkill skill;
+public class SkillInfo {
+
+    public static final Codec<SkillInfo> CODEC = RecordCodecBuilder.create(instance -> instance
+        .group(
+            Codec.intRange(0, 256).optionalFieldOf("experience", 0).forGetter(SkillInfo::getExperience),
+            Codec.intRange(0, 256).optionalFieldOf("level", 0).forGetter(SkillInfo::getLevel),
+            Codec.BOOL.fieldOf("isActive").forGetter(SkillInfo::isActive))
+        .apply(instance, SkillInfo::new)
+    );
+
     private int experience;
     private int level;
     private boolean isActive;
 
-    public SkillInfo(ISkill skill) {
-        //this.registryName = skill.getRegistryName();
-        //this.skill = skill;
+    /**
+     * Default Constructor
+     */
+    public SkillInfo() {
+        this.experience = 0;
+        this.level = 0;
+        this.isActive = false;
     }
 
-    //public String getRegistryName() {
-    //    return this.registryName;
-    //}
-
-    //public ISkill getSkill() {
-    //    return skill;
-    //}
+    /**
+     * Codec Constructor
+     *
+     * @param experience
+     * @param level
+     * @param isActive
+     */
+    public SkillInfo(int experience, int level, boolean isActive) {
+        this.experience = experience;
+        this.level = level;
+        this.isActive = isActive;
+    }
 
     public int getExperience() {
         return experience;
@@ -54,24 +69,4 @@ public class SkillInfo implements INBTSerializable<CompoundNBT>, Comparable<Skil
         isActive = active;
     }
 
-    @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putInt("experience", this.getExperience());
-        nbt.putInt("level", this.getLevel());
-        nbt.putBoolean("active", this.isActive());
-        return nbt;
-    }
-
-    @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        this.setExperience(nbt.getInt("experience"));
-        this.setLevel(nbt.getInt("level"));
-        this.setActive(nbt.getBoolean("active")); //&& this.skill.isFound())
-    }
-
-    @Override
-    public int compareTo(SkillInfo o) {
-        return 0; //this.getSkill().compareTo(o.getSkill());
-    }
 }

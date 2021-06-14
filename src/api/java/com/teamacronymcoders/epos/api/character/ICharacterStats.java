@@ -1,19 +1,17 @@
 package com.teamacronymcoders.epos.api.character;
 
 import com.teamacronymcoders.epos.api.feat.Feats;
-import com.teamacronymcoders.epos.api.path.PathLevels;
+import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.util.INBTSerializable;
 
 // TODO: Document Main Interface Object
-public interface ICharacterStats extends INBTSerializable<CompoundNBT> {
+public interface ICharacterStats {
 
     /**
-     * Returns the serializable {@link PathLevels} 's object for the Character.
-     * @return Returns the {@link PathLevels} object.
+     * Returns the serializable {@link Paths} 's object for the Character.
+     * @return Returns the {@link Paths} object.
      */
-    PathLevels getPathLevels();
+    Paths getPaths();
 
     /**
      * Returns the serializable {@link Skills} 's object for the Character.
