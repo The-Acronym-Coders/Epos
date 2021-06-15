@@ -26,12 +26,14 @@ package com.teamacronymcoders.epos;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.JsonOps;
+import com.teamacronymcoders.epos.api.capability.NBTCapabilityStorage;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
 import com.teamacronymcoders.epos.api.character.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistryBuilder;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
+import com.teamacronymcoders.epos.character.CharacterSheet;
 import com.teamacronymcoders.epos.client.EposClientHandler;
 import com.teamacronymcoders.epos.network.DynamicRegistryPacket;
 import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
@@ -42,10 +44,12 @@ import com.teamacronymcoders.epos.skill.Skill;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
@@ -119,6 +123,9 @@ public class Epos {
     }
 
     private void setup(FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            CapabilityManager.INSTANCE.register(CharacterSheet.class, NBTCapabilityStorage.create(CompoundNBT.class), CharacterSheet::new);
+        });
         event.enqueueWork(() -> {
             this.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Epos.ID, "network"))
                     .clientAcceptedVersions(str -> true).serverAcceptedVersions(str -> true)
