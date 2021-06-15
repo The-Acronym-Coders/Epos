@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.path.feature.point;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
+import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.character.info.PointInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
@@ -40,7 +40,7 @@ public class PointPathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public void applyTo(LivingEntity character, ICharacterStats stats) {
+    public void applyTo(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
             PointInfo info = stats.getCharacterInfo().getPointInfo();
             switch (type) {
@@ -52,7 +52,7 @@ public class PointPathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public void removeFrom(LivingEntity character, ICharacterStats stats) {
+    public void removeFrom(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
             PointInfo info = stats.getCharacterInfo().getPointInfo();
             switch (type) {

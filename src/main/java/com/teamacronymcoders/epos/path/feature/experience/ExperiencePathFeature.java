@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.path.feature.experience;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
+import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.util.EposCodecs;
@@ -50,7 +50,7 @@ public class ExperiencePathFeature extends AbstractPathFeature {
 
     // TODO: Basic implementation, Look over this later
     @Override
-    public void applyTo(LivingEntity character, ICharacterStats stats) {
+    public void applyTo(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
             if (this.getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
                 stats.getSkills().getOrCreate(getSkillID()).addExperience(getExperience());
@@ -62,7 +62,7 @@ public class ExperiencePathFeature extends AbstractPathFeature {
 
     // TODO: Basic implementation, Look over this later
     @Override
-    public void removeFrom(LivingEntity character, ICharacterStats stats) {
+    public void removeFrom(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
             if (getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
                 stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());

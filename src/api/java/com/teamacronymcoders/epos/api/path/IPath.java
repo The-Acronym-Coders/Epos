@@ -1,7 +1,7 @@
 package com.teamacronymcoders.epos.api.path;
 
 import com.teamacronymcoders.epos.api.IDescribable;
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
+import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import net.minecraft.entity.LivingEntity;
 
@@ -14,7 +14,7 @@ public interface IPath extends IDynamic<IPath, IPath>, IDescribable {
      * @param stats The {@link LivingEntity} 's Character Stats.
      * @return Returns if the {@link IPath} is visible for the Player in the Path GUI.
      */
-    boolean isHidden(LivingEntity character, ICharacterStats stats);
+    boolean isHidden(LivingEntity character, ICharacterSheet stats);
 
     /**
      * Returns the max level of the {@link IPath} as an integer.
@@ -25,16 +25,16 @@ public interface IPath extends IDynamic<IPath, IPath>, IDescribable {
     /**
      * Adds a certain amount of levels to the {@link IPath} of the {@link LivingEntity} Character.
      * @param character The {@link LivingEntity} Character.
-     * @param stats The {@link LivingEntity} 's {@link ICharacterStats}.
+     * @param stats The {@link LivingEntity} 's {@link ICharacterSheet}.
      * @param levelsToAdd The amount of levels to add.
      */
-    void addLevel(LivingEntity character, ICharacterStats stats, int levelsToAdd);
+    void addLevel(LivingEntity character, ICharacterSheet stats, int levelsToAdd);
 
     /**
      * Removes a certain amount of levels to the {@link IPath} of the {@link LivingEntity} Character.
      * @param character The {@link LivingEntity} Character.
-     * @param stats The {@link LivingEntity} 's {@link ICharacterStats}.
+     * @param stats The {@link LivingEntity} 's {@link ICharacterSheet}.
      * @param levelsToRemove The amount of levels to remove.
      */
-    void removeLevel(LivingEntity character, ICharacterStats stats, int levelsToRemove);
+    void removeLevel(LivingEntity character, ICharacterSheet stats, int levelsToRemove);
 }

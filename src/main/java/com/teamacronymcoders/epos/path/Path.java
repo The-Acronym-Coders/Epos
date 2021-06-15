@@ -1,6 +1,6 @@
 package com.teamacronymcoders.epos.path;
 
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
+import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
@@ -38,7 +38,7 @@ public class Path extends ForgeRegistryEntry<IPath> implements IPath {
     }
 
     @Override
-    public boolean isHidden(LivingEntity character, ICharacterStats stats) {
+    public boolean isHidden(LivingEntity character, ICharacterSheet stats) {
         return false;
     }
 
@@ -48,12 +48,12 @@ public class Path extends ForgeRegistryEntry<IPath> implements IPath {
     }
 
     @Override
-    public void addLevel(LivingEntity character, ICharacterStats stats, int levelsToAdd) {
+    public void addLevel(LivingEntity character, ICharacterSheet stats, int levelsToAdd) {
         //TODO: Implement Me
     }
 
     @Override
-    public void removeLevel(LivingEntity character, ICharacterStats stats, int levelsToRemove) {
+    public void removeLevel(LivingEntity character, ICharacterSheet stats, int levelsToRemove) {
         //TODO: Implement Me
     }
 

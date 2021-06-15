@@ -26,6 +26,8 @@ package com.teamacronymcoders.epos;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.JsonOps;
+import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
+import com.teamacronymcoders.epos.api.character.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistryBuilder;
 import com.teamacronymcoders.epos.api.skill.ISkill;
@@ -38,12 +40,17 @@ import com.teamacronymcoders.epos.registry.EposRegistrate;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.skill.Skill;
 
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -77,6 +84,11 @@ public class Epos {
         modBus.addListener(this::setup);
         forgeBus.addListener(this::addReloadListeners);
         forgeBus.addListener(this::serverTick);
+
+        // Caps
+        forgeBus.addListener(this::setupCharacterSheetCaps);
+        modBus.addListener(this::respawnCharacterSheetCaps);
+
         // Uncomment for test cases to run
         // this.addTestCases(modBus, forgeBus);
     }
@@ -95,6 +107,15 @@ public class Epos {
 
     public static Logger getLogger() {
         return LOGGER;
+    }
+
+    private void setupCharacterSheetCaps(AttachCapabilitiesEvent<LivingEntity> event) {
+        event.addCapability(EposCapabilities.SHEET_ID, new CharacterSheetCapabilityProvider(event.getObject()));
+    }
+
+    private void respawnCharacterSheetCaps(PlayerEvent.Clone event) {
+        event.getOriginal().getCapability(EposCapabilities.CHARACTER_SHEET).ifPresent(cap ->
+                event.getPlayer().getCapability(EposCapabilities.CHARACTER_SHEET).ifPresent(c -> c.deserializeNBT(cap.serializeNBT())));
     }
 
     private void setup(FMLCommonSetupEvent event) {

@@ -1,40 +1,48 @@
 package com.teamacronymcoders.epos.character;
 
+import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
+import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.character.info.CharacterInfo;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraftforge.common.util.Constants.NBT;
 
 /**
  *
  */
-public class CharacterStats implements ICharacterStats {
+public class CharacterSheet implements ICharacterSheet {
 
-    public static final Codec<CharacterStats> CODEC = RecordCodecBuilder.create(instance -> instance
+    public static final Codec<CharacterSheet> CODEC = RecordCodecBuilder.create(instance -> instance
         .group(
-            Paths.CODEC.fieldOf("paths").forGetter(ICharacterStats::getPaths),
-            Skills.CODEC.fieldOf("skills").forGetter(ICharacterStats::getSkills),
-            Feats.CODEC.fieldOf("feats").forGetter(ICharacterStats::getFeats),
-            Codec.INT.fieldOf("maxLevel").forGetter(CharacterStats::getMaxLevel),
-            CharacterInfo.CODEC.optionalFieldOf("characterInfo", new CharacterInfo()).forGetter(CharacterStats::getCharacterInfo)
-        ).apply(instance, CharacterStats::new)
+            Paths.CODEC.fieldOf("paths").forGetter(ICharacterSheet::getPaths),
+            Skills.CODEC.fieldOf("skills").forGetter(ICharacterSheet::getSkills),
+            Feats.CODEC.fieldOf("feats").forGetter(ICharacterSheet::getFeats),
+            Codec.INT.fieldOf("maxLevel").forGetter(CharacterSheet::getMaxLevel),
+            CharacterInfo.CODEC.optionalFieldOf("characterInfo", new CharacterInfo()).forGetter(CharacterSheet::getCharacterInfo)
+        ).apply(instance, CharacterSheet::new)
     );
 
-    private final Paths paths;
-    private final Skills skills;
-    private final Feats feats;
+    private Paths paths;
+    private Skills skills;
+    private Feats feats;
 
     private final int maxLevel;
 
-    private final CharacterInfo characterInfo;
+    private CharacterInfo characterInfo;
 
     /**
      * Default Constructor
      */
-    public CharacterStats() {
+    public CharacterSheet() {
         this.paths = new Paths();
         this.skills = new Skills();
         this.feats = new Feats();
@@ -48,7 +56,7 @@ public class CharacterStats implements ICharacterStats {
      * @param skills The Character's Skills
      * @param feats The Character's Feats
      */
-    public CharacterStats(Paths paths, Skills skills, Feats feats, int maxLevel, CharacterInfo characterInfo) {
+    public CharacterSheet(Paths paths, Skills skills, Feats feats, int maxLevel, CharacterInfo characterInfo) {
         this.paths = paths;
         this.skills = skills;
         this.feats = feats;
@@ -111,5 +119,23 @@ public class CharacterStats implements ICharacterStats {
     @Override
     public CharacterInfo getCharacterInfo() {
         return this.characterInfo;
+    }
+
+    @Override
+    public CompoundNBT serializeNBT() {
+        DataResult<INBT> result = CODEC.encodeStart(NBTDynamicOps.INSTANCE, this);
+        return result.result().isPresent() ? (CompoundNBT) result.result().get() : null;
+    }
+
+    @Override
+    public void deserializeNBT(CompoundNBT nbt) {
+        DataResult<CharacterSheet> result = CODEC.parse(NBTDynamicOps.INSTANCE, nbt);
+        if (result.result().isPresent()) {
+            CharacterSheet sheet = result.result().get();
+            this.paths = sheet.paths;
+            this.skills = sheet.skills;
+            this.feats = sheet.feats;
+            this.characterInfo = sheet.getCharacterInfo();
+        }
     }
 }

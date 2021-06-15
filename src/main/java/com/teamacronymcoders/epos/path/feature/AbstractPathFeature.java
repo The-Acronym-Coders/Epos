@@ -1,8 +1,6 @@
 package com.teamacronymcoders.epos.path.feature;
 
-import com.teamacronymcoders.epos.api.character.ICharacterStats;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.IFormattableTextComponent;
 
 public abstract class AbstractPathFeature implements IPathFeature {
