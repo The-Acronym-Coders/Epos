@@ -1,25 +1,28 @@
-package com.teamacronymcoders.epos.character;
+package com.teamacronymcoders.epos.api.character;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.character.info.CharacterInfo;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
-import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  *
  */
-public class CharacterSheet implements ICharacterSheet {
+public class CharacterSheet extends CapabilityProvider<CharacterSheet> implements ICharacterSheet {
 
     public static final Codec<CharacterSheet> CODEC = RecordCodecBuilder.create(instance -> instance
         .group(
@@ -37,17 +40,35 @@ public class CharacterSheet implements ICharacterSheet {
 
     private final int maxLevel;
 
+    private LivingEntity character;
     private CharacterInfo characterInfo;
+
+    private CompoundNBT capNBT;
 
     /**
      * Default Constructor
      */
     public CharacterSheet() {
+        super(CharacterSheet.class);
         this.paths = new Paths();
         this.skills = new Skills();
         this.feats = new Feats();
         this.maxLevel = 20;
         this.characterInfo = new CharacterInfo();
+        this.character = null;
+    }
+
+    /**
+     * Default Constructor
+     */
+    public CharacterSheet(LivingEntity character) {
+        super(CharacterSheet.class);
+        this.paths = new Paths();
+        this.skills = new Skills();
+        this.feats = new Feats();
+        this.maxLevel = 20;
+        this.characterInfo = new CharacterInfo();
+        this.character = character;
     }
 
     /**
@@ -57,6 +78,7 @@ public class CharacterSheet implements ICharacterSheet {
      * @param feats The Character's Feats
      */
     public CharacterSheet(Paths paths, Skills skills, Feats feats, int maxLevel, CharacterInfo characterInfo) {
+        super(CharacterSheet.class);
         this.paths = paths;
         this.skills = skills;
         this.feats = feats;
@@ -124,7 +146,9 @@ public class CharacterSheet implements ICharacterSheet {
     @Override
     public CompoundNBT serializeNBT() {
         DataResult<INBT> result = CODEC.encodeStart(NBTDynamicOps.INSTANCE, this);
-        return result.result().isPresent() ? (CompoundNBT) result.result().get() : null;
+        CompoundNBT nbt = result.result().isPresent() ? (CompoundNBT) result.result().get() : null;
+
+        return null;
     }
 
     @Override
@@ -137,5 +161,6 @@ public class CharacterSheet implements ICharacterSheet {
             this.feats = sheet.feats;
             this.characterInfo = sheet.getCharacterInfo();
         }
+        if (this.cap)
     }
 }

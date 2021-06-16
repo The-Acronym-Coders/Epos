@@ -5,6 +5,7 @@ import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
 
 // TODO: Document Main Interface Object

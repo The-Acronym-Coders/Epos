@@ -1,6 +1,7 @@
 package com.teamacronymcoders.epos.api.character.capability;
 
-import com.teamacronymcoders.epos.character.CharacterSheet;
+import com.teamacronymcoders.epos.api.capability.EposCapabilities;
+import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
@@ -18,12 +19,7 @@ public class CharacterSheetCapabilityProvider implements ICapabilityProvider, IC
     private final LazyOptional<CharacterSheet> optional = LazyOptional.of(() -> sheet);
 
     public CharacterSheetCapabilityProvider(LivingEntity character) {
-        this.sheet = new CharacterSheet();
-    }
-
-    public CharacterSheetCapabilityProvider(LivingEntity character, CompoundNBT nbt) {
-        this.sheet = new CharacterSheet();
-        this.sheet.deserializeNBT(nbt);
+        this.sheet = new CharacterSheet(character);
     }
 
     @Nonnull
@@ -37,7 +33,8 @@ public class CharacterSheetCapabilityProvider implements ICapabilityProvider, IC
 
     @Override
     public CompoundNBT serializeNBT() {
-        return this.sheet.serializeNBT();
+        CompoundNBT sheetNBT = this.sheet.serializeNBT();
+        return sheetNBT;
     }
 
     @Override
