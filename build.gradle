@@ -107,6 +107,10 @@ repositories {
         name 'Just Enough Items'
         url 'https://dvs1.progwml6.com/files/maven/'
     }
+    maven {
+        name 'Titanium'
+        url 'https://cdn.hrzn.studio/maven/'
+    }
 }
 
 configurations {
@@ -134,6 +138,10 @@ dependencies {
     // Add JUnit for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
+
+    // Add Titanium
+    // Titanium
+    fg.deobf('com.hrznstudio:titanium:1.16.5-3.2.8.2')
 }
 
 test {
