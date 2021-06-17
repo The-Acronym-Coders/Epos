@@ -37,7 +37,7 @@ public class CharacterSheet implements ICharacterSheet {
 
     private final int maxLevel;
 
-    private LivingEntity character;
+    private final LivingEntity character;
     private CharacterInfo characterInfo;
 
     private CompoundNBT capNBT;
@@ -78,6 +78,7 @@ public class CharacterSheet implements ICharacterSheet {
         this.feats = feats;
         this.maxLevel = maxLevel;
         this.characterInfo = characterInfo;
+        this.character = null;
     }
 
     @Override
