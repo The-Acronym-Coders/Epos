@@ -18,7 +18,6 @@ public class FeatRegistrar {
                 .group(
                     EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Feat::getName),
                     EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Feat::getDescription),
-                    Codec.BOOL.fieldOf("isUnlocked").forGetter(Feat::isUnlocked),
                     Codec.BOOL.fieldOf("isAbility").forGetter(Feat::isAbility)
                 )
                 .apply(instance, Feat::new));

@@ -26,10 +26,19 @@ package com.teamacronymcoders.epos.api;
 
 import net.minecraft.util.text.IFormattableTextComponent;
 
-// TODO: Document
+/**
+ * {@link IDescribable} is used to provide easily accessible Name and Description getters for various objects.
+ * These Names and Descriptions are returned as {@link IFormattableTextComponent} objects.
+ */
 public interface IDescribable {
 
+    /**
+     * @return Returns the Formattable Name of the {@link IDescribable}
+     */
     IFormattableTextComponent getName();
 
+    /**
+     * @return Returns the Formattable Description of the {@link IDescribable}
+     */
     IFormattableTextComponent getDescription();
 }

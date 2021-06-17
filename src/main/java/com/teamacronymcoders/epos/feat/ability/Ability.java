@@ -14,8 +14,8 @@ public class Ability extends Feat {
      * @param isUnlocked  If the Feat is Unlocked or Not.
      * @param isAbility   If the Feat is an Active 'Ability'.
      */
-    public Ability(IFormattableTextComponent name, IFormattableTextComponent description, boolean isUnlocked, boolean isAbility) {
-        super(name, description, isUnlocked, isAbility);
+    public Ability(IFormattableTextComponent name, IFormattableTextComponent description, boolean isAbility) {
+        super(name, description, isAbility);
     }
 
 }

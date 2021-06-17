@@ -63,7 +63,7 @@ public interface ICharacterSheet extends INBTSerializable<CompoundNBT> {
     void addExperience(int experience);
 
     /**
-     * Used to handle removing Experience to the Player.
+     * Used to handle removing Experience from the Player.
      */
     void removeExperience(int experience);
 
