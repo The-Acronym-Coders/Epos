@@ -19,10 +19,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/**
- *
- */
-public class CharacterSheet extends CapabilityProvider<CharacterSheet> implements ICharacterSheet {
+public class CharacterSheet implements ICharacterSheet {
 
     public static final Codec<CharacterSheet> CODEC = RecordCodecBuilder.create(instance -> instance
         .group(
@@ -49,7 +46,6 @@ public class CharacterSheet extends CapabilityProvider<CharacterSheet> implement
      * Default Constructor
      */
     public CharacterSheet() {
-        super(CharacterSheet.class);
         this.paths = new Paths();
         this.skills = new Skills();
         this.feats = new Feats();
@@ -62,7 +58,6 @@ public class CharacterSheet extends CapabilityProvider<CharacterSheet> implement
      * Default Constructor
      */
     public CharacterSheet(LivingEntity character) {
-        super(CharacterSheet.class);
         this.paths = new Paths();
         this.skills = new Skills();
         this.feats = new Feats();
@@ -78,7 +73,6 @@ public class CharacterSheet extends CapabilityProvider<CharacterSheet> implement
      * @param feats The Character's Feats
      */
     public CharacterSheet(Paths paths, Skills skills, Feats feats, int maxLevel, CharacterInfo characterInfo) {
-        super(CharacterSheet.class);
         this.paths = paths;
         this.skills = skills;
         this.feats = feats;
@@ -146,9 +140,7 @@ public class CharacterSheet extends CapabilityProvider<CharacterSheet> implement
     @Override
     public CompoundNBT serializeNBT() {
         DataResult<INBT> result = CODEC.encodeStart(NBTDynamicOps.INSTANCE, this);
-        CompoundNBT nbt = result.result().isPresent() ? (CompoundNBT) result.result().get() : null;
-
-        return null;
+        return result.result().isPresent() ? (CompoundNBT) result.result().get() : new CompoundNBT();
     }
 
     @Override
@@ -161,6 +153,5 @@ public class CharacterSheet extends CapabilityProvider<CharacterSheet> implement
             this.feats = sheet.feats;
             this.characterInfo = sheet.getCharacterInfo();
         }
-        if (this.cap)
     }
 }
