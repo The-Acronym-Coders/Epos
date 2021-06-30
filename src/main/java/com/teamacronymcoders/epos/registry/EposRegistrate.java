@@ -57,12 +57,9 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     protected EposRegistrate(String modid) {
         super(modid);
-        this.pathSerializerRegistry = this.makeRegistry("path_serializer", PathSerializer.class,
-                () -> new RegistryBuilder<PathSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path")));
-        this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class,
-                () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
-        this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class,
-            () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
+        this.pathSerializerRegistry = this.makeRegistry("path_serializer", PathSerializer.class, () -> new RegistryBuilder<PathSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path")));
+        this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class, () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
+        this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class, () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
     }
 
     public IForgeRegistry<PathSerializer> getPathSerializerRegistry() {
@@ -78,8 +75,7 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     }
 
     // Path
-    public SerializerBuilder<PathSerializer, PathSerializer, EposRegistrate> pathSerializer(
-        NonNullSupplier<Codec<? extends IPath>> codec) {
+    public SerializerBuilder<PathSerializer, PathSerializer, EposRegistrate> pathSerializer(NonNullSupplier<Codec<? extends IPath>> codec) {
         return this.pathSerializer(this.self(), codec);
     }
 
@@ -96,29 +92,24 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     }
 
     // Skill
-    public SerializerBuilder<SkillSerializer, SkillSerializer, EposRegistrate> skillSerializer(
-            NonNullSupplier<Codec<? extends ISkill>> codec) {
+    public SerializerBuilder<SkillSerializer, SkillSerializer, EposRegistrate> skillSerializer(NonNullSupplier<Codec<? extends ISkill>> codec) {
         return this.skillSerializer(this.self(), codec);
     }
 
-    public <P> SerializerBuilder<SkillSerializer, SkillSerializer, P> skillSerializer(P parent,
-            NonNullSupplier<Codec<? extends ISkill>> codec) {
+    public <P> SerializerBuilder<SkillSerializer, SkillSerializer, P> skillSerializer(P parent, NonNullSupplier<Codec<? extends ISkill>> codec) {
         return this.skillSerializer(parent, this.currentName(), codec);
     }
 
-    public SerializerBuilder<SkillSerializer, SkillSerializer, EposRegistrate> skillSerializer(String name,
-            NonNullSupplier<Codec<? extends ISkill>> codec) {
+    public SerializerBuilder<SkillSerializer, SkillSerializer, EposRegistrate> skillSerializer(String name, NonNullSupplier<Codec<? extends ISkill>> codec) {
         return this.skillSerializer(this.self(), name, codec);
     }
 
-    public <P> SerializerBuilder<SkillSerializer, SkillSerializer, P> skillSerializer(P parent, String name,
-            NonNullSupplier<Codec<? extends ISkill>> codec) {
+    public <P> SerializerBuilder<SkillSerializer, SkillSerializer, P> skillSerializer(P parent, String name, NonNullSupplier<Codec<? extends ISkill>> codec) {
         return this.dynamicSerializer(parent, name, SkillSerializer.class, () -> new SkillSerializer(codec.get()));
     }
 
     // Feat
-    public SerializerBuilder<FeatSerializer, FeatSerializer, EposRegistrate> featSerializer(
-        NonNullSupplier<Codec<? extends IFeat>> codec) {
+    public SerializerBuilder<FeatSerializer, FeatSerializer, EposRegistrate> featSerializer(NonNullSupplier<Codec<? extends IFeat>> codec) {
         return this.featSerializer(this.self(), codec);
     }
 
@@ -135,24 +126,19 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     }
 
     // Dynamic
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, I extends R, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(
-            Class<? super R> serializerClass, NonNullSupplier<? extends I> factory) {
+    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, I extends R, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(Class<? super R> serializerClass, NonNullSupplier<? extends I> factory) {
         return this.dynamicSerializer(this.self(), serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(
-            String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.dynamicSerializer(this.self(), name, serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(
-            P parent, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.dynamicSerializer(parent, this.currentName(), serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(
-            P parent, String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
-        return this.entry(name,
-                callback -> new SerializerBuilder<>(this, parent, name, callback, serializerClass, factory));
+    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+        return this.entry(name, callback -> new SerializerBuilder<>(this, parent, name, callback, serializerClass, factory));
     }
 }

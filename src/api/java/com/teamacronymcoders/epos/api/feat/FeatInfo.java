@@ -10,20 +10,17 @@ public class FeatInfo {
 
     public static final Codec<FeatInfo> CODEC = RecordCodecBuilder.create(instance -> instance
         .group(
-            Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked),
-            Codec.BOOL.fieldOf("isAbility").forGetter(FeatInfo::isAbility))
+            Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked))
         .apply(instance, FeatInfo::new)
     );
 
     private boolean isUnlocked;
-    private boolean isAbility;
 
     /**
      * Default Constructor
      */
     public FeatInfo() {
         this.isUnlocked = false;
-        this.isAbility = false;
     }
 
     /**
@@ -31,9 +28,8 @@ public class FeatInfo {
      * @param isUnlocked Whether the Path is Unlocked or Not.
      * @param isAbility Whether the Path is an Active ability or Not.
      */
-    public FeatInfo(boolean isUnlocked, boolean isAbility) {
+    public FeatInfo(boolean isUnlocked) {
         this.isUnlocked = isUnlocked;
-        this.isAbility = isAbility;
     }
 
     public boolean isUnlocked() {
@@ -44,11 +40,4 @@ public class FeatInfo {
         isUnlocked = unlocked;
     }
 
-    public boolean isAbility() {
-        return isAbility;
-    }
-
-    public void setAbility(boolean ability) {
-        isAbility = ability;
-    }
 }

@@ -15,11 +15,12 @@ import javax.annotation.Nullable;
 
 public class CharacterSheetCapabilityProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundNBT> {
 
-    private CharacterSheet sheet;
-    private final LazyOptional<CharacterSheet> optional = LazyOptional.of(() -> sheet);
+    private final CharacterSheet sheet;
+    private final LazyOptional<CharacterSheet> optional;
 
     public CharacterSheetCapabilityProvider(LivingEntity character) {
         this.sheet = new CharacterSheet(character);
+        this.optional = LazyOptional.of(() -> sheet);
     }
 
     @Nonnull
@@ -33,8 +34,7 @@ public class CharacterSheetCapabilityProvider implements ICapabilityProvider, IC
 
     @Override
     public CompoundNBT serializeNBT() {
-        CompoundNBT sheetNBT = this.sheet.serializeNBT();
-        return sheetNBT;
+        return this.sheet.serializeNBT();
     }
 
     @Override
