@@ -2,29 +2,36 @@ package com.teamacronymcoders.epos.path;
 
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Path extends ForgeRegistryEntry<IPath> implements IPath {
 
     private final IFormattableTextComponent name;
     private final IFormattableTextComponent description;
     private final int maxLevel;
+    private final PathFeatures pathFeatures;
 
-    // TODO: Add Path Features...
     /**
      *
      * @param name
      * @param description
      * @param maxLevel
      */
-    public Path(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel) {
+    public Path(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel, PathFeatures pathFeatures) {
         this.name = name;
         this.description = description;
         this.maxLevel = maxLevel;
+        this.pathFeatures = pathFeatures;
     }
 
     @Override
@@ -45,6 +52,11 @@ public class Path extends ForgeRegistryEntry<IPath> implements IPath {
     @Override
     public int getMaxLevel() {
         return this.maxLevel;
+    }
+
+    @Override
+    public PathFeatures getPathFeatures() {
+        return this.pathFeatures;
     }
 
     @Override

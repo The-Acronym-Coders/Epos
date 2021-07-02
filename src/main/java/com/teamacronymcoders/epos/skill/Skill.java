@@ -52,8 +52,7 @@ public class Skill extends ForgeRegistryEntry<ISkill> implements ISkill {
     private final int maxLevel;
     private final String expression;
 
-    public Skill(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel,
-            String expression) {
+    public Skill(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel, String expression) {
         this.name = name;
         this.description = description;
         this.maxLevel = maxLevel;

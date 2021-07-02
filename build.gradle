@@ -141,7 +141,7 @@ dependencies {
 
     // Add Titanium
     // Titanium
-    fg.deobf('com.hrznstudio:titanium:1.16.5-3.2.8.2')
+    implementation fg.deobf('com.hrznstudio:titanium:1.16.5-3.2.8.2')
 }
 
 test {

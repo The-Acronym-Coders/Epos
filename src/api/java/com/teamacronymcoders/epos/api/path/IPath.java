@@ -2,8 +2,12 @@ package com.teamacronymcoders.epos.api.path;
 
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
+import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import net.minecraft.entity.LivingEntity;
+
+import java.util.List;
 
 // TODO: Document Main Interface Object
 public interface IPath extends IDynamic<IPath, IPath>, IDescribable {
@@ -21,6 +25,12 @@ public interface IPath extends IDynamic<IPath, IPath>, IDescribable {
      * @return Returns what the 'Max' level of the {@link IPath} is.
      */
     int getMaxLevel();
+
+    /**
+     * TODO: Document this
+     * @return
+     */
+    PathFeatures getPathFeatures();
 
     /**
      * Adds a certain amount of levels to the {@link IPath} of the {@link LivingEntity} Character.

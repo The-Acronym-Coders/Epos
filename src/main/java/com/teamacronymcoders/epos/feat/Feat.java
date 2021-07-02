@@ -44,5 +44,4 @@ public class Feat extends ForgeRegistryEntry<IFeat> implements IFeat {
         return FeatRegistrar.FEAT_SERIALIZER.get();
     }
 
-
 }
