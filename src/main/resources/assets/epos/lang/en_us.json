@@ -1,0 +1,4 @@
+{
+  "epos.levelUp.skill": "Leveled-Up %s to Level: %i",
+  "epos.levelUp.skill.error": "Null Skill was passed in to Level-Up Toast Message"
+}
