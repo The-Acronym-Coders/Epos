@@ -1,6 +1,5 @@
 package com.teamacronymcoders.epos.feat.ability;
 
-import com.teamacronymcoders.epos.api.feat.ability.IAbility;
 import com.teamacronymcoders.epos.feat.Feat;
 import net.minecraft.util.text.IFormattableTextComponent;
 

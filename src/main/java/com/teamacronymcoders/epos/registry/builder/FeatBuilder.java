@@ -36,27 +36,27 @@ public class FeatBuilder<T extends IFeat, P> extends AbstractBuilder<IFeat, T, P
         this.eventManagers = new ArrayList<>();
     }
 
-    public FeatBuilder<T,P> name(NonNullSupplier<IFormattableTextComponent> name) {
+    public FeatBuilder<T, P> name(NonNullSupplier<IFormattableTextComponent> name) {
         this.name = name;
         return this;
     }
 
-    public FeatBuilder<T,P> description(NonNullSupplier<IFormattableTextComponent> description) {
+    public FeatBuilder<T, P> description(NonNullSupplier<IFormattableTextComponent> description) {
         this.description = description;
         return this;
     }
 
-    public FeatBuilder<T,P> isAbility(NonNullSupplier<Boolean> isAbility) {
+    public FeatBuilder<T, P> isAbility(NonNullSupplier<Boolean> isAbility) {
         this.isAbility = isAbility;
         return this;
     }
 
-    public FeatBuilder<T,P> withEventManager(EventManager.ISubscribe eventManager) {
+    public FeatBuilder<T, P> withEventManager(EventManager.ISubscribe eventManager) {
         this.eventManagers.add(eventManager);
         return this;
     }
 
-    public FeatBuilder<T,P> withEventManagers(EventManager.ISubscribe... eventManagers) {
+    public FeatBuilder<T, P> withEventManagers(EventManager.ISubscribe... eventManagers) {
         this.eventManagers.addAll(Arrays.asList(eventManagers));
         return this;
     }

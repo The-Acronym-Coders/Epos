@@ -40,14 +40,14 @@ public class LevelUpToast implements IToast {
             int j = 1500;
             float f = 300.0F;
             if (animationTime < j) {
-                int k = MathHelper.floor(MathHelper.clamp((float)(j - animationTime) / f, 0.0F, 1.0F) * 255.0F) << 24 | 67108864;
+                int k = MathHelper.floor(MathHelper.clamp((float) (j - animationTime) / f, 0.0F, 1.0F) * 255.0F) << 24 | 67108864;
                 gui.getMinecraft().font.draw(poseStack, message, 30.0F, 11.0F, 16776960 | k);
             } else {
-                int i1 = MathHelper.floor(MathHelper.clamp((float)(animationTime - j) / f, 0.0F, 1.0F) * 252.0F) << 24 | 67108864;
+                int i1 = MathHelper.floor(MathHelper.clamp((float) (animationTime - j) / f, 0.0F, 1.0F) * 252.0F) << 24 | 67108864;
                 int l = this.height() / 2 - list.size() * 9 / 2;
 
-                for(IReorderingProcessor ireorderingprocessor : list) {
-                    gui.getMinecraft().font.draw(poseStack, ireorderingprocessor, 30.0F, (float)l, 16777215 | i1);
+                for (IReorderingProcessor ireorderingprocessor : list) {
+                    gui.getMinecraft().font.draw(poseStack, ireorderingprocessor, 30.0F, (float) l, 16777215 | i1);
                     l += 9;
                 }
             }

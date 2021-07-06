@@ -24,11 +24,6 @@
 
 package com.teamacronymcoders.epos.client;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -37,7 +32,6 @@ import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.client.renderer.model.DynamicRegistryBakedModel;
 import com.teamacronymcoders.epos.client.renderer.model.EposResourceType;
 import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -54,6 +48,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.resource.VanillaResourceType;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EposClientHandler {
 

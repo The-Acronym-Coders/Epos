@@ -8,6 +8,7 @@ public interface IFeat extends IDynamic<IFeat, IFeat>, IDescribable {
 
     /**
      * Returns a boolean value as to wheter the {@link IFeat} is an Tickable Ability or not!
+     *
      * @return Returns whether the feat is an active ability or not.
      */
     boolean isAbility();

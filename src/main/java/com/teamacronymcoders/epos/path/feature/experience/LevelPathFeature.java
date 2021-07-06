@@ -14,13 +14,13 @@ import net.minecraft.util.text.IFormattableTextComponent;
 public class LevelPathFeature extends AbstractPathFeature {
 
     public static final Codec<LevelPathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(LevelPathFeature::getName),
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(LevelPathFeature::getDescription),
-            EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(LevelPathFeature::getGrantType),
-            ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(LevelPathFeature::getSkillID),
-            Codec.INT.fieldOf("levels").forGetter(LevelPathFeature::getLevels)
-        ).apply(instance, LevelPathFeature::new)
+            .group(
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(LevelPathFeature::getName),
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(LevelPathFeature::getDescription),
+                    EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(LevelPathFeature::getGrantType),
+                    ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(LevelPathFeature::getSkillID),
+                    Codec.INT.fieldOf("levels").forGetter(LevelPathFeature::getLevels)
+            ).apply(instance, LevelPathFeature::new)
     );
 
     private final EposGrantType type;

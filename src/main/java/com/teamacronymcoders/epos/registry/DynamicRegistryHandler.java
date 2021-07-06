@@ -24,17 +24,6 @@
 
 package com.teamacronymcoders.epos.registry;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Sets;
@@ -45,8 +34,16 @@ import com.teamacronymcoders.epos.api.registry.DynamicRegistryBuilder;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.network.DynamicRegistryPacket;
-
 import net.minecraft.util.ResourceLocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 // TODO: Finish
 public class DynamicRegistryHandler {

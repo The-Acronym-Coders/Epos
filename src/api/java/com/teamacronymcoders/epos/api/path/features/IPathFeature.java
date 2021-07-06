@@ -10,6 +10,7 @@ public interface IPathFeature extends IDescribable {
 
     /**
      * Called to Apply the {@link IPathFeature} to the {@link LivingEntity} Character
+     *
      * @param character
      * @param stats
      */
@@ -17,6 +18,7 @@ public interface IPathFeature extends IDescribable {
 
     /**
      * Called to Revoke the {@link IPathFeature} to the {@link LivingEntity} Character
+     *
      * @param character
      * @param stats
      */

@@ -11,24 +11,17 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class CharacterSheet implements ICharacterSheet {
 
     public static final Codec<CharacterSheet> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            Paths.CODEC.fieldOf("paths").forGetter(ICharacterSheet::getPaths),
-            Skills.CODEC.fieldOf("skills").forGetter(ICharacterSheet::getSkills),
-            Feats.CODEC.fieldOf("feats").forGetter(ICharacterSheet::getFeats),
-            Codec.INT.fieldOf("maxLevel").forGetter(CharacterSheet::getMaxLevel),
-            CharacterInfo.CODEC.optionalFieldOf("characterInfo", new CharacterInfo()).forGetter(CharacterSheet::getCharacterInfo)
-        ).apply(instance, CharacterSheet::new)
+            .group(
+                    Paths.CODEC.fieldOf("paths").forGetter(ICharacterSheet::getPaths),
+                    Skills.CODEC.fieldOf("skills").forGetter(ICharacterSheet::getSkills),
+                    Feats.CODEC.fieldOf("feats").forGetter(ICharacterSheet::getFeats),
+                    Codec.INT.fieldOf("maxLevel").forGetter(CharacterSheet::getMaxLevel),
+                    CharacterInfo.CODEC.optionalFieldOf("characterInfo", new CharacterInfo()).forGetter(CharacterSheet::getCharacterInfo)
+            ).apply(instance, CharacterSheet::new)
     );
 
     private Paths paths;
@@ -68,9 +61,10 @@ public class CharacterSheet implements ICharacterSheet {
 
     /**
      * Codec Constructor
-     * @param paths The Character's Paths
+     *
+     * @param paths  The Character's Paths
      * @param skills The Character's Skills
-     * @param feats The Character's Feats
+     * @param feats  The Character's Feats
      */
     public CharacterSheet(Paths paths, Skills skills, Feats feats, int maxLevel, CharacterInfo characterInfo) {
         this.paths = paths;

@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.api.event;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
-import com.teamacronymcoders.epos.api.event.enums.EposEventType;
+import com.teamacronymcoders.epos.api.enums.EposEventType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
  * Currently the main event(s) are:
  * - {@link EposLevelEvent.LevelUpEvent}
  * - {@link EposLevelEvent.LevelDownEvent}
- *
+ * <p>
  * More events may be added later.
  */
 public class EposLevelEvent extends LivingEvent {
@@ -47,6 +47,7 @@ public class EposLevelEvent extends LivingEvent {
 
     /**
      * Returns the type of experienced gained, which will be either {@link EposEventType#CHARACTER}, {@link EposEventType#PATH} or {@link EposEventType#SKILL}
+     *
      * @return Returns what type of experience was gained.
      */
     @Nonnull
@@ -56,6 +57,7 @@ public class EposLevelEvent extends LivingEvent {
 
     /**
      * Returns the {@link ResourceLocation} id of the type object gaining the experience.
+     *
      * @return Returns the {@link ResourceLocation} id of the type object.
      */
     @Nullable
@@ -65,6 +67,7 @@ public class EposLevelEvent extends LivingEvent {
 
     /**
      * Returns the old level.
+     *
      * @return Returns the level pre-change.
      */
     public int getOldLevel() {
@@ -73,6 +76,7 @@ public class EposLevelEvent extends LivingEvent {
 
     /**
      * Returns the new level.
+     *
      * @return Returns the level post-change.
      */
     public int getNewLevel() {

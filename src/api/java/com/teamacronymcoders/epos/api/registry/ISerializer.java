@@ -25,7 +25,6 @@
 package com.teamacronymcoders.epos.api.registry;
 
 import com.mojang.serialization.Codec;
-
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public interface ISerializer<T, R extends ISerializer<T, ?>> extends IForgeRegistryEntry<R> {

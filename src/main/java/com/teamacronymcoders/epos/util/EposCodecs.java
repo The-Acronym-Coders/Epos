@@ -24,23 +24,18 @@
 
 package com.teamacronymcoders.epos.util;
 
-import javax.annotation.Nullable;
-
 import com.google.gson.JsonElement;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import com.mojang.serialization.JsonOps;
-import com.mojang.serialization.Lifecycle;
+import com.mojang.serialization.*;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
+
+import javax.annotation.Nullable;
 
 public final class EposCodecs {
 
@@ -51,7 +46,7 @@ public final class EposCodecs {
                             .fromJson(dynamic.convert(JsonOps.INSTANCE).getValue());
                     return component != null ? DataResult.success(component, Lifecycle.stable())
                             : DataResult.error("Not a valid formattable text component, returned null.",
-                                    Lifecycle.stable());
+                            Lifecycle.stable());
                 } catch (final Exception e) {
                     return DataResult.error("An error was thrown: " + e.getMessage(), Lifecycle.stable());
                 }

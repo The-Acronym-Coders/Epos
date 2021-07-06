@@ -26,7 +26,6 @@ package com.teamacronymcoders.epos.api.skill;
 
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.registry.ISerializer;
-
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 // TODO: Document

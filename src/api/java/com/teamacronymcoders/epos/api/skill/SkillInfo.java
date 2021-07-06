@@ -2,20 +2,19 @@ package com.teamacronymcoders.epos.api.skill;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.registry.EposRegistrate;
 import net.minecraft.util.ResourceLocation;
 
 //TODO: Everything that's commented out needs to be checked by Ash
 public class SkillInfo {
 
     public static final Codec<SkillInfo> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(SkillInfo::getSkillID),
-            Codec.intRange(0, 256).optionalFieldOf("maxLevel", 256).forGetter(SkillInfo::getMaxLevel),
-            Codec.intRange(0, 256).optionalFieldOf("experience", 0).forGetter(SkillInfo::getExperience),
-            Codec.intRange(0, 256).optionalFieldOf("level", 0).forGetter(SkillInfo::getLevel),
-            Codec.BOOL.fieldOf("isActive").forGetter(SkillInfo::isActive))
-        .apply(instance, SkillInfo::new)
+            .group(
+                    ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(SkillInfo::getSkillID),
+                    Codec.intRange(0, 256).optionalFieldOf("maxLevel", 256).forGetter(SkillInfo::getMaxLevel),
+                    Codec.intRange(0, 256).optionalFieldOf("experience", 0).forGetter(SkillInfo::getExperience),
+                    Codec.intRange(0, 256).optionalFieldOf("level", 0).forGetter(SkillInfo::getLevel),
+                    Codec.BOOL.fieldOf("isActive").forGetter(SkillInfo::isActive))
+            .apply(instance, SkillInfo::new)
     );
 
     private final ResourceLocation skillID;

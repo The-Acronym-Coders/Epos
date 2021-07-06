@@ -13,8 +13,8 @@ import java.util.Map;
 public class Feats {
 
     public static final Codec<Feats> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(Codec.unboundedMap(ResourceLocation.CODEC, FeatInfo.CODEC).fieldOf("feats").forGetter(Feats::getFeatInfoMap))
-        .apply(instance, Feats::new));
+            .group(Codec.unboundedMap(ResourceLocation.CODEC, FeatInfo.CODEC).fieldOf("feats").forGetter(Feats::getFeatInfoMap))
+            .apply(instance, Feats::new));
 
     private final Map<ResourceLocation, FeatInfo> featInfoMap;
 
@@ -27,6 +27,7 @@ public class Feats {
 
     /**
      * Codec Constructor
+     *
      * @param featInfoMap Map of the currently stored Path(s) on the Character.
      */
     public Feats(Map<ResourceLocation, FeatInfo> featInfoMap) {

@@ -14,12 +14,12 @@ import net.minecraft.util.text.IFormattableTextComponent;
 public class PointPathFeature extends AbstractPathFeature {
 
     public static final Codec<PointPathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(PointPathFeature::getName),
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(PointPathFeature::getDescription),
-            EposPointTypes.CODEC.optionalFieldOf("type", EposPointTypes.PATH).forGetter(PointPathFeature::getType),
-            Codec.INT.optionalFieldOf("amount", 0).forGetter(PointPathFeature::getAmount)
-        ).apply(instance, PointPathFeature::new)
+            .group(
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(PointPathFeature::getName),
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(PointPathFeature::getDescription),
+                    EposPointTypes.CODEC.optionalFieldOf("type", EposPointTypes.PATH).forGetter(PointPathFeature::getType),
+                    Codec.INT.optionalFieldOf("amount", 0).forGetter(PointPathFeature::getAmount)
+            ).apply(instance, PointPathFeature::new)
     );
 
     private final EposPointTypes type;
@@ -44,9 +44,12 @@ public class PointPathFeature extends AbstractPathFeature {
         if (character instanceof PlayerEntity) {
             PointInfo info = stats.getCharacterInfo().getPointInfo();
             switch (type) {
-                case PATH: info.addPathPoints(this.amount);
-                case SKILL: info.addSkillPoints(this.amount);
-                case FEAT: info.addFeatPoints(this.amount);
+                case PATH:
+                    info.addPathPoints(this.amount);
+                case SKILL:
+                    info.addSkillPoints(this.amount);
+                case FEAT:
+                    info.addFeatPoints(this.amount);
             }
         }
     }
@@ -56,9 +59,12 @@ public class PointPathFeature extends AbstractPathFeature {
         if (character instanceof PlayerEntity) {
             PointInfo info = stats.getCharacterInfo().getPointInfo();
             switch (type) {
-                case PATH: info.removePathPoints(this.amount);
-                case SKILL: info.removeSkillPoints(this.amount);
-                case FEAT: info.removeFeatPoints(this.amount);
+                case PATH:
+                    info.removePathPoints(this.amount);
+                case SKILL:
+                    info.removeSkillPoints(this.amount);
+                case FEAT:
+                    info.removeFeatPoints(this.amount);
             }
         }
     }

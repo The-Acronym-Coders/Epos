@@ -14,9 +14,10 @@ public class Feat extends ForgeRegistryEntry<IFeat> implements IFeat {
 
     /**
      * Constructor for Feat(s).
-     * @param name The Name of the Feat.
+     *
+     * @param name        The Name of the Feat.
      * @param description The Description of the Feat.
-     * @param isAbility If the Feat is an Active 'Ability'.
+     * @param isAbility   If the Feat is an Active 'Ability'.
      */
     public Feat(IFormattableTextComponent name, IFormattableTextComponent description, boolean isAbility) {
         this.name = name;

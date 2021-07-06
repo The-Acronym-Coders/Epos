@@ -11,8 +11,8 @@ import java.util.Map;
 public class Skills {
 
     public static final Codec<Skills> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(Codec.unboundedMap(ResourceLocation.CODEC, SkillInfo.CODEC).fieldOf("skills").forGetter(Skills::getSkillInfoMap))
-        .apply(instance, Skills::new));
+            .group(Codec.unboundedMap(ResourceLocation.CODEC, SkillInfo.CODEC).fieldOf("skills").forGetter(Skills::getSkillInfoMap))
+            .apply(instance, Skills::new));
 
     private final Map<ResourceLocation, SkillInfo> skillInfoMap;
 
@@ -25,6 +25,7 @@ public class Skills {
 
     /**
      * Codec Constructor
+     *
      * @param skillInfoMap Map of the currently stored Skill(s) on the Character.
      */
     public Skills(Map<ResourceLocation, SkillInfo> skillInfoMap) {

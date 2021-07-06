@@ -6,11 +6,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 public class PointInfo {
 
     public static final Codec<PointInfo> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            Codec.INT.optionalFieldOf("pathPoints", 1).forGetter(PointInfo::getPathPoints),
-            Codec.INT.optionalFieldOf("skillPoints", 1).forGetter(PointInfo::getSkillPoints),
-            Codec.INT.optionalFieldOf("featPoints", 1).forGetter(PointInfo::getFeatPoints)
-        ).apply(instance, PointInfo::new)
+            .group(
+                    Codec.INT.optionalFieldOf("pathPoints", 1).forGetter(PointInfo::getPathPoints),
+                    Codec.INT.optionalFieldOf("skillPoints", 1).forGetter(PointInfo::getSkillPoints),
+                    Codec.INT.optionalFieldOf("featPoints", 1).forGetter(PointInfo::getFeatPoints)
+            ).apply(instance, PointInfo::new)
     );
 
     private int pathPoints;

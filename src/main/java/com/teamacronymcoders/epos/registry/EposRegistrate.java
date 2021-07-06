@@ -24,8 +24,6 @@
 
 package com.teamacronymcoders.epos.registry;
 
-import java.util.function.Supplier;
-
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.feat.FeatSerializer;
@@ -39,11 +37,12 @@ import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.registry.builder.SerializerBuilder;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
+
+import java.util.function.Supplier;
 
 public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 

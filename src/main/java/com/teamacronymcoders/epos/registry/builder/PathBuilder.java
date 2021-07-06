@@ -1,7 +1,5 @@
 package com.teamacronymcoders.epos.registry.builder;
 
-import com.google.common.collect.Lists;
-import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
@@ -16,7 +14,9 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
 import net.minecraft.util.text.IFormattableTextComponent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PathBuilder<T extends IPath, P> extends AbstractBuilder<IPath, T, P, PathBuilder<T, P>> {
 
@@ -36,27 +36,27 @@ public class PathBuilder<T extends IPath, P> extends AbstractBuilder<IPath, T, P
         this.pathFeatures = Int2ObjectMaps.emptyMap();
     }
 
-    public PathBuilder<T,P> name(NonNullSupplier<IFormattableTextComponent> name) {
+    public PathBuilder<T, P> name(NonNullSupplier<IFormattableTextComponent> name) {
         this.name = name;
         return this;
     }
 
-    public PathBuilder<T,P> description(NonNullSupplier<IFormattableTextComponent> description) {
+    public PathBuilder<T, P> description(NonNullSupplier<IFormattableTextComponent> description) {
         this.description = description;
         return this;
     }
 
-    public PathBuilder<T,P> maxLevel(NonNullSupplier<Integer> maxLevel) {
+    public PathBuilder<T, P> maxLevel(NonNullSupplier<Integer> maxLevel) {
         this.maxLevel = maxLevel;
         return this;
     }
 
-    public PathBuilder<T,P> withPathFeatureForLevel(int level, IPathFeature pathFeature) {
+    public PathBuilder<T, P> withPathFeatureForLevel(int level, IPathFeature pathFeature) {
         this.pathFeatures.computeIfAbsent(level, integer -> new ArrayList<>()).add(pathFeature);
         return this;
     }
 
-    public PathBuilder<T,P> withPathFeatures(int level, IPathFeature... pathFeatures) {
+    public PathBuilder<T, P> withPathFeatures(int level, IPathFeature... pathFeatures) {
         this.pathFeatures.computeIfAbsent(level, (integer) -> new ArrayList<>()).addAll(Arrays.asList(pathFeatures));
         return this;
     }

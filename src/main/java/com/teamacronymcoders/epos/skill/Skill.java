@@ -31,7 +31,6 @@ import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
-
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 

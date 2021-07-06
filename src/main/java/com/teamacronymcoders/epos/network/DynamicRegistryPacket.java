@@ -24,18 +24,17 @@
 
 package com.teamacronymcoders.epos.network;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Supplier;
-
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.client.EposClientHandler;
 import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
-
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.function.Supplier;
 
 public class DynamicRegistryPacket {
 

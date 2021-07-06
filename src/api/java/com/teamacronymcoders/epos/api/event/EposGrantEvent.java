@@ -1,8 +1,8 @@
 package com.teamacronymcoders.epos.api.event;
 
-import com.teamacronymcoders.epos.api.event.enums.EposEventType;
-import com.teamacronymcoders.epos.api.event.enums.EposGrantOperator;
-import com.teamacronymcoders.epos.api.event.enums.EposGrantType;
+import com.teamacronymcoders.epos.api.enums.EposEventType;
+import com.teamacronymcoders.epos.api.enums.EposGrantOperator;
+import com.teamacronymcoders.epos.api.enums.EposGrantType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
  * - {@link EposGrantEvent.Path}
  * - {@link EposGrantEvent.Skill}
  * - {@link EposGrantEvent.Feat}
- *
+ * <p>
  * More events may be added later.
  */
 public class EposGrantEvent extends LivingEvent {
@@ -31,6 +31,7 @@ public class EposGrantEvent extends LivingEvent {
 
     /**
      * Returns the type of experienced gained, which will be either {@link EposEventType#CHARACTER}, {@link EposEventType#PATH} or {@link EposEventType#SKILL}
+     *
      * @return Returns what type of experience was gained.
      */
     public EposGrantType getType() {
@@ -39,6 +40,7 @@ public class EposGrantEvent extends LivingEvent {
 
     /**
      * Returns the Operator setting of either {@link EposGrantOperator#UNLOCK} or {@link EposGrantOperator#LOCK} which dictates if the event is used to unlock or lock.
+     *
      * @return Returns the {@link EposGrantOperator} type for the Event.
      */
     public EposGrantOperator getOperator() {
@@ -47,6 +49,7 @@ public class EposGrantEvent extends LivingEvent {
 
     /**
      * Returns the {@link ResourceLocation} id of the type object gaining the experience.
+     *
      * @return Returns the {@link ResourceLocation} id of the type object.
      */
     public ResourceLocation getTypeObjectId() {

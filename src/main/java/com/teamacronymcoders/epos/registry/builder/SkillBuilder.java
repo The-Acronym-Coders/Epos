@@ -1,6 +1,5 @@
 package com.teamacronymcoders.epos.registry.builder;
 
-import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.skill.Skill;
@@ -28,22 +27,22 @@ public class SkillBuilder<T extends ISkill, P> extends AbstractBuilder<ISkill, T
         this.factory = factory;
     }
 
-    public SkillBuilder<T,P> name(NonNullSupplier<IFormattableTextComponent> name) {
+    public SkillBuilder<T, P> name(NonNullSupplier<IFormattableTextComponent> name) {
         this.name = name;
         return this;
     }
 
-    public SkillBuilder<T,P> description(NonNullSupplier<IFormattableTextComponent> description) {
+    public SkillBuilder<T, P> description(NonNullSupplier<IFormattableTextComponent> description) {
         this.description = description;
         return this;
     }
 
-    public SkillBuilder<T,P> maxLevel(NonNullSupplier<Integer> maxLevel) {
+    public SkillBuilder<T, P> maxLevel(NonNullSupplier<Integer> maxLevel) {
         this.maxLevel = maxLevel;
         return this;
     }
 
-    public SkillBuilder<T,P> withExpression(NonNullSupplier<String> expression) {
+    public SkillBuilder<T, P> withExpression(NonNullSupplier<String> expression) {
         this.expression = expression;
         return this;
     }

@@ -37,7 +37,7 @@ public class SerializerBuilder<R extends ISerializer<?, R>, T extends R, P>
     private final NonNullSupplier<? extends T> factory;
 
     public SerializerBuilder(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback,
-            Class<? super R> registryType, NonNullSupplier<? extends T> factory) {
+                             Class<? super R> registryType, NonNullSupplier<? extends T> factory) {
         super(owner, parent, name, callback, registryType);
         this.factory = factory;
     }

@@ -9,9 +9,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 public class FeatInfo {
 
     public static final Codec<FeatInfo> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked))
-        .apply(instance, FeatInfo::new)
+            .group(
+                    Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked))
+            .apply(instance, FeatInfo::new)
     );
 
     private boolean isUnlocked;
@@ -25,8 +25,9 @@ public class FeatInfo {
 
     /**
      * Codec Constructor
+     *
      * @param isUnlocked Whether the Path is Unlocked or Not.
-     * @param isAbility Whether the Path is an Active ability or Not.
+     * @param isAbility  Whether the Path is an Active ability or Not.
      */
     public FeatInfo(boolean isUnlocked) {
         this.isUnlocked = isUnlocked;

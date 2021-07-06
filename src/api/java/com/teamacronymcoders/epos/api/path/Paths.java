@@ -13,8 +13,8 @@ import java.util.Map;
 public class Paths {
 
     public static final Codec<Paths> CODEC = RecordCodecBuilder.create(instance -> instance
-    .group(Codec.unboundedMap(ResourceLocation.CODEC, PathInfo.CODEC).fieldOf("paths").forGetter(Paths::getPathInfoMap))
-    .apply(instance, Paths::new));
+            .group(Codec.unboundedMap(ResourceLocation.CODEC, PathInfo.CODEC).fieldOf("paths").forGetter(Paths::getPathInfoMap))
+            .apply(instance, Paths::new));
 
     private final Map<ResourceLocation, PathInfo> pathInfoMap;
 
@@ -27,6 +27,7 @@ public class Paths {
 
     /**
      * Codec Constructor
+     *
      * @param pathInfoMap Map of the currently stored Path(s) on the Character.
      */
     public Paths(Map<ResourceLocation, PathInfo> pathInfoMap) {

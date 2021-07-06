@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.api.event;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
-import com.teamacronymcoders.epos.api.event.enums.EposEventType;
+import com.teamacronymcoders.epos.api.enums.EposEventType;
 import com.teamacronymcoders.epos.path.Path;
 import com.teamacronymcoders.epos.skill.Skill;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
  * The core event for experience-based interactions.
  * Currently the main event(s) are:
  * - {@link EposExperienceEvent.GainExperience}
- *
+ * <p>
  * More events may be added later for example for dealing with losing experience.
  */
 public class EposExperienceEvent extends LivingEvent {
@@ -44,6 +44,7 @@ public class EposExperienceEvent extends LivingEvent {
 
     /**
      * Returns the type of experienced gained, which will be either {@link EposEventType#CHARACTER}, {@link EposEventType#PATH} or {@link EposEventType#SKILL}
+     *
      * @return Returns what type of experience was gained.
      */
     @Nonnull
@@ -53,6 +54,7 @@ public class EposExperienceEvent extends LivingEvent {
 
     /**
      * Returns the {@link ResourceLocation} id of the type object gaining the experience.
+     *
      * @return Returns the {@link ResourceLocation} id of the type object.
      */
     @Nullable
@@ -70,7 +72,8 @@ public class EposExperienceEvent extends LivingEvent {
 
         /**
          * Constructor for the main {@link GainExperience} event.
-         * @param entity The "Character" {@link LivingEntity}.
+         *
+         * @param entity           The "Character" {@link LivingEntity}.
          * @param experienceAmount The amount of experience being gained.
          */
         public GainExperience(LivingEntity entity, EposEventType type, ResourceLocation typeObjectId, int experienceAmount) {
@@ -87,6 +90,7 @@ public class EposExperienceEvent extends LivingEvent {
 
         /**
          * Sets the current experience amount to X value.
+         *
          * @param experienceAmount The experience amount to override with.
          */
         public void setExperienceAmount(int experienceAmount) {
@@ -95,6 +99,7 @@ public class EposExperienceEvent extends LivingEvent {
 
         /**
          * Increments the current experience amount by X value.
+         *
          * @param increment The experience amount to increment the current amount by.
          */
         public void increaseExperienceAmount(int increment) {
@@ -103,6 +108,7 @@ public class EposExperienceEvent extends LivingEvent {
 
         /**
          * Decrements the current experience amount by X value, with a {@link Math#max(int, int)} check so it never goes below 0.
+         *
          * @param decrement The experience amount to decrement the current amount by.
          */
         public void decreaseExperienceAmount(int decrement) {

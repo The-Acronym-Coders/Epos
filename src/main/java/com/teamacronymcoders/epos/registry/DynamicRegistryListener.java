@@ -24,16 +24,15 @@
 
 package com.teamacronymcoders.epos.registry;
 
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Map;
 
 public class DynamicRegistryListener extends JsonReloadListener {
 
@@ -45,7 +44,7 @@ public class DynamicRegistryListener extends JsonReloadListener {
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> objectIn, IResourceManager resourceManagerIn,
-            IProfiler profilerIn) {
+                         IProfiler profilerIn) {
         DynamicRegistryHandler.INSTANCE.reloadResources(objectIn);
     }
 }

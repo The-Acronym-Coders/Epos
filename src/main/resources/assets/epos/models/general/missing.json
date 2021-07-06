@@ -1,6 +1,6 @@
 {
-    "parent": "epos:general/missing_template",
-    "textures": {
-        "palette": "epos:general/missing"
-    }
+  "parent": "epos:general/missing_template",
+  "textures": {
+    "palette": "epos:general/missing"
+  }
 }

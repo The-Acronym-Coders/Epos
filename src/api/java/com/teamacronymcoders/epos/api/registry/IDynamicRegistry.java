@@ -24,12 +24,11 @@
 
 package com.teamacronymcoders.epos.api.registry;
 
-import java.util.Optional;
-import java.util.function.BiConsumer;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.util.ResourceLocation;
+import java.util.Optional;
+import java.util.function.BiConsumer;
 
 // TODO: Finish, currently doesn't exist anywhere
 public interface IDynamicRegistry<V extends IDynamic<V, ?>, S extends ISerializer<V, ?>> {

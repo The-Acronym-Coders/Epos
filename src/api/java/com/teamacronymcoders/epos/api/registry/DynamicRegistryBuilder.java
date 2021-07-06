@@ -24,12 +24,11 @@
 
 package com.teamacronymcoders.epos.api.registry;
 
-import java.util.function.Supplier;
-
 import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.function.Supplier;
 
 public class DynamicRegistryBuilder<V extends IDynamic<V, ?>, S extends ISerializer<V, S>> {
 

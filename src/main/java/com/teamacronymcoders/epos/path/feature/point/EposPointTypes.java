@@ -1,7 +1,6 @@
 package com.teamacronymcoders.epos.path.feature.point;
 
 import com.mojang.serialization.Codec;
-import com.teamacronymcoders.epos.path.feature.experience.EposGrantType;
 import net.minecraft.util.IStringSerializable;
 
 import javax.annotation.Nullable;

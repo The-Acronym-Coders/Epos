@@ -14,13 +14,13 @@ import net.minecraft.util.text.IFormattableTextComponent;
 public class ExperiencePathFeature extends AbstractPathFeature {
 
     public static final Codec<ExperiencePathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(ExperiencePathFeature::getName),
-            EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(ExperiencePathFeature::getDescription),
-            EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(ExperiencePathFeature::getGrantType),
-            ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(ExperiencePathFeature::getSkillID),
-            Codec.INT.fieldOf("experience").forGetter(ExperiencePathFeature::getExperience)
-        ).apply(instance, ExperiencePathFeature::new)
+            .group(
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(ExperiencePathFeature::getName),
+                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(ExperiencePathFeature::getDescription),
+                    EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(ExperiencePathFeature::getGrantType),
+                    ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(ExperiencePathFeature::getSkillID),
+                    Codec.INT.fieldOf("experience").forGetter(ExperiencePathFeature::getExperience)
+            ).apply(instance, ExperiencePathFeature::new)
     );
 
     private final EposGrantType type;

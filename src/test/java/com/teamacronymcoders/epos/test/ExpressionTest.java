@@ -24,13 +24,11 @@
 
 package com.teamacronymcoders.epos.test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.teamacronymcoders.epos.skill.Skill;
-
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ExpressionTest {
 

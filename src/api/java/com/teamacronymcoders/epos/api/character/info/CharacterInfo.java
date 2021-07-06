@@ -6,11 +6,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 public class CharacterInfo {
 
     public static final Codec<CharacterInfo> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            Codec.INT.optionalFieldOf("currentLevel", 1).forGetter(CharacterInfo::getCurrentLevel),
-            Codec.INT.optionalFieldOf("experience", 0).forGetter(CharacterInfo::getExperience),
-            PointInfo.CODEC.optionalFieldOf("pointInfo", new PointInfo()).forGetter(CharacterInfo::getPointInfo)
-        ).apply(instance, CharacterInfo::new)
+            .group(
+                    Codec.INT.optionalFieldOf("currentLevel", 1).forGetter(CharacterInfo::getCurrentLevel),
+                    Codec.INT.optionalFieldOf("experience", 0).forGetter(CharacterInfo::getExperience),
+                    PointInfo.CODEC.optionalFieldOf("pointInfo", new PointInfo()).forGetter(CharacterInfo::getPointInfo)
+            ).apply(instance, CharacterInfo::new)
     );
 
     public int currentLevel;

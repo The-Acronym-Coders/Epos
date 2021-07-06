@@ -24,24 +24,18 @@
 
 package com.teamacronymcoders.epos.client.renderer.model;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.base.Supplier;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
 import com.teamacronymcoders.epos.api.registry.IDynamicRegistry;
 import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.resource.IResourceType;
+
+import java.util.*;
 
 public class EposResourceType implements IResourceType {
 
