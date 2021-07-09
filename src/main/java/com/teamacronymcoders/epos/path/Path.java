@@ -3,13 +3,13 @@ package com.teamacronymcoders.epos.path;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
+import net.ashwork.dynamicregistries.entry.DynamicEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class Path extends ForgeRegistryEntry<IPath> implements IPath {
+public class Path extends DynamicEntry<IPath> implements IPath {
 
     private final IFormattableTextComponent name;
     private final IFormattableTextComponent description;
@@ -64,7 +64,7 @@ public class Path extends ForgeRegistryEntry<IPath> implements IPath {
     }
 
     @Override
-    public ISerializer<? extends IPath, ?> serializer() {
+    public ICodecEntry<? extends IPath, ?> codec() {
         return PathRegistrar.PATH_SERIALIZER.get();
     }
 }

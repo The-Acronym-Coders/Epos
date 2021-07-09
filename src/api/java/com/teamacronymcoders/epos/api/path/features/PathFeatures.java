@@ -9,11 +9,7 @@ import java.util.List;
 
 public class PathFeatures {
 
-    public static final Codec<PathFeatures> CODEC = RecordCodecBuilder.create(instance -> instance
-        .group(
-            Codec.unboundedMap(Codec.INT, Codec.list(IPathFeature::getCodec))
-        )
-    );
+    public static final Codec<PathFeatures> CODEC = Codec.unit(() -> new PathFeatures());
 
     private final Int2ObjectMap<List<IPathFeature>> featuresByLevel;
 

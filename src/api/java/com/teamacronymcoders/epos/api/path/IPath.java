@@ -3,11 +3,11 @@ package com.teamacronymcoders.epos.api.path;
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
+import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.minecraft.entity.LivingEntity;
 
 // TODO: Document Main Interface Object
-public interface IPath extends IDynamic<IPath, IPath>, IDescribable {
+public interface IPath extends IDynamicEntry<IPath>, IDescribable {
 
     /**
      * Indicates if the Path is 'Hidden' from the Player in the Path GUI.

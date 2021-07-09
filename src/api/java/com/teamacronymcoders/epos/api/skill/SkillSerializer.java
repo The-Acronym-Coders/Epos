@@ -25,12 +25,10 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import com.mojang.serialization.Codec;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.ashwork.dynamicregistries.entry.CodecEntry;
 
 // TODO: Document
-public final class SkillSerializer extends ForgeRegistryEntry<SkillSerializer>
-        implements ISerializer<ISkill, SkillSerializer> {
+public final class SkillSerializer extends CodecEntry<ISkill, SkillSerializer> {
 
     private final Codec<? extends ISkill> codec;
 
@@ -39,7 +37,7 @@ public final class SkillSerializer extends ForgeRegistryEntry<SkillSerializer>
     }
 
     @Override
-    public Codec<? extends ISkill> objectCodec() {
+    public Codec<? extends ISkill> entryCodec() {
         return this.codec;
     }
 }

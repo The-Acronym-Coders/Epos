@@ -26,8 +26,6 @@ package com.teamacronymcoders.epos.util;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.*;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
@@ -75,13 +73,5 @@ public final class EposCodecs {
             return val != null ? DataResult.success(val, Lifecycle.stable())
                     : DataResult.error("Not a valid registry object within " + registry.getRegistryName() + ": " + loc);
         }, IForgeRegistryEntry::getRegistryName);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T, D extends IDynamic<T, D>, R extends ISerializer<T, R>> Codec<T> dynamicRegistryEntry(
-            IForgeRegistry<R> serializationRegistry) {
-        return (Codec<T>) forgeRegistryEntry(serializationRegistry).dispatchStable(dyn -> {
-            return (R) ((D) dyn).serializer();
-        }, ISerializer::objectCodec);
     }
 }

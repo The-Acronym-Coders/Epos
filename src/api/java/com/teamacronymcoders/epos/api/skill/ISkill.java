@@ -25,10 +25,10 @@
 package com.teamacronymcoders.epos.api.skill;
 
 import com.teamacronymcoders.epos.api.IDescribable;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
+import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 
 // TODO: Document
-public interface ISkill extends IDynamic<ISkill, ISkill>, IDescribable {
+public interface ISkill extends IDynamicEntry<ISkill>, IDescribable {
 
     /**
      * Returns the {@link ISkill} 's Max Level as an integer.

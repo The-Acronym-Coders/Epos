@@ -24,14 +24,14 @@
 
 package com.teamacronymcoders.epos.registry.builder;
 
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.builders.AbstractBuilder;
 import com.tterrag.registrate.builders.BuilderCallback;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 
-public class SerializerBuilder<R extends ISerializer<?, R>, T extends R, P>
+public class SerializerBuilder<R extends ICodecEntry<?, R>, T extends R, P>
         extends AbstractBuilder<R, T, P, SerializerBuilder<R, T, P>> {
 
     private final NonNullSupplier<? extends T> factory;

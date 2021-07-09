@@ -27,14 +27,14 @@ package com.teamacronymcoders.epos.skill;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
+import net.ashwork.dynamicregistries.entry.DynamicEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class Skill extends ForgeRegistryEntry<ISkill> implements ISkill {
+public class Skill extends DynamicEntry<ISkill> implements ISkill {
 
     @VisibleForTesting
     public static final String DEFAULT_SKILL_EXPRESSION = "128 * (2 ^ ( (1 / 7) * (x - 1) ) )";
@@ -42,8 +42,8 @@ public class Skill extends ForgeRegistryEntry<ISkill> implements ISkill {
     public static final Codec<Skill> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Skill::getName),
                     EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Skill::getDescription),
-                    Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel), Codec.STRING
-                            .optionalFieldOf("expression", DEFAULT_SKILL_EXPRESSION).forGetter(Skill::getExpression))
+                    Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel),
+                    Codec.STRING.optionalFieldOf("expression", DEFAULT_SKILL_EXPRESSION).forGetter(Skill::getExpression))
             .apply(instance, Skill::new));
 
     private final IFormattableTextComponent name;
@@ -79,7 +79,7 @@ public class Skill extends ForgeRegistryEntry<ISkill> implements ISkill {
     }
 
     @Override
-    public ISerializer<? extends ISkill, ?> serializer() {
+    public ICodecEntry<? extends ISkill, ?> codec() {
         return SkillRegistrar.SKILL_SERIALIZER.get();
     }
 }

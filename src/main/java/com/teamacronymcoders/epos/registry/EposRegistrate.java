@@ -30,13 +30,13 @@ import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.registry.builder.SerializerBuilder;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
+import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -125,19 +125,19 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     }
 
     // Dynamic
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, I extends R, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(Class<? super R> serializerClass, NonNullSupplier<? extends I> factory) {
+    public <D extends IDynamicEntry<D>, R extends ICodecEntry<?, R>, I extends R, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(Class<? super R> serializerClass, NonNullSupplier<? extends I> factory) {
         return this.dynamicSerializer(this.self(), serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+    public <D extends IDynamicEntry<D>, R extends ICodecEntry<?, R>, P> SerializerBuilder<R, R, EposRegistrate> dynamicSerializer(String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.dynamicSerializer(this.self(), name, serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+    public <D extends IDynamicEntry<D>, R extends ICodecEntry<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.dynamicSerializer(parent, this.currentName(), serializerClass, factory);
     }
 
-    public <D extends IDynamic<?, D>, R extends ISerializer<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
+    public <D extends IDynamicEntry<D>, R extends ICodecEntry<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.entry(name, callback -> new SerializerBuilder<>(this, parent, name, callback, serializerClass, factory));
     }
 }

@@ -1,10 +1,9 @@
 package com.teamacronymcoders.epos.api.path;
 
 import com.mojang.serialization.Codec;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.ashwork.dynamicregistries.entry.CodecEntry;
 
-public final class PathSerializer extends ForgeRegistryEntry<PathSerializer> implements ISerializer<IPath, PathSerializer> {
+public final class PathSerializer extends CodecEntry<IPath, PathSerializer> {
 
     private final Codec<? extends IPath> codec;
 
@@ -13,7 +12,7 @@ public final class PathSerializer extends ForgeRegistryEntry<PathSerializer> imp
     }
 
     @Override
-    public Codec<? extends IPath> objectCodec() {
+    public Codec<? extends IPath> entryCodec() {
         return this.codec;
     }
 }

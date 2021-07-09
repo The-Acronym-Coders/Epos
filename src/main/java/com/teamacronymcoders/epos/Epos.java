@@ -25,71 +25,71 @@
 package com.teamacronymcoders.epos;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
-import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
-import com.teamacronymcoders.epos.api.registry.DynamicRegistryBuilder;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.client.EposClientHandler;
-import com.teamacronymcoders.epos.network.DynamicRegistryPacket;
-import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
-import com.teamacronymcoders.epos.registry.DynamicRegistryListener;
 import com.teamacronymcoders.epos.registry.EposRegistrate;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.skill.Skill;
+import net.ashwork.dynamicregistries.DynamicRegistryManager;
+import net.ashwork.dynamicregistries.event.DynamicRegistryEvent;
+import net.ashwork.dynamicregistries.registry.DynamicRegistry;
+import net.ashwork.dynamicregistries.registry.DynamicRegistryBuilder;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
 
 
 @Mod(Epos.ID)
 public class Epos {
 
+    @VisibleForTesting
+    public static final boolean IS_TESTING = true;
+
     public static final String ID = "epos";
     private static Epos instance;
     private final EposRegistrate registrate;
-    private final DynamicRegistryListener registryListener;
     private SimpleChannel network;
     private static final Logger LOGGER = LogManager.getLogger(ID);
 
     public Epos() {
         instance = this;
         this.registrate = EposRegistrate.create(ID);
-        this.registryListener = new DynamicRegistryListener();
         SkillRegistrar.register();
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus(), forgeBus = MinecraftForge.EVENT_BUS;
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new EposClientHandler(modBus, forgeBus));
         modBus.addListener(this::setup);
-        forgeBus.addListener(this::addReloadListeners);
-        forgeBus.addListener(this::serverTick);
 
         // Caps
-        forgeBus.addListener(this::setupCharacterSheetCaps);
-        modBus.addListener(this::respawnCharacterSheetCaps);
+        forgeBus.addGenericListener(Entity.class, this::setupCharacterSheetCaps);
+        forgeBus.addListener(this::respawnCharacterSheetCaps);
 
         // Uncomment for test cases to run
-        // this.addTestCases(modBus, forgeBus);
+        if (IS_TESTING) this.addTestCases(modBus, forgeBus);
     }
 
     public static final Epos instance() {
@@ -108,8 +108,9 @@ public class Epos {
         return LOGGER;
     }
 
-    private void setupCharacterSheetCaps(AttachCapabilitiesEvent<LivingEntity> event) {
-        event.addCapability(EposCapabilities.SHEET_ID, new CharacterSheetCapabilityProvider(event.getObject()));
+    private void setupCharacterSheetCaps(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof LivingEntity)
+            event.addCapability(EposCapabilities.SHEET_ID, new CharacterSheetCapabilityProvider((LivingEntity) event.getObject()));
     }
 
     private void respawnCharacterSheetCaps(PlayerEvent.Clone event) {
@@ -124,52 +125,43 @@ public class Epos {
             this.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Epos.ID, "network"))
                     .clientAcceptedVersions(str -> true).serverAcceptedVersions(str -> true)
                     .networkProtocolVersion(() -> Epos.ID + ":1").simpleChannel();
-
-            this.network.messageBuilder(DynamicRegistryPacket.class, 0).encoder(DynamicRegistryPacket::encode)
-                    .decoder(DynamicRegistryPacket::new).consumer(DynamicRegistryPacket::handle).add();
-
-            DynamicRegistryBuilder<ISkill, SkillSerializer> builder = new DynamicRegistryBuilder<>();
-            builder.setName(new ResourceLocation(Epos.ID, "skill")).setType(ISkill.class)
-                    .setSerializer(this.getRegistrate().getSkillSerializerRegistry())
-                    .setMissingEntry(() -> new Skill(new TranslationTextComponent("skill.epos.missing"),
-                            new TranslationTextComponent("skill.epos.missing.desc"), 1, "0"))
-                    .create();
         });
-    }
-
-    private void addReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(this.registryListener);
-    }
-
-    private void serverTick(ServerTickEvent event) {
-        if (DynamicRegistryHandler.INSTANCE.needsSync()) {
-            DynamicRegistryHandler.INSTANCE.synced();
-            this.getNetwork().send(PacketDistributor.ALL.noArg(), DynamicRegistryHandler.INSTANCE.syncPacket());
-        }
     }
 
     @VisibleForTesting
     private void addTestCases(IEventBus modBus, IEventBus forgeBus) {
-        modBus.addListener(this::testRegistrySerialization);
+        modBus.addListener(this::testRegistryInitialization);
+        modBus.addGenericListener(ISkill.class, this::testRegistryRegistration);
+        modBus.addListener(this::testRegistryCodec);
     }
 
     @VisibleForTesting
-    private void testRegistrySerialization(FMLCommonSetupEvent event) {
-        DynamicRegistryBuilder<ISkill, SkillSerializer> builder = new DynamicRegistryBuilder<>();
-        builder.setName(new ResourceLocation(Epos.ID, "skill")).setType(ISkill.class)
-                .setSerializer(this.getRegistrate().getSkillSerializerRegistry())
-                .setMissingEntry(() -> new Skill(new TranslationTextComponent("missing"),
-                        new TranslationTextComponent("missing.desc"), 1, "0"));
-        DynamicRegistry<ISkill, SkillSerializer> registry = new DynamicRegistry<>(builder);
-        registry.register(
+    private void testRegistryInitialization(DynamicRegistryEvent.NewRegistry event) {
+        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "skill"), ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
+                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+                .create();
+    }
+
+    @VisibleForTesting
+    private void testRegistryRegistration(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
+        event.getRegistry().register(new Skill(new TranslationTextComponent("missing"),
+                new TranslationTextComponent("missing.desc"), 1, "0").setRegistryName(new ResourceLocation(Epos.ID, "missing")));
+        event.getRegistry().register(
                 new Skill(new TranslationTextComponent("test"), new TranslationTextComponent("test.desc"), 5, "1 + x")
                         .setRegistryName(new ResourceLocation(Epos.ID, "test")));
-        registry.register(new Skill(new TranslationTextComponent("test2"), new TranslationTextComponent("test2.desc"),
+        event.getRegistry().register(new Skill(new TranslationTextComponent("test2"), new TranslationTextComponent("test2.desc"),
                 10, "x * 2 / 3").setRegistryName(new ResourceLocation(Epos.ID, "test2")));
-        registry.freeze();
-        registry.encodeRegistry(JsonOps.INSTANCE).result().ifPresent(element -> {
-            System.out.println(element);
-            registry.updateRegistry(JsonOps.INSTANCE, element);
+    }
+
+    @VisibleForTesting
+    private void testRegistryCodec(FMLLoadCompleteEvent event) {
+        event.enqueueWork(() -> {
+            DynamicRegistry<ISkill, SkillSerializer> registry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "skill"));
+            @Nullable
+            JsonElement element = registry.toSnapshot(JsonOps.INSTANCE);
+            if (element != null) {
+                registry.fromSnapshot(element, JsonOps.INSTANCE);
+            }
         });
     }
 }

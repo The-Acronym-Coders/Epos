@@ -109,7 +109,10 @@ repositories {
     }
     maven {
         name 'Titanium'
-        url 'https://cdn.hrzn.studio/maven/'
+        url 'https://maven.blamejared.com/'
+    }
+    flatDir {
+        dir 'libs'
     }
 }
 
@@ -140,10 +143,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
 
     // Add Titanium
-    implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion")
+    implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion-10")
 
     // Add DynamicRegistries
-
+    implementation fg.deobf('net.ashwork:dynamicregistries:0.1.2')
 }
 
 test {

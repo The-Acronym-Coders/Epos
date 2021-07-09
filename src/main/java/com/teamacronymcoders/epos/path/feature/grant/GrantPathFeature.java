@@ -6,7 +6,6 @@ import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.enums.EposGrantType;
 import com.teamacronymcoders.epos.api.feat.FeatInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
-import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.util.EposCodecs;

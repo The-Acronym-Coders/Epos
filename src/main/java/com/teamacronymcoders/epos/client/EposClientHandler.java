@@ -28,10 +28,11 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
 import com.teamacronymcoders.epos.client.renderer.model.DynamicRegistryBakedModel;
 import com.teamacronymcoders.epos.client.renderer.model.EposResourceType;
-import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
+import net.ashwork.dynamicregistries.DynamicRegistryManager;
+import net.ashwork.dynamicregistries.registry.DynamicRegistry;
+import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -46,6 +47,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.resource.VanillaResourceType;
 
@@ -67,7 +69,7 @@ public class EposClientHandler {
         modBus.addListener(this::registerModels);
 
         // FOR TESTING
-        // this.addTestCases(modBus, forgeBus);
+        if (Epos.IS_TESTING) this.addTestCases(modBus, forgeBus);
     }
 
     public static final EposClientHandler clientInstance() {
@@ -81,6 +83,7 @@ public class EposClientHandler {
     @VisibleForTesting
     private void addTestCases(IEventBus modBus, IEventBus forgeBus) {
         forgeBus.addListener(this::testDraw);
+        forgeBus.addListener(this::clientTick);
     }
 
     // Puts model at (1, 1, 1)
@@ -92,8 +95,8 @@ public class EposClientHandler {
         stack.pushPose();
         stack.translate(1 - projection.x, 1 - projection.y, 1 - projection.z);
         IVertexBuilder builder = buffer.getBuffer(RenderType.translucentMovingBlock());
-        List<BakedQuad> quads = EposResourceType.SKILL.getQuads(DynamicRegistryHandler.INSTANCE
-                .getRegistry(new ResourceLocation(Epos.ID, "skill")).get(new ResourceLocation(Epos.ID, "test")));
+        List<BakedQuad> quads = EposResourceType.SKILL.getQuads(DynamicRegistryManager.STATIC
+                .getRegistry(new ResourceLocation(Epos.ID, "skill")).getValue(new ResourceLocation(Epos.ID, "test")));
         for (BakedQuad quad : quads) {
             builder.addVertexData(event.getMatrixStack().last(), quad, 1.0f, 1.0f, 1.0f, 1.0f,
                     WorldRenderer.getLightColor(this.mc.level, new BlockPos(1, 1, 1)), OverlayTexture.NO_OVERLAY, true);
@@ -107,9 +110,14 @@ public class EposClientHandler {
         ModelLoader.addSpecialModel(resourceType.getMainModel());
     }
 
-    public void refreshResource(Collection<DynamicRegistry<?, ?>> registries) {
-        registries.stream().map(DynamicRegistry::getRegistryName).filter(this.resourceLoaders::containsKey)
-                .map(this.resourceLoaders::get).forEach(EposResourceType::refresh);
+    private void clientTick(final TickEvent.ClientTickEvent event) {
+        if (Minecraft.getInstance().options.keySprint.consumeClick()) {
+            this.refreshResource(DynamicRegistryManager.DYNAMIC.getRegistry(new ResourceLocation(Epos.ID, "skill")));
+        }
+    }
+
+    public void refreshResource(DynamicRegistry<?, ?> registry) {
+        this.resourceLoaders.get(registry.getName()).refresh();
         ForgeHooksClient.refreshResources(this.mc, VanillaResourceType.MODELS);
     }
 }

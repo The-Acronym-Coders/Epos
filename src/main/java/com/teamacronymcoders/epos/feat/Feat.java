@@ -1,12 +1,12 @@
 package com.teamacronymcoders.epos.feat;
 
 import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.registry.ISerializer;
 import com.teamacronymcoders.epos.registry.FeatRegistrar;
+import net.ashwork.dynamicregistries.entry.DynamicEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class Feat extends ForgeRegistryEntry<IFeat> implements IFeat {
+public class Feat extends DynamicEntry<IFeat> implements IFeat {
 
     private final IFormattableTextComponent name;
     private final IFormattableTextComponent description;
@@ -41,8 +41,7 @@ public class Feat extends ForgeRegistryEntry<IFeat> implements IFeat {
     }
 
     @Override
-    public ISerializer<? extends IFeat, ?> serializer() {
+    public ICodecEntry<? extends IFeat, ?> codec() {
         return FeatRegistrar.FEAT_SERIALIZER.get();
     }
-
 }

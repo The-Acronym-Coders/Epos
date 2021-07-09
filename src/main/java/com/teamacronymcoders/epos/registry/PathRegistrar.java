@@ -17,7 +17,8 @@ public class PathRegistrar {
                         .group(
                                 EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Path::getName),
                                 EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Path::getDescription),
-                                Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel))
+                                Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel),
+                                PathFeatures.CODEC.fieldOf("features").forGetter(Path::getPathFeatures))
                         .apply(instance, Path::new));
                 return codec;
             }).register();

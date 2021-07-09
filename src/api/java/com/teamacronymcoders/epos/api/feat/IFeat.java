@@ -1,8 +1,6 @@
 package com.teamacronymcoders.epos.api.feat;
 
 import com.teamacronymcoders.epos.api.IDescribable;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
-import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 
 // TODO: Document Main Interface Object

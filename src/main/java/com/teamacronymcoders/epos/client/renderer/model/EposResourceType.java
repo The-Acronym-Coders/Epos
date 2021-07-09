@@ -26,10 +26,10 @@ package com.teamacronymcoders.epos.client.renderer.model;
 
 import com.google.common.base.Supplier;
 import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.registry.DynamicRegistry;
-import com.teamacronymcoders.epos.api.registry.IDynamic;
-import com.teamacronymcoders.epos.api.registry.IDynamicRegistry;
-import com.teamacronymcoders.epos.registry.DynamicRegistryHandler;
+import net.ashwork.dynamicregistries.DynamicRegistryManager;
+import net.ashwork.dynamicregistries.entry.IDynamicEntry;
+import net.ashwork.dynamicregistries.registry.DynamicRegistry;
+import net.ashwork.dynamicregistries.registry.IDynamicRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.util.ResourceLocation;
@@ -42,7 +42,7 @@ public class EposResourceType implements IResourceType {
     public static final EposResourceType SKILL = constructResourceType(new ResourceLocation(Epos.ID, "skill"));
 
     public static final EposResourceType constructResourceType(ResourceLocation registryName) {
-        return new EposResourceType(() -> DynamicRegistryHandler.INSTANCE.getRegistry(registryName),
+        return new EposResourceType(() -> DynamicRegistryManager.DYNAMIC.getRegistry(registryName),
                 new ResourceLocation(registryName.getNamespace(), "general/" + registryName.getPath()));
     }
 
@@ -61,7 +61,7 @@ public class EposResourceType implements IResourceType {
         return this.mainModel;
     }
 
-    public <T extends IDynamic<T, ?>> List<BakedQuad> getQuads(T obj) {
+    public <T extends IDynamicEntry<T>> List<BakedQuad> getQuads(T obj) {
         return Minecraft.getInstance().getModelManager().getModel(this.mainModel).getQuads(null, null, RANDOM,
                 EposModelData.constructModelData(obj == null ? null : this.modelLocations.get(obj.getRegistryName())));
     }
@@ -69,12 +69,12 @@ public class EposResourceType implements IResourceType {
     public void refresh() {
         this.modelLocations.clear();
 
-        this.modelLocations.put(DynamicRegistry.MISSING_ENTRY, DynamicRegistryBakedModel.MISSING_MODEL_LOCATION);
+        this.modelLocations.put(new ResourceLocation(Epos.ID, "missing"), DynamicRegistryBakedModel.MISSING_MODEL_LOCATION);
 
         IDynamicRegistry<?, ?> registry = this.registry.get();
         if (registry != null) {
-            String subdirectory = registry.getRegistryName().getPath();
-            registry.forEach((loc, v) -> this.modelLocations.computeIfAbsent(loc,
+            String subdirectory = registry.getName().getPath();
+            registry.keySet().forEach(loc -> this.modelLocations.computeIfAbsent(loc,
                     l -> new ResourceLocation(l.getNamespace(), subdirectory + "/" + l.getPath())));
         }
     }
