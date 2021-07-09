@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
+import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import com.tterrag.registrate.util.entry.RegistryEntry;

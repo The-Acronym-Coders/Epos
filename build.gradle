@@ -140,8 +140,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
 
     // Add Titanium
-    // Titanium
-    implementation fg.deobf('com.hrznstudio:titanium:1.16.5-3.2.8.2')
+    implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion")
+
+    // Add DynamicRegistries
+
 }
 
 test {

@@ -4,7 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.enums.EposGrantType;
+import com.teamacronymcoders.epos.api.feat.FeatInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.skill.ISkill;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import net.minecraft.entity.LivingEntity;
@@ -37,10 +40,11 @@ public class GrantPathFeature extends AbstractPathFeature {
             case PATH:
                 return;
             case SKILL: {
-                stats.getSkills().getOrCreate(this.id);
+                SkillInfo skill = stats.getSkills().getOrCreate(this.id);
+                if (skill.getLevel() == 0) skill.setLevel(1);
             }
             case FEAT: {
-                stats.getFeats().getOrCreate(this.id);
+                FeatInfo feat = stats.getFeats().getOrCreate(this.id);
             }
         }
     }

@@ -2,9 +2,11 @@ package com.teamacronymcoders.epos.api.feat;
 
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.registry.IDynamic;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
+import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 
 // TODO: Document Main Interface Object
-public interface IFeat extends IDynamic<IFeat, IFeat>, IDescribable {
+public interface IFeat extends IDynamicEntry<IFeat>, IDescribable {
 
     /**
      * Returns a boolean value as to wheter the {@link IFeat} is an Tickable Ability or not!
