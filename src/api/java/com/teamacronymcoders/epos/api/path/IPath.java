@@ -3,6 +3,7 @@ package com.teamacronymcoders.epos.api.path;
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
+import com.teamacronymcoders.epos.path.Path;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.minecraft.entity.LivingEntity;
 
@@ -26,9 +27,7 @@ public interface IPath extends IDynamicEntry<IPath>, IDescribable {
     int getMaxLevel();
 
     /**
-     * TODO: Document this
-     *
-     * @return
+     * @return Returns the {@link PathFeatures} for the specific {@link Path}.
      */
     PathFeatures getPathFeatures();
 

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.ResourceLocation;
 
-//TODO: Everything that's commented out needs to be checked by Ash
 public class SkillInfo {
 
     public static final Codec<SkillInfo> CODEC = RecordCodecBuilder.create(instance -> instance
@@ -66,20 +65,18 @@ public class SkillInfo {
         this.setExperience(Math.min(this.getExperience() + xpAmount, Integer.MAX_VALUE)); //TODO: Have a method for checking Max Level Experience Cap!
     }
 
-    // TODO: Basic implementation, Look over this later
     public void removeExperience(int xpAmount) {
-        this.setExperience(Math.max(this.getExperience() - xpAmount, 0)); //TODO: Have a method for checking Max Level Experience Cap!
+        this.setExperience(Math.max(this.getExperience() - xpAmount, 0));
     }
 
-    public void setExperience(int experience) {
-        this.experience = Math.min(experience, 0);
+    private void setExperience(int experience) {
+        this.experience = experience;
     }
 
     public int getLevel() {
         return level;
     }
 
-    //TODO: Fix this garbage
     public void setLevel(int level) {
         this.level = Math.min(0, this.level - level);
         if (level == 0) setActive(false);

@@ -30,6 +30,8 @@ import com.mojang.serialization.JsonOps;
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
+import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.client.EposClientHandler;
@@ -89,7 +91,12 @@ public class Epos {
         forgeBus.addListener(this::respawnCharacterSheetCaps);
 
         // Uncomment for test cases to run
-        if (IS_TESTING) this.addTestCases(modBus, forgeBus);
+        if (IS_TESTING) {
+            this.addTestCases(modBus, forgeBus);
+        } else {
+            modBus.addListener(this::setupRegistries);
+
+        }
     }
 
     public static final Epos instance() {
@@ -108,6 +115,7 @@ public class Epos {
         return LOGGER;
     }
 
+    // Caps
     private void setupCharacterSheetCaps(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof LivingEntity)
             event.addCapability(EposCapabilities.SHEET_ID, new CharacterSheetCapabilityProvider((LivingEntity) event.getObject()));
@@ -128,6 +136,22 @@ public class Epos {
         });
     }
 
+    // Registries
+    private void setupRegistries(DynamicRegistryEvent.NewRegistry event) {
+        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "path"), IPath.class, this.getRegistrate().getPathSerializerRegistry())
+                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+                .create();
+        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "skill"), ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
+                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+                .create();
+        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "feat"), IFeat.class, this.getRegistrate().getFeatSerializerRegistry())
+                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+                .create();
+    }
+
+
+
+    // Test Code
     @VisibleForTesting
     private void addTestCases(IEventBus modBus, IEventBus forgeBus) {
         modBus.addListener(this::testRegistryInitialization);

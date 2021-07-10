@@ -27,7 +27,6 @@ package com.teamacronymcoders.epos.api.skill;
 import com.mojang.serialization.Codec;
 import net.ashwork.dynamicregistries.entry.CodecEntry;
 
-// TODO: Document
 public final class SkillSerializer extends CodecEntry<ISkill, SkillSerializer> {
 
     private final Codec<? extends ISkill> codec;

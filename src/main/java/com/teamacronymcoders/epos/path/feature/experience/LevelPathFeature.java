@@ -3,7 +3,9 @@ package com.teamacronymcoders.epos.path.feature.experience;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
+import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import net.minecraft.entity.LivingEntity;
@@ -48,26 +50,28 @@ public class LevelPathFeature extends AbstractPathFeature {
         return this.levels;
     }
 
-    // TODO: Basic implementation, Look over this later
     @Override
     public void applyTo(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
-            if (this.getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
-                //stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());
+            if (this.getGrantType() == EposGrantType.SKILL && this.getSkillID() != null) {
+                SkillInfo info = stats.getSkills().getOrCreate(this.getSkillID());
+                int currentLevel = info.getLevel();
+                info.setLevel(Math.min(currentLevel + this.levels, info.getMaxLevel()));
             } else {
-                //stats.addExperience(experience);
+                stats.levelUp(this.levels);
             }
         }
     }
 
-    // TODO: Basic implementation, Look over this later
     @Override
     public void removeFrom(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
-            if (getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
-                //stats.getSkills().getOrCreate(getSkillID()).removeExperience(getExperience());
+            if (getGrantType() == EposGrantType.SKILL && this.getSkillID() != null) {
+                SkillInfo info = stats.getSkills().getOrCreate(this.getSkillID());
+                int currentLevel = info.getLevel();
+                info.setLevel(Math.max(currentLevel + this.levels, 0));
             } else {
-                //stats.removeExperience(experience);
+                stats.levelDown(this.levels);
             }
         }
     }

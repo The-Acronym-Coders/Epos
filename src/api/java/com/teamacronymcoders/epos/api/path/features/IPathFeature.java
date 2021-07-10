@@ -11,16 +11,16 @@ public interface IPathFeature extends IDescribable {
     /**
      * Called to Apply the {@link IPathFeature} to the {@link LivingEntity} Character
      *
-     * @param character
-     * @param stats
+     * @param character The Character as {@link LivingEntity}.
+     * @param stats The {@link ICharacterSheet} for the Character.
      */
     void applyTo(LivingEntity character, ICharacterSheet stats);
 
     /**
      * Called to Revoke the {@link IPathFeature} to the {@link LivingEntity} Character
      *
-     * @param character
-     * @param stats
+     * @param character The Character as {@link LivingEntity}.
+     * @param stats The {@link ICharacterSheet} for the Character.
      */
     void removeFrom(LivingEntity character, ICharacterSheet stats);
 

@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.path;
 
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
@@ -55,12 +56,16 @@ public class Path extends DynamicEntry<IPath> implements IPath {
 
     @Override
     public void addLevel(LivingEntity character, ICharacterSheet stats, int levelsToAdd) {
-        //TODO: Implement Me
+        PathInfo info = stats.getPaths().getOrCreate(this.getRegistryName());
+        int currentLevel = info.getLevel();
+        info.setLevel(Math.min(currentLevel + levelsToAdd, this.maxLevel));
     }
 
     @Override
     public void removeLevel(LivingEntity character, ICharacterSheet stats, int levelsToRemove) {
-        //TODO: Implement Me
+        PathInfo info = stats.getPaths().getOrCreate(this.getRegistryName());
+        int currentLevel = info.getLevel();
+        info.setLevel(Math.max(currentLevel + levelsToRemove, 0));
     }
 
     @Override

@@ -52,8 +52,8 @@ public class ExperiencePathFeature extends AbstractPathFeature {
     @Override
     public void applyTo(LivingEntity character, ICharacterSheet stats) {
         if (character instanceof PlayerEntity) {
-            if (this.getGrantType() == EposGrantType.SKILL && getSkillID() != null) {
-                stats.getSkills().getOrCreate(getSkillID()).addExperience(getExperience());
+            if (this.getGrantType() == EposGrantType.SKILL && this.getSkillID() != null) {
+                stats.getSkills().getOrCreate(getSkillID()).addExperience(this.getExperience());
             } else {
                 stats.addExperience(experience);
             }
