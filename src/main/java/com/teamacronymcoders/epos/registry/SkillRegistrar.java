@@ -47,6 +47,5 @@ public class SkillRegistrar {
                 return codec;
             }).register();
 
-    public static final void register() {
-    }
+    public static void register() {}
 }

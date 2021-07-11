@@ -1,0 +1,11 @@
+{
+  "type": "epos:path",
+  "name": {
+    "translate": "path.epos.lumberjack"
+  },
+  "description": {
+    "translate": "path.epos.lumberjack.desc"
+  },
+  "maxLevel": 1,
+  "features": {}
+}

@@ -26,9 +26,12 @@ package com.teamacronymcoders.epos.util;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.*;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
@@ -57,6 +60,17 @@ public final class EposCodecs {
                 }
             });
 
+    public static final Codec<EffectInstance> EFFECT_INSTANCE = RecordCodecBuilder.create(instance -> instance
+        .group(
+                forgeRegistryEntry(ForgeRegistries.POTIONS).fieldOf("effect").forGetter(EffectInstance::getEffect),
+                Codec.INT.fieldOf("duration").forGetter(EffectInstance::getDuration),
+                Codec.INT.optionalFieldOf("amplifier", 1).forGetter(EffectInstance::getAmplifier),
+                Codec.BOOL.optionalFieldOf("ambient", false).forGetter(EffectInstance::isAmbient),
+                Codec.BOOL.optionalFieldOf("visible", true).forGetter(EffectInstance::isVisible),
+                Codec.BOOL.optionalFieldOf("showIcon", true).forGetter(EffectInstance::showIcon)
+        ).apply(instance, EffectInstance::new)
+    );
+
     public static <V extends IForgeRegistryEntry<V>> Codec<IForgeRegistry<V>> forgeRegistry() {
         return ResourceLocation.CODEC.comapFlatMap(loc -> {
             @Nullable
@@ -74,4 +88,5 @@ public final class EposCodecs {
                     : DataResult.error("Not a valid registry object within " + registry.getRegistryName() + ": " + loc);
         }, IForgeRegistryEntry::getRegistryName);
     }
+
 }

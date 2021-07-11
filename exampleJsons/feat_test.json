@@ -1,0 +1,10 @@
+{
+  "type": "epos:feat",
+  "name": {
+    "translate": "feat.epos.test"
+  },
+  "description": {
+    "translate": "feat.epos.test.desc"
+  },
+  "isAbility": false
+}

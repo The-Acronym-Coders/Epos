@@ -1,0 +1,11 @@
+{
+  "type": "epos:path",
+  "name": {
+    "translate": "path.epos.warrior"
+  },
+  "description": {
+    "translate": "path.epos.warrior.desc"
+  },
+  "maxLevel": 1,
+  "features": {}
+}

@@ -27,6 +27,9 @@ package com.teamacronymcoders.epos;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
+import com.teamacronymcoders.epos.api.builder.FeatBuilder;
+import com.teamacronymcoders.epos.api.builder.PathBuilder;
+import com.teamacronymcoders.epos.api.builder.SkillBuilder;
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
@@ -40,14 +43,13 @@ import com.teamacronymcoders.epos.client.EposClientHandler;
 import com.teamacronymcoders.epos.impl.EposFeats;
 import com.teamacronymcoders.epos.impl.EposPaths;
 import com.teamacronymcoders.epos.impl.EposSkills;
+import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.registry.EposRegistrate;
 import com.teamacronymcoders.epos.registry.FeatRegistrar;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
-import com.teamacronymcoders.epos.registry.builder.FeatBuilder;
-import com.teamacronymcoders.epos.registry.builder.PathBuilder;
-import com.teamacronymcoders.epos.registry.builder.SkillBuilder;
 import com.teamacronymcoders.epos.skill.Skill;
+import com.teamacronymcoders.epos.util.EposRegistries;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.event.DynamicRegistryEvent;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
@@ -86,6 +88,7 @@ public class Epos {
     private final EposRegistrate registrate;
     private SimpleChannel network;
     private static final Logger LOGGER = LogManager.getLogger(ID);
+    private EposRegistries registries;
 
     public Epos() {
         instance = this;
@@ -114,7 +117,7 @@ public class Epos {
         }
     }
 
-    public static final Epos instance() {
+    public static Epos instance() {
         return instance;
     }
 
@@ -128,6 +131,11 @@ public class Epos {
 
     public static Logger getLogger() {
         return LOGGER;
+    }
+
+    public EposRegistries getRegistries() {
+        this.registries = new EposRegistries();
+        return this.registries;
     }
 
     // Caps
@@ -162,6 +170,9 @@ public class Epos {
         new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "feat"), IFeat.class, this.getRegistrate().getFeatSerializerRegistry())
                 .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
                 .create();
+        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "spiritual_aid"), ISpiritualAid.class, this.getRegistrate().getSpiritualAidSerializerRegistry())
+                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+                .create();
     }
 
     private void registerPaths(DynamicRegistryEvent.Register<IPath, PathSerializer> event) {
@@ -175,7 +186,7 @@ public class Epos {
     }
 
     private void registerFeats(DynamicRegistryEvent.Register<IFeat, FeatSerializer> event) {
-        new EposFeats();
+        EposFeats.registerEventManagers();
         event.getRegistry().registerAll(FeatBuilder.BUILT_FEATS.toArray(new IFeat[0]));
     }
 

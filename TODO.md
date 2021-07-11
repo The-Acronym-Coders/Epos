@@ -72,3 +72,22 @@
 
 - Timber!
   - Allows the user to chop down an entire tree by simply mining a single block.
+  
+- ?
+  - Increased Mining Speed
+  - Unbreaking
+  - Dodge Chance(?)
+  - Damage Reduction
+  - Absorption Hearts(?)
+  - Chance to make animals breed when you're around(?)
+  - Chance to spawn an extra baby when breeding.
+  - Increased Crop Yield (GML?)
+  - Chance to make things grow faster when you're around(?)
+  - Chance to get Bone-Meal to apply to a larger area (25% 3x3, 10% 5x5, 5% 7x7)
+  - Mining Bare-Handed
+  - Heal on Attack(?) (Monk?)
+  - Wolf Feats (Heals when around you, Deals extra damage, etc)
+  - Potion Tipped Arrows (?)
+  - Ranged dealing more damage(?)
+  - Chance to not consume arrows (?)
+  - Piercing Arrows

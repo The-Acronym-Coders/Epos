@@ -1,0 +1,11 @@
+{
+  "type": "epos:path",
+  "name": {
+    "translate": "path.epos.test"
+  },
+  "description": {
+    "translate": "path.epos.test.desc"
+  },
+  "maxLevel": 1,
+  "features": {}
+}

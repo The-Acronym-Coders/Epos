@@ -32,7 +32,6 @@ import com.teamacronymcoders.epos.client.renderer.model.DynamicRegistryBakedMode
 import com.teamacronymcoders.epos.client.renderer.model.EposResourceType;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
-import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -51,7 +50,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.resource.VanillaResourceType;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,0 +1,11 @@
+{
+  "type": "epos:path",
+  "name": {
+    "translate": "path.epos.monk"
+  },
+  "description": {
+    "translate": "path.epos.monk.desc"
+  },
+  "maxLevel": 1,
+  "features": {}
+}

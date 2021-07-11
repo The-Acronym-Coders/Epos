@@ -23,6 +23,5 @@ public class PathRegistrar {
                 return codec;
             }).register();
 
-    public static final void register() {
-    }
+    public static void register() {}
 }

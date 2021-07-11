@@ -1,12 +1,13 @@
 package com.teamacronymcoders.epos.impl;
 
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.api.builder.SkillBuilder;
 import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.registry.builder.SkillBuilder;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
 public class EposSkills {
-    private static final ISkill test = SkillBuilder.create(Epos.instance().getRegistrate(), Epos.instance().getRegistrate(), "test", null)
+    private static final ISkill test = SkillBuilder.create(new ResourceLocation(Epos.ID, "test"))
             .name(() -> new StringTextComponent("test"))
             .description(() -> new StringTextComponent("testDescription"))
             .maxLevel(() -> 1)

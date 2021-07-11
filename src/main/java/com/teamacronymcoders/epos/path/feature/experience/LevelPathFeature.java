@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.path.feature.experience;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
-import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;

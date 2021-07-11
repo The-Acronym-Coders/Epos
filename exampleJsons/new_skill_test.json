@@ -1,0 +1,11 @@
+{
+  "type": "epos:skill",
+  "name": {
+    "translate": "skill.epos.new_test"
+  },
+  "description": {
+    "translate": "skill.epos.new_test.desc"
+  },
+  "maxLevel": 5,
+  "expression": "128 * (2 ^ ( (1 / 7) * (x - 1) ) )"
+}

@@ -22,6 +22,5 @@ public class FeatRegistrar {
                 return codec;
             }).register();
 
-    public static final void register() {
-    }
+    public static void register() {}
 }
