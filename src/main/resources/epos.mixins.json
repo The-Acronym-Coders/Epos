@@ -1,0 +1,10 @@
+{
+"required": true,
+"package": "com.teamacronymcoders.epos.mixin",
+"compatibilityLevel": "JAVA_8",
+"refmap": "epos.refmap.json",
+"mixins": [
+"MixinPlayerRenderer"
+],
+"minVersion": "0.8"
+} 
