@@ -1,0 +1,10 @@
+{
+  "type": "epos:feat",
+  "name": {
+    "translate": "feat.epos.shovel_specialization_novice"
+  },
+  "description": {
+    "translate": "feat.epos.shovel_specialization_novice.desc"
+  },
+  "isAbility": false
+}

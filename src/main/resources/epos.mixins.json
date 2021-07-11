@@ -4,7 +4,7 @@
 "compatibilityLevel": "JAVA_8",
 "refmap": "epos.refmap.json",
 "mixins": [
-"MixinPlayerRenderer"
+  "ItemStackMixin"
 ],
 "minVersion": "0.8"
 } 

@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.util;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
+import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
@@ -29,10 +30,23 @@ public class EposCharacterUtil {
         return false;
     }
 
+    @Nullable
+    public static SkillInfo getSkillInfo(LivingEntity character, ResourceLocation skillId) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return sheet.getSkills().getOrCreate(skillId);
+        return null;
+    }
+
     public static boolean hasSkill(LivingEntity character, ResourceLocation skillId) {
         ICharacterSheet sheet = getCharacterSheet(character);
         if (sheet != null) return sheet.getSkills().getOrCreate(skillId).getLevel() > 0;
         return false;
+    }
+
+    public static int getSkillLevel(LivingEntity character, ResourceLocation skillId) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return sheet.getSkills().getOrCreate(skillId).getLevel();
+        return 0;
     }
 
     public static boolean hasFeat(LivingEntity character, ResourceLocation featId) {

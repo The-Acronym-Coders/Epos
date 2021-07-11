@@ -1,0 +1,10 @@
+{
+  "type": "epos:feat",
+  "name": {
+    "translate": "feat.epos.hoe_specialization_intermediate"
+  },
+  "description": {
+    "translate": "feat.epos.hoe_specialization_intermediate.desc"
+  },
+  "isAbility": false
+}

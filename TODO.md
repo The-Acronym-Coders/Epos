@@ -74,9 +74,6 @@
   - Allows the user to chop down an entire tree by simply mining a single block.
   
 - ?
-  - Increased Mining Speed
-  - Unbreaking
-  - Dodge Chance(?)
   - Damage Reduction
   - Absorption Hearts(?)
   - Chance to make animals breed when you're around(?)

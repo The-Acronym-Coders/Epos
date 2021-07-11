@@ -3,6 +3,8 @@ package com.teamacronymcoders.epos.impl.feat.fisherman;
 import com.hrznstudio.titanium.event.handler.EventManager;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
+import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
+import com.teamacronymcoders.epos.impl.skill.EposSkillIds;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +22,7 @@ public class ExperiencedAngler {
                     FishingBobberEntity fishingBobber = (FishingBobberEntity) event.getEntity();
                     PlayerEntity player = fishingBobber.getPlayerOwner();
                     if (player != null) {
-                        return EposCharacterUtil.hasFeat(player, new ResourceLocation(Epos.ID, "rapid_angler")) && EposCharacterUtil.hasSkill(player, new ResourceLocation(Epos.ID, "fishing"));
+                        return EposCharacterUtil.hasFeat(player, EposFeatIds.EXPERIENCED_ANGLER) && EposCharacterUtil.hasSkill(player, EposSkillIds.FISHING);
                     }
                 }
                 return false;
@@ -39,7 +41,7 @@ public class ExperiencedAngler {
             });
 
     private static int getLuckModifier(@Nonnull PlayerEntity character) {
-        SkillInfo info = EposCharacterUtil.getCharacterSheet(character).getSkills().getOrCreate(new ResourceLocation(Epos.ID, "rapid_angler"));
+        SkillInfo info = EposCharacterUtil.getCharacterSheet(character).getSkills().getOrCreate(EposFeatIds.EXPERIENCED_ANGLER);
         int levelsPerModifierTier = Math.round(info.getMaxLevel() / 3f);
         return info.getLevel() / levelsPerModifierTier < 1 ? 0 : Math.round((float) info.getLevel() / (float) levelsPerModifierTier);
     }

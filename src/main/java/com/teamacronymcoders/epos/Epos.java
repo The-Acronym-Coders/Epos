@@ -75,6 +75,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 
 @Mod(Epos.ID)
@@ -114,6 +115,10 @@ public class Epos {
             modBus.addGenericListener(ISkill.class, this::registerSkills);
             modBus.addGenericListener(IFeat.class, this::registerFeats);
             modBus.addListener(this::generateRegistryJson);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            getLogger().info(UUID.randomUUID());
         }
     }
 

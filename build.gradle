@@ -3,6 +3,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.+'
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 
 // Standard Project Information
@@ -59,6 +60,9 @@ minecraft {
             // Directory for the project to run in
             workingDirectory file('run/client')
 
+            // Add mixin configuration argument
+            arg '-mixin.config=' + project.modId + '.mixins.json'
+
             // Set the console logging level
             property 'forge.logging.console.level', 'debug'
 
@@ -69,6 +73,7 @@ minecraft {
         // Server run configuration
         server {
             workingDirectory file('run/server')
+            arg '-mixin.config=' + project.modId + '.mixins.json'
             property 'forge.logging.console.level', 'debug'
             mods.create(project.modId).source(sourceSets.main)
         }
@@ -157,13 +162,15 @@ shadowJar {
     configurations = [project.configurations.shade]
     relocate 'net.objecthunter.exp4j', "${project.userGroup}.${project.modId}.repack.exp4j"
     relocate 'com.tterrag.registrate', "${project.userGroup}.${project.modId}.repack.registrate"
-    
     finalizedBy 'reobfShadowJar'
 }
 
 // Set attributes of the jar
 jar {
+    finalizedBy 'reobfJar'
+
     // Set manifest information
+    // Add mixin to jar manifest
     manifest.attributes([
         'Specification-Title': project.modName,
         'Specification-Vendor': project.userName,
@@ -171,10 +178,14 @@ jar {
         'Implementation-Title': project.modName,
         'Implementation-Version': project.version,
         'Implementation-Vendor': project.userName,
-        'Implementation-Timestamp': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ')
+        'Implementation-Timestamp': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'),
+        'MixinConfigs': "${project.modId}.mixins.json"
     ])
+}
 
-    finalizedBy 'reobfJar'
+// Setup mixin reference map
+mixin {
+    add sourceSets.main, "${project.modId}.refmap.json"
 }
 
 reobf {

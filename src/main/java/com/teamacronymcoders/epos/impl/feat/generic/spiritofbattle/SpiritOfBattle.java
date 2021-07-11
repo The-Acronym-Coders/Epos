@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle;
 
 import com.hrznstudio.titanium.event.handler.EventManager;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposRegistries;
@@ -9,7 +10,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public class SpiritOfBattle {
@@ -18,7 +18,7 @@ public class SpiritOfBattle {
                 Entity dealer = event.getSource().getEntity();
                 if (dealer instanceof LivingEntity) {
                     LivingEntity character = (LivingEntity) dealer;
-                    return EposCharacterUtil.hasFeat(character, new ResourceLocation(Epos.ID, "spirit_of_battle"));
+                    return EposCharacterUtil.hasFeat(character, EposFeatIds.SPIRIT_OF_BATTLE);
                 }
                 return false;
             })

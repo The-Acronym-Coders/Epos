@@ -4,10 +4,13 @@ import com.hrznstudio.titanium.event.handler.EventManager;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.builder.FeatBuilder;
 import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.impl.feat.generic.AgileCombatant;
 import com.teamacronymcoders.epos.impl.feat.miner.CascadingExcavations;
 import com.teamacronymcoders.epos.impl.feat.fisherman.ExperiencedAngler;
 import com.teamacronymcoders.epos.impl.feat.lumberjack.Timber;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.SpiritOfBattle;
+import com.teamacronymcoders.epos.impl.feat.miner.EffectiveMining;
+import com.teamacronymcoders.epos.impl.feat.monk.EmbraceOfTheLotus;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -21,7 +24,10 @@ public class EposFeats {
             ).createEntry();
 
     public static void registerEventManagers() {
+        AgileCombatant.featManager.subscribe();
         CascadingExcavations.featManager.subscribe();
+        EffectiveMining.featManager.subscribe();
+        EmbraceOfTheLotus.featManager.subscribe();
         ExperiencedAngler.featManager.subscribe();
         SpiritOfBattle.featManager.subscribe();
         Timber.featManager.subscribe();
