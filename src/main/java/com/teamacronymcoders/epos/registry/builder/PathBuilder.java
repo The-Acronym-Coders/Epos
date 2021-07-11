@@ -12,6 +12,7 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMaps;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 
 public class PathBuilder<T extends IPath, P> extends AbstractBuilder<IPath, T, P, PathBuilder<T, P>> {
 
+    public static final List<IPath> BUILT_PATHS = new ArrayList<>();
+
     public static <P> PathBuilder<Path, P> create(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback) {
         return new PathBuilder<>(owner, parent, name, callback, Path::new);
     }
@@ -27,7 +30,7 @@ public class PathBuilder<T extends IPath, P> extends AbstractBuilder<IPath, T, P
     private final Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, PathFeatures, T> factory;
     private NonNullSupplier<IFormattableTextComponent> name;
     private NonNullSupplier<IFormattableTextComponent> description;
-    private NonNullSupplier<Integer> maxLevel;
+    private NonNullSupplier<Integer> maxLevel = () -> 1;
     private final Int2ObjectMap<List<IPathFeature>> pathFeatures;
 
     public PathBuilder(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback, Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, PathFeatures, T> factory) {
@@ -62,7 +65,12 @@ public class PathBuilder<T extends IPath, P> extends AbstractBuilder<IPath, T, P
     }
 
     @Override
-    protected @NonnullType T createEntry() {
-        return factory.apply(this.name.get(), this.description.get(), this.maxLevel.get(), new PathFeatures(this.pathFeatures));
+    @NonnullType
+    public T createEntry() {
+        T path = factory.apply(this.name.get(), this.description.get(), this.maxLevel.get(), new PathFeatures(this.pathFeatures));
+        path.setRegistryName(new ResourceLocation(getOwner().getModid(), getName()));
+        BUILT_PATHS.add(path);
+        return path;
     }
+
 }

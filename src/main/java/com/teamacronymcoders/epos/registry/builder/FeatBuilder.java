@@ -9,6 +9,7 @@ import com.tterrag.registrate.builders.AbstractBuilder;
 import com.tterrag.registrate.builders.BuilderCallback;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 
 import javax.annotation.Nonnull;
@@ -18,6 +19,8 @@ import java.util.List;
 
 public class FeatBuilder<T extends IFeat, P> extends AbstractBuilder<IFeat, T, P, FeatBuilder<T, P>> {
 
+    public static final List<IFeat> BUILT_FEATS = new ArrayList<>();
+
     public static <P> FeatBuilder<Feat, P> create(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback) {
         return new FeatBuilder<>(owner, parent, name, callback, Feat::new);
     }
@@ -25,7 +28,7 @@ public class FeatBuilder<T extends IFeat, P> extends AbstractBuilder<IFeat, T, P
     private final Function3<IFormattableTextComponent, IFormattableTextComponent, Boolean, T> factory;
     private NonNullSupplier<IFormattableTextComponent> name;
     private NonNullSupplier<IFormattableTextComponent> description;
-    private NonNullSupplier<Boolean> isAbility;
+    private NonNullSupplier<Boolean> isAbility = () -> false;
     @Nonnull
     private final List<EventManager.ISubscribe> eventManagers;
 
@@ -62,10 +65,13 @@ public class FeatBuilder<T extends IFeat, P> extends AbstractBuilder<IFeat, T, P
     }
 
     @Override
-    protected @NonnullType T createEntry() {
+    @NonnullType
+    public T createEntry() {
+        T feat = factory.apply(this.name.get(), this.description.get(), this.isAbility.get());
+        feat.setRegistryName(new ResourceLocation(getOwner().getModid(), getName()));
+        BUILT_FEATS.add(feat);
         eventManagers.forEach(EventManager.ISubscribe::subscribe);
-        return factory.apply(this.name.get(), this.description.get(), this.isAbility.get());
+        return feat;
     }
-
 
 }

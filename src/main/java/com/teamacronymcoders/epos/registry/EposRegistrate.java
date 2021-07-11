@@ -33,13 +33,18 @@ import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.registry.builder.SerializerBuilder;
+import com.teamacronymcoders.epos.registry.entry.dynamic.DynamicRegistryEntry;
 import com.tterrag.registrate.AbstractRegistrate;
+import com.tterrag.registrate.util.entry.RegistryEntry;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.function.Supplier;
@@ -54,11 +59,16 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     private final Supplier<IForgeRegistry<SkillSerializer>> skillSerializerRegistry;
     private final Supplier<IForgeRegistry<FeatSerializer>> featSerializerRegistry;
 
+    private final IEventBus modBus, forgeBus;
+
     protected EposRegistrate(String modid) {
         super(modid);
+        // Init the Serializer Registries
         this.pathSerializerRegistry = this.makeRegistry("path_serializer", PathSerializer.class, () -> new RegistryBuilder<PathSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path")));
         this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class, () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
         this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class, () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
+        this.modBus = FMLJavaModLoadingContext.get().getModEventBus();
+        this.forgeBus = MinecraftForge.EVENT_BUS;
     }
 
     public IForgeRegistry<PathSerializer> getPathSerializerRegistry() {
@@ -74,6 +84,8 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     }
 
     // Path
+
+    // Path Serializer
     public SerializerBuilder<PathSerializer, PathSerializer, EposRegistrate> pathSerializer(NonNullSupplier<Codec<? extends IPath>> codec) {
         return this.pathSerializer(this.self(), codec);
     }
@@ -140,4 +152,8 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     public <D extends IDynamicEntry<D>, R extends ICodecEntry<?, R>, P> SerializerBuilder<R, R, P> dynamicSerializer(P parent, String name, Class<? super R> serializerClass, NonNullSupplier<? extends R> factory) {
         return this.entry(name, callback -> new SerializerBuilder<>(this, parent, name, callback, serializerClass, factory));
     }
+
+//    public <R extends IDynamicEntry<R>, T extends ICodecEntry<R, T>> DynamicRegistryEntry<R, T> get(String name, Class<? super R> type) {
+//        return this.<R, T>getRegistration(name, type).getDelegate();
+//    }
 }

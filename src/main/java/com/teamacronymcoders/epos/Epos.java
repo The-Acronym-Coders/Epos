@@ -30,13 +30,23 @@ import com.mojang.serialization.JsonOps;
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
+import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
+import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.client.EposClientHandler;
+import com.teamacronymcoders.epos.impl.EposFeats;
+import com.teamacronymcoders.epos.impl.EposPaths;
+import com.teamacronymcoders.epos.impl.EposSkills;
 import com.teamacronymcoders.epos.registry.EposRegistrate;
+import com.teamacronymcoders.epos.registry.FeatRegistrar;
+import com.teamacronymcoders.epos.registry.PathRegistrar;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
+import com.teamacronymcoders.epos.registry.builder.FeatBuilder;
+import com.teamacronymcoders.epos.registry.builder.PathBuilder;
+import com.teamacronymcoders.epos.registry.builder.SkillBuilder;
 import com.teamacronymcoders.epos.skill.Skill;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.event.DynamicRegistryEvent;
@@ -69,7 +79,7 @@ import javax.annotation.Nullable;
 public class Epos {
 
     @VisibleForTesting
-    public static final boolean IS_TESTING = true;
+    public static final boolean IS_TESTING = false;
 
     public static final String ID = "epos";
     private static Epos instance;
@@ -80,7 +90,9 @@ public class Epos {
     public Epos() {
         instance = this;
         this.registrate = EposRegistrate.create(ID);
+        PathRegistrar.register();
         SkillRegistrar.register();
+        FeatRegistrar.register();
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus(), forgeBus = MinecraftForge.EVENT_BUS;
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new EposClientHandler(modBus, forgeBus));
@@ -95,7 +107,10 @@ public class Epos {
             this.addTestCases(modBus, forgeBus);
         } else {
             modBus.addListener(this::setupRegistries);
-
+            modBus.addGenericListener(IPath.class, this::registerPaths);
+            modBus.addGenericListener(ISkill.class, this::registerSkills);
+            modBus.addGenericListener(IFeat.class, this::registerFeats);
+            modBus.addListener(this::generateRegistryJson);
         }
     }
 
@@ -149,7 +164,43 @@ public class Epos {
                 .create();
     }
 
+    private void registerPaths(DynamicRegistryEvent.Register<IPath, PathSerializer> event) {
+        new EposPaths();
+        event.getRegistry().registerAll(PathBuilder.BUILT_PATHS.toArray(new IPath[0]));
+    }
 
+    private void registerSkills(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
+        new EposSkills();
+        event.getRegistry().registerAll(SkillBuilder.BUILT_SKILLS.toArray(new ISkill[0]));
+    }
+
+    private void registerFeats(DynamicRegistryEvent.Register<IFeat, FeatSerializer> event) {
+        new EposFeats();
+        event.getRegistry().registerAll(FeatBuilder.BUILT_FEATS.toArray(new IFeat[0]));
+    }
+
+    private void generateRegistryJson(FMLLoadCompleteEvent event) {
+        event.enqueueWork(() -> {
+            DynamicRegistry<IPath, PathSerializer> pathRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "path"));
+            DynamicRegistry<ISkill, SkillSerializer> skillRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "skill"));
+            DynamicRegistry<IFeat, FeatSerializer> featRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "feat"));
+            @Nullable
+            JsonElement pathElement = pathRegistry.toSnapshot(JsonOps.INSTANCE);
+            @Nullable
+            JsonElement skillElement = skillRegistry.toSnapshot(JsonOps.INSTANCE);
+            @Nullable
+            JsonElement featElement = featRegistry.toSnapshot(JsonOps.INSTANCE);
+            if (pathElement != null) {
+                pathRegistry.fromSnapshot(pathElement, JsonOps.INSTANCE);
+            }
+            if (skillElement != null) {
+                skillRegistry.fromSnapshot(skillElement, JsonOps.INSTANCE);
+            }
+            if (featElement != null) {
+                featRegistry.fromSnapshot(featElement, JsonOps.INSTANCE);
+            }
+        });
+    }
 
     // Test Code
     @VisibleForTesting
