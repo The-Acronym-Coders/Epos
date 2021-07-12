@@ -1,10 +1,9 @@
 package com.teamacronymcoders.epos.mixin;
 
-import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
-import com.teamacronymcoders.epos.util.EposCharacterUtil;
+import com.teamacronymcoders.epos.api.event.EposUnbreakingEvent;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.lang.ref.WeakReference;
 import java.util.Random;
-import java.util.Set;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
@@ -50,42 +48,21 @@ public abstract class ItemStackMixin {
         int modifiedLevel = level;
         ServerPlayerEntity playerEntity = playerRef.get();
         if (playerEntity != null) {
-            modifiedLevel += this.getUnbreakingModifier();
+            modifiedLevel += this.getUnbreakingModifier(level);
             return modifiedLevel;
         }
-        return level;
+        return modifiedLevel;
     }
 
-    private int getUnbreakingModifier() {
-        int unbreakingModifier = 0;
+    @Unique
+    private int getUnbreakingModifier(int originalLevel) {
         ServerPlayerEntity playerEntity = playerRef.get();
         ItemStack stack = copy();
         if (playerEntity != null && (stack != null || stack.isEmpty())) {
-            Set<ToolType> toolTypes = stack.getToolTypes();
-            for (ToolType type : toolTypes) {
-                switch (type.getName()) {
-                    case "axe": {
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.AXE_SPECIALIZATION_NOVICE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.AXE_SPECIALIZATION_INTERMEDIATE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.AXE_SPECIALIZATION_ADVANCED) ? 1 : 0; }
-                    case "hoe": {
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.HOE_SPECIALIZATION_NOVICE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.HOE_SPECIALIZATION_INTERMEDIATE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.HOE_SPECIALIZATION_ADVANCED) ? 1 : 0;
-                    }
-                    case "pickaxe": {
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_NOVICE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_INTERMEDIATE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_ADVANCED) ? 1 : 0;
-                    }
-                    case "shovel": {
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_NOVICE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_INTERMEDIATE) ? 1 : 0;
-                        unbreakingModifier += EposCharacterUtil.hasFeat(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_ADVANCED) ? 1 : 0;
-                    }
-                }
-            }
+            EposUnbreakingEvent event = new EposUnbreakingEvent(originalLevel, playerEntity, stack);
+            MinecraftForge.EVENT_BUS.post(event);
+            return event.getModifiedLevel();
         }
-        return unbreakingModifier;
+        return originalLevel;
     }
 }

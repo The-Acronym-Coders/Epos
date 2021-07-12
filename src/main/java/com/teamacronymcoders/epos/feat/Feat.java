@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos.feat;
 
+import com.teamacronymcoders.epos.api.feat.FeatInfo;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.registry.FeatRegistrar;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
@@ -38,6 +39,11 @@ public class Feat extends DynamicEntry<IFeat> implements IFeat {
     @Override
     public boolean isAbility() {
         return this.isAbility;
+    }
+
+    @Override
+    public FeatInfo createFeatInfo() {
+        return new FeatInfo();
     }
 
     @Override

@@ -2,12 +2,15 @@ package com.teamacronymcoders.epos.util;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
+import com.teamacronymcoders.epos.api.feat.FeatInfo;
+import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 
 public class EposCharacterUtil {
 
@@ -30,13 +33,6 @@ public class EposCharacterUtil {
         return false;
     }
 
-    @Nullable
-    public static SkillInfo getSkillInfo(LivingEntity character, ResourceLocation skillId) {
-        ICharacterSheet sheet = getCharacterSheet(character);
-        if (sheet != null) return sheet.getSkills().getOrCreate(skillId);
-        return null;
-    }
-
     public static boolean hasSkill(LivingEntity character, ResourceLocation skillId) {
         ICharacterSheet sheet = getCharacterSheet(character);
         if (sheet != null) return sheet.getSkills().getOrCreate(skillId).getLevel() > 0;
@@ -53,6 +49,39 @@ public class EposCharacterUtil {
         ICharacterSheet sheet = getCharacterSheet(character);
         if (sheet != null) return sheet.getFeats().getOrCreate(featId).isUnlocked();
         return false;
+    }
+
+    public static boolean hasFeats(LivingEntity character, ResourceLocation... featIds) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return Arrays.stream(featIds).allMatch(id -> sheet.getFeats().getOrCreate(id).isUnlocked());
+        return false;
+    }
+
+    public static boolean anyFeatsAcquired(LivingEntity character, ResourceLocation... featIds) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return Arrays.stream(featIds).anyMatch(id -> sheet.getFeats().getOrCreate(id).isUnlocked());
+        return false;
+    }
+
+    @Nullable
+    public static PathInfo getPathInfo(LivingEntity character, ResourceLocation pathId) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return sheet.getPaths().getOrCreate(pathId);
+        return null;
+    }
+
+    @Nullable
+    public static SkillInfo getSkillInfo(LivingEntity character, ResourceLocation skillId) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return sheet.getSkills().getOrCreate(skillId);
+        return null;
+    }
+
+    @Nullable
+    public static FeatInfo getFeatInfo(LivingEntity character, ResourceLocation featId) {
+        ICharacterSheet sheet = getCharacterSheet(character);
+        if (sheet != null) return sheet.getFeats().getOrCreate(featId);
+        return null;
     }
 
 }

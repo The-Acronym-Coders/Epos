@@ -2,6 +2,7 @@ package com.teamacronymcoders.epos.api.feat;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.nbt.CompoundNBT;
 
 /**
  *
@@ -27,7 +28,6 @@ public class FeatInfo {
      * Codec Constructor
      *
      * @param isUnlocked Whether the Path is Unlocked or Not.
-     * @param isAbility  Whether the Path is an Active ability or Not.
      */
     public FeatInfo(boolean isUnlocked) {
         this.isUnlocked = isUnlocked;
