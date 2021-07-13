@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.util.Map;
 public class Feats {
 
     public static final Codec<Feats> CODEC = RecordCodecBuilder.create(instance -> instance
-            .group(Codec.unboundedMap(ResourceLocation.CODEC, FeatInfo.CODEC).fieldOf("feats").forGetter(Feats::getFeatInfoMap))
+            .group(Codec.unboundedMap(ResourceLocation.CODEC, FeatInfo.CODEC.dispatch(o -> o, FeatInfo::getCodec)).fieldOf("feats").forGetter(Feats::getFeatInfoMap))
             .apply(instance, Feats::new));
 
     private final Map<ResourceLocation, FeatInfo> featInfoMap;
@@ -37,7 +38,11 @@ public class Feats {
     }
 
     public FeatInfo getOrCreate(ResourceLocation id) {
-        return this.featInfoMap.computeIfAbsent(id, resourceLocation -> Epos.instance().getRegistrate().getFeatInfoRegistry().get().getValue(id));
+        FeatInfo registryInfo = Epos.instance().getRegistrate().getFeatInfoRegistry().get().getValue(id);
+        if (registryInfo != null) {
+            return this.featInfoMap.computeIfAbsent(id, resourceLocation -> registryInfo.create());
+        }
+        return this.featInfoMap.computeIfAbsent(id, resourceLocation -> new FeatInfo());
     }
 
     public Map<ResourceLocation, FeatInfo> getFeatInfoMap() {

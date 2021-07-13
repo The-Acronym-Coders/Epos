@@ -33,7 +33,7 @@ public class EposFeats {
         EmbraceOfTheLotus.featManager.subscribe();
         ExperiencedAngler.featManager.subscribe();
         FistOfCrumblingEarth.registerFeatManagers();
-        MansBestFriend.featManager.subscribe();
+        MansBestFriend.registerFeatManagers();
         Specialized.featManager.subscribe();
         SpiritOfBattle.featManager.subscribe();
         Timber.featManager.subscribe();

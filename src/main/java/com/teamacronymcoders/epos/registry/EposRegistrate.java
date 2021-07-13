@@ -29,7 +29,6 @@ import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.feat.info.FeatInfoSerializer;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
@@ -142,23 +141,6 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     public <P> SerializerBuilder<FeatSerializer, FeatSerializer, P> featSerializer(P parent, String name, NonNullSupplier<Codec<? extends IFeat>> codec) {
         return this.dynamicSerializer(parent, name, FeatSerializer.class, () -> new FeatSerializer(codec.get()));
-    }
-
-    // FeatInfo
-    public SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, EposRegistrate> featInfoSerializer(NonNullSupplier<Codec<? extends FeatInfo>> codec) {
-        return this.featInfoSerializer(this.self(), codec);
-    }
-
-    public <P> SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, P> featInfoSerializer(P parent, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
-        return this.featInfoSerializer(parent, this.currentName(), codec);
-    }
-
-    public SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, EposRegistrate> featInfoSerializer(String name, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
-        return this.featInfoSerializer(this.self(), name, codec);
-    }
-
-    public <P> SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, P> featInfoSerializer(P parent, String name, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
-        return this.dynamicSerializer(parent, name, FeatInfoSerializer.class, () -> new FeatInfoSerializer(codec.get()));
     }
 
     // Spiritual Aid

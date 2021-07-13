@@ -1,18 +1,26 @@
 package com.teamacronymcoders.epos.impl.feat.ranger;
 
 import com.hrznstudio.titanium.event.handler.EventManager;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
+import com.teamacronymcoders.epos.impl.featinfo.EOTLFeatInfo;
+import com.teamacronymcoders.epos.impl.featinfo.MBFFeatInfo;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
 // TODO: Rework to not read and write to NBT every Tick
 public class MansBestFriend {
-    private static final String REMAINING = "mbf_remaining";
 
-    public static final EventManager.ISubscribe featManager = EventManager.create(LivingEvent.LivingUpdateEvent.class, EventManager.Bus.FORGE)
+    public static void registerFeatManagers() {
+        featManager.subscribe();
+        featInfoManager.subscribe();
+    }
+
+    private static final EventManager.ISubscribe featManager = EventManager.create(LivingEvent.LivingUpdateEvent.class, EventManager.Bus.FORGE)
             .filter(event -> {
                if (event.getEntityLiving() != null && event.getEntityLiving() instanceof WolfEntity) {
                    WolfEntity wolf = (WolfEntity) event.getEntityLiving();
@@ -26,28 +34,25 @@ public class MansBestFriend {
             .process(event -> {
                 WolfEntity wolf = (WolfEntity) event.getEntityLiving();
                 LivingEntity owner = wolf.getOwner();
-                CompoundNBT persistent = wolf.getPersistentData();
-                boolean isCloseToOwner = wolf.blockPosition().closerThan(owner.blockPosition(), 10d);
-                boolean isMissingHealth = wolf.getHealth() < wolf.getMaxHealth();
-
-                if (persistent.contains(REMAINING)) {
-                    int remainingTime = persistent.getInt(REMAINING);
-                    if (remainingTime <= 0 && isMissingHealth) {
-                        if (isCloseToOwner) {
-                            wolf.heal(0.5f);
-                        }
+                FeatInfo info = EposCharacterUtil.getFeatInfo(owner, EposFeatIds.MANS_BEST_FRIEND);
+                if (info instanceof MBFFeatInfo) {
+                    MBFFeatInfo mbfInfo = (MBFFeatInfo) info;
+                    boolean isCloseToOwner = wolf.blockPosition().closerThan(owner.blockPosition(), 10d);
+                    boolean isMissingHealth = wolf.getHealth() < wolf.getMaxHealth();
+                    int remainingTime = mbfInfo.getRemainingTime();
+                    if (remainingTime <= 0 && isMissingHealth && isCloseToOwner) {
+                        wolf.heal(0.5f);
+                        mbfInfo.setRemainingTime(10);
                     } else {
                         if (isMissingHealth) {
-                            remainingTime--;
-                            persistent.putInt(REMAINING, remainingTime);
+                            mbfInfo.decrementRemainingTime();
                         }
                     }
-
-                } else {
-                    if (isCloseToOwner && isMissingHealth) {
-                        wolf.heal(0.5f);
-                    }
-                    persistent.putInt(REMAINING, 10);
                 }
+            });
+
+    private static final EventManager.ISubscribe featInfoManager = EventManager.createGeneric(RegistryEvent.Register.class, EventManager.Bus.MOD, FeatInfo.class)
+            .process(event -> {
+                event.getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
             });
 }

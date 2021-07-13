@@ -40,4 +40,12 @@ public class FeatInfo extends ForgeRegistryEntry<FeatInfo> {
         isUnlocked = unlocked;
     }
 
+    public Codec<FeatInfo> getCodec() {
+        return CODEC;
+    }
+
+    public FeatInfo create() {
+        return new FeatInfo();
+    }
+
 }
