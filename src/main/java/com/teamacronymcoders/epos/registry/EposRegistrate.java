@@ -26,8 +26,10 @@ package com.teamacronymcoders.epos.registry;
 
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfoSerializer;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
@@ -40,8 +42,6 @@ import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -59,7 +59,7 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     private final Supplier<IForgeRegistry<FeatSerializer>> featSerializerRegistry;
     private final Supplier<IForgeRegistry<SpiritualAidSerializer>> spiritualAidSerializerRegistry;
 
-    private final IEventBus modBus, forgeBus;
+    private final Supplier<IForgeRegistry<FeatInfo>> featInfoRegistry;
 
     protected EposRegistrate(String modid) {
         super(modid);
@@ -68,8 +68,7 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
         this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class, () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
         this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class, () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
         this.spiritualAidSerializerRegistry = this.makeRegistry("spiritual_aid_serializer", SpiritualAidSerializer.class, () -> new RegistryBuilder<SpiritualAidSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "spiritual_aid")));
-        this.modBus = FMLJavaModLoadingContext.get().getModEventBus();
-        this.forgeBus = MinecraftForge.EVENT_BUS;
+        this.featInfoRegistry = this.makeRegistry("feat_info", FeatInfo.class, () -> new RegistryBuilder<FeatInfo>().setDefaultKey(new ResourceLocation(Epos.ID, "feat_info")).missing((key, isNetwork) -> new FeatInfo()));
     }
 
     public IForgeRegistry<PathSerializer> getPathSerializerRegistry() {
@@ -86,6 +85,10 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     public IForgeRegistry<SpiritualAidSerializer> getSpiritualAidSerializerRegistry() {
         return spiritualAidSerializerRegistry.get();
+    }
+
+    public Supplier<IForgeRegistry<FeatInfo>> getFeatInfoRegistry() {
+        return featInfoRegistry;
     }
 
     // Path
@@ -139,6 +142,23 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     public <P> SerializerBuilder<FeatSerializer, FeatSerializer, P> featSerializer(P parent, String name, NonNullSupplier<Codec<? extends IFeat>> codec) {
         return this.dynamicSerializer(parent, name, FeatSerializer.class, () -> new FeatSerializer(codec.get()));
+    }
+
+    // FeatInfo
+    public SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, EposRegistrate> featInfoSerializer(NonNullSupplier<Codec<? extends FeatInfo>> codec) {
+        return this.featInfoSerializer(this.self(), codec);
+    }
+
+    public <P> SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, P> featInfoSerializer(P parent, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
+        return this.featInfoSerializer(parent, this.currentName(), codec);
+    }
+
+    public SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, EposRegistrate> featInfoSerializer(String name, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
+        return this.featInfoSerializer(this.self(), name, codec);
+    }
+
+    public <P> SerializerBuilder<FeatInfoSerializer, FeatInfoSerializer, P> featInfoSerializer(P parent, String name, NonNullSupplier<Codec<? extends FeatInfo>> codec) {
+        return this.dynamicSerializer(parent, name, FeatInfoSerializer.class, () -> new FeatInfoSerializer(codec.get()));
     }
 
     // Spiritual Aid

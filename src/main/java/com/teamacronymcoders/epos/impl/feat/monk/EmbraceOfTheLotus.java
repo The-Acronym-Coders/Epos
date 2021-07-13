@@ -1,14 +1,21 @@
 package com.teamacronymcoders.epos.impl.feat.monk;
 
 import com.hrznstudio.titanium.event.handler.EventManager;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 
 // TODO: Rework to not read and write to NBT every Tick
 public class EmbraceOfTheLotus {
+    public static void registerFeatManagers() {
+        featManager.subscribe();
+        featInfoManager.subscribe();
+    }
+
     private static final String REMAINING_TIME = "eotl_remaining";
 
     public static final EventManager.ISubscribe featManager = EventManager.create(TickEvent.PlayerTickEvent.class, EventManager.Bus.FORGE)
@@ -39,4 +46,11 @@ public class EmbraceOfTheLotus {
                     persistent.putInt(REMAINING_TIME, 20);
                 }
             });
+
+    private static final EventManager.ISubscribe featInfoManager = EventManager.createGeneric(RegistryEvent.Register.class, EventManager.Bus.MOD, FeatInfo.class)
+            .process(event -> {
+
+            });
+
+
 }

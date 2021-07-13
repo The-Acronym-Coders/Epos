@@ -13,6 +13,4 @@ public interface IFeat extends IDynamicEntry<IFeat>, IDescribable {
      */
     boolean isAbility();
 
-    FeatInfo createFeatInfo();
-
 }

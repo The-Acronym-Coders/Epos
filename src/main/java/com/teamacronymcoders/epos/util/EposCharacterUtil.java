@@ -2,7 +2,7 @@ package com.teamacronymcoders.epos.util;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
-import com.teamacronymcoders.epos.api.feat.FeatInfo;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import net.minecraft.entity.LivingEntity;

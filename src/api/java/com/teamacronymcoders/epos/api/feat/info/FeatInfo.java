@@ -1,17 +1,16 @@
-package com.teamacronymcoders.epos.api.feat;
+package com.teamacronymcoders.epos.api.feat.info;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 /**
  *
  */
-public class FeatInfo {
+public class FeatInfo extends ForgeRegistryEntry<FeatInfo> {
 
     public static final Codec<FeatInfo> CODEC = RecordCodecBuilder.create(instance -> instance
-            .group(
-                    Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked))
+            .group(Codec.BOOL.fieldOf("isUnlocked").forGetter(FeatInfo::isUnlocked))
             .apply(instance, FeatInfo::new)
     );
 

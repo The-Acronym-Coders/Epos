@@ -2,6 +2,8 @@ package com.teamacronymcoders.epos.api.feat;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
@@ -35,7 +37,7 @@ public class Feats {
     }
 
     public FeatInfo getOrCreate(ResourceLocation id) {
-        return this.featInfoMap.computeIfAbsent(id, resourceLocation -> new FeatInfo());
+        return this.featInfoMap.computeIfAbsent(id, resourceLocation -> Epos.instance().getRegistrate().getFeatInfoRegistry().get().getValue(id));
     }
 
     public Map<ResourceLocation, FeatInfo> getFeatInfoMap() {
