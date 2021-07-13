@@ -41,7 +41,7 @@ public class EmbraceOfTheLotus {
                 }
             });
 
-    private static final EventManager.ISubscribe featInfoManager = EventManager.createGeneric(RegistryEvent.Register.class, EventManager.Bus.MOD, FeatInfo.class)
+  private static final EventManager.ISubscribe featInfoManager = EventManager.createGeneric(RegistryEvent.Register.class, EventManager.Bus.MOD, FeatInfo.class)
             .process(event -> {
                 event.getRegistry().register(new EOTLFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
             });

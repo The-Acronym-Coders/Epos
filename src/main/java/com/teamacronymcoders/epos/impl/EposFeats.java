@@ -14,6 +14,7 @@ import com.teamacronymcoders.epos.impl.feat.miner.EffectiveMining;
 import com.teamacronymcoders.epos.impl.feat.monk.EmbraceOfTheLotus;
 import com.teamacronymcoders.epos.impl.feat.monk.FistOfCrumblingEarth;
 import com.teamacronymcoders.epos.impl.feat.ranger.MansBestFriend;
+import com.teamacronymcoders.epos.impl.feat.ranger.PackMentality;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -34,6 +35,7 @@ public class EposFeats {
         ExperiencedAngler.featManager.subscribe();
         FistOfCrumblingEarth.registerFeatManagers();
         MansBestFriend.registerFeatManagers();
+        PackMentality.featManager.subscribe();
         Specialized.featManager.subscribe();
         SpiritOfBattle.featManager.subscribe();
         Timber.featManager.subscribe();
