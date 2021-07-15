@@ -2,10 +2,16 @@ package com.teamacronymcoders.epos.path.feature.experience;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
+import com.teamacronymcoders.epos.registry.PathFeatureRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
+import com.teamacronymcoders.epos.util.EposRegistries;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -73,7 +79,7 @@ public class ExperiencePathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public Codec<? extends IPathFeature> getCodec() {
-        return CODEC;
+    public ICodecEntry<? extends IPathFeature, ?> codec() {
+        return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
     }
 }

@@ -11,6 +11,8 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 
 public class PathRegistrar {
 
+    public static void register() {}
+
     public static final RegistryEntry<PathSerializer> PATH_SERIALIZER = Epos.instance().getRegistrate()
             .pathSerializer("path", () -> {
                 Codec<Path> codec = RecordCodecBuilder.create(instance -> instance
@@ -18,10 +20,9 @@ public class PathRegistrar {
                                 EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Path::getName),
                                 EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Path::getDescription),
                                 Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel),
-                                PathFeatures.CODEC.fieldOf("features").forGetter(Path::getPathFeatures))
+                                PathFeatures.CODEC.optionalFieldOf("features", new PathFeatures()).forGetter(Path::getPathFeatures))
                         .apply(instance, Path::new));
                 return codec;
             }).register();
 
-    public static void register() {}
 }

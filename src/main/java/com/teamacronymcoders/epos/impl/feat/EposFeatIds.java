@@ -7,11 +7,14 @@ public class EposFeatIds {
     // Feats
     public static final ResourceLocation AGILE_COMBATANT = create("agile_combatant");
     public static final ResourceLocation CASCADING_EXCAVATIONS = create("cascading_excavations");
+    public static final ResourceLocation EFFECTIVE_CULTIVATION = create("effective_cultivation");
     public static final ResourceLocation EFFECTIVE_MINING = create("effective_mining");
     public static final ResourceLocation EMBRACE_OF_THE_LOTUS = create("embrace_of_the_lotus");
     public static final ResourceLocation EXPERIENCED_ANGLER = create("experienced_angler");
+    public static final ResourceLocation FAMILIAR_ADDITIONS = create("familiar_additions");
     public static final ResourceLocation FIST_OF_CRUMBLING_EARTH = create("fist_of_crumbling_earth");
     public static final ResourceLocation FIST_OF_DENSE_EARTH = create("fist_of_dense_earth");
+    public static final ResourceLocation GROWING_PRESENCE = create("growing_presence");
     public static final ResourceLocation MANS_BEST_FRIEND = create("mans_best_friend");
     public static final ResourceLocation PACK_MENTALITY = create("pack_mentality");
     public static final ResourceLocation SPIRIT_OF_BATTLE = create("spirit_of_battle");

@@ -80,3 +80,4 @@
   - Ranged dealing more damage(?)
   - Chance to not consume arrows (?)
   - Piercing Arrows
+  - Fall Damage Reduction

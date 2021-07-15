@@ -1,9 +1,13 @@
 package com.teamacronymcoders.epos.path.feature;
 
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import net.ashwork.dynamicregistries.entry.DynamicEntry;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
 
-public abstract class AbstractPathFeature implements IPathFeature {
+import javax.annotation.Nullable;
+
+public abstract class AbstractPathFeature extends DynamicEntry<IPathFeature> implements IPathFeature {
 
     private final IFormattableTextComponent name;
     private final IFormattableTextComponent description;
@@ -22,4 +26,5 @@ public abstract class AbstractPathFeature implements IPathFeature {
     public IFormattableTextComponent getDescription() {
         return this.description;
     }
+
 }

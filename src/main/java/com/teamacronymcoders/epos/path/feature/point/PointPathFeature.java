@@ -2,14 +2,24 @@ package com.teamacronymcoders.epos.path.feature.point;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.character.info.PointInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
+import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
+import com.teamacronymcoders.epos.registry.PathFeatureRegistrar;
+import com.teamacronymcoders.epos.skill.Skill;
 import com.teamacronymcoders.epos.util.EposCodecs;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
+
+import javax.annotation.Nullable;
 
 public class PointPathFeature extends AbstractPathFeature {
 
@@ -70,7 +80,7 @@ public class PointPathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public Codec<? extends IPathFeature> getCodec() {
-        return CODEC;
+    public ICodecEntry<? extends IPathFeature, ?> codec() {
+        return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
     }
 }

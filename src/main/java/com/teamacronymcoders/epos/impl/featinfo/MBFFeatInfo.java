@@ -39,7 +39,7 @@ public class MBFFeatInfo extends FeatInfo {
 
     @Override
     public Codec<FeatInfo> getCodec() {
-        return CODEC.xmap(info -> info, featInfo -> (MBFFeatInfo) featInfo);
+        return CODEC.xmap(info -> info, info -> (MBFFeatInfo) info);
     }
 
     @Override

@@ -26,6 +26,7 @@ package com.teamacronymcoders.epos.client.renderer.model;
 
 import com.google.common.base.Supplier;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.util.EposRegistries;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
@@ -69,7 +70,7 @@ public class EposResourceType implements IResourceType {
     public void refresh() {
         this.modelLocations.clear();
 
-        this.modelLocations.put(new ResourceLocation(Epos.ID, "missing"), DynamicRegistryBakedModel.MISSING_MODEL_LOCATION);
+        this.modelLocations.put(EposRegistries.MISSING_ENTRY, DynamicRegistryBakedModel.MISSING_MODEL_LOCATION);
 
         IDynamicRegistry<?, ?> registry = this.registry.get();
         if (registry != null) {

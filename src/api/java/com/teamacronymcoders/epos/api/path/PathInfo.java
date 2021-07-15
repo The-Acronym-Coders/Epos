@@ -2,6 +2,15 @@ package com.teamacronymcoders.epos.api.path;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.ashwork.dynamicregistries.DynamicRegistryManager;
+import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -12,8 +21,8 @@ public class PathInfo {
     public static final Codec<PathInfo> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(
                     Codec.intRange(0, 99).optionalFieldOf("level", 0).forGetter(PathInfo::getLevel),
-                    Codec.BOOL.fieldOf("isUnlocked").forGetter(PathInfo::isUnlocked))
-            .apply(instance, PathInfo::new)
+                    Codec.BOOL.fieldOf("isUnlocked").forGetter(PathInfo::isUnlocked)
+            ).apply(instance, PathInfo::new)
     );
 
     private int level;
@@ -53,4 +62,5 @@ public class PathInfo {
     public void setUnlocked(boolean unlocked) {
         isUnlocked = unlocked;
     }
+
 }

@@ -2,13 +2,20 @@ package com.teamacronymcoders.epos.path.feature.grant;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.enums.EposGrantType;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
+import com.teamacronymcoders.epos.path.feature.point.EposPointTypes;
+import com.teamacronymcoders.epos.path.feature.point.PointPathFeature;
+import com.teamacronymcoders.epos.registry.PathFeatureRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
+import com.tterrag.registrate.util.entry.RegistryEntry;
+import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -62,16 +69,16 @@ public class GrantPathFeature extends AbstractPathFeature {
         }
     }
 
-    @Override
-    public Codec<? extends IPathFeature> getCodec() {
-        return CODEC;
-    }
-
     public EposGrantType getType() {
         return type;
     }
 
     public ResourceLocation getId() {
         return id;
+    }
+
+    @Override
+    public ICodecEntry<? extends IPathFeature, ?> codec() {
+        return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
     }
 }

@@ -27,6 +27,8 @@ package com.teamacronymcoders.epos.util;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -37,6 +39,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
+import java.util.stream.IntStream;
 
 public final class EposCodecs {
 
@@ -70,6 +73,19 @@ public final class EposCodecs {
                 Codec.BOOL.optionalFieldOf("showIcon", true).forGetter(EffectInstance::showIcon)
         ).apply(instance, EffectInstance::new)
     );
+
+//    public static final Codec<Int2ObjectMap<?>> INT_2_OBJECT_MAP = RecordCodecBuilder.create(instance -> instance
+//        .group(
+//                .fieldOf("indices").forGetter(Int2ObjectMap::keySet)
+//        ).apply(instance, )
+//    );
+//
+//    public static final Codec<Int2ObjectMap<?>> INT_SET = RecordCodecBuilder.create(instance -> instance
+//        .group(
+//                Codec.INT_STREAM.fieldOf("values").forGetter(IntStream.of())
+//        )
+//    );
+
 
     public static <V extends IForgeRegistryEntry<V>> Codec<IForgeRegistry<V>> forgeRegistry() {
         return ResourceLocation.CODEC.comapFlatMap(loc -> {

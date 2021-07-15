@@ -31,10 +31,12 @@ import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
+import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.SpiritualAidSerializer;
+import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.registry.builder.SerializerBuilder;
 import com.tterrag.registrate.AbstractRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -56,6 +58,7 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
     private final Supplier<IForgeRegistry<PathSerializer>> pathSerializerRegistry;
     private final Supplier<IForgeRegistry<SkillSerializer>> skillSerializerRegistry;
     private final Supplier<IForgeRegistry<FeatSerializer>> featSerializerRegistry;
+    private final Supplier<IForgeRegistry<PathFeatureSerializer>> pathFeatureSerializerRegistry;
     private final Supplier<IForgeRegistry<SpiritualAidSerializer>> spiritualAidSerializerRegistry;
 
     private final Supplier<IForgeRegistry<FeatInfo>> featInfoRegistry;
@@ -66,6 +69,7 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
         this.pathSerializerRegistry = this.makeRegistry("path_serializer", PathSerializer.class, () -> new RegistryBuilder<PathSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path")));
         this.skillSerializerRegistry = this.makeRegistry("skill_serializer", SkillSerializer.class, () -> new RegistryBuilder<SkillSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "skill")));
         this.featSerializerRegistry = this.makeRegistry("feat_serializer", FeatSerializer.class, () -> new RegistryBuilder<FeatSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "feat")));
+        this.pathFeatureSerializerRegistry = this.makeRegistry("path_feature_serializer", PathFeatureSerializer.class, () -> new RegistryBuilder<PathFeatureSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "path_feature")));
         this.spiritualAidSerializerRegistry = this.makeRegistry("spiritual_aid_serializer", SpiritualAidSerializer.class, () -> new RegistryBuilder<SpiritualAidSerializer>().setDefaultKey(new ResourceLocation(Epos.ID, "spiritual_aid")));
         this.featInfoRegistry = this.makeRegistry("feat_info", FeatInfo.class, () -> new RegistryBuilder<FeatInfo>().setDefaultKey(new ResourceLocation(Epos.ID, "feat_info")).missing((key, isNetwork) -> new FeatInfo()));
     }
@@ -80,6 +84,10 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     public IForgeRegistry<FeatSerializer> getFeatSerializerRegistry() {
         return featSerializerRegistry.get();
+    }
+
+    public IForgeRegistry<PathFeatureSerializer> getPathFeatureSerializerRegistry() {
+        return pathFeatureSerializerRegistry.get();
     }
 
     public IForgeRegistry<SpiritualAidSerializer> getSpiritualAidSerializerRegistry() {
@@ -141,6 +149,23 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     public <P> SerializerBuilder<FeatSerializer, FeatSerializer, P> featSerializer(P parent, String name, NonNullSupplier<Codec<? extends IFeat>> codec) {
         return this.dynamicSerializer(parent, name, FeatSerializer.class, () -> new FeatSerializer(codec.get()));
+    }
+
+    // Path Feature
+    public SerializerBuilder<PathFeatureSerializer, PathFeatureSerializer, EposRegistrate> pathFeatureSerializer(NonNullSupplier<Codec<? extends AbstractPathFeature>> codec) {
+        return this.pathFeatureSerializer(this.self(), codec);
+    }
+
+    public <P> SerializerBuilder<PathFeatureSerializer, PathFeatureSerializer, P> pathFeatureSerializer(P parent, NonNullSupplier<Codec<? extends AbstractPathFeature>> codec) {
+        return this.pathFeatureSerializer(parent, this.currentName(), codec);
+    }
+
+    public SerializerBuilder<PathFeatureSerializer, PathFeatureSerializer, EposRegistrate> pathFeatureSerializer(String name, NonNullSupplier<Codec<? extends AbstractPathFeature>> codec) {
+        return this.pathFeatureSerializer(this.self(), name, codec);
+    }
+
+    public <P> SerializerBuilder<PathFeatureSerializer, PathFeatureSerializer, P> pathFeatureSerializer(P parent, String name, NonNullSupplier<Codec<? extends AbstractPathFeature>> codec) {
+        return this.dynamicSerializer(parent, name, PathFeatureSerializer.class, () -> new PathFeatureSerializer(codec.get()));
     }
 
     // Spiritual Aid

@@ -51,8 +51,8 @@ public class MansBestFriend {
                 }
             });
 
-    private static final EventManager.ISubscribe featInfoManager = EventManager.createGeneric(RegistryEvent.Register.class, EventManager.Bus.MOD, FeatInfo.class)
+    private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
             .process(event -> {
-                event.getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
+                ((RegistryEvent.Register) event).getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
             });
 }

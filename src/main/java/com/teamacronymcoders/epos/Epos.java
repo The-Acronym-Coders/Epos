@@ -37,6 +37,7 @@ import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
+import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.client.EposClientHandler;
@@ -44,10 +45,8 @@ import com.teamacronymcoders.epos.impl.EposFeats;
 import com.teamacronymcoders.epos.impl.EposPaths;
 import com.teamacronymcoders.epos.impl.EposSkills;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
-import com.teamacronymcoders.epos.registry.EposRegistrate;
-import com.teamacronymcoders.epos.registry.FeatRegistrar;
-import com.teamacronymcoders.epos.registry.PathRegistrar;
-import com.teamacronymcoders.epos.registry.SkillRegistrar;
+import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
+import com.teamacronymcoders.epos.registry.*;
 import com.teamacronymcoders.epos.skill.Skill;
 import com.teamacronymcoders.epos.util.EposRegistries;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
@@ -94,6 +93,7 @@ public class Epos {
     public Epos() {
         instance = this;
         this.registrate = EposRegistrate.create(ID);
+        PathFeatureRegistrar.register();
         PathRegistrar.register();
         SkillRegistrar.register();
         FeatRegistrar.register();
@@ -166,17 +166,20 @@ public class Epos {
 
     // Registries
     private void setupRegistries(DynamicRegistryEvent.NewRegistry event) {
-        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "path"), IPath.class, this.getRegistrate().getPathSerializerRegistry())
-                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+        new DynamicRegistryBuilder<>(EposRegistries.PATH_REGISTRY_ID, IPath.class, this.getRegistrate().getPathSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
                 .create();
-        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "skill"), ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
-                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+        new DynamicRegistryBuilder<>(EposRegistries.SKILL_REGISTRY_ID, ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
                 .create();
-        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "feat"), IFeat.class, this.getRegistrate().getFeatSerializerRegistry())
-                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+        new DynamicRegistryBuilder<>(EposRegistries.FEAT_REGISTRY_ID, IFeat.class, this.getRegistrate().getFeatSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
                 .create();
-        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "spiritual_aid"), ISpiritualAid.class, this.getRegistrate().getSpiritualAidSerializerRegistry())
-                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+        new DynamicRegistryBuilder<>(EposRegistries.PATH_FEATURE_REGISTRY_ID, IPathFeature.class, this.getRegistrate().getPathFeatureSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
+                .create();
+        new DynamicRegistryBuilder<>(EposRegistries.SPIRITUAL_AID_REGISTRY_ID, ISpiritualAid.class, this.getRegistrate().getSpiritualAidSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
                 .create();
     }
 
@@ -228,15 +231,15 @@ public class Epos {
 
     @VisibleForTesting
     private void testRegistryInitialization(DynamicRegistryEvent.NewRegistry event) {
-        new DynamicRegistryBuilder<>(new ResourceLocation(Epos.ID, "skill"), ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
-                .setDefaultKey(new ResourceLocation(Epos.ID, "missing"))
+        new DynamicRegistryBuilder<>(EposRegistries.SKILL_REGISTRY_ID, ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
+                .setDefaultKey(EposRegistries.MISSING_ENTRY)
                 .create();
     }
 
     @VisibleForTesting
     private void testRegistryRegistration(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
         event.getRegistry().register(new Skill(new TranslationTextComponent("missing"),
-                new TranslationTextComponent("missing.desc"), 1, "0").setRegistryName(new ResourceLocation(Epos.ID, "missing")));
+                new TranslationTextComponent("missing.desc"), 1, "0").setRegistryName(EposRegistries.MISSING_ENTRY));
         event.getRegistry().register(
                 new Skill(new TranslationTextComponent("test"), new TranslationTextComponent("test.desc"), 5, "1 + x")
                         .setRegistryName(new ResourceLocation(Epos.ID, "test")));
@@ -247,7 +250,7 @@ public class Epos {
     @VisibleForTesting
     private void testRegistryCodec(FMLLoadCompleteEvent event) {
         event.enqueueWork(() -> {
-            DynamicRegistry<ISkill, SkillSerializer> registry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "skill"));
+            DynamicRegistry<ISkill, SkillSerializer> registry = DynamicRegistryManager.STATIC.getRegistry(EposRegistries.SKILL_REGISTRY_ID);
             @Nullable
             JsonElement element = registry.toSnapshot(JsonOps.INSTANCE);
             if (element != null) {

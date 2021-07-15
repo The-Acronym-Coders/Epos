@@ -29,7 +29,7 @@ public class PathBuilder {
     private NonNullSupplier<IFormattableTextComponent> name;
     private NonNullSupplier<IFormattableTextComponent> description;
     private NonNullSupplier<Integer> maxLevel = () -> 1;
-    private final Int2ObjectMap<List<IPathFeature>> pathFeatures;
+    private final Int2ObjectArrayMap<List<IPathFeature>> pathFeatures;
 
     private PathBuilder(ResourceLocation registryName, Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, PathFeatures, IPath> factory) {
         this.registryName = registryName;

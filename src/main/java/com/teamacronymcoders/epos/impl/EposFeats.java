@@ -4,7 +4,9 @@ import com.hrznstudio.titanium.event.handler.EventManager;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.builder.FeatBuilder;
 import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.impl.feat.generic.AgileCombatant;
+import com.teamacronymcoders.epos.impl.feat.farmer.EffectiveCultivation;
+import com.teamacronymcoders.epos.impl.feat.farmer.FamiliarAdditions;
+import com.teamacronymcoders.epos.impl.feat.ranger.AgileCombatant;
 import com.teamacronymcoders.epos.impl.feat.generic.Specialized;
 import com.teamacronymcoders.epos.impl.feat.miner.CascadingExcavations;
 import com.teamacronymcoders.epos.impl.feat.fisherman.ExperiencedAngler;
@@ -28,11 +30,13 @@ public class EposFeats {
             ).createEntry();
 
     public static void registerEventManagers() {
-        AgileCombatant.featManager.subscribe();
+        AgileCombatant.registerFeatManagers();
         CascadingExcavations.featManager.subscribe();
+        EffectiveCultivation.registerFeatManagers();
         EffectiveMining.featManager.subscribe();
-        EmbraceOfTheLotus.featManager.subscribe();
+        EmbraceOfTheLotus.registerFeatManagers();
         ExperiencedAngler.featManager.subscribe();
+        FamiliarAdditions.registerFeatManagers();
         FistOfCrumblingEarth.registerFeatManagers();
         MansBestFriend.registerFeatManagers();
         PackMentality.featManager.subscribe();
