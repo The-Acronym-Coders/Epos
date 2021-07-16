@@ -9,6 +9,7 @@ import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposUtil;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -17,7 +18,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // Chance to make animals breed when you're around(?) + Chance to spawn an extra baby when breeding.
 public class FamiliarAdditions {
@@ -49,7 +53,30 @@ public class FamiliarAdditions {
                return false;
             })
             .process(event -> {
-
+                PlayerEntity player = event.player;
+                World world = player.level;
+                BlockPos negativePos = player.blockPosition().offset(-2, -1, -2);
+                BlockPos positivePos = player.blockPosition().offset(2, 1, 2);
+                Map<EntityType<?>, List<AnimalEntity>> sortedEntityMap = new HashMap<>();
+                List<AnimalEntity> nearbyEntities = world.getEntitiesOfClass(AnimalEntity.class, new AxisAlignedBB(negativePos, positivePos));
+                for (AnimalEntity entity : nearbyEntities) {
+                    sortedEntityMap.computeIfAbsent(entity.getType(), type -> new ArrayList<>()).add(entity);
+                }
+                for (Map.Entry<EntityType<?>, List<AnimalEntity>> entry : sortedEntityMap.entrySet()) {
+                    int loveInducedEntities = 0;
+                    List<AnimalEntity> entities = entry.getValue();
+                    if (entities.size() > 2) {
+                        for (AnimalEntity entity : entities) {
+                            if (loveInducedEntities < 2) {
+                                int age = entity.getAge();
+                                if (!world.isClientSide && age == 0 && entity.canFallInLove()) {
+                                    entity.setInLove(player);
+                                    loveInducedEntities++;
+                                }
+                            }
+                        }
+                    }
+                }
             });
 
     private static final EventManager.ISubscribe babyManager = EventManager.create(BabyEntitySpawnEvent.class, EventManager.Bus.FORGE)
