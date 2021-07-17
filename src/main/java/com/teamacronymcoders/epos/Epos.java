@@ -75,6 +75,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
+import java.util.stream.IntStream;
 
 
 @Mod(Epos.ID)
@@ -97,6 +98,7 @@ public class Epos {
         PathRegistrar.register();
         SkillRegistrar.register();
         FeatRegistrar.register();
+        EposFeats.registerEventManagers();
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus(), forgeBus = MinecraftForge.EVENT_BUS;
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new EposClientHandler(modBus, forgeBus));
@@ -194,7 +196,6 @@ public class Epos {
     }
 
     private void registerFeats(DynamicRegistryEvent.Register<IFeat, FeatSerializer> event) {
-        EposFeats.registerEventManagers();
         event.getRegistry().registerAll(FeatBuilder.BUILT_FEATS.toArray(new IFeat[0]));
     }
 
@@ -243,8 +244,9 @@ public class Epos {
         event.getRegistry().register(
                 new Skill(new TranslationTextComponent("test"), new TranslationTextComponent("test.desc"), 5, "1 + x")
                         .setRegistryName(new ResourceLocation(Epos.ID, "test")));
-        event.getRegistry().register(new Skill(new TranslationTextComponent("test2"), new TranslationTextComponent("test2.desc"),
-                10, "x * 2 / 3").setRegistryName(new ResourceLocation(Epos.ID, "test2")));
+        /*IntStream.range(0, 20000).forEach(i -> event.getRegistry().register(new Skill(new TranslationTextComponent("test" + i), new TranslationTextComponent("test" + i + ".desc"),
+                (i % 255) + 1, "x * 2 / " + (i + 1)).setRegistryName(new ResourceLocation(Epos.ID, "test" + i))));
+*/
     }
 
     @VisibleForTesting

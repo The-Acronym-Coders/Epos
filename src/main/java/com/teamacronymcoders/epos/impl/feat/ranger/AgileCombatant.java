@@ -26,7 +26,7 @@ public class AgileCombatant {
     }
 
     private static final EventManager.ISubscribe dodgeManager = EventManager.create(LivingDamageEvent.class, EventManager.Bus.FORGE)
-            .filter(event -> EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.AGILE_COMBATANT))
+            .filter(event -> !event.getEntity().level.isClientSide && EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.AGILE_COMBATANT))
             .process(event -> {
                 if (EposUtil.getRandomizedChance(0.04f)) {
                     event.setCanceled(true);

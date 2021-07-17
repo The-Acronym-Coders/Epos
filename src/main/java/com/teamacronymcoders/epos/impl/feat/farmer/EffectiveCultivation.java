@@ -23,7 +23,7 @@ public class EffectiveCultivation {
     }
 
     private static final EventManager.ISubscribe boneMealManager = EventManager.create(PlayerInteractEvent.RightClickBlock.class, EventManager.Bus.FORGE)
-            .filter(event -> EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.EFFECTIVE_CULTIVATION) && event.getItemStack().getItem() instanceof BoneMealItem && event.getUseItem().equals(Event.Result.ALLOW) && event.getWorld().getBlockState(event.getHitVec().getBlockPos()).getBlock() instanceof IGrowable)
+            .filter(event -> !event.getWorld().isClientSide && EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.EFFECTIVE_CULTIVATION) && event.getItemStack().getItem() instanceof BoneMealItem && event.getUseItem().equals(Event.Result.ALLOW) && event.getWorld().getBlockState(event.getHitVec().getBlockPos()).getBlock() instanceof IGrowable)
             .process(event -> {
                World world = event.getWorld();
                BlockPos pos = event.getHitVec().getBlockPos();

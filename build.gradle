@@ -151,7 +151,7 @@ dependencies {
     implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion-10")
 
     // Add DynamicRegistries
-    implementation fg.deobf('net.ashwork:dynamicregistries:0.1.2')
+    implementation fg.deobf('net.ashwork:dynamicregistries:0.1.3')
 }
 
 test {

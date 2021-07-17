@@ -20,15 +20,21 @@ public class Specialized {
                 boolean hasMatchingSpecialization = false;
                 for (ToolType type : toolTypes) {
                     String name = type.getName();
-                    if (name.equals("axe")) {
-                        hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.AXE_SPECIALIZATION_NOVICE, EposFeatIds.AXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.AXE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("hoe")) {
-                        hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.HOE_SPECIALIZATION_NOVICE, EposFeatIds.HOE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.HOE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("pickaxe")) {
-                        hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_NOVICE, EposFeatIds.PICKAXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.PICKAXE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("shovel")) {
-                        hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_NOVICE, EposFeatIds.SHOVEL_SPECIALIZATION_INTERMEDIATE, EposFeatIds.SHOVEL_SPECIALIZATION_ADVANCED);
+                    switch (name) {
+                        case "axe":
+                            hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.AXE_SPECIALIZATION_NOVICE, EposFeatIds.AXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.AXE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "hoe":
+                            hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.HOE_SPECIALIZATION_NOVICE, EposFeatIds.HOE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.HOE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "pickaxe":
+                            hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_NOVICE, EposFeatIds.PICKAXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.PICKAXE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "shovel":
+                            hasMatchingSpecialization = EposCharacterUtil.anyFeatsAcquired(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_NOVICE, EposFeatIds.SHOVEL_SPECIALIZATION_INTERMEDIATE, EposFeatIds.SHOVEL_SPECIALIZATION_ADVANCED);
+                            break;
                     }
+                    if (hasMatchingSpecialization) break;
                 }
                 return playerEntity != null && hasMatchingSpecialization;
             })
@@ -38,14 +44,19 @@ public class Specialized {
                 int unbreakingModifier = 0;
                 for (ToolType type : toolTypes) {
                     String name = type.getName();
-                    if (name.equals("axe")) {
-                        unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.AXE_SPECIALIZATION_NOVICE, EposFeatIds.AXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.AXE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("hoe")) {
-                        unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.HOE_SPECIALIZATION_NOVICE, EposFeatIds.HOE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.HOE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("pickaxe")) {
-                        unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_NOVICE, EposFeatIds.PICKAXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.PICKAXE_SPECIALIZATION_ADVANCED);
-                    } else if (name.equals("shovel")) {
-                        unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_NOVICE, EposFeatIds.SHOVEL_SPECIALIZATION_INTERMEDIATE, EposFeatIds.SHOVEL_SPECIALIZATION_ADVANCED);
+                    switch (name) {
+                        case "axe":
+                            unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.AXE_SPECIALIZATION_NOVICE, EposFeatIds.AXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.AXE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "hoe":
+                            unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.HOE_SPECIALIZATION_NOVICE, EposFeatIds.HOE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.HOE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "pickaxe":
+                            unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.PICKAXE_SPECIALIZATION_NOVICE, EposFeatIds.PICKAXE_SPECIALIZATION_INTERMEDIATE, EposFeatIds.PICKAXE_SPECIALIZATION_ADVANCED);
+                            break;
+                        case "shovel":
+                            unbreakingModifier += getModifierAmount(playerEntity, EposFeatIds.SHOVEL_SPECIALIZATION_NOVICE, EposFeatIds.SHOVEL_SPECIALIZATION_INTERMEDIATE, EposFeatIds.SHOVEL_SPECIALIZATION_ADVANCED);
+                            break;
                     }
                 }
                 int original = event.getOriginalLevel();

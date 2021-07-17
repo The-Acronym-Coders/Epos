@@ -53,6 +53,6 @@ public class MansBestFriend {
 
     private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
             .process(event -> {
-                ((RegistryEvent.Register) event).getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
+                ((RegistryEvent.Register) event).getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.MANS_BEST_FRIEND));
             });
 }

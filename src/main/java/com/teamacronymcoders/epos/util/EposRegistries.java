@@ -12,7 +12,7 @@ import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.SpiritualAidSerializer;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
-import net.ashwork.dynamicregistries.registry.DynamicRegistry;
+import net.ashwork.dynamicregistries.registry.IDynamicRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Lazy;
 
@@ -28,11 +28,11 @@ public class EposRegistries {
 
     public static final ResourceLocation MISSING_ENTRY = new ResourceLocation(Epos.ID, "missing");
 
-    public final Lazy<DynamicRegistry<IPath, PathSerializer>> PATH_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(PATH_REGISTRY_ID));
-    public final Lazy<DynamicRegistry<ISkill, SkillSerializer>> SKILL_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(SKILL_REGISTRY_ID));
-    public final Lazy<DynamicRegistry<IFeat, FeatSerializer>> FEAT_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(FEAT_REGISTRY_ID));
-    public final Lazy<DynamicRegistry<IPathFeature, PathFeatureSerializer>> PATH_FEATURE_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(PATH_FEATURE_REGISTRY_ID));
-    public final Lazy<DynamicRegistry<ISpiritualAid, SpiritualAidSerializer>> SPIRITUAL_AID_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(SPIRITUAL_AID_REGISTRY_ID));
+    public final Lazy<IDynamicRegistry<IPath, PathSerializer>> PATH_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(PATH_REGISTRY_ID));
+    public final Lazy<IDynamicRegistry<ISkill, SkillSerializer>> SKILL_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(SKILL_REGISTRY_ID));
+    public final Lazy<IDynamicRegistry<IFeat, FeatSerializer>> FEAT_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(FEAT_REGISTRY_ID));
+    public final Lazy<IDynamicRegistry<IPathFeature, PathFeatureSerializer>> PATH_FEATURE_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(PATH_FEATURE_REGISTRY_ID));
+    public final Lazy<IDynamicRegistry<ISpiritualAid, SpiritualAidSerializer>> SPIRITUAL_AID_REGISTRY = Lazy.of(() -> DynamicRegistryManager.DYNAMIC.getRegistry(SPIRITUAL_AID_REGISTRY_ID));
 
     @Nullable
     public IPath getPath(@Nonnull ResourceLocation pathId) {

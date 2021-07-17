@@ -82,7 +82,7 @@ public class FamiliarAdditions {
     private static final EventManager.ISubscribe babyManager = EventManager.create(BabyEntitySpawnEvent.class, EventManager.Bus.FORGE)
             .filter(event -> {
                if (event.getCausedByPlayer() != null && event.getChild() != null) {
-                   return EposCharacterUtil.hasFeat(event.getCausedByPlayer(), EposFeatIds.FAMILIAR_ADDITIONS) && EposUtil.getRandomizedChance(0.25F);
+                   return !event.getCausedByPlayer().level.isClientSide && EposCharacterUtil.hasFeat(event.getCausedByPlayer(), EposFeatIds.FAMILIAR_ADDITIONS) && EposUtil.getRandomizedChance(0.25F);
                }
                return false;
             })
