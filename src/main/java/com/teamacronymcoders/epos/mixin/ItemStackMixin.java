@@ -3,6 +3,8 @@ package com.teamacronymcoders.epos.mixin;
 import com.teamacronymcoders.epos.api.event.EposUnbreakingEvent;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +24,7 @@ public abstract class ItemStackMixin {
     @Shadow public abstract ItemStack copy();
 
     @Unique
-    private WeakReference<ServerPlayerEntity> playerRef = new WeakReference<>(null);
+    private WeakReference<ServerPlayer> playerRef = new WeakReference<>(null);
 
     @Inject(method = "hurt(ILjava/util/Random;Lnet/minecraft/entity/player/ServerPlayerEntity;)Z",
             locals = LocalCapture.CAPTURE_FAILEXCEPTION,
@@ -31,7 +33,7 @@ public abstract class ItemStackMixin {
                 target = "Lnet/minecraft/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/enchantment/Enchantment;Lnet/minecraft/item/ItemStack;)I"
             )
     )
-    private void modifiedHurt(int damage, Random random, ServerPlayerEntity playerEntity, CallbackInfoReturnable<Boolean> cir) {
+    private void modifiedHurt(int damage, Random random, ServerPlayer playerEntity, CallbackInfoReturnable<Boolean> cir) {
         playerRef = new WeakReference<>(playerEntity);
     }
 
@@ -46,7 +48,7 @@ public abstract class ItemStackMixin {
     )
     private int modifiedHurt(int level) {
         int modifiedLevel = level;
-        ServerPlayerEntity playerEntity = playerRef.get();
+        ServerPlayer playerEntity = playerRef.get();
         if (playerEntity != null) {
             modifiedLevel += this.getUnbreakingModifier(level);
             return modifiedLevel;
@@ -56,7 +58,7 @@ public abstract class ItemStackMixin {
 
     @Unique
     private int getUnbreakingModifier(int originalLevel) {
-        ServerPlayerEntity playerEntity = playerRef.get();
+        ServerPlayer playerEntity = playerRef.get();
         ItemStack stack = copy();
         if (playerEntity != null && (stack != null || stack.isEmpty())) {
             EposUnbreakingEvent event = new EposUnbreakingEvent(originalLevel, playerEntity, stack);

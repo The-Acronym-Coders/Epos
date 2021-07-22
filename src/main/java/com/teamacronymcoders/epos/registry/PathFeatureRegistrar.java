@@ -13,6 +13,7 @@ import com.teamacronymcoders.epos.path.feature.point.PointPathFeature;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import com.teamacronymcoders.epos.util.EposRegistries;
 import com.tterrag.registrate.util.entry.RegistryEntry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 
 public class PathFeatureRegistrar {
@@ -23,8 +24,8 @@ public class PathFeatureRegistrar {
             .pathFeatureSerializer("experience_feature_serializer", () -> {
                 Codec<ExperiencePathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(ExperiencePathFeature::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(ExperiencePathFeature::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(ExperiencePathFeature::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(ExperiencePathFeature::getDescription),
                                 EposGrantType.CODEC.fieldOf("type").forGetter(ExperiencePathFeature::getGrantType),
                                 ResourceLocation.CODEC.optionalFieldOf("skillID", EposRegistries.MISSING_ENTRY).forGetter(ExperiencePathFeature::getSkillID),
                                 Codec.INT.fieldOf("experience").forGetter(ExperiencePathFeature::getExperience))
@@ -36,8 +37,8 @@ public class PathFeatureRegistrar {
             .pathFeatureSerializer("level_feature_serializer", () -> {
                 Codec<LevelPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(LevelPathFeature::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(LevelPathFeature::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(LevelPathFeature::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(LevelPathFeature::getDescription),
                                 EposGrantType.CODEC.fieldOf("type").forGetter(LevelPathFeature::getGrantType),
                                 ResourceLocation.CODEC.optionalFieldOf("skillID", EposRegistries.MISSING_ENTRY).forGetter(LevelPathFeature::getSkillID),
                                 Codec.INT.fieldOf("levels").forGetter(LevelPathFeature::getLevels))
@@ -49,8 +50,8 @@ public class PathFeatureRegistrar {
             .pathFeatureSerializer("grant_feature_serializer", () -> {
                 Codec<GrantPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(GrantPathFeature::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(GrantPathFeature::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(GrantPathFeature::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(GrantPathFeature::getDescription),
                                 com.teamacronymcoders.epos.api.enums.EposGrantType.CODEC.fieldOf("type").forGetter(GrantPathFeature::getType),
                                 ResourceLocation.CODEC.fieldOf("id").forGetter(GrantPathFeature::getId))
                         .apply(instance, GrantPathFeature::new));
@@ -61,8 +62,8 @@ public class PathFeatureRegistrar {
             .pathFeatureSerializer("point_feature_serializer", () -> {
                 Codec<PointPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(PointPathFeature::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(PointPathFeature::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(PointPathFeature::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(PointPathFeature::getDescription),
                                 EposPointTypes.CODEC.fieldOf("type").forGetter(PointPathFeature::getType),
                                 Codec.INT.fieldOf("amount").forGetter(PointPathFeature::getAmount))
                         .apply(instance, PointPathFeature::new));

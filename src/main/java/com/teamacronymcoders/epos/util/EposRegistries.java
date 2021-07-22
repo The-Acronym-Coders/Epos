@@ -13,7 +13,7 @@ import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpir
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.SpiritualAidSerializer;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.registry.IDynamicRegistry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.Lazy;
 
 import javax.annotation.Nonnull;

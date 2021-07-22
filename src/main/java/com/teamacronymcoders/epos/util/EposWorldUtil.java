@@ -1,48 +1,48 @@
 package com.teamacronymcoders.epos.util;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class EposWorldUtil {
 
-    public static boolean breakBlock(World world, BlockPos pos, boolean hasTileEntity, @Nullable Entity entity, ItemStack stack) {
-        BlockState blockstate = world.getBlockState(pos);
-        if (blockstate.getBlock().isAir(blockstate, world, pos)) {
+    public static boolean breakBlock(Level level, BlockPos pos, boolean hasTileEntity, @Nullable Entity entity, ItemStack stack) {
+        BlockState blockstate = level.getBlockState(pos);
+        if (blockstate.isAir()) {
             return false;
         } else {
-            FluidState fluidState = world.getFluidState(pos);
-            world.globalLevelEvent(2001, pos, Block.getId(blockstate));
+            FluidState fluidState = level.getFluidState(pos);
+            level.globalLevelEvent(2001, pos, Block.getId(blockstate));
             if (hasTileEntity) {
-                TileEntity tileentity = blockstate.hasTileEntity() ? world.getBlockEntity(pos) : null;
-                Block.dropResources(blockstate, world, pos, tileentity, entity, stack);
+                BlockEntity blockEntity = blockstate.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+                Block.dropResources(blockstate, level, pos, blockEntity, entity, stack);
             }
 
-            return world.setBlock(pos, fluidState.createLegacyBlock(), 3);
+            return level.setBlock(pos, fluidState.createLegacyBlock(), 3);
         }
     }
 
     /**
      * Gets a tile entity if the location is loaded
      *
-     * @param world - world
+     * @param level - world
      * @param pos   - position
      * @return tile entity if found, null if either not found or not loaded
      */
     @Nullable
-    public static TileEntity getTileEntity(@Nullable World world, @Nonnull BlockPos pos) {
-        if (world == null || world.isEmptyBlock(pos)) {
+    public static BlockEntity getBlockEntity(@Nullable Level level, @Nonnull BlockPos pos) {
+        if (level == null || level.isEmptyBlock(pos)) {
             return null;
         }
-        return world.getBlockEntity(pos);
+        return level.getBlockEntity(pos);
     }
 
 

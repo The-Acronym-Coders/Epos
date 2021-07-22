@@ -29,12 +29,15 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.teamacronymcoders.epos.Epos;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ModelLoader;
@@ -46,17 +49,17 @@ import net.minecraftforge.resource.IResourceType;
 import java.util.*;
 import java.util.function.Function;
 
-public class DynamicRegistryBakedModel implements IBakedModel {
+public class DynamicRegistryBakedModel implements BakedModel {
 
     public static final ResourceLocation MISSING_MODEL_LOCATION = new ResourceLocation(Epos.ID, "general/missing");
-    private IBakedModel missingModel;
+    private BakedModel missingModel;
     private final boolean usesBlockLight;
-    private final ItemCameraTransforms transforms;
-    private final ItemOverrideList overrides;
-    private final Map<ResourceLocation, IBakedModel> models;
+    private final ItemTransforms transforms;
+    private final ItemOverrides overrides;
+    private final Map<ResourceLocation, BakedModel> models;
 
-    public DynamicRegistryBakedModel(boolean usesBlockLight, ItemCameraTransforms transforms,
-                                     Map<ResourceLocation, IBakedModel> models, ItemOverrideList overrides) {
+    public DynamicRegistryBakedModel(boolean usesBlockLight, ItemTransforms transforms,
+                                     Map<ResourceLocation, BakedModel> models, ItemOverrides overrides) {
         this.models = models;
         this.missingModel = this.models.get(MISSING_MODEL_LOCATION);
         this.usesBlockLight = usesBlockLight;
@@ -66,7 +69,7 @@ public class DynamicRegistryBakedModel implements IBakedModel {
 
     @Override
     public TextureAtlasSprite getParticleIcon() {
-        return this.missingModel.getParticleTexture(EmptyModelData.INSTANCE);
+        return this.missingModel.getParticleIcon(EmptyModelData.INSTANCE);
     }
 
     @Override
@@ -102,25 +105,25 @@ public class DynamicRegistryBakedModel implements IBakedModel {
     }
 
     @Override
-    public TextureAtlasSprite getParticleTexture(IModelData data) {
+    public TextureAtlasSprite getParticleIcon(IModelData data) {
         return Optional.ofNullable(data.getData(EposModelData.LOCATION_PROPERTY)).map(this.models::get)
-                .map(model -> model.getParticleTexture(EmptyModelData.INSTANCE)).orElse(this.getParticleIcon());
+                .map(model -> model.getParticleIcon(EmptyModelData.INSTANCE)).orElse(this.getParticleIcon());
     }
 
     @Override
-    public ItemCameraTransforms getTransforms() {
+    public ItemTransforms getTransforms() {
         return this.transforms;
     }
 
     @Override
-    public ItemOverrideList getOverrides() {
+    public ItemOverrides getOverrides() {
         return this.overrides;
     }
 
     public static class Unbaked implements IModelGeometry<Unbaked> {
 
         private final EposResourceType type;
-        private final Map<ResourceLocation, IUnbakedModel> models;
+        private final Map<ResourceLocation, UnbakedModel> models;
 
         public Unbaked(EposResourceType type) {
             this.type = type;
@@ -128,31 +131,31 @@ public class DynamicRegistryBakedModel implements IBakedModel {
         }
 
         @Override
-        public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery,
-                                Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform,
-                                ItemOverrideList overrides, ResourceLocation modelLocation) {
-            Map<ResourceLocation, IBakedModel> bakedModels = Maps.transformEntries(this.models,
+        public BakedModel bake(IModelConfiguration owner, ModelBakery bakery,
+                               Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelTransform,
+                               ItemOverrides overrides, ResourceLocation modelLocation) {
+            Map<ResourceLocation, BakedModel> bakedModels = Maps.transformEntries(this.models,
                     (loc, model) -> model.bake(bakery, spriteGetter, modelTransform, loc));
             return new DynamicRegistryBakedModel(owner.isSideLit(), owner.getCameraTransforms(), bakedModels,
                     overrides);
         }
 
         @Override
-        public Collection<RenderMaterial> getTextures(IModelConfiguration owner,
-                                                      Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-            Set<RenderMaterial> materials = new HashSet<>();
+        public Collection<Material> getTextures(IModelConfiguration owner,
+                                                      Function<ResourceLocation, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+            Set<Material> materials = new HashSet<>();
 
-            IUnbakedModel vanillaMissingModel = ModelLoader.instance()
+            UnbakedModel vanillaMissingModel = ModelLoader.instance()
                     .getModelOrMissing(ModelBakery.MISSING_MODEL_LOCATION);
 
-            IUnbakedModel missingModel = this.models.computeIfAbsent(MISSING_MODEL_LOCATION, loc -> {
-                IUnbakedModel model = modelGetter.apply(loc);
+            UnbakedModel missingModel = this.models.computeIfAbsent(MISSING_MODEL_LOCATION, loc -> {
+                UnbakedModel model = modelGetter.apply(loc);
                 materials.addAll(model.getMaterials(modelGetter, missingTextureErrors));
                 return model;
             });
 
             this.type.getModels().forEach(modelLoc -> this.models.computeIfAbsent(modelLoc, loc -> {
-                IUnbakedModel model = modelGetter.apply(loc);
+                UnbakedModel model = modelGetter.apply(loc);
                 if (model == vanillaMissingModel)
                     model = missingModel;
                 materials.addAll(model.getMaterials(modelGetter, missingTextureErrors));
@@ -173,7 +176,7 @@ public class DynamicRegistryBakedModel implements IBakedModel {
         }
 
         @Override
-        public void onResourceManagerReload(IResourceManager resourceManager) {
+        public void onResourceManagerReload(ResourceManager resourceManager) {
         }
 
         @Override

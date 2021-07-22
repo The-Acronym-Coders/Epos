@@ -2,28 +2,25 @@ package com.teamacronymcoders.epos.path.feature;
 
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-
-import javax.annotation.Nullable;
+import net.minecraft.network.chat.MutableComponent;
 
 public abstract class AbstractPathFeature extends DynamicEntry<IPathFeature> implements IPathFeature {
 
-    private final IFormattableTextComponent name;
-    private final IFormattableTextComponent description;
+    private final MutableComponent name;
+    private final MutableComponent description;
 
-    public AbstractPathFeature(IFormattableTextComponent name, IFormattableTextComponent description) {
+    public AbstractPathFeature(MutableComponent name, MutableComponent description) {
         this.name = name;
         this.description = description;
     }
 
     @Override
-    public IFormattableTextComponent getName() {
+    public MutableComponent getName() {
         return this.name;
     }
 
     @Override
-    public IFormattableTextComponent getDescription() {
+    public MutableComponent getDescription() {
         return this.description;
     }
 

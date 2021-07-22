@@ -32,7 +32,7 @@ import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
 
 public class Skill extends DynamicEntry<ISkill> implements ISkill {
 
@@ -40,18 +40,18 @@ public class Skill extends DynamicEntry<ISkill> implements ISkill {
     public static final String DEFAULT_SKILL_EXPRESSION = "128 * (2 ^ ( (1 / 7) * (x - 1) ) )";
 
     public static final Codec<Skill> CODEC = RecordCodecBuilder.create(instance -> instance
-            .group(EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Skill::getName),
-                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Skill::getDescription),
+            .group(EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Skill::getName),
+                    EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(Skill::getDescription),
                     Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel),
                     Codec.STRING.optionalFieldOf("expression", DEFAULT_SKILL_EXPRESSION).forGetter(Skill::getExpression))
             .apply(instance, Skill::new));
 
-    private final IFormattableTextComponent name;
-    private final IFormattableTextComponent description;
+    private final MutableComponent name;
+    private final MutableComponent description;
     private final int maxLevel;
     private final String expression;
 
-    public Skill(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel, String expression) {
+    public Skill(MutableComponent name, MutableComponent description, int maxLevel, String expression) {
         this.name = name;
         this.description = description;
         this.maxLevel = maxLevel;
@@ -59,12 +59,12 @@ public class Skill extends DynamicEntry<ISkill> implements ISkill {
     }
 
     @Override
-    public IFormattableTextComponent getName() {
+    public MutableComponent getName() {
         return this.name;
     }
 
     @Override
-    public IFormattableTextComponent getDescription() {
+    public MutableComponent getDescription() {
         return this.description;
     }
 

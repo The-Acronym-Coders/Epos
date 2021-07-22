@@ -1,15 +1,15 @@
 package com.teamacronymcoders.epos.impl.feat.farmer;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
 import com.ibm.icu.impl.Pair;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposUtil;
-import net.minecraft.block.IGrowable;
-import net.minecraft.item.BoneMealItem;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.BoneMealItem;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -23,9 +23,9 @@ public class EffectiveCultivation {
     }
 
     private static final EventManager.ISubscribe boneMealManager = EventManager.create(PlayerInteractEvent.RightClickBlock.class, EventManager.Bus.FORGE)
-            .filter(event -> !event.getWorld().isClientSide && EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.EFFECTIVE_CULTIVATION) && event.getItemStack().getItem() instanceof BoneMealItem && event.getUseItem().equals(Event.Result.ALLOW) && event.getWorld().getBlockState(event.getHitVec().getBlockPos()).getBlock() instanceof IGrowable)
+            .filter(event -> !event.getWorld().isClientSide && EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.EFFECTIVE_CULTIVATION) && event.getItemStack().getItem() instanceof BoneMealItem && event.getUseItem().equals(Event.Result.ALLOW) && event.getWorld().getBlockState(event.getHitVec().getBlockPos()).getBlock() instanceof BonemealableBlock)
             .process(event -> {
-               World world = event.getWorld();
+               Level world = event.getWorld();
                BlockPos pos = event.getHitVec().getBlockPos();
                if (EposUtil.getRandomizedChance(0.05F)) {
                    // 7x7
@@ -39,20 +39,20 @@ public class EffectiveCultivation {
                }
             });
 
-    private static void handleBoneMealing(BlockPos origin, World world, Stream<BlockPos> stream) {
+    private static void handleBoneMealing(BlockPos origin, Level level, Stream<BlockPos> stream) {
         stream.filter(rawPos -> rawPos != origin)
-                .map(filteredPos -> Pair.of(filteredPos, world.getBlockState(filteredPos)))
-                .filter(rawPair -> rawPair.second.getBlock() instanceof IGrowable)
-                .map(filteredState -> Pair.of((IGrowable) filteredState.second.getBlock(), filteredState))
+                .map(filteredPos -> Pair.of(filteredPos, level.getBlockState(filteredPos)))
+                .filter(rawPair -> rawPair.second.getBlock() instanceof BonemealableBlock)
+                .map(filteredState -> Pair.of((BonemealableBlock) filteredState.second.getBlock(), filteredState))
                 .filter(growableBlockStatePair -> growableBlockStatePair.first.isValidBonemealTarget(
-                        world,
+                        level,
                         growableBlockStatePair.second.first,
-                        growableBlockStatePair.second.second, world.isClientSide))
+                        growableBlockStatePair.second.second, level.isClientSide))
                 .forEach(growableBlockStatePair -> {
-                    if (!world.isClientSide) {
+                    if (!level.isClientSide) {
                         growableBlockStatePair.first.performBonemeal(
-                                (ServerWorld) world,
-                                world.random,
+                                (ServerLevel) level,
+                                level.random,
                                 growableBlockStatePair.second.first,
                                 growableBlockStatePair.second.second);
                     }

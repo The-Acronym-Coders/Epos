@@ -4,12 +4,12 @@ import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.registry.FeatRegistrar;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
 
 public class Feat extends DynamicEntry<IFeat> implements IFeat {
 
-    private final IFormattableTextComponent name;
-    private final IFormattableTextComponent description;
+    private final MutableComponent name;
+    private final MutableComponent description;
     private final boolean isAbility;
 
     /**
@@ -19,19 +19,19 @@ public class Feat extends DynamicEntry<IFeat> implements IFeat {
      * @param description The Description of the Feat.
      * @param isAbility   If the Feat is an Active 'Ability'.
      */
-    public Feat(IFormattableTextComponent name, IFormattableTextComponent description, boolean isAbility) {
+    public Feat(MutableComponent name, MutableComponent description, boolean isAbility) {
         this.name = name;
         this.description = description;
         this.isAbility = isAbility;
     }
 
     @Override
-    public IFormattableTextComponent getName() {
+    public MutableComponent getName() {
         return this.name;
     }
 
     @Override
-    public IFormattableTextComponent getDescription() {
+    public MutableComponent getDescription() {
         return this.description;
     }
 

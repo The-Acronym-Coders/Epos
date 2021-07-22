@@ -2,17 +2,17 @@ package com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic;
 
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.List;
 
 public class SpiritualAid extends DynamicEntry<ISpiritualAid> implements ISpiritualAid {
 
     private final ResourceLocation entityId;
-    private final List<EffectInstance> effects;
+    private final List<MobEffectInstance> effects;
 
-    public SpiritualAid(ResourceLocation entityId, List<EffectInstance> effects) {
+    public SpiritualAid(ResourceLocation entityId, List<MobEffectInstance> effects) {
         this.entityId = entityId;
         this.effects = effects;
     }
@@ -23,7 +23,7 @@ public class SpiritualAid extends DynamicEntry<ISpiritualAid> implements ISpirit
     }
 
     @Override
-    public List<EffectInstance> getEffects() {
+    public List<MobEffectInstance> getEffects() {
         return this.effects;
     }
 

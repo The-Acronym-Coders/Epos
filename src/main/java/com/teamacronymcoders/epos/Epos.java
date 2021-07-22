@@ -45,7 +45,6 @@ import com.teamacronymcoders.epos.impl.EposFeats;
 import com.teamacronymcoders.epos.impl.EposPaths;
 import com.teamacronymcoders.epos.impl.EposSkills;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
-import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.registry.*;
 import com.teamacronymcoders.epos.skill.Skill;
 import com.teamacronymcoders.epos.util.EposRegistries;
@@ -53,10 +52,10 @@ import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.event.DynamicRegistryEvent;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
 import net.ashwork.dynamicregistries.registry.DynamicRegistryBuilder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -68,14 +67,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.fmllegacy.network.NetworkRegistry;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 
 @Mod(Epos.ID)
@@ -158,7 +156,7 @@ public class Epos {
 
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            CapabilityManager.INSTANCE.register(CharacterSheet.class, null, CharacterSheet::new);
+            CapabilityManager.INSTANCE.register(CharacterSheet.class);
 
             this.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Epos.ID, "network"))
                     .clientAcceptedVersions(str -> true).serverAcceptedVersions(str -> true)
@@ -239,10 +237,10 @@ public class Epos {
 
     @VisibleForTesting
     private void testRegistryRegistration(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
-        event.getRegistry().register(new Skill(new TranslationTextComponent("missing"),
-                new TranslationTextComponent("missing.desc"), 1, "0").setRegistryName(EposRegistries.MISSING_ENTRY));
+        event.getRegistry().register(new Skill(new TranslatableComponent("missing"),
+                new TranslatableComponent("missing.desc"), 1, "0").setRegistryName(EposRegistries.MISSING_ENTRY));
         event.getRegistry().register(
-                new Skill(new TranslationTextComponent("test"), new TranslationTextComponent("test.desc"), 5, "1 + x")
+                new Skill(new TranslatableComponent("test"), new TranslatableComponent("test.desc"), 5, "1 + x")
                         .setRegistryName(new ResourceLocation(Epos.ID, "test")));
         /*IntStream.range(0, 20000).forEach(i -> event.getRegistry().register(new Skill(new TranslationTextComponent("test" + i), new TranslationTextComponent("test" + i + ".desc"),
                 (i % 255) + 1, "x * 2 / " + (i + 1)).setRegistryName(new ResourceLocation(Epos.ID, "test" + i))));

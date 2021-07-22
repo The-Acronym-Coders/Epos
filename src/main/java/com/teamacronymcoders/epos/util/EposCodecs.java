@@ -27,26 +27,22 @@ package com.teamacronymcoders.epos.util;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
-import java.util.stream.IntStream;
 
 public final class EposCodecs {
 
-    public static final Codec<IFormattableTextComponent> FORMATTABLE_TEXT_COMPONENT = Codec.PASSTHROUGH
+    public static final Codec<MutableComponent> MUTABLE_COMPONENT_CODEC = Codec.PASSTHROUGH
             .flatXmap(dynamic -> {
                 try {
-                    IFormattableTextComponent component = ITextComponent.Serializer
+                    MutableComponent component = MutableComponent.Serializer
                             .fromJson(dynamic.convert(JsonOps.INSTANCE).getValue());
                     return component != null ? DataResult.success(component, Lifecycle.stable())
                             : DataResult.error("Not a valid formattable text component, returned null.",
@@ -56,36 +52,23 @@ public final class EposCodecs {
                 }
             }, component -> {
                 try {
-                    JsonElement element = ITextComponent.Serializer.toJsonTree(component);
+                    JsonElement element = MutableComponent.Serializer.toJsonTree(component);
                     return DataResult.success(new Dynamic<>(JsonOps.INSTANCE, element), Lifecycle.stable());
                 } catch (final Exception e) {
                     return DataResult.error("An error was thrown: " + e.getMessage(), Lifecycle.stable());
                 }
             });
 
-    public static final Codec<EffectInstance> EFFECT_INSTANCE = RecordCodecBuilder.create(instance -> instance
+    public static final Codec<MobEffectInstance> EFFECT_INSTANCE = RecordCodecBuilder.create(instance -> instance
         .group(
-                forgeRegistryEntry(ForgeRegistries.POTIONS).fieldOf("effect").forGetter(EffectInstance::getEffect),
-                Codec.INT.fieldOf("duration").forGetter(EffectInstance::getDuration),
-                Codec.INT.optionalFieldOf("amplifier", 1).forGetter(EffectInstance::getAmplifier),
-                Codec.BOOL.optionalFieldOf("ambient", false).forGetter(EffectInstance::isAmbient),
-                Codec.BOOL.optionalFieldOf("visible", true).forGetter(EffectInstance::isVisible),
-                Codec.BOOL.optionalFieldOf("showIcon", true).forGetter(EffectInstance::showIcon)
-        ).apply(instance, EffectInstance::new)
+                forgeRegistryEntry(ForgeRegistries.POTIONS).fieldOf("effect").forGetter(MobEffectInstance::getEffect),
+                Codec.INT.fieldOf("duration").forGetter(MobEffectInstance::getDuration),
+                Codec.INT.optionalFieldOf("amplifier", 1).forGetter(MobEffectInstance::getAmplifier),
+                Codec.BOOL.optionalFieldOf("ambient", false).forGetter(MobEffectInstance::isAmbient),
+                Codec.BOOL.optionalFieldOf("visible", true).forGetter(MobEffectInstance::isVisible),
+                Codec.BOOL.optionalFieldOf("showIcon", true).forGetter(MobEffectInstance::showIcon)
+        ).apply(instance, MobEffectInstance::new)
     );
-
-//    public static final Codec<Int2ObjectMap<?>> INT_2_OBJECT_MAP = RecordCodecBuilder.create(instance -> instance
-//        .group(
-//                .fieldOf("indices").forGetter(Int2ObjectMap::keySet)
-//        ).apply(instance, )
-//    );
-//
-//    public static final Codec<Int2ObjectMap<?>> INT_SET = RecordCodecBuilder.create(instance -> instance
-//        .group(
-//                Codec.INT_STREAM.fieldOf("values").forGetter(IntStream.of())
-//        )
-//    );
-
 
     public static <V extends IForgeRegistryEntry<V>> Codec<IForgeRegistry<V>> forgeRegistry() {
         return ResourceLocation.CODEC.comapFlatMap(loc -> {

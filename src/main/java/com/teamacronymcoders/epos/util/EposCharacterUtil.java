@@ -5,8 +5,8 @@ import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.path.PathInfo;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nullable;

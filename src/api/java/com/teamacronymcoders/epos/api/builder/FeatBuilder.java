@@ -1,13 +1,13 @@
 package com.teamacronymcoders.epos.api.builder;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
 import com.mojang.datafixers.util.Function3;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.feat.Feat;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.util.NonNullSupplier;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -23,25 +23,25 @@ public class FeatBuilder {
     }
 
     private final ResourceLocation registryName;
-    private final Function3<IFormattableTextComponent, IFormattableTextComponent, Boolean, IFeat> factory;
-    private NonNullSupplier<IFormattableTextComponent> name;
-    private NonNullSupplier<IFormattableTextComponent> description;
+    private final Function3<MutableComponent, MutableComponent, Boolean, IFeat> factory;
+    private NonNullSupplier<MutableComponent> name;
+    private NonNullSupplier<MutableComponent> description;
     private NonNullSupplier<Boolean> isAbility = () -> false;
     @Nonnull
     private final List<EventManager.ISubscribe> eventManagers;
 
-    private FeatBuilder(ResourceLocation registryName, Function3<IFormattableTextComponent, IFormattableTextComponent, Boolean, IFeat> factory) {
+    private FeatBuilder(ResourceLocation registryName, Function3<MutableComponent, MutableComponent, Boolean, IFeat> factory) {
         this.registryName = registryName;
         this.factory = factory;
         this.eventManagers = new ArrayList<>();
     }
 
-    public FeatBuilder name(NonNullSupplier<IFormattableTextComponent> name) {
+    public FeatBuilder name(NonNullSupplier<MutableComponent> name) {
         this.name = name;
         return this;
     }
 
-    public FeatBuilder description(NonNullSupplier<IFormattableTextComponent> description) {
+    public FeatBuilder description(NonNullSupplier<MutableComponent> description) {
         this.description = description;
         return this;
     }

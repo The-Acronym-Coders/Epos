@@ -4,11 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
 /**
  *

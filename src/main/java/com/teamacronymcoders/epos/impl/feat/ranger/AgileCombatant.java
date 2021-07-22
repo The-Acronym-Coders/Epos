@@ -1,18 +1,18 @@
 package com.teamacronymcoders.epos.impl.feat.ranger;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -38,22 +38,22 @@ public class AgileCombatant {
 
     private static final EventManager.ISubscribe fenceJumpManager = EventManager.create(LivingEvent.LivingJumpEvent.class, EventManager.Bus.FORGE)
             .filter(event -> {
-                if (event.getEntityLiving() instanceof ClientPlayerEntity) {
-                    ClientPlayerEntity player = (ClientPlayerEntity) event.getEntityLiving();
-                    if (player.level instanceof ClientWorld) {
-                        return EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.AGILE_COMBATANT) && isNearbyFence((ClientWorld) player.level, player);
+                if (event.getEntityLiving() instanceof LocalPlayer) {
+                    LocalPlayer player = (LocalPlayer) event.getEntityLiving();
+                    if (player.level instanceof ClientLevel) {
+                        return EposCharacterUtil.hasFeat(event.getEntityLiving(), EposFeatIds.AGILE_COMBATANT) && isNearbyFence((ClientLevel) player.level, player);
                     }
                 }
                 return false;
             })
             .process(event -> {
-                ClientPlayerEntity player = (ClientPlayerEntity) event.getEntityLiving();
+                LocalPlayer player = (LocalPlayer) event.getEntityLiving();
                 if (player.input.jumping) {
                     player.setDeltaMovement(player.getDeltaMovement().add(0.0D, 0.05D, 0.0D));
                 }
             });
 
-    private static boolean isNearbyFence(ClientWorld world, ClientPlayerEntity player) {
+    private static boolean isNearbyFence(ClientLevel level, LocalPlayer player) {
         int x = (int) player.getX() - 1;
         int y = (int) player.getY();
         int z = (int) player.getZ() - 1;
@@ -61,7 +61,7 @@ public class AgileCombatant {
         for(int expandX = 0; expandX < 3; expandX++) {
             for(int expandZ = 0; expandZ < 3; expandZ++) {
                 if (expandX != x || expandZ != z) {
-                    BlockState state = world.getBlockState(new BlockPos(x + expandX, y, z + expandZ));
+                    BlockState state = level.getBlockState(new BlockPos(x + expandX, y, z + expandZ));
                     Block block = state.getBlock();
                     if (block instanceof FenceBlock || block instanceof WallBlock || hasAnyTags(state, Tags.Blocks.FENCES, Tags.Blocks.FENCE_GATES, BlockTags.WALLS)) {
                         return true;
@@ -72,7 +72,7 @@ public class AgileCombatant {
         return false;
     }
 
-    private static boolean hasAnyTags(BlockState state, ITag.INamedTag<Block>... tags) {
+    private static boolean hasAnyTags(BlockState state, Tag.Named<Block>... tags) {
         return Arrays.stream(tags).anyMatch(state::is);
     }
 }

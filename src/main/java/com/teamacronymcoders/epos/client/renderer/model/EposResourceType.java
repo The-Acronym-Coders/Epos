@@ -32,8 +32,8 @@ import net.ashwork.dynamicregistries.entry.IDynamicEntry;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
 import net.ashwork.dynamicregistries.registry.IDynamicRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.resource.IResourceType;
 
 import java.util.*;

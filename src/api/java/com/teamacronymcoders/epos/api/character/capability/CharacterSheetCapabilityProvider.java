@@ -2,9 +2,9 @@ package com.teamacronymcoders.epos.api.character.capability;
 
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -13,7 +13,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CharacterSheetCapabilityProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundNBT> {
+public class CharacterSheetCapabilityProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
     private final CharacterSheet sheet;
     private final LazyOptional<CharacterSheet> optional;
@@ -33,12 +33,12 @@ public class CharacterSheetCapabilityProvider implements ICapabilityProvider, IC
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
+    public CompoundTag serializeNBT() {
         return this.sheet.serializeNBT();
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        this.sheet.deserializeNBT(nbt);
+    public void deserializeNBT(CompoundTag tag) {
+        this.sheet.deserializeNBT(tag);
     }
 }

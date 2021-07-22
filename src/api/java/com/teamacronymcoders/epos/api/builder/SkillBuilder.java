@@ -3,10 +3,11 @@ package com.teamacronymcoders.epos.api.builder;
 import com.mojang.datafixers.util.Function4;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.skill.Skill;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.util.NonNullSupplier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,23 +21,23 @@ public class SkillBuilder {
     }
 
     private final ResourceLocation registryName;
-    private final Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, String, ISkill> factory;
-    private NonNullSupplier<IFormattableTextComponent> name;
-    private NonNullSupplier<IFormattableTextComponent> description;
+    private final Function4<MutableComponent, MutableComponent, Integer, String, ISkill> factory;
+    private NonNullSupplier<MutableComponent> name;
+    private NonNullSupplier<MutableComponent> description;
     private NonNullSupplier<Integer> maxLevel = () -> 1;
     private NonNullSupplier<String> expression = () -> Skill.DEFAULT_SKILL_EXPRESSION;
 
-    public SkillBuilder(ResourceLocation registryName, Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, String, ISkill> factory) {
+    public SkillBuilder(ResourceLocation registryName, Function4<MutableComponent, MutableComponent, Integer, String, ISkill> factory) {
         this.registryName = registryName;
         this.factory = factory;
     }
 
-    public SkillBuilder name(NonNullSupplier<IFormattableTextComponent> name) {
+    public SkillBuilder name(NonNullSupplier<MutableComponent> name) {
         this.name = name;
         return this;
     }
 
-    public SkillBuilder description(NonNullSupplier<IFormattableTextComponent> description) {
+    public SkillBuilder description(NonNullSupplier<MutableComponent> description) {
         this.description = description;
         return this;
     }

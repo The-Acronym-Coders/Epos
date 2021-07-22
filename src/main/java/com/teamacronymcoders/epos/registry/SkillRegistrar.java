@@ -37,8 +37,8 @@ public class SkillRegistrar {
     public static final RegistryEntry<SkillSerializer> SKILL_SERIALIZER = Epos.instance().getRegistrate()
             .skillSerializer("skill", () -> {
                 Codec<Skill> codec = RecordCodecBuilder.create(instance -> instance
-                        .group(EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Skill::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description")
+                        .group(EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Skill::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description")
                                         .forGetter(Skill::getDescription),
                                 Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel),
                                 Codec.STRING.optionalFieldOf("expression", Skill.DEFAULT_SKILL_EXPRESSION)

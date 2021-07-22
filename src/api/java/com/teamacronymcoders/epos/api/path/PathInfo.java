@@ -2,16 +2,6 @@ package com.teamacronymcoders.epos.api.path;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.ashwork.dynamicregistries.DynamicRegistryManager;
-import net.minecraft.util.ResourceLocation;
-
-import java.util.List;
-import java.util.Map;
-
 
 /**
  *

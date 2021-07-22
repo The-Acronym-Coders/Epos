@@ -1,17 +1,17 @@
 package com.teamacronymcoders.epos.api.event;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class EposUnbreakingEvent extends PlayerEvent {
 
     private final int originalLevel;
     private int modifiedLevel;
-    private final ServerPlayerEntity serverPlayer;
+    private final ServerPlayer serverPlayer;
     private final ItemStack stack;
 
-    public EposUnbreakingEvent(int originalLevel, ServerPlayerEntity serverPlayer, ItemStack stack) {
+    public EposUnbreakingEvent(int originalLevel, ServerPlayer serverPlayer, ItemStack stack) {
         super(serverPlayer);
         this.originalLevel = originalLevel;
         this.modifiedLevel = originalLevel;
@@ -31,7 +31,7 @@ public class EposUnbreakingEvent extends PlayerEvent {
         this.modifiedLevel = modifiedLevel;
     }
 
-    public ServerPlayerEntity getServerPlayer() {
+    public ServerPlayer getServerPlayer() {
         return serverPlayer;
     }
 

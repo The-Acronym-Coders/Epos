@@ -1,10 +1,10 @@
 package com.teamacronymcoders.epos.util;
 
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class EposBlockPosUtil {
 
-    public static List<BlockPos> findPositions(BlockState state, BlockPos origin, World world, int maxBlocks, int maxRange) {
+    public static List<BlockPos> findPositions(BlockState state, BlockPos origin, Level level, int maxBlocks, int maxRange) {
         List<BlockPos> found = new ArrayList<>();
         Set<BlockPos> checked = new ObjectOpenHashSet<>();
         found.add(origin);
@@ -24,7 +24,7 @@ public class EposBlockPosUtil {
             for (BlockPos pos : BlockPos.betweenClosed(blockPos.offset(-1, -1, -1), blockPos.offset(1, 1, 1))) {
                 if (!checked.contains(pos)) {
                     if (maxRange == -1 || Math.sqrt(origin.distSqr(pos)) <= maxRange) {
-                        if (!world.isEmptyBlock(pos) && startBlock == world.getBlockState(pos).getBlock()) {
+                        if (!level.isEmptyBlock(pos) && startBlock == level.getBlockState(pos).getBlock()) {
                             found.add(pos.immutable());
                             if (found.size() > maxCount) {
                                 return found;

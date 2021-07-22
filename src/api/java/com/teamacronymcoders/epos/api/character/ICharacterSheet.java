@@ -4,11 +4,11 @@ import com.teamacronymcoders.epos.api.character.info.CharacterInfo;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.util.INBTSerializable;
 
 // TODO: Document Main Interface Object
-public interface ICharacterSheet extends INBTSerializable<CompoundNBT> {
+public interface ICharacterSheet extends INBTSerializable<CompoundTag> {
 
     /**
      * Returns the serializable {@link Paths} 's object for the Character.

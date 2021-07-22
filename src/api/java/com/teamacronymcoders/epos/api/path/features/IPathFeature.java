@@ -1,10 +1,9 @@
 package com.teamacronymcoders.epos.api.path.features;
 
-import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 
 // TODO: Document Main Interface Object
 public interface IPathFeature extends IDescribable, IDynamicEntry<IPathFeature> {

@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.util.EposCodecs;
 import com.tterrag.registrate.util.entry.RegistryEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class SpiritualAidRegistrar {
 

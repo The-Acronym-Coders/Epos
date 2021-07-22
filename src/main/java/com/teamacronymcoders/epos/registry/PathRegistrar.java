@@ -17,8 +17,8 @@ public class PathRegistrar {
             .pathSerializer("path", () -> {
                 Codec<Path> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Path::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Path::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Path::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(Path::getDescription),
                                 Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel),
                                 PathFeatures.CODEC.optionalFieldOf("features", new PathFeatures()).forGetter(Path::getPathFeatures))
                         .apply(instance, Path::new));

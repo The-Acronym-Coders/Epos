@@ -1,15 +1,15 @@
 package com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposRegistries;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public class SpiritOfBattle {
@@ -30,8 +30,8 @@ public class SpiritOfBattle {
                     EposRegistries registries = Epos.instance().getRegistries();
                     ISpiritualAid aid = registries.getSpiritualAid(entityType.getRegistryName());
                     if (aid != null) {
-                        for (EffectInstance instance : aid.getEffects()) {
-                            EffectInstance currentInstance = character.getEffect(instance.getEffect());
+                        for (MobEffectInstance instance : aid.getEffects()) {
+                            MobEffectInstance currentInstance = character.getEffect(instance.getEffect());
                             if (currentInstance != null && currentInstance.getAmplifier() <= instance.getAmplifier()) {
                                 character.removeEffect(instance.getEffect());
                                 character.addEffect(instance);

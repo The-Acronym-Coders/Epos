@@ -2,33 +2,26 @@ package com.teamacronymcoders.epos.path.feature.experience;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
-import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
 import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
-import com.teamacronymcoders.epos.path.feature.grant.GrantPathFeature;
 import com.teamacronymcoders.epos.registry.PathFeatureRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
-import com.teamacronymcoders.epos.util.EposRegistries;
-import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 
 import javax.annotation.Nullable;
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 public class LevelPathFeature extends AbstractPathFeature {
 
     public static final Codec<LevelPathFeature> CODEC = RecordCodecBuilder.create(instance -> instance
             .group(
-                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(LevelPathFeature::getName),
-                    EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(LevelPathFeature::getDescription),
+                    EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(LevelPathFeature::getName),
+                    EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(LevelPathFeature::getDescription),
                     EposGrantType.CODEC.optionalFieldOf("grantType", EposGrantType.CHARACTER).forGetter(LevelPathFeature::getGrantType),
                     ResourceLocation.CODEC.optionalFieldOf("skillID", null).forGetter(LevelPathFeature::getSkillID),
                     Codec.INT.fieldOf("levels").forGetter(LevelPathFeature::getLevels)
@@ -39,7 +32,7 @@ public class LevelPathFeature extends AbstractPathFeature {
     private final ResourceLocation skillID;
     private final int levels;
 
-    public LevelPathFeature(IFormattableTextComponent name, IFormattableTextComponent description, EposGrantType type, @Nullable ResourceLocation skillID, int levels) {
+    public LevelPathFeature(MutableComponent name, MutableComponent description, EposGrantType type, @Nullable ResourceLocation skillID, int levels) {
         super(name, description);
         this.type = type;
         this.skillID = skillID;
@@ -60,7 +53,7 @@ public class LevelPathFeature extends AbstractPathFeature {
 
     @Override
     public void applyTo(LivingEntity character, ICharacterSheet stats) {
-        if (character instanceof PlayerEntity) {
+        if (character instanceof Player) {
             if (this.getGrantType() == EposGrantType.SKILL && this.getSkillID() != null) {
                 SkillInfo info = stats.getSkills().getOrCreate(this.getSkillID());
                 int currentLevel = info.getLevel();
@@ -73,7 +66,7 @@ public class LevelPathFeature extends AbstractPathFeature {
 
     @Override
     public void removeFrom(LivingEntity character, ICharacterSheet stats) {
-        if (character instanceof PlayerEntity) {
+        if (character instanceof Player) {
             if (getGrantType() == EposGrantType.SKILL) {
                 SkillInfo info = stats.getSkills().getOrCreate(this.getSkillID());
                 int currentLevel = info.getLevel();

@@ -13,7 +13,7 @@ archivesBaseName = project.modId
 
 // Sets the toolchain to compile against OpenJDK 8
 java.toolchain {
-    languageVersion = JavaLanguageVersion.of(8)
+    languageVersion = JavaLanguageVersion.of(16)
     vendor = JvmVendorSpec.ADOPTOPENJDK
 }
 
@@ -135,20 +135,20 @@ dependencies {
     shade exp4j
     
     // Add Registrate as shaded library
-    def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
-    implementation fg.deobf(registrate)
-    shade registrate
+    //def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
+    //implementation fg.deobf(registrate)
+    //shade registrate
     
     // Add JEI
-    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
+    //compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
+    //runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
     
     // Add JUnit for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
 
     // Add Titanium
-    implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion-10")
+    //implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion-10")
 
     // Add DynamicRegistries
     implementation fg.deobf('net.ashwork:dynamicregistries:0.1.3')
@@ -161,7 +161,7 @@ test {
 shadowJar {
     configurations = [project.configurations.shade]
     relocate 'net.objecthunter.exp4j', "${project.userGroup}.${project.modId}.repack.exp4j"
-    relocate 'com.tterrag.registrate', "${project.userGroup}.${project.modId}.repack.registrate"
+    //relocate 'com.tterrag.registrate', "${project.userGroup}.${project.modId}.repack.registrate"
     finalizedBy 'reobfShadowJar'
 }
 

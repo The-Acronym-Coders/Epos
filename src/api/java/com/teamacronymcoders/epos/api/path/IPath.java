@@ -5,7 +5,7 @@ import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 
 // TODO: Document Main Interface Object
 public interface IPath extends IDynamicEntry<IPath>, IDescribable {

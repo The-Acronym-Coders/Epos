@@ -30,6 +30,7 @@ import com.tterrag.registrate.builders.BuilderCallback;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
+import net.minecraftforge.common.util.NonNullSupplier;
 
 public class SerializerBuilder<R extends ICodecEntry<?, R>, T extends R, P>
         extends AbstractBuilder<R, T, P, SerializerBuilder<R, T, P>> {

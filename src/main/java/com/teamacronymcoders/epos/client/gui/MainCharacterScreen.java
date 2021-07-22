@@ -1,32 +1,61 @@
 package com.teamacronymcoders.epos.client.gui;
 
-import com.hrznstudio.titanium.api.IFactory;
-import com.hrznstudio.titanium.api.client.IScreenAddon;
-import com.hrznstudio.titanium.client.screen.ScreenAddonScreen;
-import com.teamacronymcoders.epos.api.character.ICharacterSheet;
-import com.teamacronymcoders.epos.client.gui.addons.PlayerRendererAddon;
-import com.teamacronymcoders.epos.client.gui.assets.MainCharacterScreenAssetProvider;
-import com.teamacronymcoders.epos.util.EposCharacterUtil;
-import net.minecraft.entity.player.PlayerEntity;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.util.EposRenderingUtil;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.InventoryMenu;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainCharacterScreen extends AbstractContainerScreen<InventoryMenu> {
 
-public class MainCharacterScreen extends ScreenAddonScreen {
+    private static final ResourceLocation background = new ResourceLocation(Epos.ID, "textures/gui/main_character_screen");
 
-    private final PlayerEntity player;
-    private final ICharacterSheet sheet;
+    private Player player;
+    private float xMouse;
+    private float yMouse;
+    private boolean widthTooNarrow;
+    private boolean buttonPressed;
 
-    public MainCharacterScreen(PlayerEntity player) {
-        super(new MainCharacterScreenAssetProvider(), true);
+    public MainCharacterScreen(Player player) {
+        super(player.inventoryMenu, player.getInventory(), new TranslatableComponent("epos.gui.main.title"));
         this.player = player;
-        this.sheet = EposCharacterUtil.getCharacterSheet(player);
+        this.passEvents = true;
     }
 
     @Override
-    public List<IFactory<IScreenAddon>> guiAddons() {
-        List<IFactory<IScreenAddon>> addons = new ArrayList<>();
-        addons.add(() -> new PlayerRendererAddon(0,0, this.player, 1, true));
-        return addons;
+    protected void init() {
+        super.init();
+        //this.widthTooNarrow = this.width < 379;
+
+    }
+
+    @Override
+    public void render(PoseStack poseStack, int pMouseX, int pMouseY, float pPartialTicks) {
+        this.renderBackground(poseStack);
+    }
+
+    @Override
+    protected void renderBg(PoseStack poseStack, float pPartialTicks, int pMouseX, int pMouseY) {
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
+        this.minecraft.getTextureManager().bindForSetup(background);
+        int xPos = this.leftPos;
+        int yPos = this.topPos;
+        this.blit(poseStack, xPos, yPos, 0, 0, this.imageWidth, this.imageHeight);
+        EposRenderingUtil.renderEntityInInventory(xPos, yPos, 1.0F, pMouseX, pMouseY, this.player);
+    }
+
+
+
+    @Override
+    public boolean mouseReleased(double pMouseX, double pMouseY, int pButton) {
+        if (this.buttonPressed) {
+            this.buttonPressed = false;
+            return true;
+        }
+        return super.mouseReleased(pMouseX, pMouseY, pButton);
     }
 }

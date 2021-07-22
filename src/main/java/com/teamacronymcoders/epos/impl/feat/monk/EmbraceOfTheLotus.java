@@ -1,11 +1,11 @@
 package com.teamacronymcoders.epos.impl.feat.monk;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.impl.featinfo.EOTLFeatInfo;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 
@@ -23,7 +23,7 @@ public class EmbraceOfTheLotus {
                 return false;
             })
             .process(event -> {
-                PlayerEntity player = event.player;
+                Player player = event.player;
                 float absorptionAmount = player.getAbsorptionAmount();
                 boolean hasLessThanMaxAbsorption = absorptionAmount < 5f;
                 FeatInfo info = EposCharacterUtil.getFeatInfo(player, EposFeatIds.EMBRACE_OF_THE_LOTUS);

@@ -26,9 +26,9 @@ package com.teamacronymcoders.epos.registry;
 
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.feat.FeatSerializer;
 import com.teamacronymcoders.epos.api.feat.IFeat;
+import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.PathSerializer;
 import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
@@ -39,10 +39,10 @@ import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.Spiri
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.registry.builder.SerializerBuilder;
 import com.tterrag.registrate.AbstractRegistrate;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;

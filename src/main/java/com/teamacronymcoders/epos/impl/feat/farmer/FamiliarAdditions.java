@@ -1,19 +1,18 @@
 package com.teamacronymcoders.epos.impl.feat.farmer;
 
-import com.hrznstudio.titanium.event.handler.EventManager;
+import com.teamacronymcoders.epos.api.event.eventhandler.EventManager;
 import com.teamacronymcoders.epos.api.feat.info.FeatInfo;
 import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
-import com.teamacronymcoders.epos.impl.featinfo.EOTLFeatInfo;
 import com.teamacronymcoders.epos.impl.featinfo.FAFeatInfo;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposUtil;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
@@ -35,14 +34,14 @@ public class FamiliarAdditions {
     private static final EventManager.ISubscribe breedingManager = EventManager.create(TickEvent.PlayerTickEvent.class, EventManager.Bus.FORGE)
             .filter(event -> {
                 if (event.player != null) {
-                    PlayerEntity player = event.player;
+                    Player player = event.player;
                     FAFeatInfo info = (FAFeatInfo) EposCharacterUtil.getFeatInfo(player, EposFeatIds.FAMILIAR_ADDITIONS);
                     if (info != null && info.getRemainingTime() <= 0) {
-                        World world = player.level;
+                        Level world = player.level;
                         if (world != null) {
                             BlockPos negativePos = player.blockPosition().offset(-2, -1, -2);
                             BlockPos positivePos = player.blockPosition().offset(2, 1, 2);
-                            List<AgeableEntity> nearbyEntities = world.getEntitiesOfClass(AgeableEntity.class, new AxisAlignedBB(negativePos, positivePos));
+                            List<AgeableMob> nearbyEntities = world.getEntitiesOfClass(AgeableMob.class, new AABB(negativePos, positivePos));
                             info.setRemainingTime(60);
                             return nearbyEntities.size() >= 2 && EposCharacterUtil.hasFeat(player, EposFeatIds.FAMILIAR_ADDITIONS);
                         }
@@ -53,20 +52,20 @@ public class FamiliarAdditions {
                return false;
             })
             .process(event -> {
-                PlayerEntity player = event.player;
-                World world = player.level;
+                Player player = event.player;
+                Level world = player.level;
                 BlockPos negativePos = player.blockPosition().offset(-2, -1, -2);
                 BlockPos positivePos = player.blockPosition().offset(2, 1, 2);
-                Map<EntityType<?>, List<AnimalEntity>> sortedEntityMap = new HashMap<>();
-                List<AnimalEntity> nearbyEntities = world.getEntitiesOfClass(AnimalEntity.class, new AxisAlignedBB(negativePos, positivePos));
-                for (AnimalEntity entity : nearbyEntities) {
+                Map<EntityType<?>, List<Animal>> sortedEntityMap = new HashMap<>();
+                List<Animal> nearbyEntities = world.getEntitiesOfClass(Animal.class, new AABB(negativePos, positivePos));
+                for (Animal entity : nearbyEntities) {
                     sortedEntityMap.computeIfAbsent(entity.getType(), type -> new ArrayList<>()).add(entity);
                 }
-                for (Map.Entry<EntityType<?>, List<AnimalEntity>> entry : sortedEntityMap.entrySet()) {
+                for (Map.Entry<EntityType<?>, List<Animal>> entry : sortedEntityMap.entrySet()) {
                     int loveInducedEntities = 0;
-                    List<AnimalEntity> entities = entry.getValue();
+                    List<Animal> entities = entry.getValue();
                     if (entities.size() > 2) {
-                        for (AnimalEntity entity : entities) {
+                        for (Animal entity : entities) {
                             if (loveInducedEntities < 2) {
                                 int age = entity.getAge();
                                 if (!world.isClientSide && age == 0 && entity.canFallInLove()) {
@@ -87,11 +86,11 @@ public class FamiliarAdditions {
                return false;
             })
             .process(event -> {
-                AgeableEntity child = event.getChild();
-                World world = child.level;
+                AgeableMob child = event.getChild();
+                Level world = child.level;
                 BlockPos pos = child.blockPosition();
                 EntityType<?> childType = child.getType();
-                AgeableEntity twin = (AgeableEntity) childType.create(world);
+                AgeableMob twin = (AgeableMob) childType.create(world);
                 if (twin != null) {
                     twin.setPos(pos.getX(), pos.getY(), pos.getZ());
                     world.addFreshEntity(twin);

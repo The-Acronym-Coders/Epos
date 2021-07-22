@@ -7,10 +7,10 @@ import com.teamacronymcoders.epos.api.character.info.CharacterInfo;
 import com.teamacronymcoders.epos.api.feat.Feats;
 import com.teamacronymcoders.epos.api.path.Paths;
 import com.teamacronymcoders.epos.api.skill.Skills;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.LivingEntity;
 
 public class CharacterSheet implements ICharacterSheet {
 
@@ -33,7 +33,7 @@ public class CharacterSheet implements ICharacterSheet {
     private final LivingEntity character;
     private CharacterInfo characterInfo;
 
-    private CompoundNBT capNBT;
+    private CompoundTag capNBT;
 
     /**
      * Default Constructor
@@ -133,14 +133,14 @@ public class CharacterSheet implements ICharacterSheet {
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        DataResult<INBT> result = CODEC.encodeStart(NBTDynamicOps.INSTANCE, this);
-        return result.result().isPresent() ? (CompoundNBT) result.result().get() : new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        DataResult<Tag> result = CODEC.encodeStart(NbtOps.INSTANCE, this);
+        return result.result().isPresent() ? (CompoundTag) result.result().get() : new CompoundTag();
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        DataResult<CharacterSheet> result = CODEC.parse(NBTDynamicOps.INSTANCE, nbt);
+    public void deserializeNBT(CompoundTag nbt) {
+        DataResult<CharacterSheet> result = CODEC.parse(NbtOps.INSTANCE, nbt);
         if (result.result().isPresent()) {
             CharacterSheet sheet = result.result().get();
             this.paths = sheet.paths;

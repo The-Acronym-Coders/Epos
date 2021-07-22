@@ -5,12 +5,11 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.util.NonNullSupplier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,24 +24,24 @@ public class PathBuilder {
     }
 
     private final ResourceLocation registryName;
-    private final Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, PathFeatures, IPath> factory;
-    private NonNullSupplier<IFormattableTextComponent> name;
-    private NonNullSupplier<IFormattableTextComponent> description;
+    private final Function4<MutableComponent, MutableComponent, Integer, PathFeatures, IPath> factory;
+    private NonNullSupplier<MutableComponent> name;
+    private NonNullSupplier<MutableComponent> description;
     private NonNullSupplier<Integer> maxLevel = () -> 1;
     private final Int2ObjectArrayMap<List<IPathFeature>> pathFeatures;
 
-    private PathBuilder(ResourceLocation registryName, Function4<IFormattableTextComponent, IFormattableTextComponent, Integer, PathFeatures, IPath> factory) {
+    private PathBuilder(ResourceLocation registryName, Function4<MutableComponent, MutableComponent, Integer, PathFeatures, IPath> factory) {
         this.registryName = registryName;
         this.factory = factory;
         this.pathFeatures = new Int2ObjectArrayMap<>();
     }
 
-    public PathBuilder name(NonNullSupplier<IFormattableTextComponent> name) {
+    public PathBuilder name(NonNullSupplier<MutableComponent> name) {
         this.name = name;
         return this;
     }
 
-    public PathBuilder description(NonNullSupplier<IFormattableTextComponent> description) {
+    public PathBuilder description(NonNullSupplier<MutableComponent> description) {
         this.description = description;
         return this;
     }

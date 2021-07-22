@@ -14,8 +14,8 @@ public class FeatRegistrar {
             .featSerializer("feat", () -> {
                 Codec<Feat> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("name").forGetter(Feat::getName),
-                                EposCodecs.FORMATTABLE_TEXT_COMPONENT.fieldOf("description").forGetter(Feat::getDescription),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Feat::getName),
+                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(Feat::getDescription),
                                 Codec.BOOL.fieldOf("isAbility").forGetter(Feat::isAbility)
                         )
                         .apply(instance, Feat::new));

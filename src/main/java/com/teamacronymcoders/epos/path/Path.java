@@ -7,13 +7,13 @@ import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.registry.PathRegistrar;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.LivingEntity;
 
 public class Path extends DynamicEntry<IPath> implements IPath {
 
-    private final IFormattableTextComponent name;
-    private final IFormattableTextComponent description;
+    private final MutableComponent name;
+    private final MutableComponent description;
     private final int maxLevel;
     private final PathFeatures pathFeatures;
 
@@ -22,7 +22,7 @@ public class Path extends DynamicEntry<IPath> implements IPath {
      * @param description
      * @param maxLevel
      */
-    public Path(IFormattableTextComponent name, IFormattableTextComponent description, int maxLevel, PathFeatures pathFeatures) {
+    public Path(MutableComponent name, MutableComponent description, int maxLevel, PathFeatures pathFeatures) {
         this.name = name;
         this.description = description;
         this.maxLevel = maxLevel;
@@ -30,12 +30,12 @@ public class Path extends DynamicEntry<IPath> implements IPath {
     }
 
     @Override
-    public IFormattableTextComponent getName() {
+    public MutableComponent getName() {
         return this.name;
     }
 
     @Override
-    public IFormattableTextComponent getDescription() {
+    public MutableComponent getDescription() {
         return this.description;
     }
 

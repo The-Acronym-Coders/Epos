@@ -5,8 +5,7 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
-import net.ashwork.dynamicregistries.entry.IDynamicEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.List;
