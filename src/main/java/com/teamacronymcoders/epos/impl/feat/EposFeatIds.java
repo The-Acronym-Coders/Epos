@@ -2,7 +2,6 @@ package com.teamacronymcoders.epos.impl.feat;
 
 import com.teamacronymcoders.epos.Epos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ResourceLocation;
 
 public class EposFeatIds {
     // Feats
