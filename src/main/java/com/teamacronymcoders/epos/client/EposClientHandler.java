@@ -28,11 +28,14 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.client.menu.type.EposMenuTypes;
 import com.teamacronymcoders.epos.client.renderer.model.DynamicRegistryBakedModel;
 import com.teamacronymcoders.epos.client.renderer.model.EposResourceType;
+import com.teamacronymcoders.epos.client.screen.MainCharacterScreen;
 import net.ashwork.dynamicregistries.DynamicRegistryManager;
 import net.ashwork.dynamicregistries.registry.DynamicRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -48,6 +51,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.resource.VanillaResourceType;
 
 import java.util.HashMap;
@@ -64,6 +68,7 @@ public class EposClientHandler {
         instance = this;
         this.mc = Minecraft.getInstance();
         this.resourceLoaders = new HashMap<>();
+        modBus.addListener(this::registerScreens);
         modBus.addListener(this::registerModels);
 
         // FOR TESTING
@@ -72,6 +77,10 @@ public class EposClientHandler {
 
     public static final EposClientHandler clientInstance() {
         return instance;
+    }
+
+    private void registerScreens(FMLClientSetupEvent event) {
+        MenuScreens.register(EposMenuTypes.MAIN_CHARACTER_MENU_TYPE.get(), MainCharacterScreen::new);
     }
 
     private void registerModels(ModelRegistryEvent event) {

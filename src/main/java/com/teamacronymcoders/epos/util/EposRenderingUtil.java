@@ -5,9 +5,15 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import com.teamacronymcoders.epos.api.character.info.PointInfo;
+import com.teamacronymcoders.epos.client.screen.MainCharacterScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
@@ -63,4 +69,30 @@ public class EposRenderingUtil {
         Lighting.setupFor3DItems();
     }
 
+    //TODO: Have @ChampionAsh look over how we should do the "getXPNeededForNextLevel" replacement and the math logic behind this.
+    public static void renderExperienceBar(Screen screen, PoseStack poseStack, int xPos, int yPos) {
+        RenderSystem.setShaderTexture(0, GuiComponent.GUI_ICONS_LOCATION);
+        int i = screen.getMinecraft().player.getXpNeededForNextLevel();
+        if (i > 0) {
+            int k = (int)(screen.getMinecraft().player.experienceProgress * 183.0F);
+            screen.blit(poseStack, xPos, yPos, 0, 64, 182, 5);
+            if (k > 0) {
+                screen.blit(poseStack, xPos, yPos, 0, 69, k, 5);
+            }
+        }
+    }
+
+    public static void renderPointInfo(PoseStack poseStack, int x, int y, PointInfo info) {
+        Minecraft mc = Minecraft.getInstance();
+        Font font = mc.font;
+        int pathPoints = info.getPathPoints();
+        int skillPoints = info.getSkillPoints();
+        int featPoints = info.getFeatPoints();
+
+        // TODO: Figure out colors!
+        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.path", pathPoints), x, y, 16777215);
+        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.skill", skillPoints), x, y + 24, 16777215);
+        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.feat", featPoints), x, y + 48, 16777215);
+
+    }
 }
