@@ -38,6 +38,15 @@ public class Paths {
         return this.pathInfoMap.computeIfAbsent(id, resourceLocation -> new PathInfo());
     }
 
+    public boolean levelUp(ResourceLocation id, int levels) {
+        PathInfo info = this.pathInfoMap.get(id);
+
+    }
+
+    public boolean levelDown(ResourceLocation id, int levels) {
+
+    }
+
     public Map<ResourceLocation, PathInfo> getPathInfoMap() {
         return pathInfoMap;
     }
