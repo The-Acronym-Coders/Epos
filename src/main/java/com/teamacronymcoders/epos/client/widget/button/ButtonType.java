@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.client.widget;
+package com.teamacronymcoders.epos.client.widget.button;
 
 public enum ButtonType {
     SKINNY(57, 16, 198, 0, 198, 16),

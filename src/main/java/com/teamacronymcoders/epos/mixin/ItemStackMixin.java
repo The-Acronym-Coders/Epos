@@ -1,8 +1,6 @@
 package com.teamacronymcoders.epos.mixin;
 
 import com.teamacronymcoders.epos.api.event.EposUnbreakingEvent;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

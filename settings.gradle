@@ -7,8 +7,8 @@ pluginManagement {
             url 'https://maven.minecraftforge.net'
         }
         maven {
-            name 'Parchment Test'
-            url 'https://sizableshrimp.me/maven'
+            name 'Parchment'
+            url 'https://maven.parchmentmc.org'
         }
         maven {
             name 'Mixins'
@@ -20,7 +20,7 @@ pluginManagement {
     // Resolve ForgeGradle within plugin block
     resolutionStrategy.eachPlugin {
         if (requested.id.id == 'net.minecraftforge.gradle')
-            useModule group: 'me.sizableshrimp.parchmenttest', name: 'ForgeGradle', version: requested.version
+            useModule group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: requested.version
         else if (requested.id.id == 'org.spongepowered.mixin')
             useModule group: 'org.spongepowered', name: 'mixingradle', version: requested.version
     }

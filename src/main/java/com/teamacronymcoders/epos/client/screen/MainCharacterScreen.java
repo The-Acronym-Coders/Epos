@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.client.menu.MainCharacterMenu;
-import com.teamacronymcoders.epos.client.widget.ButtonType;
-import com.teamacronymcoders.epos.client.widget.OffsetButton;
+import com.teamacronymcoders.epos.client.widget.button.ButtonType;
+import com.teamacronymcoders.epos.client.widget.button.OffsetButton;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposRenderingUtil;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -53,8 +53,8 @@ public class MainCharacterScreen extends AbstractContainerScreen<MainCharacterMe
     @Override
     protected void init() {
         super.init();
-        this.imageWidth = 198;
-        this.imageHeight = 244;
+        this.imageWidth = 256;
+        this.imageHeight = 256;
     }
 
     @Override

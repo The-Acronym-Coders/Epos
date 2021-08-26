@@ -4,6 +4,7 @@ plugins {
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
 // Standard Project Information
@@ -11,7 +12,7 @@ version = "$project.minecraftVersion-$project.modSpecVer.$project.modImplVer"
 group = project.userGroup
 archivesBaseName = project.modId
 
-// Sets the toolchain to compile against OpenJDK 8
+// Sets the toolchain to compile against OpenJDK 16
 java.toolchain {
     languageVersion = JavaLanguageVersion.of(16)
     vendor = JvmVendorSpec.ADOPTOPENJDK
@@ -33,6 +34,28 @@ sourceSets {
     }
 }
 
+def version_properties = [
+        "loader_version"    : loaderVersion,
+        "license"           : license,
+        "issue_tracker_url" : issueTrackerURL,
+        "mod_id"            : modId,
+        "version"           : modSpecVer,
+        "mod_name"          : modName,
+        "display_url"       : displayURL,
+        "forge_version"     : forgeVersion,
+        "mixin_version"     : mixinVersion
+]
+
+processResources {
+    outputs.upToDateWhen { false }
+    from(sourceSets.main.resources) {
+        include "META-INF/mods.toml"
+        include "epos.mixins.json"
+        expand version_properties
+    }
+    into "$buildDir/resources/main/"
+}
+
 minecraft {
     // The mappings can be changed at any time, and must be in the following format:
     // Channel:   Version:
@@ -46,7 +69,7 @@ minecraft {
     // Use non-default mappings at your own risk. they may not always work
     // Simply re-run your setup task after changing the mappings to update your workspace
     mappings channel: project.mappingsType, version: project.mappingsVersion
-    
+
     // Exposes fields, methods, constructors, and classes for use within the mod
     // Set modTransformer to 'true' within gradle.properties to enable
     if (project.hasProperty('modTransformer') && project.getProperty('modTransformer').toBoolean())
@@ -95,6 +118,19 @@ minecraft {
     }
 }
 
+configurations {
+    library
+    implementation.extendsFrom library
+}
+
+minecraft.runs.all {
+    lazyToken('minecraft.classpath') {
+        configurations.library.copyRecursive().resolve().collect {
+            it.absolutePath
+        }.join(File.pathSeparator)
+    }
+}
+
 repositories {
     maven {
         name 'Registrate'
@@ -112,10 +148,6 @@ repositories {
         name 'Just Enough Items'
         url 'https://dvs1.progwml6.com/files/maven/'
     }
-    maven {
-        name 'Titanium'
-        url 'https://maven.blamejared.com/'
-    }
     flatDir {
         dir 'libs'
     }
@@ -123,35 +155,35 @@ repositories {
 
 configurations {
     shade
+    runtimeMod { transitive = false }
 }
 
 dependencies {
     // Include MinecraftForge as a dependency
     minecraft group: 'net.minecraftforge', name: 'forge', version: "$project.minecraftVersion-$project.forgeVersion"
-    
+
     // Add exp4j as shaded library for string expression evaluation
     def exp4j = 'net.objecthunter:exp4j:latest.release'
     implementation exp4j
     shade exp4j
-    
+
     // Add Registrate as shaded library
     //def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
     //implementation fg.deobf(registrate)
     //shade registrate
-    
+
     // Add JEI
-    //compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
-    
+    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
+
     // Add JUnit for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
 
-    // Add Titanium
-    //implementation fg.deobf("com.hrznstudio:titanium:$project.minecraftVersion-$project.titaniumVersion-10")
-
     // Add DynamicRegistries
-    implementation fg.deobf('net.ashwork:dynamicregistries:0.1.3')
+    library fg.deobf('net.ashwork:dynamicregistries:1.17.1-0.2.0')
+
+    //library "org.spongepowered.mixin:$project.mixinVersion"
 }
 
 test {
@@ -190,4 +222,11 @@ mixin {
 
 reobf {
     shadowJar {}
+}
+
+project.afterEvaluate {
+    task copyMods(type:Copy) {
+        from configurations.runtimeMod.files
+        into file("run/mods")
+    }
 }

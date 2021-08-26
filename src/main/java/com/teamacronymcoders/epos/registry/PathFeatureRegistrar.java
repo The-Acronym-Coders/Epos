@@ -14,7 +14,6 @@ import com.teamacronymcoders.epos.util.EposCodecs;
 import com.teamacronymcoders.epos.util.EposRegistries;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ResourceLocation;
 
 public class PathFeatureRegistrar {
 

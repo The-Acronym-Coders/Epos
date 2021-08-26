@@ -6,5 +6,5 @@
 "mixins": [
   "ItemStackMixin"
 ],
-"minVersion": "0.8"
+"minVersion": "${mixin_version}"
 } 

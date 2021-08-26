@@ -61,7 +61,7 @@ public final class EposCodecs {
 
     public static final Codec<MobEffectInstance> EFFECT_INSTANCE = RecordCodecBuilder.create(instance -> instance
         .group(
-                forgeRegistryEntry(ForgeRegistries.POTIONS).fieldOf("effect").forGetter(MobEffectInstance::getEffect),
+                forgeRegistryEntry(ForgeRegistries.MOB_EFFECTS).fieldOf("effect").forGetter(MobEffectInstance::getEffect),
                 Codec.INT.fieldOf("duration").forGetter(MobEffectInstance::getDuration),
                 Codec.INT.optionalFieldOf("amplifier", 1).forGetter(MobEffectInstance::getAmplifier),
                 Codec.BOOL.optionalFieldOf("ambient", false).forGetter(MobEffectInstance::isAmbient),

@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.client.widget;
+package com.teamacronymcoders.epos.client.widget.button;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

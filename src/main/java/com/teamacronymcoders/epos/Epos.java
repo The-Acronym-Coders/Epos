@@ -59,6 +59,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -101,6 +102,7 @@ public class Epos {
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus(), forgeBus = MinecraftForge.EVENT_BUS;
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new EposClientHandler(modBus, forgeBus));
         modBus.addListener(this::setup);
+        modBus.addListener(this::registerCapabilities);
 
         // Caps
         forgeBus.addGenericListener(Entity.class, this::setupCharacterSheetCaps);
@@ -156,12 +158,14 @@ public class Epos {
 
     private void setup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            CapabilityManager.INSTANCE.register(CharacterSheet.class);
-
             this.network = NetworkRegistry.ChannelBuilder.named(new ResourceLocation(Epos.ID, "network"))
                     .clientAcceptedVersions(str -> true).serverAcceptedVersions(str -> true)
                     .networkProtocolVersion(() -> Epos.ID + ":1").simpleChannel();
         });
+    }
+
+    private void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(CharacterSheet.class);
     }
 
     // Registries
@@ -209,13 +213,13 @@ public class Epos {
             @Nullable
             JsonElement featElement = featRegistry.toSnapshot(JsonOps.INSTANCE);
             if (pathElement != null) {
-                pathRegistry.fromSnapshot(pathElement, JsonOps.INSTANCE);
+                pathRegistry.fromSnapshot(pathElement, JsonOps.INSTANCE, false);
             }
             if (skillElement != null) {
-                skillRegistry.fromSnapshot(skillElement, JsonOps.INSTANCE);
+                skillRegistry.fromSnapshot(skillElement, JsonOps.INSTANCE, false);
             }
             if (featElement != null) {
-                featRegistry.fromSnapshot(featElement, JsonOps.INSTANCE);
+                featRegistry.fromSnapshot(featElement, JsonOps.INSTANCE, false);
             }
         });
     }
@@ -254,7 +258,7 @@ public class Epos {
             @Nullable
             JsonElement element = registry.toSnapshot(JsonOps.INSTANCE);
             if (element != null) {
-                registry.fromSnapshot(element, JsonOps.INSTANCE);
+                registry.fromSnapshot(element, JsonOps.INSTANCE, false);
             }
         });
     }
