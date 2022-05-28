@@ -1,6 +1,9 @@
-package com.teamacronymcoders.epos.api.locks.key;
+package com.teamacronymcoders.epos.locks.key;
 
 import com.teamacronymcoders.epos.api.locks.IGenericFuzzyLockType;
+import com.teamacronymcoders.epos.api.locks.key.GenericLockKey;
+import com.teamacronymcoders.epos.api.locks.key.IFuzzyLockKey;
+import com.teamacronymcoders.epos.api.locks.key.ILockKey;
 import java.util.Objects;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

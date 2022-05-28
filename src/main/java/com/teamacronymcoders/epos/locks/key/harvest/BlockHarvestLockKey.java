@@ -57,6 +57,7 @@ public class BlockHarvestLockKey extends HarvestLockKey {
 
     @Nullable
     private static BlockHarvestLockKey fromState(@Nonnull BlockState state) {
+        //TODO - 1.17: Remove comment
         //Note: This air check isn't "perfect" due to not being positional based, but given the positional based air is going away in 1.17 it should be fine for now
         if (state.isAir()) {
             return null;

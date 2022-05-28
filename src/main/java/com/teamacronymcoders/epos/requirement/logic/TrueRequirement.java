@@ -8,20 +8,20 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class FalseRequirement implements IRequirement {
+public class TrueRequirement implements IRequirement {
 
-    public static final FalseRequirement INSTANCE = new FalseRequirement();
+    public static final TrueRequirement INSTANCE = new TrueRequirement();
 
     @Nonnull
     @Override
     public ITextComponent getToolTip(boolean matches) {
         //TODO: Add the lang key to the lang file
-        return new TranslationTextComponent("requirement.epos.tooltip.false");
+        return new TranslationTextComponent("requirement.epos.tooltip.true");
     }
 
     @Override
     public boolean isMet(@Nonnull LivingEntity entity, @Nonnull ICharacterStats stats) {
-        return false;
+        return true;
     }
 
     @Nonnull
@@ -29,7 +29,7 @@ public class FalseRequirement implements IRequirement {
     public RequirementComparison compare(IRequirement other) {
         if (other == this) {
             return RequirementComparison.IDENTICAL;
-        } else if (other == TrueRequirement.INSTANCE) {
+        } else if (other == FalseRequirement.INSTANCE) {
             return RequirementComparison.OPPOSITE;
         }
         return RequirementComparison.INCOMPATIBLE;
@@ -37,6 +37,6 @@ public class FalseRequirement implements IRequirement {
 
     @Override
     public boolean canCompareWith(IRequirement other) {
-        return other == this || other == TrueRequirement.INSTANCE;
+        return other == this || other == FalseRequirement.INSTANCE;
     }
 }

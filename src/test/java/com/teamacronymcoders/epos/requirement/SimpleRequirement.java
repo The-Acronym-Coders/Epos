@@ -1,9 +1,12 @@
-package com.teamacronymcoders.epos.api.requirement;
+package com.teamacronymcoders.epos.requirement;
 
 import com.teamacronymcoders.epos.api.characterstats.ICharacterStats;
+import com.teamacronymcoders.epos.api.requirement.IRequirement;
+import com.teamacronymcoders.epos.api.requirement.RequirementComparison;
 import javax.annotation.Nonnull;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 /**
  * Simple implementation of IRequirement that can be compared by the name it got passed.
@@ -14,11 +17,9 @@ public class SimpleRequirement implements IRequirement {
 
     @Nonnull
     private final String name;
-    private final ITextComponent tooltip;
 
     public SimpleRequirement(@Nonnull String name) {
         this.name = name;
-        this.tooltip = new StringTextComponent(name);
     }
 
     @Nonnull
@@ -39,7 +40,7 @@ public class SimpleRequirement implements IRequirement {
     @Nonnull
     @Override
     public ITextComponent getToolTip(boolean matches) {
-        return tooltip;
+        return new StringTextComponent(name);
     }
 
     @Override

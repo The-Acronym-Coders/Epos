@@ -1,4 +1,4 @@
-package com.teamacronymcoders.epos.api.locks;
+package com.teamacronymcoders.epos.locks;
 
 import org.junit.jupiter.api.DisplayName;
 

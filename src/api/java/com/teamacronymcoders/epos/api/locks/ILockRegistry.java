@@ -18,7 +18,6 @@ public interface ILockRegistry {//TODO: Re-evaluate javadocs
      * it "should" be good for that type already
      *
      * @param creator A Lock Key Creator that creates keys of type KEY given an object.
-     * @param <KEY>   The type of key the given lock creator is for.
      */
     //TODO: Evaluate if there is any performance impact of checking against all compared to directly getting the subset that works
     void registerLockType(@Nonnull ILockKeyCreator<?> creator);

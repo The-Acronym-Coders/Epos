@@ -9,7 +9,7 @@ class EposAPIAccessTest {
 
     @Test
     @DisplayName("Test getting the Lock Registry")
-    void testGetRadiationManager() {
+    void testGetLockRegistry() {
         Assertions.assertNotNull(EposAPI.getLockRegistry());
     }
 }

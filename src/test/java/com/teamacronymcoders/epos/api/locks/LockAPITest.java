@@ -1,11 +1,11 @@
 package com.teamacronymcoders.epos.api.locks;
 
 import com.teamacronymcoders.epos.api.EposAPI;
-import com.teamacronymcoders.epos.api.locks.key.DoubleLockKey;
-import com.teamacronymcoders.epos.api.locks.key.IntegerLockKey;
-import com.teamacronymcoders.epos.api.locks.key.StringLockKey;
+import com.teamacronymcoders.epos.locks.key.DoubleLockKey;
+import com.teamacronymcoders.epos.locks.key.IntegerLockKey;
+import com.teamacronymcoders.epos.locks.key.StringLockKey;
 import com.teamacronymcoders.epos.api.requirement.IRequirement;
-import com.teamacronymcoders.epos.api.requirement.SimpleRequirement;
+import com.teamacronymcoders.epos.requirement.SimpleRequirement;
 import com.teamacronymcoders.epos.locks.LockRegistry;
 import java.util.Collections;
 import java.util.List;

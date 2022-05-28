@@ -35,17 +35,53 @@ public class XNORRequirement extends DoubleRequirement {
     @Nullable
     @Override
     protected RequirementComparison getComparison(RequirementComparison leftComparison, RequirementComparison rightComparison) {
-        if (leftComparison == RequirementComparison.IDENTICAL && rightComparison == RequirementComparison.IDENTICAL) {
-            return RequirementComparison.IDENTICAL;
-        }
         //TODO: Implement
+        // T T | T
+        // T F | F
+        // F T | F
+        // F F | T
+        if (leftComparison == RequirementComparison.IDENTICAL) {
+            if (rightComparison == RequirementComparison.LESS_RESTRICTIVE_THAN) {
+
+            } else if (rightComparison == RequirementComparison.MORE_RESTRICTIVE_THAN) {
+
+            }
+        } else if (rightComparison == RequirementComparison.IDENTICAL) {
+            if (leftComparison == RequirementComparison.LESS_RESTRICTIVE_THAN) {
+
+            } else if (leftComparison == RequirementComparison.MORE_RESTRICTIVE_THAN) {
+
+            }
+        } else if (leftComparison == RequirementComparison.LESS_RESTRICTIVE_THAN && rightComparison == RequirementComparison.LESS_RESTRICTIVE_THAN) {
+
+        } else if (leftComparison == RequirementComparison.MORE_RESTRICTIVE_THAN && rightComparison == RequirementComparison.MORE_RESTRICTIVE_THAN) {
+
+        } else if (leftComparison == RequirementComparison.LESS_RESTRICTIVE_THAN && rightComparison == RequirementComparison.MORE_RESTRICTIVE_THAN) {
+
+        } else if (leftComparison == RequirementComparison.MORE_RESTRICTIVE_THAN && rightComparison == RequirementComparison.LESS_RESTRICTIVE_THAN) {
+
+        }
         return null;
     }
 
     @Nullable
     @Override
     protected RequirementComparison getSingleComparison(RequirementComparison leftComparison, RequirementComparison rightComparison) {
-        //TODO: Implement
+        //I don't believe there are any cases where XNOR can be compared against a single element
+        return null;
+    }
+
+    @Nullable
+    @Override
+    protected IRequirement simplify(@Nonnull IRequirement a, @Nonnull IRequirement b) {
+        if (a.canCompareWith(b)) {
+            RequirementComparison comparison = a.compare(b);
+            if (comparison == RequirementComparison.IDENTICAL) {
+                return TrueRequirement.INSTANCE;
+            } else if (comparison == RequirementComparison.OPPOSITE) {
+                return FalseRequirement.INSTANCE;
+            }
+        }
         return null;
     }
 }

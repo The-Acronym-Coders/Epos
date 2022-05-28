@@ -1,5 +1,6 @@
-package com.teamacronymcoders.epos.api.locks.key;
+package com.teamacronymcoders.epos.locks.key;
 
+import com.teamacronymcoders.epos.api.locks.key.ILockKey;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
