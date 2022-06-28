@@ -4,7 +4,7 @@ import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.minecraft.network.chat.MutableComponent;
 
-public abstract class AbstractPathFeature extends DynamicEntry<IPathFeature> implements IPathFeature {
+public abstract class AbstractPathFeature implements IPathFeature {
 
     private final MutableComponent name;
     private final MutableComponent description;

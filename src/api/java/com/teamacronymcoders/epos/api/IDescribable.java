@@ -24,6 +24,7 @@
 
 package com.teamacronymcoders.epos.api;
 
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import net.minecraft.network.chat.MutableComponent;
 
 /**

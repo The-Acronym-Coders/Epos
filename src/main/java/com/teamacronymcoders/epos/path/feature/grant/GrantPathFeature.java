@@ -64,6 +64,11 @@ public class GrantPathFeature extends AbstractPathFeature {
         }
     }
 
+    @Override
+    public Codec<? extends IPathFeature> codec() {
+        return PathFeatureRegistrar.GRANT_FEATURE_SERIALIZER.get();
+    }
+
     public EposGrantType getType() {
         return type;
     }
@@ -72,8 +77,5 @@ public class GrantPathFeature extends AbstractPathFeature {
         return id;
     }
 
-    @Override
-    public ICodecEntry<? extends IPathFeature, ?> codec() {
-        return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
-    }
+
 }

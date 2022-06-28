@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.registry.PathFeatureRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
@@ -75,7 +76,9 @@ public class ExperiencePathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public ICodecEntry<? extends IPathFeature, ?> codec() {
+    public Codec<? extends IPathFeature> codec() {
         return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
     }
+
+
 }

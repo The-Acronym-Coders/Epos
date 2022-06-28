@@ -37,7 +37,7 @@ public class Feats {
     }
 
     public FeatInfo getOrCreate(ResourceLocation id) {
-        FeatInfo registryInfo = Epos.instance().getRegistrate().getFeatInfoRegistry().get().getValue(id);
+        FeatInfo registryInfo = Epos.instance().getRegistrate().getFeatInfoRegistry().getValue(id);
         if (registryInfo != null) {
             return this.featInfoMap.computeIfAbsent(id, resourceLocation -> registryInfo.create());
         }

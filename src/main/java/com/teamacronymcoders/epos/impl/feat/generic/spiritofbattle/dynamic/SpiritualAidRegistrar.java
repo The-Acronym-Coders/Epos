@@ -9,16 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SpiritualAidRegistrar {
 
-    public static final RegistryEntry<SpiritualAidSerializer> SPIRITUAL_AID_SERIALIZER = Epos.instance().getRegistrate()
-            .spiritualAidSerializer("spiritualAid", () -> {
-                Codec<ISpiritualAid> codec = RecordCodecBuilder.create(instance -> instance
-                    .group(
-                           ResourceLocation.CODEC.fieldOf("entityId").forGetter(ISpiritualAid::getEntityId),
-                           Codec.list(EposCodecs.EFFECT_INSTANCE).fieldOf("effects").forGetter(ISpiritualAid::getEffects)
-                    ).apply(instance, SpiritualAid::new)
-                );
-                return codec;
-            }).register();
+    public static final RegistryEntry<Codec<? extends ISpiritualAid>> SPIRITUAL_AID_SERIALIZER = Epos.instance().getRegistrate()
+            .spiritualAidSerializer("spiritualAid", () -> RecordCodecBuilder.create(instance -> instance
+                .group(
+                       ResourceLocation.CODEC.fieldOf("entityId").forGetter(ISpiritualAid::getEntityId),
+                       Codec.list(EposCodecs.EFFECT_INSTANCE).fieldOf("effects").forGetter(ISpiritualAid::getEffects)
+                ).apply(instance, SpiritualAid::new)
+            ));
 
     public static void register() {}
 }

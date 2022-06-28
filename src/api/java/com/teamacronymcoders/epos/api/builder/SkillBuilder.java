@@ -9,11 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.NonNullSupplier;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SkillBuilder {
 
-    public static final List<ISkill> BUILT_SKILLS = new ArrayList<>();
+    public static final Map<ResourceLocation, ISkill> BUILT_SKILLS = new HashMap<>();
 
     public static SkillBuilder create(ResourceLocation registryName) {
         return new SkillBuilder(registryName, Skill::new);
@@ -54,8 +56,7 @@ public class SkillBuilder {
     @NonnullType
     public ISkill createEntry() {
         ISkill skill = factory.apply(this.name.get(), this.description.get(), this.maxLevel.get(), this.expression.get());
-        //skill.setRegistryName(this.registryName);
-        BUILT_SKILLS.add(skill);
+        BUILT_SKILLS.put(this.registryName, skill);
         return skill;
     }
 

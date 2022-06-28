@@ -23,6 +23,6 @@ public class PathRegistrar {
                                 PathFeatures.CODEC.optionalFieldOf("features", new PathFeatures()).forGetter(Path::getPathFeatures))
                         .apply(instance, Path::new));
                 return codec;
-            }).register();
+            });
 
 }

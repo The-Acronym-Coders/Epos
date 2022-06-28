@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
+import com.teamacronymcoders.epos.util.EposRegistries;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,9 +16,9 @@ public class PathFeatures {
     public static final Codec<PathFeatures> CODEC = RecordCodecBuilder.create(instance -> instance
                 .group(
                         Codec.unboundedMap(Codec.INT, ResourceLocation.CODEC.comapFlatMap(id -> {
-                            @Nullable IPathFeature feature = Epos.instance().getRegistries().PATH_FEATURE_REGISTRY.get().getValue(id);
+                            @Nullable IPathFeature feature = Epos.instance().getRegistries().getPathFeature(id);
                             return feature != null ? DataResult.success(feature) : DataResult.error("Path Feature does not exist: " + id);
-                        }, IPathFeature::getRegistryName).listOf())
+                        }, feature -> EposRegistries.PATH_FEATURES.get().getKey(feature)).listOf())
                                 .optionalFieldOf("pathFeatures", new Int2ObjectArrayMap<>())
                                 .xmap(Int2ObjectArrayMap::new, map -> map).forGetter(PathFeatures::getPathFeatures)
                 ).apply(instance, PathFeatures::new)

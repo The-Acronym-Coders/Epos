@@ -3,7 +3,6 @@ package com.teamacronymcoders.epos.api.network.packets.base;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
 import net.minecraftforge.network.NetworkEvent;
 
 import javax.annotation.Nullable;

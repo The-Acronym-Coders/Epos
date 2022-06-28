@@ -78,7 +78,9 @@ public class LevelPathFeature extends AbstractPathFeature {
     }
 
     @Override
-    public ICodecEntry<? extends IPathFeature, ?> codec() {
-        return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
+    public Codec<? extends IPathFeature> codec() {
+        return PathFeatureRegistrar.LEVEL_FEATURE_SERIALIZER.get();
     }
+
+
 }

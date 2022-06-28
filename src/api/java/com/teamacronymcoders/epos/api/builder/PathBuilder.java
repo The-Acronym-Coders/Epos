@@ -11,13 +11,11 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.NonNullSupplier;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class PathBuilder {
 
-    public static final List<IPath> BUILT_PATHS = new ArrayList<>();
+    public static final Map<ResourceLocation, IPath> BUILT_PATHS = new HashMap<>();
 
     public static PathBuilder create(ResourceLocation registryName) {
         return new PathBuilder(registryName, Path::new);
@@ -64,8 +62,7 @@ public class PathBuilder {
     @NonnullType
     public IPath createEntry() {
         IPath path = factory.apply(this.name.get(), this.description.get(), this.maxLevel.get(), new PathFeatures(this.pathFeatures));
-        path.setRegistryName(this.registryName);
-        BUILT_PATHS.add(path);
+        BUILT_PATHS.put(this.registryName, path);
         return path;
     }
 

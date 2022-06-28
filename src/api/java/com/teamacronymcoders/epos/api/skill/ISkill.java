@@ -27,8 +27,10 @@ package com.teamacronymcoders.epos.api.skill;
 import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.util.EposRegistries;
-import net.ashwork.dynamicregistries.entry.IDynamicEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -58,6 +60,8 @@ public interface ISkill extends IDescribable {
      * @return The Experience-Scaling Expression as a {@link String}.
      */
     String getExpression();
+
+    @NotNull String getTranslationKey(ResourceLocation id);
 
     Codec<? extends ISkill> codec();
 }

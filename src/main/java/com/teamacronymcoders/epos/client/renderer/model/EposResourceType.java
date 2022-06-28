@@ -64,7 +64,7 @@ public class EposResourceType implements ExistingFileHelper.IResourceType {
         return this.mainModel;
     }
 
-    public <T extends IDynamicEntry<T>> List<BakedQuad> getQuads(T obj) {
+    public <T> List<BakedQuad> getQuads(T obj) {
         return Minecraft.getInstance().getModelManager().getModel(this.mainModel).getQuads(null, null, RANDOM,
                 EposModelData.constructModelData(obj == null ? null : this.modelLocations.get(obj.getRegistryName())));
     }

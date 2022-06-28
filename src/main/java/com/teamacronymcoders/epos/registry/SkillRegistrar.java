@@ -35,17 +35,14 @@ import com.tterrag.registrate.util.entry.RegistryEntry;
 public class SkillRegistrar {
 
     public static final RegistryEntry<Codec<? extends ISkill>> SKILL_SERIALIZER = Epos.instance().getRegistrate()
-            .skillSerializer("default_skill_serializer", () -> {
-                Codec<Skill> codec = RecordCodecBuilder.create(instance -> instance
-                        .group(EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Skill::getName),
-                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description")
-                                        .forGetter(Skill::getDescription),
-                                Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel),
-                                Codec.STRING.optionalFieldOf("expression", Skill.DEFAULT_SKILL_EXPRESSION)
-                                        .forGetter(Skill::getExpression))
-                        .apply(instance, Skill::new));
-                return codec;
-            }).register();
+            .skillSerializer("default_skill_serializer", () -> RecordCodecBuilder.<Skill>create(instance -> instance
+                    .group(EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Skill::getName),
+                            EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description")
+                                    .forGetter(Skill::getDescription),
+                            Codec.intRange(1, 256).optionalFieldOf("maxLevel", 1).forGetter(Skill::getMaxLevel),
+                            Codec.STRING.optionalFieldOf("expression", Skill.DEFAULT_SKILL_EXPRESSION)
+                                    .forGetter(Skill::getExpression))
+                    .apply(instance, Skill::new)));
 
     public static void register() {}
 }

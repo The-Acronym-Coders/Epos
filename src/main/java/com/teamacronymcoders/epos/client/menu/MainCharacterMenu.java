@@ -6,6 +6,7 @@ import com.teamacronymcoders.epos.client.menu.type.EposMenuTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -89,6 +90,68 @@ public class MainCharacterMenu extends AbstractContainerMenu {
                 return Pair.of(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD);
             }
         });
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(pIndex);
+        if (slot.hasItem()) {
+            ItemStack itemstack1 = slot.getItem();
+            itemstack = itemstack1.copy();
+            EquipmentSlot equipmentslot = Mob.getEquipmentSlotForItem(itemstack);
+            if (pIndex == 0) {
+                if (!this.moveItemStackTo(itemstack1, 9, 45, true)) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onQuickCraft(itemstack1, itemstack);
+            } else if (pIndex >= 1 && pIndex < 5) {
+                if (!this.moveItemStackTo(itemstack1, 9, 45, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (pIndex >= 5 && pIndex < 9) {
+                if (!this.moveItemStackTo(itemstack1, 9, 45, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR && !this.slots.get(8 - equipmentslot.getIndex()).hasItem()) {
+                int i = 8 - equipmentslot.getIndex();
+                if (!this.moveItemStackTo(itemstack1, i, i + 1, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (equipmentslot == EquipmentSlot.OFFHAND && !this.slots.get(45).hasItem()) {
+                if (!this.moveItemStackTo(itemstack1, 45, 46, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (pIndex >= 9 && pIndex < 36) {
+                if (!this.moveItemStackTo(itemstack1, 36, 45, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (pIndex >= 36 && pIndex < 45) {
+                if (!this.moveItemStackTo(itemstack1, 9, 36, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(itemstack1, 9, 45, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(pPlayer, itemstack1);
+            if (pIndex == 0) {
+                pPlayer.drop(itemstack1, false);
+            }
+        }
+
+        return itemstack;
     }
 
     @Override

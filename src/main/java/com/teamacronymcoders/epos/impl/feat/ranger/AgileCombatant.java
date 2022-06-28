@@ -19,6 +19,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unchecked")
 public class AgileCombatant {
     public static void registerFeatManagers() {
         dodgeManager.subscribe();

@@ -30,11 +30,16 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.registry.SkillRegistrar;
 import com.teamacronymcoders.epos.util.EposCodecs;
-import net.ashwork.dynamicregistries.entry.DynamicEntry;
-import net.ashwork.dynamicregistries.entry.ICodecEntry;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import net.minecraft.Util;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.animal.Cod;
+import org.jetbrains.annotations.NotNull;
 
-public class Skill extends DynamicEntry<ISkill> implements ISkill {
+import javax.annotation.Nonnull;
+
+public class Skill implements ISkill {
 
     @VisibleForTesting
     public static final String DEFAULT_SKILL_EXPRESSION = "128 * (2 ^ ( (1 / 7) * (x - 1) ) )";
@@ -46,40 +51,92 @@ public class Skill extends DynamicEntry<ISkill> implements ISkill {
                     Codec.STRING.optionalFieldOf("expression", DEFAULT_SKILL_EXPRESSION).forGetter(Skill::getExpression))
             .apply(instance, Skill::new));
 
-    private final MutableComponent name;
-    private final MutableComponent description;
-    private final int maxLevel;
-    private final String expression;
+    private final NonNullSupplier<MutableComponent> name;
+    private final NonNullSupplier<MutableComponent> description;
+    private final NonNullSupplier<Integer> maxLevel;
+    private final NonNullSupplier<String> expression;
+    private final NonNullSupplier<Codec<? extends ISkill>> skillCodec;
 
-    public Skill(MutableComponent name, MutableComponent description, int maxLevel, String expression) {
+    private String translationKey;
+
+    /*
+    *
+    * Default Codec Constructor
+    *
+    */
+    public Skill(@Nonnull MutableComponent name, @Nonnull MutableComponent description, @Nonnull int maxLevel, @Nonnull String expression) {
+        this.name = () -> name;
+        this.description = () -> description;
+        this.maxLevel = () -> maxLevel;
+        this.expression = () -> expression;
+        this.skillCodec = SkillRegistrar.SKILL_SERIALIZER;
+    }
+
+    /*
+     *
+     * Default Constructor
+     *
+     */
+    public Skill(@Nonnull MutableComponent name, @Nonnull MutableComponent description, @Nonnull int maxLevel, @Nonnull String expression, Codec<? extends ISkill> skillCodec) {
+        this.name = () -> name;
+        this.description = () -> description;
+        this.maxLevel = () -> maxLevel;
+        this.expression = () -> expression;
+        if (skillCodec == null) {
+            this.skillCodec = SkillRegistrar.SKILL_SERIALIZER;
+        } else {
+            this.skillCodec = () -> skillCodec;
+        }
+    }
+
+    /*
+     *
+     * Default Registrate Constructor
+     *
+     */
+    public Skill(NonNullSupplier<MutableComponent> name, NonNullSupplier<MutableComponent> description, NonNullSupplier<Integer> maxLevel, NonNullSupplier<String> expression, NonNullSupplier<Codec<? extends ISkill>> skillCodec) {
         this.name = name;
         this.description = description;
         this.maxLevel = maxLevel;
         this.expression = expression;
+        if (skillCodec == null) {
+            this.skillCodec = SkillRegistrar.SKILL_SERIALIZER;
+        } else {
+            this.skillCodec = skillCodec;
+        }
     }
 
     @Override
     public MutableComponent getName() {
-        return this.name;
+        return this.name.get();
     }
 
     @Override
     public MutableComponent getDescription() {
-        return this.description;
+        return this.description.get();
     }
 
     @Override
     public int getMaxLevel() {
-        return this.maxLevel;
+        return this.maxLevel.get();
     }
 
     @Override
     public String getExpression() {
-        return this.expression;
+        return this.expression.get();
     }
 
     @Override
-    public ICodecEntry<? extends ISkill, ?> codec() {
-        return SkillRegistrar.SKILL_SERIALIZER.get();
+    public @NotNull String getTranslationKey(ResourceLocation id) {
+        if (this.translationKey == null) {
+            this.translationKey = Util.makeDescriptionId("skill", id);
+        }
+        return this.translationKey;
     }
+
+    @Override
+    public Codec<? extends ISkill> codec() {
+        return this.skillCodec.get();
+    }
+
 }

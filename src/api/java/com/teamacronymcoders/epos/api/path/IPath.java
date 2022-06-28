@@ -6,8 +6,10 @@ import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
 import com.teamacronymcoders.epos.util.EposRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Function;
 
@@ -59,6 +61,8 @@ public interface IPath extends IDescribable {
      * @param levelsToRemove The amount of levels to remove.
      */
     void removeLevel(LivingEntity character, ICharacterSheet stats, int levelsToRemove);
+
+    @NotNull String getTranslationKey(ResourceLocation id);
 
     Codec<? extends IPath> codec();
 }

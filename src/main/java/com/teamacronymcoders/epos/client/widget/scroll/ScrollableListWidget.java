@@ -3,6 +3,7 @@ package com.teamacronymcoders.epos.client.widget.scroll;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraftforge.client.gui.ScrollPanel;
 
 public class ScrollableListWidget extends ScrollPanel {
@@ -21,4 +22,13 @@ public class ScrollableListWidget extends ScrollPanel {
 
     }
 
+    @Override
+    public NarrationPriority narrationPriority() {
+        return NarrationPriority.NONE;
+    }
+
+    @Override
+    public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
+
+    }
 }

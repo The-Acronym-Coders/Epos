@@ -90,6 +90,7 @@ public class Epos {
             // TODO: Setup new Tests
             //this.addTestCases(modBus, forgeBus);
         } else {
+
 //            modBus.addListener(this::setupRegistries);
 //            modBus.addGenericListener(IPath.class, this::registerPaths);
 //            modBus.addGenericListener(ISkill.class, this::registerSkills);

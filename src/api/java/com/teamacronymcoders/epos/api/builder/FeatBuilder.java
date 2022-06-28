@@ -10,13 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.NonNullSupplier;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FeatBuilder {
 
-    public static final List<IFeat> BUILT_FEATS = new ArrayList<>();
+    public static final Map<ResourceLocation, IFeat> BUILT_FEATS = new HashMap<>();
 
     public static FeatBuilder create(ResourceLocation registryName) {
         return new FeatBuilder(registryName, Feat::new);
@@ -64,8 +62,7 @@ public class FeatBuilder {
     @NonnullType
     public IFeat createEntry() {
         IFeat feat = factory.apply(this.name.get(), this.description.get(), this.isAbility.get());
-        feat.setRegistryName(this.registryName);
-        BUILT_FEATS.add(feat);
+        BUILT_FEATS.put(this.registryName, feat);
         eventManagers.forEach(EventManager.ISubscribe::subscribe);
         return feat;
     }

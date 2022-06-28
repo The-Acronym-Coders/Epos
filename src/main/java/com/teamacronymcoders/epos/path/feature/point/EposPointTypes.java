@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public enum EposPointTypes implements StringRepresentable {
     PATH("path"), SKILL("skill"), FEAT("feat");
 
-    public static final Codec<EposPointTypes> CODEC = StringRepresentable.fromEnum(EposPointTypes::values, EposPointTypes::byName);
+    public static final Codec<EposPointTypes> CODEC = StringRepresentable.fromEnum(EposPointTypes::values);
     private static final Map<String, EposPointTypes> BY_NAME = Arrays.stream(values()).collect(Collectors.toMap(EposPointTypes::getSerializedName, grantType -> grantType));
 
     final String name;
@@ -24,10 +24,5 @@ public enum EposPointTypes implements StringRepresentable {
     @Override
     public String getSerializedName() {
         return this.name;
-    }
-
-    @Nullable
-    public static EposPointTypes byName(String name) {
-        return BY_NAME.get(name.toLowerCase(Locale.ROOT));
     }
 }
