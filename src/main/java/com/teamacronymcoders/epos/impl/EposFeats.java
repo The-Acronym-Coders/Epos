@@ -17,14 +17,15 @@ import com.teamacronymcoders.epos.impl.feat.monk.FistOfCrumblingEarth;
 import com.teamacronymcoders.epos.impl.feat.ranger.AgileCombatant;
 import com.teamacronymcoders.epos.impl.feat.ranger.MansBestFriend;
 import com.teamacronymcoders.epos.impl.feat.ranger.PackMentality;
-import net.minecraft.network.chat.TextComponent;
+
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 
 public class EposFeats {
     private static final IFeat test = FeatBuilder.create(new ResourceLocation(Epos.ID, "test"))
-            .name(() -> new TextComponent("test"))
-            .description(() -> new TextComponent("testDescription"))
+            .name(() -> Component.literal("test"))
+            .description(() -> Component.literal("testDescription"))
             .withEventManagers(
                     EventManager.create(FMLLoadCompleteEvent.class, EventManager.Bus.FORGE).process(event -> Epos.getLogger().info("Boop"))
             ).createEntry();

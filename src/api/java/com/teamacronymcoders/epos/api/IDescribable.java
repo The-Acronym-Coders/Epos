@@ -24,13 +24,11 @@
 
 package com.teamacronymcoders.epos.api;
 
-import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 
 /**
  * {@link IDescribable} is used to provide easily accessible Name and Description getters for various objects.
- * These Names and Descriptions are returned as {@link TextComponent} objects.
+ * These Names and Descriptions are returned as {@link MutableComponent} objects.
  */
 public interface IDescribable {
 

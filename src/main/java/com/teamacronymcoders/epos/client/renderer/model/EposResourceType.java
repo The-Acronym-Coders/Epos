@@ -34,11 +34,13 @@ import net.ashwork.dynamicregistries.registry.IDynamicRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.resource.IResourceType;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.util.RandomSource;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.*;
 
-public class EposResourceType implements IResourceType {
+public class EposResourceType implements ExistingFileHelper.IResourceType {
 
     public static final EposResourceType SKILL = constructResourceType(new ResourceLocation(Epos.ID, "skill"));
 
@@ -47,7 +49,7 @@ public class EposResourceType implements IResourceType {
                 new ResourceLocation(registryName.getNamespace(), "general/" + registryName.getPath()));
     }
 
-    private static final Random RANDOM = new Random();
+    private static final RandomSource RANDOM = RandomSource.create();
     private final Supplier<? extends IDynamicRegistry<?, ?>> registry;
     private final ResourceLocation mainModel;
     private final Map<ResourceLocation, ResourceLocation> modelLocations;
@@ -82,5 +84,20 @@ public class EposResourceType implements IResourceType {
 
     public Collection<ResourceLocation> getModels() {
         return Collections.unmodifiableCollection(this.modelLocations.values());
+    }
+
+    @Override
+    public PackType getPackType() {
+        return null;
+    }
+
+    @Override
+    public String getSuffix() {
+        return null;
+    }
+
+    @Override
+    public String getPrefix() {
+        return null;
     }
 }

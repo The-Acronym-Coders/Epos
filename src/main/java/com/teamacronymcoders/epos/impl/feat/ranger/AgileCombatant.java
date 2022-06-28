@@ -8,7 +8,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -72,7 +72,7 @@ public class AgileCombatant {
         return false;
     }
 
-    private static boolean hasAnyTags(BlockState state, Tag.Named<Block>... tags) {
+    private static boolean hasAnyTags(BlockState state, TagKey<Block>... tags) {
         return Arrays.stream(tags).anyMatch(state::is);
     }
 }

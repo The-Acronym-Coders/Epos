@@ -1,5 +1,6 @@
 package com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic;
 
+import com.mojang.serialization.Codec;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +8,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 
 import java.util.List;
 
-public class SpiritualAid extends DynamicEntry<ISpiritualAid> implements ISpiritualAid {
+public class SpiritualAid implements ISpiritualAid {
 
     private final ResourceLocation entityId;
     private final List<MobEffectInstance> effects;
@@ -28,8 +29,9 @@ public class SpiritualAid extends DynamicEntry<ISpiritualAid> implements ISpirit
     }
 
     @Override
-    public ICodecEntry<? extends ISpiritualAid, ?> codec() {
+    public Codec<? extends ISpiritualAid> codec() {
         return SpiritualAidRegistrar.SPIRITUAL_AID_SERIALIZER.get();
     }
+
 
 }

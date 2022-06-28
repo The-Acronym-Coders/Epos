@@ -8,7 +8,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class OffsetButton extends Button {
 
@@ -17,7 +17,7 @@ public class OffsetButton extends Button {
 
     //TODO: Implement onPress
     public OffsetButton(int x, int y, String identifier, ButtonType type) {
-        super(x, y, type.getWidth(), type.getHeight(), new TranslatableComponent("epos.button." + identifier), null);
+        super(x, y, type.getWidth(), type.getHeight(), Component.translatable("epos.button." + identifier), null);
         this.identifier = identifier;
         this.type = type;
     }
@@ -32,7 +32,7 @@ public class OffsetButton extends Button {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        this.blit(poseStack, this.x, this.y, this.width, this.height, this.type.getU(isHovered()), this.type.getV(isHovered()));
-        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.button." + this.identifier), this.x + (this.width / 2), this.y + (this.height / 2), 0);
+        this.blit(poseStack, this.x, this.y, this.width, this.height, this.type.getU(isHovered), this.type.getV(isHovered));
+        GuiComponent.drawCenteredString(poseStack, font, Component.translatable("epos.button." + this.identifier), this.x + (this.width / 2), this.y + (this.height / 2), 0);
     }
 }

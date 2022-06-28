@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamacronymcoders.epos.api.skill.ISkill;
 import net.minecraft.client.gui.components.toasts.Toast;
 import net.minecraft.client.gui.components.toasts.ToastComponent;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 
@@ -14,14 +14,14 @@ import java.util.List;
 
 public class LevelUpToast implements Toast {
 
-    private final BaseComponent message;
+    private final MutableComponent message;
     private boolean playedSound;
 
     public LevelUpToast(ISkill skill, int newLevel) {
         if (skill != null) {
-            this.message = new TranslatableComponent("epos.levelUp.skill", skill.getName(), newLevel);
+            this.message = Component.translatable("epos.levelUp.skill", skill.getName(), newLevel);
         } else {
-            this.message = new TranslatableComponent("epos.levelUp.skill.error");
+            this.message = Component.translatable("epos.levelUp.skill.error");
         }
     }
 

@@ -11,7 +11,6 @@ import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import com.teamacronymcoders.epos.util.EposRenderingUtil;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +36,7 @@ public class MainCharacterScreen extends AbstractContainerScreen<MainCharacterMe
     }
 
     public MainCharacterScreen(@Nonnull Player player, int containerId) {
-        super(new MainCharacterMenu(player, containerId), player.getInventory(), new TranslatableComponent("epos.gui.main.title"));
+        super(new MainCharacterMenu(player, containerId), player.getInventory(), Component.translatable("epos.gui.main.title"));
         this.player = player;
         this.passEvents = true;
 

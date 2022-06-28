@@ -1,14 +1,25 @@
 package com.teamacronymcoders.epos.api.path;
 
+import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.IDescribable;
 import com.teamacronymcoders.epos.api.character.ICharacterSheet;
 import com.teamacronymcoders.epos.api.path.features.PathFeatures;
 import com.teamacronymcoders.epos.path.Path;
-import net.ashwork.dynamicregistries.entry.IDynamicEntry;
+import com.teamacronymcoders.epos.util.EposRegistries;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.LivingEntity;
 
+import java.util.function.Function;
+
 // TODO: Document Main Interface Object
-public interface IPath extends IDynamicEntry<IPath>, IDescribable {
+public interface IPath extends IDescribable {
+
+    /**
+     * Codec for (de)serializing biome modifiers inline.
+     * Mods can use this for data generation.
+     */
+    Codec<IPath> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> EposRegistries.PATH_SERIALIZERS.get().getCodec())
+            .dispatch(IPath::codec, Function.identity());
 
     /**
      * Indicates if the Path is 'Hidden' from the Player in the Path GUI.
@@ -48,4 +59,6 @@ public interface IPath extends IDynamicEntry<IPath>, IDescribable {
      * @param levelsToRemove The amount of levels to remove.
      */
     void removeLevel(LivingEntity character, ICharacterSheet stats, int levelsToRemove);
+
+    Codec<? extends IPath> codec();
 }

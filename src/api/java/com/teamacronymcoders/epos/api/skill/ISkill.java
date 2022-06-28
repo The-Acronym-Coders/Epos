@@ -24,11 +24,23 @@
 
 package com.teamacronymcoders.epos.api.skill;
 
+import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.IDescribable;
+import com.teamacronymcoders.epos.util.EposRegistries;
 import net.ashwork.dynamicregistries.entry.IDynamicEntry;
+import net.minecraft.util.ExtraCodecs;
+
+import java.util.function.Function;
 
 // TODO: Document
-public interface ISkill extends IDynamicEntry<ISkill>, IDescribable {
+public interface ISkill extends IDescribable {
+
+    /**
+     * Codec for (de)serializing biome modifiers inline.
+     * Mods can use this for data generation.
+     */
+    Codec<ISkill> DIRECT_CODEC = ExtraCodecs.lazyInitializedCodec(() -> EposRegistries.SKILL_SERIALIZERS.get().getCodec())
+            .dispatch(ISkill::codec, Function.identity());
 
     /**
      * Returns the {@link ISkill} 's Max Level as an integer.
@@ -46,4 +58,6 @@ public interface ISkill extends IDynamicEntry<ISkill>, IDescribable {
      * @return The Experience-Scaling Expression as a {@link String}.
      */
     String getExpression();
+
+    Codec<? extends ISkill> codec();
 }

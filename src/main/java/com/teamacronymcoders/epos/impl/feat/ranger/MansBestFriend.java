@@ -7,7 +7,6 @@ import com.teamacronymcoders.epos.impl.featinfo.MBFFeatInfo;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Wolf;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 
 // TODO: Rework to not read and write to NBT every Tick
@@ -15,7 +14,7 @@ public class MansBestFriend {
 
     public static void registerFeatManagers() {
         featManager.subscribe();
-        featInfoManager.subscribe();
+        //featInfoManager.subscribe();
     }
 
     private static final EventManager.ISubscribe featManager = EventManager.create(LivingEvent.LivingUpdateEvent.class, EventManager.Bus.FORGE)
@@ -49,8 +48,9 @@ public class MansBestFriend {
                 }
             });
 
-    private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
-            .process(event -> {
-                ((RegistryEvent.Register) event).getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.MANS_BEST_FRIEND));
-            });
+    // TODO: Reimplement using DeferredRegiste
+//    private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
+//            .process(event -> {
+//                ((RegistryEvent.Register) event).getRegistry().register(new MBFFeatInfo().setRegistryName(EposFeatIds.MANS_BEST_FRIEND));
+//            });
 }

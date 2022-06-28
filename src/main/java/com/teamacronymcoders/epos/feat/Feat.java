@@ -1,12 +1,13 @@
 package com.teamacronymcoders.epos.feat;
 
+import com.mojang.serialization.Codec;
 import com.teamacronymcoders.epos.api.feat.IFeat;
 import com.teamacronymcoders.epos.registry.FeatRegistrar;
 import net.ashwork.dynamicregistries.entry.DynamicEntry;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
 import net.minecraft.network.chat.MutableComponent;
 
-public class Feat extends DynamicEntry<IFeat> implements IFeat {
+public class Feat implements IFeat {
 
     private final MutableComponent name;
     private final MutableComponent description;
@@ -41,7 +42,9 @@ public class Feat extends DynamicEntry<IFeat> implements IFeat {
     }
 
     @Override
-    public ICodecEntry<? extends IFeat, ?> codec() {
+    public Codec<? extends IFeat> codec() {
         return FeatRegistrar.FEAT_SERIALIZER.get();
     }
+
+
 }

@@ -37,14 +37,14 @@ import net.minecraft.client.resources.model.*;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
-import net.minecraftforge.resource.IResourceType;
 
 import java.util.*;
 import java.util.function.Function;
@@ -73,12 +73,12 @@ public class DynamicRegistryBakedModel implements BakedModel {
     }
 
     @Override
-    public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand) {
+    public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand) {
         return this.missingModel.getQuads(state, side, rand, EmptyModelData.INSTANCE);
     }
 
     @Override
-    public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand, IModelData extraData) {
+    public List<BakedQuad> getQuads(BlockState state, Direction side, RandomSource rand, IModelData extraData) {
         return Optional.ofNullable(extraData.getData(EposModelData.LOCATION_PROPERTY)).map(this.models::get)
                 .map(model -> model.getQuads(state, side, rand, EmptyModelData.INSTANCE))
                 .orElse(this.getQuads(state, side, rand));
@@ -145,7 +145,7 @@ public class DynamicRegistryBakedModel implements BakedModel {
                                                       Function<ResourceLocation, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
             Set<Material> materials = new HashSet<>();
 
-            UnbakedModel vanillaMissingModel = ModelLoader.instance()
+            UnbakedModel vanillaMissingModel = ForgeModelBakery.instance()
                     .getModelOrMissing(ModelBakery.MISSING_MODEL_LOCATION);
 
             UnbakedModel missingModel = this.models.computeIfAbsent(MISSING_MODEL_LOCATION, loc -> {
@@ -176,13 +176,7 @@ public class DynamicRegistryBakedModel implements BakedModel {
         }
 
         @Override
-        public void onResourceManagerReload(ResourceManager resourceManager) {
-        }
-
-        @Override
-        public IResourceType getResourceType() {
-            return this.type;
-        }
+        public void onResourceManagerReload(ResourceManager resourceManager) {}
 
         @Override
         public Unbaked read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {

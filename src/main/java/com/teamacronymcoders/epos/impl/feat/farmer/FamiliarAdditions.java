@@ -13,7 +13,6 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 
@@ -28,7 +27,7 @@ public class FamiliarAdditions {
     public static void registerFeatManagers() {
         breedingManager.subscribe();
         babyManager.subscribe();
-        featInfoManager.subscribe();
+        //featInfoManager.subscribe();
     }
 
     private static final EventManager.ISubscribe breedingManager = EventManager.create(TickEvent.PlayerTickEvent.class, EventManager.Bus.FORGE)
@@ -38,13 +37,11 @@ public class FamiliarAdditions {
                     FAFeatInfo info = (FAFeatInfo) EposCharacterUtil.getFeatInfo(player, EposFeatIds.FAMILIAR_ADDITIONS);
                     if (info != null && info.getRemainingTime() <= 0) {
                         Level world = player.level;
-                        if (world != null) {
-                            BlockPos negativePos = player.blockPosition().offset(-2, -1, -2);
-                            BlockPos positivePos = player.blockPosition().offset(2, 1, 2);
-                            List<AgeableMob> nearbyEntities = world.getEntitiesOfClass(AgeableMob.class, new AABB(negativePos, positivePos));
-                            info.setRemainingTime(60);
-                            return nearbyEntities.size() >= 2 && EposCharacterUtil.hasFeat(player, EposFeatIds.FAMILIAR_ADDITIONS);
-                        }
+                        BlockPos negativePos = player.blockPosition().offset(-2, -1, -2);
+                        BlockPos positivePos = player.blockPosition().offset(2, 1, 2);
+                        List<AgeableMob> nearbyEntities = world.getEntitiesOfClass(AgeableMob.class, new AABB(negativePos, positivePos));
+                        info.setRemainingTime(60);
+                        return nearbyEntities.size() >= 2 && EposCharacterUtil.hasFeat(player, EposFeatIds.FAMILIAR_ADDITIONS);
                     } else if (info != null) {
                         info.decrementRemainingTime();
                     }
@@ -97,8 +94,9 @@ public class FamiliarAdditions {
                 }
             });
 
-    private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
-            .process(event -> {
-                ((RegistryEvent.Register) event).getRegistry().register(new FAFeatInfo().setRegistryName(EposFeatIds.FAMILIAR_ADDITIONS));
-            });
+    // TODO: Reimplement using DeferredRegister
+//    private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
+//            .process(event -> {
+//                ((RegistryEvent.Register) event).getRegistry().register(new FAFeatInfo().setRegistryName(EposFeatIds.FAMILIAR_ADDITIONS));
+//            });
 }

@@ -11,14 +11,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmlclient.gui.widget.ModListWidget;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 
 public class PurchaseScreen<T extends IDescribable> extends Screen {
@@ -41,7 +36,7 @@ public class PurchaseScreen<T extends IDescribable> extends Screen {
     private EditBox searchField;
 
     protected PurchaseScreen(Player player, Screen parentScreen, String identifier) {
-        super(new TranslatableComponent("epos.menu." + identifier + ".title"));
+        super(Component.translatable("epos.menu." + identifier + ".title"));
         List<T> unsortedEntries1;
         this.player = player;
         this.parentScreen = parentScreen;

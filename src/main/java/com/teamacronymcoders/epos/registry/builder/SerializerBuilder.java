@@ -30,7 +30,8 @@ import com.tterrag.registrate.builders.BuilderCallback;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.ashwork.dynamicregistries.entry.ICodecEntry;
-import net.minecraftforge.common.util.NonNullSupplier;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 
 public class SerializerBuilder<R extends ICodecEntry<?, R>, T extends R, P>
         extends AbstractBuilder<R, T, P, SerializerBuilder<R, T, P>> {
@@ -38,8 +39,8 @@ public class SerializerBuilder<R extends ICodecEntry<?, R>, T extends R, P>
     private final NonNullSupplier<? extends T> factory;
 
     public SerializerBuilder(AbstractRegistrate<?> owner, P parent, String name, BuilderCallback callback,
-                             Class<? super R> registryType, NonNullSupplier<? extends T> factory) {
-        super(owner, parent, name, callback, registryType);
+                             ResourceKey<Registry<R>> registry, NonNullSupplier<? extends T> factory) {
+        super(owner, parent, name, callback, registry);
         this.factory = factory;
     }
 

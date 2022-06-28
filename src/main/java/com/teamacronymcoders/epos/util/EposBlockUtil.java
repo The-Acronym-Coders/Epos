@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class EposBlockUtil {
 
-    public static boolean handleCascadingBlockDestruction(ItemStack stack, Level level, BlockState state, BlockPos pos, Player miner, Tags.IOptionalNamedTag<Block> targetTag, int maxBlocks, int maxRange) {
+    public static boolean handleCascadingBlockDestruction(ItemStack stack, Level level, BlockState state, BlockPos pos, Player miner, TagKey<Block> targetTag, int maxBlocks, int maxRange) {
         if (state.is(targetTag)) {
             if (miner instanceof ServerPlayer serverPlayer) {
                 List<BlockPos> found = EposBlockPosUtil.findPositions(state, pos, level, maxBlocks, maxRange);
@@ -33,7 +34,7 @@ public class EposBlockUtil {
                     }
                     Block block = foundState.getBlock();
                     BlockEntity blockEntity = EposWorldUtil.getBlockEntity(level, foundPos);
-                    boolean removed = foundState.removedByPlayer(level, foundPos, miner, true, level.getFluidState(foundPos));
+                    boolean removed = foundState.onDestroyedByPlayer(level, foundPos, miner, true, level.getFluidState(foundPos));
                     if (removed) {
                         block.destroy(level, foundPos, foundState);
                         block.playerDestroy(level, miner, foundPos, foundState, blockEntity, stack);

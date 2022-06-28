@@ -5,7 +5,6 @@ import com.teamacronymcoders.epos.api.skill.ISkill;
 import com.teamacronymcoders.epos.skill.Skill;
 import com.tterrag.registrate.util.nullness.NonnullType;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.NonNullSupplier;
 
@@ -55,7 +54,7 @@ public class SkillBuilder {
     @NonnullType
     public ISkill createEntry() {
         ISkill skill = factory.apply(this.name.get(), this.description.get(), this.maxLevel.get(), this.expression.get());
-        skill.setRegistryName(this.registryName);
+        //skill.setRegistryName(this.registryName);
         BUILT_SKILLS.add(skill);
         return skill;
     }

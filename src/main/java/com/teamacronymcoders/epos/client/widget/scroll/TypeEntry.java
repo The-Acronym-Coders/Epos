@@ -11,7 +11,6 @@ import com.teamacronymcoders.epos.api.skill.SkillInfo;
 import com.teamacronymcoders.epos.client.screen.purchase.PurchaseScreen;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public abstract class TypeEntry<T extends IDescribable> extends ObjectSelectionList.Entry<TypeEntry<T>> {
 
@@ -38,7 +37,7 @@ public abstract class TypeEntry<T extends IDescribable> extends ObjectSelectionL
 
         @Override
         public Component getNarration() {
-            return new TranslatableComponent("narrator.select", path.getName());
+            return Component.translatable("narrator.select", path.getName());
         }
 
         @Override
@@ -60,7 +59,7 @@ public abstract class TypeEntry<T extends IDescribable> extends ObjectSelectionL
 
         @Override
         public Component getNarration() {
-            return new TranslatableComponent("narrator.select", skill.getName());
+            return Component.translatable("narrator.select", skill.getName());
         }
 
         @Override
@@ -82,7 +81,7 @@ public abstract class TypeEntry<T extends IDescribable> extends ObjectSelectionL
 
         @Override
         public Component getNarration() {
-            return new TranslatableComponent("narrator.select", feat.getName());
+            return Component.translatable("narrator.select", feat.getName());
         }
 
         @Override

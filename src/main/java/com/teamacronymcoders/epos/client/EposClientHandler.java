@@ -43,16 +43,16 @@ import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.VanillaPackResources;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.resource.VanillaResourceType;
 
 import java.util.HashMap;
 import java.util.List;
@@ -95,8 +95,8 @@ public class EposClientHandler {
 
     // Puts model at (1, 1, 1)
     @VisibleForTesting
-    private void testDraw(RenderWorldLastEvent event) {
-        PoseStack stack = event.getMatrixStack();
+    private void testDraw(RenderLevelLastEvent event) {
+        PoseStack stack = event.getPoseStack();
         Vec3 projection = this.mc.gameRenderer.getMainCamera().getPosition();
         MultiBufferSource.BufferSource buffer = this.mc.renderBuffers().bufferSource();
         stack.pushPose();
@@ -105,7 +105,7 @@ public class EposClientHandler {
         List<BakedQuad> quads = EposResourceType.SKILL.getQuads(DynamicRegistryManager.STATIC
                 .getRegistry(new ResourceLocation(Epos.ID, "skill")).getValue(new ResourceLocation(Epos.ID, "test")));
         for (BakedQuad quad : quads) {
-            consumer.putBulkData(event.getMatrixStack().last(), quad, 1.0f, 1.0f, 1.0f, 1.0f,
+            consumer.putBulkData(event.getPoseStack().last(), quad, 1.0f, 1.0f, 1.0f, 1.0f,
                     LevelRenderer.getLightColor(this.mc.level, new BlockPos(1, 1, 1)), OverlayTexture.NO_OVERLAY, true);
         }
         stack.popPose();
@@ -114,7 +114,7 @@ public class EposClientHandler {
     private void addResourceType(ResourceLocation registryName, EposResourceType resourceType) {
         this.resourceLoaders.put(registryName, resourceType);
         ModelLoaderRegistry.registerLoader(registryName, new DynamicRegistryBakedModel.Loader(resourceType));
-        ModelLoader.addSpecialModel(resourceType.getMainModel());
+        ForgeModelBakery.addSpecialModel(resourceType.getMainModel());
     }
 
     private void clientTick(final TickEvent.ClientTickEvent event) {
@@ -125,6 +125,6 @@ public class EposClientHandler {
 
     public void refreshResource(DynamicRegistry<?, ?> registry) {
         this.resourceLoaders.get(registry.getName()).refresh();
-        ForgeHooksClient.refreshResources(this.mc, VanillaResourceType.MODELS);
+        Minecraft.getInstance().reloadResourcePacks();
     }
 }

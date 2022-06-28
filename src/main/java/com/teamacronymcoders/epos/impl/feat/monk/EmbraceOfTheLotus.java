@@ -6,7 +6,6 @@ import com.teamacronymcoders.epos.impl.feat.EposFeatIds;
 import com.teamacronymcoders.epos.impl.featinfo.EOTLFeatInfo;
 import com.teamacronymcoders.epos.util.EposCharacterUtil;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.TickEvent;
 
 // TODO: Rework to not read and write to NBT every Tick
@@ -14,7 +13,7 @@ public class EmbraceOfTheLotus {
 
     public static void registerFeatManagers() {
         featManager.subscribe();
-        featInfoManager.subscribe();
+        //featInfoManager.subscribe();
     }
 
     public static final EventManager.ISubscribe featManager = EventManager.create(TickEvent.PlayerTickEvent.class, EventManager.Bus.FORGE)
@@ -27,8 +26,7 @@ public class EmbraceOfTheLotus {
                 float absorptionAmount = player.getAbsorptionAmount();
                 boolean hasLessThanMaxAbsorption = absorptionAmount < 5f;
                 FeatInfo info = EposCharacterUtil.getFeatInfo(player, EposFeatIds.EMBRACE_OF_THE_LOTUS);
-                if (info instanceof EOTLFeatInfo) {
-                    EOTLFeatInfo eotlInfo = (EOTLFeatInfo) info;
+                if (info instanceof EOTLFeatInfo eotlInfo) {
                     int remainingTime = eotlInfo.getRemainingTime();
                     if (remainingTime <= 0 && hasLessThanMaxAbsorption) {
                         player.setAbsorptionAmount(absorptionAmount + 0.5f);
@@ -41,10 +39,11 @@ public class EmbraceOfTheLotus {
                 }
             });
 
-  private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
-            .process(event -> {
-                ((RegistryEvent.Register) event).getRegistry().register(new EOTLFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
-            });
+  // TODO: Reimplement using DeferredRegister
+//  private static final EventManager.ISubscribe featInfoManager = EventManager.modGeneric(RegistryEvent.Register.class, FeatInfo.class)
+//            .process(event -> {
+//                ((RegistryEvent.Register) event).getRegistry().register(new EOTLFeatInfo().setRegistryName(EposFeatIds.EMBRACE_OF_THE_LOTUS));
+//            });
 
 
 }

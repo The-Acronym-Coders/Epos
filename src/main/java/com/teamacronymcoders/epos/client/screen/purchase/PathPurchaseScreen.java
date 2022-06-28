@@ -4,7 +4,6 @@ import com.teamacronymcoders.epos.api.path.IPath;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.loading.StringUtils;
 
@@ -29,7 +28,7 @@ public class PathPurchaseScreen extends PurchaseScreen<IPath> {
         }
 
         Component getButtonText() {
-            return new TranslatableComponent("epos.menu.purchase.path." + StringUtils.toLowerCase(name()));
+            return Component.translatable("epos.menu.purchase.path." + StringUtils.toLowerCase(name()));
         }
     }
 

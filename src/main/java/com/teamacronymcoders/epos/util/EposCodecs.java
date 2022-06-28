@@ -32,7 +32,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
@@ -70,7 +69,7 @@ public final class EposCodecs {
         ).apply(instance, MobEffectInstance::new)
     );
 
-    public static <V extends IForgeRegistryEntry<V>> Codec<IForgeRegistry<V>> forgeRegistry() {
+    public static <V> Codec<IForgeRegistry<V>> forgeRegistry() {
         return ResourceLocation.CODEC.comapFlatMap(loc -> {
             @Nullable
             IForgeRegistry<V> registry = RegistryManager.ACTIVE.getRegistry(loc);
@@ -79,13 +78,13 @@ public final class EposCodecs {
         }, IForgeRegistry::getRegistryName);
     }
 
-    public static <V extends IForgeRegistryEntry<V>> Codec<V> forgeRegistryEntry(IForgeRegistry<V> registry) {
+    public static <V> Codec<V> forgeRegistryEntry(IForgeRegistry<V> registry) {
         return ResourceLocation.CODEC.comapFlatMap(loc -> {
             @Nullable
             V val = registry.getValue(loc);
             return val != null ? DataResult.success(val, Lifecycle.stable())
                     : DataResult.error("Not a valid registry object within " + registry.getRegistryName() + ": " + loc);
-        }, IForgeRegistryEntry::getRegistryName);
+        }, registry::getKey);
     }
 
 }

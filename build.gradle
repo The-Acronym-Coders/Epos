@@ -1,6 +1,6 @@
 // Attach plugins
 plugins {
-    id 'net.minecraftforge.gradle' version '5.+'
+    id 'net.minecraftforge.gradle' version '5.1.+'
     id 'java-library'
     id 'com.github.johnrengelman.shadow' version '5.2.0'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
@@ -14,7 +14,7 @@ archivesBaseName = project.modId
 
 // Sets the toolchain to compile against OpenJDK 16
 java.toolchain {
-    languageVersion = JavaLanguageVersion.of(16)
+    languageVersion = JavaLanguageVersion.of(17)
     vendor = JvmVendorSpec.ADOPTOPENJDK
 }
 
@@ -168,13 +168,14 @@ dependencies {
     shade exp4j
 
     // Add Registrate as shaded library
-    //def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
-    //implementation fg.deobf(registrate)
-    //shade registrate
+    def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
+    implementation fg.deobf(registrate)
+    shade registrate
 
     // Add JEI
-    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion:$project.jeiVersion")
+    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-common-api:$project.jeiVersion")
+    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-forge-api:$project.jeiVersion")
+    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-forge:$project.jeiVersion")
 
     // Add JUnit for testing
     testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"

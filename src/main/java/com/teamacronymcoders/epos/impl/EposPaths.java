@@ -9,18 +9,18 @@ import com.teamacronymcoders.epos.path.feature.experience.LevelPathFeature;
 import com.teamacronymcoders.epos.path.feature.grant.GrantPathFeature;
 import com.teamacronymcoders.epos.path.feature.point.EposPointTypes;
 import com.teamacronymcoders.epos.path.feature.point.PointPathFeature;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class EposPaths {
     private static final IPath test = PathBuilder.create(new ResourceLocation(Epos.ID, "test"))
-            .name(() -> new TextComponent("test"))
-            .description(() -> new TextComponent("testDescription"))
+            .name(() -> Component.literal("test"))
+            .description(() -> Component.literal("testDescription"))
             .maxLevel(() -> 1)
             .withPathFeatureForLevel(
                     1, new ExperiencePathFeature(
-                                new TextComponent("test"),
-                                new TextComponent("testDesc"),
+                            Component.literal("test"),
+                            Component.literal("testDesc"),
                                 com.teamacronymcoders.epos.path.feature.experience.EposGrantType.SKILL,
                                 new ResourceLocation(Epos.ID, "test"),
                                 5
@@ -28,8 +28,8 @@ public class EposPaths {
             )
             .withPathFeatureForLevel(
                     2, new LevelPathFeature(
-                                new TextComponent("test"),
-                                new TextComponent("testDesc"),
+                            Component.literal("test"),
+                            Component.literal("testDesc"),
                                 com.teamacronymcoders.epos.path.feature.experience.EposGrantType.CHARACTER,
                                 null,
                                 1
@@ -37,16 +37,16 @@ public class EposPaths {
             )
             .withPathFeatureForLevel(
                     3, new GrantPathFeature(
-                                new TextComponent("test"),
-                                new TextComponent("testDesc"),
+                            Component.literal("test"),
+                            Component.literal("testDesc"),
                                 EposGrantType.FEAT,
                                 new ResourceLocation(Epos.ID, "test")
                     )
             )
             .withPathFeatureForLevel(
                     4, new PointPathFeature(
-                                new TextComponent("test"),
-                                new TextComponent("testDesc"),
+                            Component.literal("test"),
+                            Component.literal("testDesc"),
                                 EposPointTypes.PATH,
                                 5
                     )

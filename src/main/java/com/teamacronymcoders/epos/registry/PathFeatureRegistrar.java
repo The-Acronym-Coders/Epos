@@ -3,7 +3,7 @@ package com.teamacronymcoders.epos.registry;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
-import com.teamacronymcoders.epos.api.path.features.PathFeatureSerializer;
+import com.teamacronymcoders.epos.api.path.features.IPathFeature;
 import com.teamacronymcoders.epos.path.feature.experience.EposGrantType;
 import com.teamacronymcoders.epos.path.feature.experience.ExperiencePathFeature;
 import com.teamacronymcoders.epos.path.feature.experience.LevelPathFeature;
@@ -19,7 +19,7 @@ public class PathFeatureRegistrar {
 
     public static void register() {}
 
-    public static final RegistryEntry<PathFeatureSerializer> EXPERIENCE_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
+    public static final RegistryEntry<Codec<? extends IPathFeature>> EXPERIENCE_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
             .pathFeatureSerializer("experience_feature_serializer", () -> {
                 Codec<ExperiencePathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
@@ -32,7 +32,7 @@ public class PathFeatureRegistrar {
                 return codec;
             }).register();
 
-    public static final RegistryEntry<PathFeatureSerializer> LEVEL_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
+    public static final RegistryEntry<Codec<? extends IPathFeature>> LEVEL_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
             .pathFeatureSerializer("level_feature_serializer", () -> {
                 Codec<LevelPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
@@ -45,7 +45,7 @@ public class PathFeatureRegistrar {
                 return codec;
             }).register();
 
-    public static final RegistryEntry<PathFeatureSerializer> GRANT_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
+    public static final RegistryEntry<Codec<? extends IPathFeature>> GRANT_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
             .pathFeatureSerializer("grant_feature_serializer", () -> {
                 Codec<GrantPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(
@@ -57,7 +57,7 @@ public class PathFeatureRegistrar {
                 return codec;
             }).register();
 
-    public static final RegistryEntry<PathFeatureSerializer> POINT_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
+    public static final RegistryEntry<Codec<? extends IPathFeature>> POINT_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
             .pathFeatureSerializer("point_feature_serializer", () -> {
                 Codec<PointPathFeature> codec = RecordCodecBuilder.create(instance -> instance
                         .group(

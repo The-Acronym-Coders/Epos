@@ -6,14 +6,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.teamacronymcoders.epos.api.character.info.PointInfo;
-import com.teamacronymcoders.epos.client.screen.MainCharacterScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
@@ -90,9 +89,9 @@ public class EposRenderingUtil {
         int featPoints = info.getFeatPoints();
 
         // TODO: Figure out colors!
-        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.path", pathPoints), x, y, 16777215);
-        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.skill", skillPoints), x, y + 24, 16777215);
-        GuiComponent.drawCenteredString(poseStack, font, new TranslatableComponent("epos.points.feat", featPoints), x, y + 48, 16777215);
+        GuiComponent.drawCenteredString(poseStack, font, Component.translatable("epos.points.path", pathPoints), x, y, 16777215);
+        GuiComponent.drawCenteredString(poseStack, font, Component.translatable("epos.points.skill", skillPoints), x, y + 24, 16777215);
+        GuiComponent.drawCenteredString(poseStack, font, Component.translatable("epos.points.feat", featPoints), x, y + 48, 16777215);
 
     }
 }

@@ -25,40 +25,18 @@
 package com.teamacronymcoders.epos;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
-import com.teamacronymcoders.epos.api.builder.FeatBuilder;
-import com.teamacronymcoders.epos.api.builder.PathBuilder;
-import com.teamacronymcoders.epos.api.builder.SkillBuilder;
 import com.teamacronymcoders.epos.api.capability.EposCapabilities;
 import com.teamacronymcoders.epos.api.character.CharacterSheet;
 import com.teamacronymcoders.epos.api.character.capability.CharacterSheetCapabilityProvider;
-import com.teamacronymcoders.epos.api.feat.FeatSerializer;
-import com.teamacronymcoders.epos.api.feat.IFeat;
-import com.teamacronymcoders.epos.api.path.IPath;
-import com.teamacronymcoders.epos.api.path.PathSerializer;
-import com.teamacronymcoders.epos.api.path.features.IPathFeature;
-import com.teamacronymcoders.epos.api.skill.ISkill;
-import com.teamacronymcoders.epos.api.skill.SkillSerializer;
 import com.teamacronymcoders.epos.client.EposClientHandler;
 import com.teamacronymcoders.epos.impl.EposFeats;
-import com.teamacronymcoders.epos.impl.EposPaths;
-import com.teamacronymcoders.epos.impl.EposSkills;
-import com.teamacronymcoders.epos.impl.feat.generic.spiritofbattle.dynamic.ISpiritualAid;
 import com.teamacronymcoders.epos.registry.*;
-import com.teamacronymcoders.epos.skill.Skill;
 import com.teamacronymcoders.epos.util.EposRegistries;
-import net.ashwork.dynamicregistries.DynamicRegistryManager;
-import net.ashwork.dynamicregistries.event.DynamicRegistryEvent;
-import net.ashwork.dynamicregistries.registry.DynamicRegistry;
-import net.ashwork.dynamicregistries.registry.DynamicRegistryBuilder;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -68,12 +46,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.util.UUID;
 
 
@@ -110,12 +87,13 @@ public class Epos {
 
         // Uncomment for test cases to run
         if (IS_TESTING) {
-            this.addTestCases(modBus, forgeBus);
+            // TODO: Setup new Tests
+            //this.addTestCases(modBus, forgeBus);
         } else {
-            modBus.addListener(this::setupRegistries);
-            modBus.addGenericListener(IPath.class, this::registerPaths);
-            modBus.addGenericListener(ISkill.class, this::registerSkills);
-            modBus.addGenericListener(IFeat.class, this::registerFeats);
+//            modBus.addListener(this::setupRegistries);
+//            modBus.addGenericListener(IPath.class, this::registerPaths);
+//            modBus.addGenericListener(ISkill.class, this::registerSkills);
+//            modBus.addGenericListener(IFeat.class, this::registerFeats);
             modBus.addListener(this::generateRegistryJson);
         }
 
@@ -169,97 +147,46 @@ public class Epos {
     }
 
     // Registries
-    private void setupRegistries(DynamicRegistryEvent.NewRegistry event) {
-        new DynamicRegistryBuilder<>(EposRegistries.PATH_REGISTRY_ID, IPath.class, this.getRegistrate().getPathSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-        new DynamicRegistryBuilder<>(EposRegistries.SKILL_REGISTRY_ID, ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-        new DynamicRegistryBuilder<>(EposRegistries.FEAT_REGISTRY_ID, IFeat.class, this.getRegistrate().getFeatSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-        new DynamicRegistryBuilder<>(EposRegistries.PATH_FEATURE_REGISTRY_ID, IPathFeature.class, this.getRegistrate().getPathFeatureSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-        new DynamicRegistryBuilder<>(EposRegistries.SPIRITUAL_AID_REGISTRY_ID, ISpiritualAid.class, this.getRegistrate().getSpiritualAidSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-    }
 
-    private void registerPaths(DynamicRegistryEvent.Register<IPath, PathSerializer> event) {
-        new EposPaths();
-        event.getRegistry().registerAll(PathBuilder.BUILT_PATHS.toArray(new IPath[0]));
-    }
+    //TODO: Look into moving this over to deferred register
 
-    private void registerSkills(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
-        new EposSkills();
-        event.getRegistry().registerAll(SkillBuilder.BUILT_SKILLS.toArray(new ISkill[0]));
-    }
-
-    private void registerFeats(DynamicRegistryEvent.Register<IFeat, FeatSerializer> event) {
-        event.getRegistry().registerAll(FeatBuilder.BUILT_FEATS.toArray(new IFeat[0]));
-    }
+//    private void registerPaths(DynamicRegistryEvent.Register<IPath, PathSerializer> event) {
+//        new EposPaths();
+//        event.getRegistry().registerAll(PathBuilder.BUILT_PATHS.toArray(new IPath[0]));
+//    }
+//
+//    private void registerSkills(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
+//        new EposSkills();
+//        event.getRegistry().registerAll(SkillBuilder.BUILT_SKILLS.toArray(new ISkill[0]));
+//    }
+//
+//    private void registerFeats(DynamicRegistryEvent.Register<IFeat, FeatSerializer> event) {
+//        event.getRegistry().registerAll(FeatBuilder.BUILT_FEATS.toArray(new IFeat[0]));
+//    }
 
     private void generateRegistryJson(FMLLoadCompleteEvent event) {
-        event.enqueueWork(() -> {
-            DynamicRegistry<IPath, PathSerializer> pathRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "path"));
-            DynamicRegistry<ISkill, SkillSerializer> skillRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "skill"));
-            DynamicRegistry<IFeat, FeatSerializer> featRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "feat"));
-            @Nullable
-            JsonElement pathElement = pathRegistry.toSnapshot(JsonOps.INSTANCE);
-            @Nullable
-            JsonElement skillElement = skillRegistry.toSnapshot(JsonOps.INSTANCE);
-            @Nullable
-            JsonElement featElement = featRegistry.toSnapshot(JsonOps.INSTANCE);
-            if (pathElement != null) {
-                pathRegistry.fromSnapshot(pathElement, JsonOps.INSTANCE, false);
-            }
-            if (skillElement != null) {
-                skillRegistry.fromSnapshot(skillElement, JsonOps.INSTANCE, false);
-            }
-            if (featElement != null) {
-                featRegistry.fromSnapshot(featElement, JsonOps.INSTANCE, false);
-            }
-        });
+//        event.enqueueWork(() -> {
+//            DynamicRegistry<IPath, PathSerializer> pathRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "path"));
+//            DynamicRegistry<ISkill, SkillSerializer> skillRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "skill"));
+//            DynamicRegistry<IFeat, FeatSerializer> featRegistry = DynamicRegistryManager.STATIC.getRegistry(new ResourceLocation(Epos.ID, "feat"));
+//            @Nullable
+//            JsonElement pathElement = pathRegistry.toSnapshot(JsonOps.INSTANCE);
+//            @Nullable
+//            JsonElement skillElement = skillRegistry.toSnapshot(JsonOps.INSTANCE);
+//            @Nullable
+//            JsonElement featElement = featRegistry.toSnapshot(JsonOps.INSTANCE);
+//            if (pathElement != null) {
+//                pathRegistry.fromSnapshot(pathElement, JsonOps.INSTANCE, false);
+//            }
+//            if (skillElement != null) {
+//                skillRegistry.fromSnapshot(skillElement, JsonOps.INSTANCE, false);
+//            }
+//            if (featElement != null) {
+//                featRegistry.fromSnapshot(featElement, JsonOps.INSTANCE, false);
+//            }
+//        });
     }
 
     // Test Code
-    @VisibleForTesting
-    private void addTestCases(IEventBus modBus, IEventBus forgeBus) {
-        modBus.addListener(this::testRegistryInitialization);
-        modBus.addGenericListener(ISkill.class, this::testRegistryRegistration);
-        modBus.addListener(this::testRegistryCodec);
-    }
 
-    @VisibleForTesting
-    private void testRegistryInitialization(DynamicRegistryEvent.NewRegistry event) {
-        new DynamicRegistryBuilder<>(EposRegistries.SKILL_REGISTRY_ID, ISkill.class, this.getRegistrate().getSkillSerializerRegistry())
-                .setDefaultKey(EposRegistries.MISSING_ENTRY)
-                .create();
-    }
-
-    @VisibleForTesting
-    private void testRegistryRegistration(DynamicRegistryEvent.Register<ISkill, SkillSerializer> event) {
-        event.getRegistry().register(new Skill(new TranslatableComponent("missing"),
-                new TranslatableComponent("missing.desc"), 1, "0").setRegistryName(EposRegistries.MISSING_ENTRY));
-        event.getRegistry().register(
-                new Skill(new TranslatableComponent("test"), new TranslatableComponent("test.desc"), 5, "1 + x")
-                        .setRegistryName(new ResourceLocation(Epos.ID, "test")));
-        /*IntStream.range(0, 20000).forEach(i -> event.getRegistry().register(new Skill(new TranslationTextComponent("test" + i), new TranslationTextComponent("test" + i + ".desc"),
-                (i % 255) + 1, "x * 2 / " + (i + 1)).setRegistryName(new ResourceLocation(Epos.ID, "test" + i))));
-*/
-    }
-
-    @VisibleForTesting
-    private void testRegistryCodec(FMLLoadCompleteEvent event) {
-        event.enqueueWork(() -> {
-            DynamicRegistry<ISkill, SkillSerializer> registry = DynamicRegistryManager.STATIC.getRegistry(EposRegistries.SKILL_REGISTRY_ID);
-            @Nullable
-            JsonElement element = registry.toSnapshot(JsonOps.INSTANCE);
-            if (element != null) {
-                registry.fromSnapshot(element, JsonOps.INSTANCE, false);
-            }
-        });
-    }
 }

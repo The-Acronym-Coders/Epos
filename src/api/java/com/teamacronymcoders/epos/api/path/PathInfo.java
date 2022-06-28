@@ -47,7 +47,7 @@ public class PathInfo {
 
     public boolean levelUp() {
         int i = this.level + 1;
-        Math.min()
+        return true;
     }
 
     public boolean isUnlocked() {
