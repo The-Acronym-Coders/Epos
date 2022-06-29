@@ -14,15 +14,12 @@ public class PathRegistrar {
     public static void register() {}
 
     public static final RegistryEntry<Codec<? extends IPath>> PATH_SERIALIZER = Epos.instance().getRegistrate()
-            .pathSerializer("default_path_serializer", () -> {
-                Codec<Path> codec = RecordCodecBuilder.create(instance -> instance
-                        .group(
-                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Path::getName),
-                                EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(Path::getDescription),
-                                Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel),
-                                PathFeatures.CODEC.optionalFieldOf("features", new PathFeatures()).forGetter(Path::getPathFeatures))
-                        .apply(instance, Path::new));
-                return codec;
-            });
+            .pathSerializer("default_path_serializer", () -> RecordCodecBuilder.<Path>create(instance -> instance
+                    .group(
+                            EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("name").forGetter(Path::getName),
+                            EposCodecs.MUTABLE_COMPONENT_CODEC.fieldOf("description").forGetter(Path::getDescription),
+                            Codec.intRange(0, 99).optionalFieldOf("maxLevel", 0).forGetter(Path::getMaxLevel),
+                            PathFeatures.CODEC.optionalFieldOf("features", new PathFeatures()).forGetter(Path::getPathFeatures))
+                    .apply(instance, Path::new)));
 
 }

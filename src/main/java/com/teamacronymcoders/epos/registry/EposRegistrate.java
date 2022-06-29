@@ -62,7 +62,6 @@ public class EposRegistrate extends AbstractRegistrate<EposRegistrate> {
 
     // Feat
     private static final NonNullBiFunction<String, BuilderCallback, FeatBuilder<Feat, EposRegistrate>> FEAT = FeatBuilder.entry(() -> Epos.instance().getRegistrate());
-    //private static final NonNullBiFunction<String, BuilderCallback, FeatBuilder<FeatInfo, EposRegistrate>> FEAT_INFO = FeatBuilder.entry(() -> Epos.instance().getRegistrate());
 
     public static EposRegistrate create(String modid) {
         return new EposRegistrate(modid).registerEventListeners(FMLJavaModLoadingContext.get().getModEventBus());

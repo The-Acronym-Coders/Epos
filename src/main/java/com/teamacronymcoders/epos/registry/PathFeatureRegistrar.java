@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.teamacronymcoders.epos.Epos;
 import com.teamacronymcoders.epos.api.path.features.IPathFeature;
+import com.teamacronymcoders.epos.path.feature.AbstractPathFeature;
 import com.teamacronymcoders.epos.path.feature.experience.EposGrantType;
 import com.teamacronymcoders.epos.path.feature.experience.ExperiencePathFeature;
 import com.teamacronymcoders.epos.path.feature.experience.LevelPathFeature;
@@ -18,6 +19,9 @@ import net.minecraft.resources.ResourceLocation;
 public class PathFeatureRegistrar {
 
     public static void register() {}
+
+    public static final RegistryEntry<IPathFeature> EXPERIENCE_FEATURE = Epos.instance().getRegistrate()
+            .pathFeature("experience_feature", () -> new ExperiencePathFeature())
 
     public static final RegistryEntry<Codec<? extends IPathFeature>> EXPERIENCE_FEATURE_SERIALIZER = Epos.instance().getRegistrate()
             .pathFeatureSerializer("experience_feature_serializer", () -> RecordCodecBuilder.<ExperiencePathFeature>create(instance -> instance

@@ -80,5 +80,9 @@ public class ExperiencePathFeature extends AbstractPathFeature {
         return PathFeatureRegistrar.EXPERIENCE_FEATURE_SERIALIZER.get();
     }
 
+    public static ExperiencePathFeature create(MutableComponent name, MutableComponent description, EposGrantType type, ResourceLocation skillID, int experience) {
+        return new ExperiencePathFeature(name, description, type, skillID, experience);
+    }
+
 
 }
