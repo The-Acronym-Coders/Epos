@@ -1,9 +1,9 @@
 package com.teamacronymcoders.epos.api.charactersheet;
 
-import com.teamacronymcoders.epos.api.charactersheet.storage.FeatStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.PathStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.PointStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.SkillStorage;
+import com.teamacronymcoders.epos.api.charactersheet.storage.IFeatStorage;
+import com.teamacronymcoders.epos.api.charactersheet.storage.IPathStorage;
+import com.teamacronymcoders.epos.api.charactersheet.storage.IPointStorage;
+import com.teamacronymcoders.epos.api.charactersheet.storage.ISkillStorage;
 
 /**
  *
@@ -58,43 +58,35 @@ public interface CharacterSheet {
   void levelUp();
 
   /**
-   *  <p>Used to decrement the player's current level.</p>
+   * <p>Used to decrement the player's current level.</p>
    */
   void levelDown();
 
   /**
-   * <p>
-   *   Used to get the Serializable Storage object for {@link CharacterSheet} Points.
-   * </p>
+   * <p>Used to get the Serializable Storage object for {@link CharacterSheet} Points.</p>
    *
    * @return The Serializable Storage object
    */
-  PointStorage getPoints();
+  IPointStorage getPoints();
 
   /**
-   * <p>
-   *   Used to get the Serializable Storage object for {@link CharacterSheet} Paths.
-   * </p>
+   * <p>Used to get the Serializable Storage object for {@link CharacterSheet} Paths.</p>
    *
    * @return The Serializable Storage object
    */
-  PathStorage getPaths();
+  IPathStorage getPaths();
 
   /**
-   * <p>
-   *   Used to get the Serializable Storage object for {@link CharacterSheet} Skills.
-   * </p>
+   * <p>Used to get the Serializable Storage object for {@link CharacterSheet} Skills.</p>
    *
    * @return The Serializable Storage object
    */
-  SkillStorage getSkills();
+  ISkillStorage getSkills();
 
   /**
-   * <p>
-   *   Used to get the Serializable Storage object for {@link CharacterSheet} Feats.
-   * </p>
+   * <p>Used to get the Serializable Storage object for {@link CharacterSheet} Feats.</p>
    *
    * @return The Serializable Storage object
    */
-  FeatStorage getFeats();
+  IFeatStorage getFeats();
 }

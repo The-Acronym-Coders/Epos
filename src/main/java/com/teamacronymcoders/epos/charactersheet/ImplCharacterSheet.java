@@ -1,12 +1,13 @@
-package com.teamacronymcoders.epos.api.charactersheet;
+package com.teamacronymcoders.epos.charactersheet;
 
 import com.google.common.collect.Maps;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.teamacronymcoders.epos.api.charactersheet.storage.FeatStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.PathStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.PointStorage;
-import com.teamacronymcoders.epos.api.charactersheet.storage.SkillStorage;
+import com.teamacronymcoders.epos.api.charactersheet.CharacterSheet;
+import com.teamacronymcoders.epos.charactersheet.storage.FeatStorage;
+import com.teamacronymcoders.epos.charactersheet.storage.PathStorage;
+import com.teamacronymcoders.epos.charactersheet.storage.PointStorage;
+import com.teamacronymcoders.epos.charactersheet.storage.SkillStorage;
 
 /**
  * <p>Implementation Spec of {@link CharacterSheet}</p>

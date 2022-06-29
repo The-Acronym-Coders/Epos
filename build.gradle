@@ -48,6 +48,7 @@ def version_properties = [
 
 processResources {
     outputs.upToDateWhen { false }
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
     from(sourceSets.main.resources) {
         include "META-INF/mods.toml"
         include "epos.mixins.json"
@@ -120,6 +121,7 @@ minecraft {
 
 configurations {
     library
+    apiImplementation.extendsFrom(implementation)
     implementation.extendsFrom library
 }
 
@@ -143,6 +145,7 @@ configurations {
 dependencies {
     // Include MinecraftForge as a dependency
     minecraft group: 'net.minecraftforge', name: 'forge', version: "$project.minecraftVersion-$project.forgeVersion"
+    implementation sourceSets.api.output
     // Include Mixin as a Library
     //library "org.spongepowered.mixin:$project.mixinVersion"
 }

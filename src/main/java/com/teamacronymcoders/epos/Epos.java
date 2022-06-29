@@ -30,20 +30,20 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.simple.SimpleChannel;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
-@Mod(Epos.ID)
+@Mod(Epos.MOD_ID)
 public class Epos {
 
     @VisibleForTesting
     public static final boolean IS_TESTING = false;
 
-    public static final String ID = "epos";
+    public static final String MOD_ID = "epos";
     private static Epos instance;
     private SimpleChannel network;
-    private static final Logger LOGGER = LogManager.getLogger(ID);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public Epos() {
         instance = this;
