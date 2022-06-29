@@ -132,25 +132,7 @@ minecraft.runs.all {
 }
 
 repositories {
-    maven {
-        name 'Registrate'
-        url 'https://maven.tterrag.com/'
-    }
-    /*maven {
-        name 'Thiakil Mappings'
-        url 'https://maven.thiakil.com'
-        content {
-            includeGroup 'de.oceanlabs.mcp'
-            includeGroup 'net.minecraft'
-        }
-    }*/
-    maven {
-        name 'Just Enough Items'
-        url 'https://dvs1.progwml6.com/files/maven/'
-    }
-    flatDir {
-        dir 'libs'
-    }
+
 }
 
 configurations {
@@ -161,29 +143,7 @@ configurations {
 dependencies {
     // Include MinecraftForge as a dependency
     minecraft group: 'net.minecraftforge', name: 'forge', version: "$project.minecraftVersion-$project.forgeVersion"
-
-    // Add exp4j as shaded library for string expression evaluation
-    def exp4j = 'net.objecthunter:exp4j:latest.release'
-    implementation exp4j
-    shade exp4j
-
-    // Add Registrate as shaded library
-    def registrate = "com.tterrag.registrate:Registrate:MC$project.minecraftVersion-$project.registrateVersion"
-    implementation fg.deobf(registrate)
-    shade registrate
-
-    // Add JEI
-    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-common-api:$project.jeiVersion")
-    compileOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-forge-api:$project.jeiVersion")
-    runtimeOnly fg.deobf("mezz.jei:jei-$project.minecraftVersion-forge:$project.jeiVersion")
-
-    // Add JUnit for testing
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junitVersion"
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:'
-
-    // Add DynamicRegistries
-    library fg.deobf('net.ashwork:dynamicregistries:1.17.1-0.2.0')
-
+    // Include Mixin as a Library
     //library "org.spongepowered.mixin:$project.mixinVersion"
 }
 
@@ -193,8 +153,6 @@ test {
 
 shadowJar {
     configurations = [project.configurations.shade]
-    relocate 'net.objecthunter.exp4j', "${project.userGroup}.${project.modId}.repack.exp4j"
-    //relocate 'com.tterrag.registrate', "${project.userGroup}.${project.modId}.repack.registrate"
     finalizedBy 'reobfShadowJar'
 }
 
