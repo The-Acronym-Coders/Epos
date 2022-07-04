@@ -1,7 +1,7 @@
 {
 "required": true,
 "package": "com.teamacronymcoders.epos.mixin",
-"compatibilityLevel": "JAVA_8",
+"compatibilityLevel": "JAVA_17",
 "refmap": "epos.refmap.json",
 "mixins": [
   "ItemStackMixin"
