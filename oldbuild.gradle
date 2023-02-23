@@ -71,7 +71,7 @@ minecraft {
     mappings channel: project.mappingsType, version: project.mappingsVersion
 
     // Exposes fields, methods, constructors, and classes for use within the mod
-    // Set modTransformer to 'true' within gradle.properties to enable
+    // Set modTransformer to 'true' within oldgradle.properties to enable
     if (project.hasProperty('modTransformer') && project.getProperty('modTransformer').toBoolean())
         accessTransformer file('src/main/resources/META-INF/accesstransformer.cfg')
 

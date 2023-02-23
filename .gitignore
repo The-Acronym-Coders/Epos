@@ -1,26 +1,26 @@
-# eclipse
+# Eclipse
 bin
 *.launch
 .settings
 .metadata
 .classpath
 .project
+eclipse
 
-# idea
+# Idea
 out
 *.ipr
 *.iws
 *.iml
 .idea
 
-# vsc
+# Visual Studio Code
 .vscode
 
-# gradle
+# Gradle
 build
 .gradle
 
-# other
-eclipse
+# Project
 run
-src/generated
+generated
